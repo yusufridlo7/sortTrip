@@ -1,0 +1,3 @@
+import {hotelPhotos} from './hotel-photos';
+export default function HotelPhoto({id}:{id:string}){const index=Number(id.split('-').at(-1))||0;const photo=hotelPhotos[index%hotelPhotos.length];return <span className="hotel-photo"><img src={photo.src} alt="Ilustrasi kamar penginapan, bukan foto hotel yang ditawarkan" loading="lazy" width={640} height={420}/><span className="hotel-photo-caption">Foto ilustrasi · bukan foto properti</span></span>}
+export function HotelPhotoCredits(){return <p className="inline-note hotel-photo-credits">Foto ilustrasi: {hotelPhotos.map((p,i)=><span key={p.src}>{i>0?' · ':''}<a href={p.source} target="_blank" rel="noreferrer">{p.credit}</a></span>)}. Foto resmi dan tipe kamar dapat dilihat di platform pemesanan.</p>}
