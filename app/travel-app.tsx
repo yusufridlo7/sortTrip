@@ -1,3 +1,4 @@
+import PriceWatch from './price-watch';
 import BrandLogo from './brand-logo';
 import AIPlanner from './ai-planner';
 import WorldPlanner from './world-planner';
@@ -40,9 +41,10 @@ export default function TravelApp({user,onLogout}:{user:{id:string;name:string;e
  const results=destinations.filter(d=>(destination==='all'||d.id===destination)&&(filter!=='budget'||costs(makeTrip(d,origin,start,days,people,budget)).perPerson<=budget)).sort((a,b)=>sort==='flight'?a.flight-b.flight:sort==='total'?costs(makeTrip(a,origin,start,days,people,budget)).total-costs(makeTrip(b,origin,start,days,people,budget)).total:parseFloat(a.duration)-parseFloat(b.duration));
  const dateLabel=(day:number)=>{if(!trip)return '';const dt=new Date(trip.start+'T12:00:00');dt.setDate(dt.getDate()+day-1);return dt.toLocaleDateString('id-ID',{day:'numeric',month:'short'});};
  return <><header className="header"><a className="brand" href="/" aria-label="sortTrip beranda"><BrandLogo/></a><nav aria-label="Menu utama"><button className={view==='explore'?'nav-active':''} onClick={()=>navigate('explore')}>Jelajahi & Rencanakan</button>{[['flights','Pesawat'],['hotels','Hotel'],['transport','Transportasi']].map(([id,label])=><button key={id} className={'desktop-booking '+(view===id?'nav-active':'')} onClick={()=>navigate(id)}>{label}</button>)}<div className="mobile-booking"><Pick label="Cari & Pesan" value={['flights','hotels','transport'].includes(view)?view:'none'} onChange={navigate} options={[["none","Cari & Pesan"],["flights","Pesawat"],["hotels","Hotel"],["transport","Transportasi"]]}/></div><button className={view==='saved'?'nav-active':''} onClick={showSaved}>Perjalanan saya</button></nav><button className="account" onClick={()=>user?showSaved():setAuth(true)}>{user?<><span className="avatar">{user.name.slice(0,1).toUpperCase()}</span><span>Akun saya</span></>:<>Masuk / Daftar <ArrowUpRight size={17}/></>}</button>{user&&<button className="text-action" onClick={onLogout}>Keluar</button>}</header>
- <main><div className="demo"><Info size={15}/><span>Tiket API bersifat indikatif • Biaya lainnya estimasi • Cari & booking tanpa login • Masuk untuk AI dan simpan.</span><button onClick={()=>setHelp(true)}>Selengkapnya</button></div>
+ <main>{user&&<button className="text-action" onClick={()=>navigate('watch')}>Price Watch & notifikasi</button>}<div className="demo"><Info size={15}/><span>Tiket API bersifat indikatif • Biaya lainnya estimasi • Cari & booking tanpa login • Masuk untuk AI dan simpan.</span><button onClick={()=>setHelp(true)}>Selengkapnya</button></div>
  {notice&&<div role="status" className="notice">{notice}<button aria-label="Tutup pemberitahuan" onClick={()=>setNotice('')}>×</button></div>}
  {trip&&view!=='planner'&&<button className="back" onClick={()=>navigate('planner')}><ArrowLeft size={16}/> Lanjutkan itinerary {dirty?'· belum disimpan':''}</button>}
+ {view==='watch'&&user&&<PriceWatch trip={trip}/>}
  {view==='explore'&&<FlightSearch onChoose={chooseTrip}/>}
  {(['flights','hotels','transport'] as const).map(kind=>view===kind&&<DirectSearch key={kind} kind={kind} onChoose={chooseTrip}/>)}
  {view==='planner'&&trip&&<AIPlanner key={trip.destination+trip.start+trip.days} trip={trip} onChange={change} onLogin={()=>{sessionStorage.setItem('sorttrip-guest-draft',JSON.stringify(trip));setAuth(true);}}/>}

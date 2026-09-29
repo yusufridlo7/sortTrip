@@ -1,3 +1,4 @@
+import {runPriceWatches} from './price-watch.js';
 import {handleItinerary} from './itinerary.js';
 import locations from './locations.json' with {type:'json'};
 // Tokens stay in Worker runtime secrets, never in the Vite bundle.
@@ -68,7 +69,7 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
  const flights=[...new Map(ok.flatMap(r=>r.flights).map(f=>[f.id,f])).values()].sort((a,b)=>a.price-b.price);
  return json({flights,source:'Aviasales Data API',currency:'IDR',fetchedAt:ok.map(r=>r.fetchedAt).sort()[0],partial:ok.length!==ids.length,limited:ok.some(r=>r.limited),nextPage:ok.some(r=>r.limited)&&(q.page||1)<20?(q.page||1)+1:null,oneAdult:true});
 }
-export default {async fetch(request,env,ctx){
+export default {async scheduled(event,env,ctx){ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));},async fetch(request,env,ctx){
  const u=new URL(request.url);
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(request);
  if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
