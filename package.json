@@ -11,7 +11,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "dev:worker": "wrangler dev --ip 127.0.0.1 --port 8787",
-    "test:api": "node --test checks/flights-api.test.mjs checks/flight-itinerary.test.mjs",
+    "test:api": "node --test checks/flights-api.test.mjs checks/flight-itinerary.test.mjs checks/ai-itinerary.test.mjs",
     "deploy:check": "wrangler deploy --dry-run"
   },
   "dependencies": {

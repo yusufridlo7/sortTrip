@@ -1,3 +1,4 @@
+import {handleItinerary} from './itinerary.js';
 import locations from './locations.json' with {type:'json'};
 // Tokens stay in Worker runtime secrets, never in the Vite bundle.
 const routes = {kl: 'KUL', bkk: 'BKK', sin: 'SIN'};
@@ -70,8 +71,9 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
 export default {async fetch(request,env,ctx){
  const u=new URL(request.url);
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(request);
+ if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
- if(u.pathname==='/api/health')return json({ok:true,flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
+ if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
  if(u.pathname!=='/api/flights')return json({error:'Endpoint tidak ditemukan.'},404);
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}
