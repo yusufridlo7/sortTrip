@@ -115,3 +115,11 @@
 @media(max-width:600px){.hotel-option.option-expander{grid-template-columns:1fr;gap:0}.hotel-photo img{height:190px;max-height:none}.hotel-option-copy{padding:15px 8px}.hotel-photo{min-height:190px}}
 
 .sorttrip-auth {display:grid;gap:14px}.sorttrip-auth label {display:grid;gap:6px}.sorttrip-auth input {width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:12px;color:#132b35;background:white}
+
+/* API flight results */
+.api-flight-card{border:1px solid #dbe6e1;border-radius:16px;overflow:hidden;background:#fff;margin:14px 0}
+.api-flight-toggle{display:flex;align-items:center;justify-content:space-between;gap:22px;width:100%;padding:22px;text-align:left;background:transparent;border:0;cursor:pointer;color:inherit;font:inherit}
+.api-flight-toggle:focus-visible{outline:3px solid #18735c;outline-offset:-3px}
+.api-flight-toggle strong{font-size:1.05rem}.api-flight-toggle p,.api-times p{margin:6px 0;font-size:.88rem;line-height:1.6}
+.api-times{display:flex;gap:24px;flex-wrap:wrap}.api-flight-actions{padding:18px 22px;background:#f0f7f3;border-top:1px solid #dbe6e1}.api-flight-actions>div{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}.api-flight-actions small{display:block;color:#53665e;line-height:1.6}
+@media(max-width:700px){.api-flight-toggle{align-items:flex-start;flex-direction:column;gap:10px;padding:18px}.api-times{gap:12px}.api-flight-actions>div>*{width:100%;justify-content:center}}
