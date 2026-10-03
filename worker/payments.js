@@ -18,7 +18,7 @@ async function db(env,path,body,method=body?'POST':'GET',prefer='return=represen
 }
 const mode=env=>env.MIDTRANS_ENV==='production'?'production':'sandbox';
 const owner=(env,id)=>env.OWNER_TEST_ENABLED==='true'&&env.OWNER_USER_ID===id;
-async function midtrans(env,path,body){const host=body?(mode(env)==='production'?'https://app.midtrans.com':'https://app.sandbox.midtrans.com'):(mode(env)==='production'?'https://api.midtrans.com':'https://api.sandbox.midtrans.com');const r=await fetch(host+path,{method:body?'POST':'GET',headers:{Authorization:'Basic '+btoa(env.MIDTRANS_SERVER_KEY+':'),'Content-Type':'application/json',Accept:'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('MIDTRANS');return r.json();}
+async function midtrans(env,path,body){const host=body?(mode(env)==='production'?'https://app.midtrans.com':'https://app.sandbox.midtrans.com'):(mode(env)==='production'?'https://api.midtrans.com':'https://api.sandbox.midtrans.com');const r=await fetch(host+path,{method:body?'POST':'GET',headers:{Authorization:'Basic '+btoa(env.MIDTRANS_SERVER_KEY+':'),'Content-Type':'application/json',Accept:'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000)});if(!body&&r.status===404)throw Error('CHECKOUT_NOT_STARTED');if(!r.ok){const error=new Error('MIDTRANS');error.httpStatus=r.status;throw error;}const result=await r.json();if(!body&&String(result.status_code)==='404')throw Error('CHECKOUT_NOT_STARTED');return result;}
 async function reconcile(env,o){const p=await midtrans(env,`/v2/${encodeURIComponent(o.id)}/status`);const status=paymentResult(p,o);await db(env,'rpc/apply_trip_payment',{p_order:o.id,p_environment:o.environment,p_status:status});return status;}
 export async function handlePayments(request,env){
  const path=new URL(request.url).pathname;
@@ -48,9 +48,9 @@ export async function handlePayments(request,env){
  }
  if(path==='/api/payments/status'){
   const orders=await db(env,`payment_orders?user_id=eq.${user.id}&trip_id=eq.${b.tripId}&environment=eq.${mode(env)}&order=created_at.desc&limit=1`);
-  let status=orders[0]?.status||'none';if(b.refresh===true&&orders[0]&&env.MIDTRANS_SERVER_KEY){if(!env.AI_LIMITER||!(await env.AI_LIMITER.limit({key:'payment-status:'+user.id})).success)return json({error:'Tunggu sebentar sebelum memeriksa lagi.'},429);try{status=await reconcile(env,orders[0])}catch{status=orders[0].status}}
+  let status=orders[0]?.status||'none',refreshDeferred=false,verificationError=null;if(b.refresh===true&&orders[0]&&env.MIDTRANS_SERVER_KEY){if(env.AI_LIMITER&&(await env.AI_LIMITER.limit({key:'payment-status:'+user.id})).success){try{status=await reconcile(env,orders[0])}catch(error){status=orders[0].status;refreshDeferred=true;verificationError=error?.message==='MIDTRANS'?{code:'MIDTRANS_REJECTED',httpStatus:error.httpStatus}:{code:error?.message==='CHECKOUT_NOT_STARTED'?'CHECKOUT_NOT_STARTED':error?.message==='DATABASE'?'PAYMENT_DATABASE_ERROR':error?.message==='PAYMENT_MISMATCH'?'PAYMENT_MISMATCH':['TimeoutError','AbortError'].includes(error?.name)?'PAYMENT_TIMEOUT':error?.name==='TypeError'?'PAYMENT_NETWORK_ERROR':'PAYMENT_STATUS_UNAVAILABLE'};}}else refreshDeferred=true;}
   const passes=await db(env,`trip_passes?user_id=eq.${user.id}&trip_key=eq.${encodeURIComponent(key)}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&order=expires_at.desc&limit=1`);
-  const p=passes[0];return json({mode:mode(env),checkoutEnabled:!!env.MIDTRANS_SERVER_KEY&&(mode(env)==='sandbox'?owner(env,user.id):env.PAYMENTS_ENABLED==='true'),ownerTest:owner(env,user.id),status,pass:p?{expiresAt:p.expires_at,remaining:Math.max(0,p.request_limit-p.requests),test:p.payment_reference.startsWith('owner-test:')||p.payment_reference.startsWith('st-sandbox-')}:null});
+  const p=passes[0];let checkoutUrl=null;if(!p&&['created','pending'].includes(status)&&orders[0]?.checkout_url){try{const u=new URL(orders[0].checkout_url);if(u.protocol==='https:'&&u.hostname===(mode(env)==='production'?'app.midtrans.com':'app.sandbox.midtrans.com')&&!u.username&&!u.password)checkoutUrl=u.href;}catch{}}return json({checkoutUrl,mode:mode(env),checkoutEnabled:!!env.MIDTRANS_SERVER_KEY&&(mode(env)==='sandbox'?owner(env,user.id):env.PAYMENTS_ENABLED==='true'),checkoutReason:!env.MIDTRANS_SERVER_KEY?'Konfigurasi Midtrans server belum tersedia.':mode(env)==='sandbox'&&!owner(env,user.id)?'Pembayaran sandbox hanya tersedia untuk akun pemilik.':mode(env)==='production'&&env.PAYMENTS_ENABLED!=='true'?'Pembelian production belum dibuka oleh pengelola.':null,ownerTest:owner(env,user.id),status,refreshDeferred,verificationError,pass:p?{expiresAt:p.expires_at,remaining:Math.max(0,p.request_limit-p.requests),test:p.payment_reference.startsWith('owner-test:')||p.payment_reference.startsWith('st-sandbox-')}:null});
  }
  if(path!=='/api/payments/checkout')return json({error:'Endpoint tidak ditemukan.'},404);
  if(!env.MIDTRANS_SERVER_KEY||(mode(env)==='sandbox'?!owner(env,user.id):env.PAYMENTS_ENABLED!=='true'))return json({error:'Pembelian belum dibuka. Sandbox hanya tersedia untuk pemilik.'},403);
@@ -63,5 +63,12 @@ export async function handlePayments(request,env){
  const snap=await midtrans(env,'/snap/v1/transactions',{transaction_details:{order_id:id,gross_amount:15000},item_details:[{id:'trip-pass-30',price:15000,quantity:1,name:'sortTrip Trip Pass 30 hari'}],customer_details:{email:user.email}});
  const url=new URL(snap.redirect_url);const expected=mode(env)==='production'?'app.midtrans.com':'app.sandbox.midtrans.com';if(url.protocol!=='https:'||url.hostname!==expected)throw Error('CHECKOUT_URL');
  await db(env,`payment_orders?id=eq.${id}`,{checkout_url:url.href},'PATCH');return json({checkoutUrl:url.href,orderId:id,mode:mode(env)});
- }catch{return json({error:'Pembayaran belum dapat diproses. Periksa konfigurasi server atau coba cek status kembali. Jangan mengulang pembayaran jika sudah membayar.'},502);}
+ }catch(error){
+  const code=error?.message;
+  if(code==='MIDTRANS')return json({error:'Midtrans menolak permintaan (HTTP '+error.httpStatus+'). Jangan bayar ulang. Pengelola perlu memeriksa konfigurasi sandbox dan status order.',code:'MIDTRANS_REJECTED',upstreamStatus:error.httpStatus},502);
+  if(code==='DATABASE')return json({error:'Data pembayaran belum dapat diproses di database. Jangan bayar ulang; pengelola perlu memeriksa tabel dan izin pembayaran.',code:'PAYMENT_DATABASE_ERROR'},502);
+  if(code==='CHECKOUT_URL')return json({error:'Tautan checkout dari penyedia tidak lolos validasi. Jangan bayar ulang; hubungi pengelola.',code:'CHECKOUT_URL_INVALID'},502);
+  return json({error:'Pembayaran belum dapat diproses. Periksa konfigurasi server atau coba cek status kembali. Jangan mengulang pembayaran jika sudah membayar.',code:'PAYMENT_UNAVAILABLE'},502);
+ }
+
 }

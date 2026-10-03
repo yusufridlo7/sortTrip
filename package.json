@@ -11,8 +11,12 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "dev:worker": "wrangler dev --ip 127.0.0.1 --port 8787",
-    "test:api": "node --test checks/flights-api.test.mjs checks/flight-itinerary.test.mjs checks/ai-itinerary.test.mjs",
-    "deploy:check": "wrangler deploy --dry-run"
+    "test:api": "node --test checks/flights-api.test.mjs checks/flight-itinerary.test.mjs checks/ai-itinerary.test.mjs checks/viator-api.test.mjs",
+    "deploy:check": "wrangler deploy --dry-run",
+    "telegram:check": "node --env-file=.env.telegram.local scripts/telegram-notify.mjs --check",
+    "telegram:notify": "node --env-file=.env.telegram.local scripts/telegram-notify.mjs",
+    "test:telegram": "node --test checks/telegram-notify.test.mjs checks/telegram-agent.test.mjs",
+    "telegram:agent": "node --env-file=.env.telegram.local scripts/telegram-agent.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

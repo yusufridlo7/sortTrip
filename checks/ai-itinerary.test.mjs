@@ -22,3 +22,14 @@ test('exhausted Basic is rejected before any AI spend',async()=>{
  globalThis.fetch=async url=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'user'});if(String(url).includes('claim_ai_request'))return Response.json({allowed:false,remaining:0});paidCalls++;throw Error('must not call');};
  try{const r=await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Authorization:'Bearer test'},body:JSON.stringify(q)}),{OPENAI_API_KEY:'test',SUPABASE_URL:'https://test.supabase.co',SUPABASE_PUBLISHABLE_KEY:'test',AI_LIMITER:{limit:async()=>({success:true})}});assert.equal(r.status,402);assert.equal(paidCalls,0);}finally{globalThis.fetch=original;}
 });
+
+test('provider failures expose only safe quota/rate/unavailable classifications',async()=>{
+ const original=globalThis.fetch;
+ try{
+  for(const [status,code,expected,http] of [[429,'insufficient_quota','AI_PROVIDER_QUOTA',503],[429,'rate_limit_exceeded','AI_PROVIDER_RATE_LIMIT',503],[401,'invalid_api_key','AI_PROVIDER_UNAVAILABLE',502]]){
+   globalThis.fetch=async url=>String(url).endsWith('/auth/v1/user')?Response.json({id:'test-user'}):String(url).includes('claim_ai_request')?Response.json({allowed:true}):Response.json({error:{code,message:'SYNTHETIC_PRIVATE_PROVIDER_DETAIL'}},{status});
+   const r=await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Authorization:'Bearer synthetic'},body:JSON.stringify(q)}),{OPENAI_API_KEY:'synthetic-only',SUPABASE_URL:'https://test.supabase.co',SUPABASE_PUBLISHABLE_KEY:'synthetic',AI_LIMITER:{limit:async()=>({success:true})}});
+   assert.equal(r.status,http);const body=await r.text();assert.equal(JSON.parse(body).code,expected);assert.ok(!body.includes('SYNTHETIC_PRIVATE_PROVIDER_DETAIL'));assert.ok(!body.includes('synthetic-only'));
+  }
+ }finally{globalThis.fetch=original;}
+});

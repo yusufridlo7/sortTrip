@@ -1,6 +1,7 @@
 import {handlePayments} from './payments.js';
 import {runPriceWatches} from './price-watch.js';
 import {handleItinerary} from './itinerary.js';
+import {handleViator} from './viator.js';
 import locations from './locations.json' with {type:'json'};
 // Tokens stay in Worker runtime secrets, never in the Vite bundle.
 const routes = {kl: 'KUL', bkk: 'BKK', sin: 'SIN'};
@@ -75,6 +76,7 @@ export default {async scheduled(event,env,ctx){ctx.waitUntil(runPriceWatches(env
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(request);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
  if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
+ if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
  if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
@@ -88,7 +90,9 @@ const regionNames=new Intl.DisplayNames(['id'],{type:'region'});
 function countryName(code){if(!countryLabels.has(code)){try{countryLabels.set(code,regionNames.of(code)||code);}catch{countryLabels.set(code,code);}}return countryLabels.get(code);}
 export function searchLocations(query){
  const text=query.trim().toLowerCase();if(text.length<2)return [];
+ const aliases={bali:'DPS',jakarta:'JKT',bangkok:'BKK','kuala lumpur':'KUL',tokyo:'TYO',singapore:'SIN',singapura:'SIN'};
+ const rank=([code,m])=>code.toLowerCase()===text?0:code===aliases[text]?1:m.city.toLowerCase()===text?2:m.city.toLowerCase().startsWith(text)?3:m.city.toLowerCase().includes(text)?4:5;
  return Object.entries(locations).filter(([code,m])=>code.toLowerCase().includes(text)||m.city.toLowerCase().includes(text)||m.name.toLowerCase().includes(text)||countryName(m.country).toLowerCase().includes(text))
- .sort(([a],[b])=>Number(b.toLowerCase()===text)-Number(a.toLowerCase()===text))
+ .sort((a,b)=>rank(a)-rank(b)||a[1].city.localeCompare(b[1].city)||a[0].localeCompare(b[0]))
  .slice(0,25).map(([code,m])=>({code,city:m.city,name:m.name,country:countryName(m.country)}));
 }
