@@ -1,9 +1,11 @@
 import {useEffect,useRef,useState} from 'react';
 import {TrainFront} from 'lucide-react';
 import widgetHtml from './transport-widget';
+import PartnerSelectionForm from './partner-selection-form';
+import type {PartnerSearchProps} from './partner-selection';
 const widgetUrl='data:text/html;charset=utf-8,'+encodeURIComponent(widgetHtml);
 
-export default function TransportSearch(){
+export default function TransportSearch(props:PartnerSearchProps){
  const frame=useRef<HTMLIFrameElement>(null);
  const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[height,setHeight]=useState(220);
  useEffect(()=>{
@@ -20,9 +22,11 @@ export default function TransportSearch(){
  },[]);
  return <section className="direct-search">
   <div className="direct-heading"><span className="strip-icon"><TrainFront size={26}/></span><div><div className="eyebrow">SORTTRIP · TRANSPORTASI</div><h1>Cari tiket transportasi</h1><p>Cari kereta, bus, ferry, dan transfer. Pilih asal, tujuan, serta tanggal keberangkatan.</p></div></div>
+  {props.context&&<p className="partner-context">{props.context.from} → {props.context.to} · {props.context.date}</p>}
   {!ready&&<p role="status">{failed?'Form belum dapat dimuat. Silakan coba muat ulang form.':'Memuat form pencarian transportasi…'}</p>}
-  <iframe ref={frame} title="Form pencarian tiket transportasi" src={widgetUrl} sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox" referrerPolicy="no-referrer" style={{width:'100%',height,border:0,display:failed?'none':'block'}}/>
+  <iframe ref={frame} title="Form pencarian tiket transportasi" src={widgetUrl} sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox" referrerPolicy="no-referrer" style={{width:'100%',maxWidth:918,height,border:0,display:failed?'none':'block',margin:'0 auto'}}/>
   <p className="inline-note">Hasil pencarian dan pemesanan dibuka di situs mitra. Harga serta ketersediaan mengikuti penyedia. SortTrip dapat menerima komisi melalui tautan affiliate.</p>
   {failed&&<button className="secondary" onClick={()=>{setFailed(false);setReady(false);if(frame.current)frame.current.src=widgetUrl}}>Muat ulang form</button>}
+  <PartnerSelectionForm {...props} kind="transport"/>
  </section>;
 }

@@ -16,7 +16,7 @@ export function parseQuery(url) {
  q.minDays=Number(p.get('minDays'));q.maxDays=Number(p.get('maxDays'));
  if(!['CGK','SUB','DPS'].includes(q.origin)||!(q.destination==='all'||routes[q.destination]||/^[A-Z]{3}$/.test(q.destination)&&locations[q.destination])||!['oneway','return'].includes(q.journey)) throw Error('Kota atau jenis perjalanan tidak valid.');
  if(![q.outFrom,q.outTo,q.backFrom,q.backTo].every(day)||q.outFrom>q.outTo||q.backFrom>q.backTo||difference(q.outFrom,q.outTo)>366||q.outFrom<new Date().toISOString().slice(0,10)) throw Error('Gunakan tanggal mendatang dan rentang maksimal satu tahun.');
- if(!Number.isInteger(q.minDays)||!Number.isInteger(q.maxDays)||q.minDays<2||q.maxDays>14||q.minDays>q.maxDays) throw Error('Durasi perjalanan harus 2–14 hari.');
+ if(!Number.isSafeInteger(q.minDays)||!Number.isSafeInteger(q.maxDays)||q.minDays<1||q.minDays>q.maxDays) throw Error('Durasi harus berupa jumlah hari positif.');
  return q;
 }
 const dateFormatters=new Map();
@@ -78,7 +78,7 @@ export default {async scheduled(event,env,ctx){ctx.waitUntil(runPriceWatches(env
  if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
  if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
- if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
+ if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
  if(u.pathname!=='/api/flights')return json({error:'Endpoint tidak ditemukan.'},404);
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}

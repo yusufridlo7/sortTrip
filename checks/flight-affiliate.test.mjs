@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import ts from 'typescript';
+import {readFile} from 'node:fs/promises';
+const source=await readFile(new URL('../app/flight-affiliate.ts',import.meta.url),'utf8');
+const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText;
+const {flightAffiliateUrl}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+const url='https://www.aviasales.com/search/fixture?marker=public-fixture',trip={flight:{source:'aviasales',bookingUrl:url}};
+test('restores primary flight from saved flight metadata when item provider/url absent, preserves tracking',()=>{assert.equal(flightAffiliateUrl({id:'flight',category:'Pesawat'},trip),url);assert.equal(flightAffiliateUrl({id:'flight',category:'Pesawat',bookingUrl:url},{}),url);});
+test('never assigns outbound link to return flight or accepts unrelated/unsafe links',()=>{assert.equal(flightAffiliateUrl({id:'flight-return',returnLeg:true,category:'Pesawat'},trip),null);for(const value of ['javascript:alert(1)','https://evil.test/search/','https://www.aviasales.com.evil.test/search/','https://x:y@www.aviasales.com/search/'])assert.equal(flightAffiliateUrl({id:'manual',category:'Pesawat',bookingUrl:value},{}),null);});

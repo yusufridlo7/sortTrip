@@ -64,3 +64,6 @@ A previously discussed paid option is a **Rp15.000 per-trip Trip Pass**, potenti
 - export/share capabilities.
 
 This is a product concept, not proof of an active paid production feature.
+
+### Trip Pass revision — owner clarified 2026-10-09
+Supersedes the earlier per-trip concept: Rp15.000 /30 days, usable for multiple existing or new trips in the same account, with20 successful Assistant results shared across those trips. Failed generations do not count; existing usage remains. Account-scope implementation is local and its database migration awaits owner application.

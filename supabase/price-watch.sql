@@ -29,8 +29,8 @@ begin
  if t is null then raise exception 'Simpan perjalanan terlebih dahulu'; end if;
  city:=coalesce(t->'destinationMeta'->>'city',case t->>'destination' when 'kl' then 'Kuala Lumpur' when 'bkk' then 'Bangkok' when 'sin' then 'Singapura' else t->>'destination' end);
  k:=lower(trim(city))||'|'||(t->>'start');
- select id into pid from public.trip_passes where user_id=auth.uid() and trip_key=k and expires_at>now() order by expires_at desc limit 1;
- if pid is null then raise exception 'Price Watch memerlukan Trip Pass aktif untuk perjalanan ini'; end if;
+ select id into pid from public.trip_passes where user_id=auth.uid() and expires_at>now() order by expires_at desc limit 1;
+ if pid is null then raise exception 'Price Watch memerlukan Trip Pass aktif untuk akun ini'; end if;
  code:=coalesce(nullif(t->'destinationMeta'->>'code',''),case t->>'destination' when 'kl' then 'KUL' when 'bkk' then 'BKK' when 'sin' then 'SIN' end,nullif(t->'flight'->>'destinationCode',''));
  if code is null or code !~ '^[A-Z]{3}$' then raise exception 'Lengkapi kota tujuan di itinerary, lalu simpan perjalanan'; end if;
  if coalesce(t->>'origin','') !~ '^[A-Z]{3}$' then raise exception 'Lengkapi bandara keberangkatan di itinerary, lalu simpan perjalanan'; end if;

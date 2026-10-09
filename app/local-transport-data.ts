@@ -1,7 +1,19 @@
-import {Trip,Item,Geo} from './travel-data';
-import {cityAt,hotelAt} from './cities';
+import {Trip,Item,Geo,addDays} from './travel-data';
+import {cityAt,hotelAt,cities} from './cities';
 export type RoutePoint={id:string;name:string;geo:Geo;cityId:string;kind:string;time:string};
-export function routePoints(t:Trip,day:number):RoutePoint[]{const start=hotelAt(t,day===1?1:day-1),end=hotelAt(t,day);const events=t.items.filter(x=>x.day===day&&['Wisata','Makan'].includes(x.category)&&x.geo).sort((a,b)=>a.time.localeCompare(b.time));return [...(start?.geo?[{id:'start-hotel',name:start.title,geo:start.geo,cityId:start.cityId||cityAt(t,day===1?1:day-1).id,kind:'Penginapan',time:''}]:[]),...events.map(x=>({id:x.id,name:x.place||x.title,geo:x.geo!,cityId:x.cityId||cityAt(t,day).id,kind:x.category,time:x.time})),...(end?.geo?[{id:'end-hotel',name:end.title,geo:end.geo,cityId:end.cityId||cityAt(t,day).id,kind:'Penginapan',time:''}]:[])];}
+export function routePoints(t:Trip,day:number):RoutePoint[]{
+ const date=addDays(t.start,day-1);
+ const stayAt=(date:string)=>t.items.find(x=>x.category==='Penginapan'&&(x.checkin||t.start)<=date&&(x.checkout||addDays(t.start,t.days-1))>date);
+ const first=stayAt(day===1?date:addDays(date,-1)),last=stayAt(date);
+ const events=t.items.filter(x=>x.day===day&&x.category==='Wisata').sort((a,b)=>a.time.localeCompare(b.time));
+ const locate=(item:Item)=>{
+  const city=cities.find(c=>item.cityId?c.id===item.cityId:item.locationCity?c.name.toLowerCase()===item.locationCity.toLowerCase():c.id===(t.cityDays?.[day-1]||t.destination));
+  const known=city?.places.find(p=>p.category===item.category&&p.name.toLowerCase()===(item.place||item.title).toLowerCase());
+  const geo=item.geo||known?.geo;
+  return geo&&Number.isFinite(geo.lat)&&Number.isFinite(geo.lng)&&Math.abs(geo.lat)<=90&&Math.abs(geo.lng)<=180?{id:item.id,name:item.place||item.title,geo,cityId:city?.id||item.cityId||t.destination,kind:item.category,time:item.time}:null;
+ };
+ return [...(first?[first]:[]),...events,...(last?[last]:[])].map(locate).filter((p):p is RoutePoint=>!!p);
+}
 export function routeDistance(a:Geo,b:Geo){const r=Math.PI/180,dlat=(a.lat-b.lat)*r,dlng=(a.lng-b.lng)*r,z=Math.sin(dlat/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dlng/2)**2;return 6371*2*Math.atan2(Math.sqrt(z),Math.sqrt(Math.max(0,1-z)))*1.3;}
 export type LocalOption={id:string;name:string;minutes:number;price:number;detail:string;score:number};
 export function localOptions(a:RoutePoint,b:RoutePoint,people:number):LocalOption[]{const km=routeDistance(a.geo,b.geo);if(a.cityId!==b.cityId)return [];const out:Omit<LocalOption,'score'>[]=[];if(km<=4)out.push({id:'walk',name:'Jalan kaki',minutes:Math.max(1,Math.ceil(km/4.5*60)),price:0,detail:'Periksa akses pejalan kaki dan cuaca.'});out.push({id:'grab',name:'Grab / taksi',minutes:Math.max(7,Math.ceil(km/25*60+7)),price:Math.ceil((18000+km*5000)*Math.ceil(people/4)/people/1000)*1000,detail:`Dibagi ${people} orang · asumsi ${Math.ceil(people/4)} mobil, maks 4 penumpang/mobil. Belum tarif Grab.`},{id:'bus',name:'Bus lokal · cek rute',minutes:Math.max(15,Math.ceil(km/16*60+20)),price:Math.ceil((8000+km*700)/1000)*1000,detail:'Belum memeriksa halte, trayek, frekuensi atau jam operasi.'});if(['kl','bkk','sin','putrajaya'].includes(a.cityId))out.push({id:'train',name:'Kereta / MRT + penghubung',minutes:Math.max(12,Math.ceil(km/30*60+18)),price:Math.ceil((10000+km*900)/1000)*1000,detail:'Perlu verifikasi stasiun dan penghubung; bukan jaminan rute kereta langsung.'});const minP=Math.min(...out.map(o=>o.price)),minT=Math.min(...out.map(o=>o.minutes));return out.map(o=>({...o,score:o.price/Math.max(10000,minP)*.4+o.minutes/minT*.6})).sort((a,b)=>a.score-b.score);}

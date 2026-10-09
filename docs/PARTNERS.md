@@ -4,9 +4,19 @@
 > Never store API keys, tokens, passwords, cookies, OTPs, or other secrets here.
 
 ## Status vocabulary
+
+## New accommodation candidates — researched 2026-10-09
+Not recorded as previously contacted in project memory; status DISCOVERED only, no registration/inquiry sent or SortTrip approval inferred.
+- ZenHotels: official https://www.zenhotels.com/journey/affiliate/ advertises free affiliate application, hotel search widget, deep links, banners and co-branded page; up to7% per completed stay (headline ceiling, not SortTrip terms). API eligibility and Indonesia payout/currency support UNVERIFIED. Closest candidate for hotel-only search widget.
+- HotelPlanner: https://www.hotelplanner.com/Affiliate.htm advertises private-label hotel booking engine and REST API search/booking/reporting, individual/group options and negotiated revenue share. Contact Sales route; fees, approval and SortTrip commercial terms UNVERIFIED.
+- Hostelworld: https://partners.hostelworld.com/faqs/ says affiliate signup free; https://partners.hostelworld.com/solutions/ offers deep links/feed and live property/destination API case-by-case through affiliates@hostelworld.com. Accommodation-budget niche rather than general hotel inventory; API approval UNVERIFIED.
 `DISCOVERED` → `CONSIDERED` → `APPLICATION_STARTED` → `APPLICATION_SUBMITTED` → `WAITING_APPROVAL` → `APPROVED` → `API_ACCESS_AVAILABLE` → `CREDENTIAL_CONFIGURED` → `INTEGRATION_IN_PROGRESS` → `TESTING` → `PRODUCTION_READY`
 
 Use `UNVERIFIED` whenever the historical record does not establish the exact status.
+
+## Klook — latest evidence 2026-10-09
+
+Owner supplied screenshots of the authenticated Klook Affiliate My Ads dashboard, with sortTrip selected in the widget generator, then supplied public hotel embed ad ID 1489007 and authorized local installation. Affiliate dashboard/tools availability is evidenced; this supersedes historical inquiry-only status for tools access. Hotel widget configured for Indonesian, IDR, two items, destination ID 49 (city name UNVERIFIED). Local menu integration implemented, build and 77 regression tests pass. Official browser tool cannot initialize in this session, so live widget inventory, responsive rendering, click-out and commission attribution are NOT verified. API entitlement, payout readiness and production readiness remain UNVERIFIED. No credential used or changed; no deployment.
 
 ## Viator
 **Support inquiry submitted — 2026-10-01:** Owner requested contacting Viator. Official Partner Help contact form, Affiliate / API inquiry / Other Affiliate API inquiry, submitted using authorized owner name/email. Redirect to `https://partnerhelp.viator.com/en/articles/199-thank-you` confirmed submission; no ticket number displayed. Await response about persistent sandbox HTTP 401 despite Full Access/Enabled UI. No keys, local file content or credentials supplied. Avoid duplicate inquiry pending reply.
@@ -99,3 +109,13 @@ with
 Owner explicitly states hotel partners are not yet available and requests skipping hotel affiliate work. No hotel partnership approval is inferred. Owner reiterates Aviasales uses existing Travelpayouts API; integration retained. Local browser outgoing 12Go route link includes existing public affiliate identifier, itinerary date and adults. This verifies link construction only, not ownership approval, cookie attribution or commission payment. Aviasales commission attribution remains unverified; no re-registration or credential changes.
 
 12Go owner update — 2026-10-03: owner reports meeting with 12Go and permission to use their affiliate search widget, and supplied embed ID17068680. Local official widget click-out search now tested; account payout/commission attribution and API access remain unverified. This supersedes historical draft-only status for widget availability, not API/financial approval.
+
+
+## Trip.com — owner public affiliate tools verified locally,2026-10-09
+Evidence: owner supplied official search embed S20157986 and co-branded landing link with public Allianceid10936143/SID332965312. Official In-app Browser rendered the embed hotel/destination and check-in/check-out form locally on2026-10-09. Status: OWNER_PROVIDED_AFFILIATE_TOOLS / IMPLEMENTED_LOCALLY / WIDGET_RENDER_TESTED. This updates the older hotel-work-deferred note for Trip.com only. It does not prove API access, live hotel inventory, exact product checkout, commission attribution, payout approval or production deployment. Generated public links preserved exactly. Official affiliate tools FAQ: https://www.trip.com/partners/help/faq/tools . No supplied callback for returning selected hotel to SortTrip; owner approved manual confirmation.
+12Go: existing public affiliate17068680 retained. Transport search and itinerary route/date links are affiliate search handoffs, not verified reservations for a specific operator/seat. No new API approval or commission evidence. Other partner statuses unchanged.
+
+
+### Trip.com correction and official deep link evidence —2026-10-09
+Owner-reported co-brand sorttrip.trip.com link was visibly unreachable in browser. Official logged-in Affiliate Tools→Affiliate Link→Custom link generated working general Hotels landing and CUBE Kampong Glam property1729952 links; public existing tracking identity preserved, generated trip_sub3D20158392. Exact property link opened correct hotel in official browser. Status GENERATED_AFFILIATE_LINKS / PROPERTY_HANDOFF_TESTED_LOCALLY for this property only. No API entitlement, dates/room availability, booking, payout or commission proof. FAQ https://www.trip.com/partners/help/faq/tools requires generated links unchanged and currently describes hotel date-link support as under development. Do not extrapolate one property link into arbitrary dynamic hotel affiliate checkout.
+12Go: public https://12go.asia/en/travel/johor-bahru/malacca supports audited city/terminal mapping. Browser affiliate search handoff preserved date/adult count; provider normalized tracking off displayed URL. No commission or exact-seat checkout proof.
