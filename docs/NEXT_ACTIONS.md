@@ -157,3 +157,6 @@ Successful live AI result auto-save, menu switch, owned cloud record reopen and 
 
 ## Owner-authorized release —2026-10-09
 Owner explicitly requested commit, push and Cloudflare deployment of current tested changes.114 regression tests and final TypeScript/Vite build passed; Wrangler dry-run passed. Release includes accumulated local planning/AI/account-pass/UI/affiliate repairs. Existing production configuration/secrets retained with keep-vars; no production SQL execution or secret modification by agent. Owner previously reported SQL successful; authenticated local account-pass and AI auto-save tests passed. Production behavior/configuration still requires post-deploy verification. Unrelated deleted WORKFLOW.md, environment files and temporary artifact excluded from commit.
+
+
+Release completed2026-10-09:7eeae09 deployed to Worker sorttrip (fc101275-06c4-4a69-b40e-557715100bc3). Public API/homepage/menu and authenticated saved-trip smoke tests passed. Owner can use production; exact live supplier checkout, additional hotel-specific generated links and commission attribution remain separate verification items. No need to reset AI quota or reapply SQL based on these smoke tests.
