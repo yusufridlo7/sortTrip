@@ -18,7 +18,7 @@ async function db(env,path,body,method=body?'POST':'GET',prefer='return=represen
  const r=await fetch(`${env.SUPABASE_URL}/rest/v1/${path}`,{method,headers:{apikey:env.SUPABASE_SERVICE_ROLE_KEY,Authorization:`Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,'Content-Type':'application/json',Prefer:prefer},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error('DATABASE');const t=await r.text();return t?JSON.parse(t):null;
 }
 const mode=env=>env.MIDTRANS_ENV==='production'?'production':'sandbox';
-const owner=(env,id)=>env.OWNER_TEST_ENABLED==='true'&&env.OWNER_USER_ID===id;
+const owner=(env,id)=>mode(env)==='sandbox'&&env.OWNER_TEST_ENABLED==='true'&&env.OWNER_USER_ID===id;
 async function midtrans(env,path,body){const host=body?(mode(env)==='production'?'https://app.midtrans.com':'https://app.sandbox.midtrans.com'):(mode(env)==='production'?'https://api.midtrans.com':'https://api.sandbox.midtrans.com');const r=await fetch(host+path,{method:body?'POST':'GET',headers:{Authorization:'Basic '+btoa(env.MIDTRANS_SERVER_KEY+':'),'Content-Type':'application/json',Accept:'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000)});if(!body&&r.status===404)throw Error('CHECKOUT_NOT_STARTED');if(!r.ok){const error=new Error('MIDTRANS');error.httpStatus=r.status;throw error;}const result=await r.json();if(!body&&String(result.status_code)==='404')throw Error('CHECKOUT_NOT_STARTED');return result;}
 async function reconcile(env,o){const p=await midtrans(env,`/v2/${encodeURIComponent(o.id)}/status`);const status=paymentResult(p,o);await db(env,'rpc/apply_trip_payment',{p_order:o.id,p_environment:o.environment,p_status:status});return status;}
 export async function handlePayments(request,env){
@@ -76,7 +76,7 @@ export async function handlePayments(request,env){
  await db(env,`payment_orders?id=eq.${id}`,{checkout_url:url.href},'PATCH');return json({checkoutUrl:url.href,orderId:id,mode:mode(env)});
  }catch(error){
   const code=error?.message;
-  if(code==='MIDTRANS')return json({error:'Midtrans menolak permintaan (HTTP '+error.httpStatus+'). Jangan bayar ulang. Pengelola perlu memeriksa konfigurasi sandbox dan status order.',code:'MIDTRANS_REJECTED',upstreamStatus:error.httpStatus},502);
+  if(code==='MIDTRANS')return json({error:'Midtrans menolak permintaan (HTTP '+error.httpStatus+'). Jangan bayar ulang. Pengelola perlu memeriksa konfigurasi pembayaran dan status order.',code:'MIDTRANS_REJECTED',upstreamStatus:error.httpStatus},502);
   if(code==='DATABASE')return json({error:'Data pembayaran belum dapat diproses di database. Jangan bayar ulang; pengelola perlu memeriksa tabel dan izin pembayaran.',code:'PAYMENT_DATABASE_ERROR'},502);
   if(code==='CHECKOUT_URL')return json({error:'Tautan checkout dari penyedia tidak lolos validasi. Jangan bayar ulang; hubungi pengelola.',code:'CHECKOUT_URL_INVALID'},502);
   return json({error:'Pembayaran belum dapat diproses. Periksa konfigurasi server atau coba cek status kembali. Jangan mengulang pembayaran jika sudah membayar.',code:'PAYMENT_UNAVAILABLE'},502);

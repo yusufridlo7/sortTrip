@@ -272,3 +272,11 @@ Owner explicitly requested commit, push and Cloudflare deployment of current tes
 
 ## Release completed —2026-10-09
 Source commit7eeae09 pushed to GitHub branch codex/qa-repairs-transport-widget. Cloudflare Worker sorttrip deployed with keep-vars; versionfc101275-06c4-4a69-b40e-557715100bc3, https://sorttrip.yusufridlo7.workers.dev/. Production health HTTP200, aiConfigured=true, flightsConfigured=true; Jakarta locations HTTP200/3 results. Official In-app Browser verified homepage, Trip.com Hotel and12Go Transport menus, authenticated saved Singapore trip reopening with persisted AI conversation/itinerary and correct CUBE hotel/Johor–Melaka affiliate links. No extra production AI generation, checkout/payment, secret changes or SQL execution. Prior114 tests/build and dry-run passed. API configuration presence is not evidence of every production provider/payment/commission workflow. Unrelated WORKFLOW deletion, .env.example and temporary artifact remain excluded.
+
+
+## Production preparation — 2026-10-11
+Owner reports active Midtrans merchant account; production Server Key not yet installed. Production activation remains OWNER_ACTION_REQUIRED. Local handler now prevents owner-test grants and hides test access in production even if stale test flags remain; upstream error wording no longer assumes sandbox. Existing production Snap/status routing preserved. No environment/secret change, live transaction, commit/push/deploy. See PRODUCTION_ACTIVATION.md. Partner approval and browser iframe security boundaries remain unchanged.
+
+Validation: 22 payment/access regression tests PASS; npm.cmd run build PASS (existing large bundle warning). No real payment or remote configuration verification performed.
+
+2026-10-11 Owner reports completing production configuration and notification setup after private Server Key/MIDTRANS_ENV changes. Read-only public verification: health HTTP200, ok/aiConfigured/flightsConfigured true; webhook GET405 (POST-only route reachable). This does not verify key validity, notification delivery, effective payment flags or settlement. Hardened source remains local, not released;22 tests/build previously pass. No real transaction or secret inspection.

@@ -160,3 +160,9 @@ Owner explicitly requested commit, push and Cloudflare deployment of current tes
 
 
 Release completed2026-10-09:7eeae09 deployed to Worker sorttrip (fc101275-06c4-4a69-b40e-557715100bc3). Public API/homepage/menu and authenticated saved-trip smoke tests passed. Owner can use production; exact live supplier checkout, additional hotel-specific generated links and commission attribution remain separate verification items. No need to reset AI quota or reapply SQL based on these smoke tests.
+
+
+## Production activation priority — 2026-10-11
+Owner privately installs Midtrans production Server Key in Cloudflare Worker sorttrip; set MIDTRANS_ENV=production, OWNER_TEST_ENABLED=false and keep PAYMENTS_ENABLED=false during preparation. Configure production notification endpoint per PRODUCTION_ACTIVATION.md. Release hardened code separately, then owner enables purchases and verifies real checkout/settlement/pass persistence. Viator unresolved401 remains a partner/configuration blocker; no blind production switch or real booking test.
+
+Owner reports private configuration complete. Commit/push/deploy explicitly authorized2026-10-11. After release, owner sets PAYMENTS_ENABLED=true if still false, then manually verifies live settlement and account-wide Trip Pass. Do not change secret/configuration or make payment automatically.

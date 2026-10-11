@@ -10,6 +10,23 @@ test('trip identity agrees with Basic and Price Watch keys',()=>{assert.equal(tr
 const uid='12345678-1234-1234-1234-123456789012',tid='87654321-1234-1234-1234-123456789012';
 const env={SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'public',SUPABASE_SERVICE_ROLE_KEY:'service',OWNER_TEST_ENABLED:'true',OWNER_USER_ID:'different-owner'};
 const req=action=>new Request('https://sorttrip.test/api/payments/'+action,{method:'POST',headers:{Authorization:'Bearer test'},body:JSON.stringify({tripId:tid})});
+test('production rejects owner test grants even if the test flag remains enabled',async()=>{
+ const old=globalThis.fetch;let writes=0;
+ globalThis.fetch=async(url,opt)=>{
+  if(opt?.method==='POST'){writes++;throw Error('Unexpected write');}
+  if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});
+  if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);
+  return Response.json([]);
+ };
+ try{
+  const production={...env,OWNER_USER_ID:uid,MIDTRANS_ENV:'production'};
+  assert.equal((await handlePayments(req('owner-test'),production)).status,403);
+  const status=await handlePayments(req('status'),production);
+  assert.equal(status.status,200);
+  const body=await status.json();assert.equal(body.ownerTest,false);assert.equal(body.checkoutEnabled,false);
+  assert.equal(writes,0);
+ }finally{globalThis.fetch=old;}
+});
 test('non-owner cannot grant a test pass',async()=>{const old=globalThis.fetch;let writes=0;globalThis.fetch=async(url,opt)=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);writes++;throw Error('unexpected')};try{assert.equal((await handlePayments(req('owner-test'),env)).status,403);assert.equal(writes,0)}finally{globalThis.fetch=old}});
 test('owner test is isolated, fixed duration and idempotent insert',async()=>{const old=globalThis.fetch;let inserted;globalThis.fetch=async(url,opt)=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);assert.ok(opt.headers.Prefer.includes('ignore-duplicates'));inserted=JSON.parse(opt.body);return Response.json([])};try{assert.equal((await handlePayments(req('owner-test'),{...env,OWNER_USER_ID:uid})).status,200);assert.equal(inserted.user_id,uid);assert.equal(inserted.request_limit,20);assert.ok(inserted.payment_reference.startsWith('owner-test:'));}finally{globalThis.fetch=old}});
 test('unsigned webhook rejected without querying payment status or granting access',async()=>{const r=await handlePayments(new Request('https://sorttrip.test/api/payments/webhook',{method:'POST',body:JSON.stringify(paid)}),{...env,MIDTRANS_SERVER_KEY:'secret'});assert.equal(r.status,403)});
