@@ -4,7 +4,7 @@
 
 Owner reports the Midtrans merchant account is active and has now privately installed the production Server Key, changed MIDTRANS_ENV to production, and completed the requested flags/notification configuration. This supersedes the initial missing-key checkpoint. These are owner statements, not a verified production transaction or effective remote payment settings. No production environment setting or secret has been changed by the agent.
 
-The Worker already selects production Snap and status endpoints when `MIDTRANS_ENV=production`. Local hardening now rejects owner-test grants in production even if an old test flag is still enabled. This change is not deployed yet.
+The Worker already selects production Snap and status endpoints when `MIDTRANS_ENV=production`. Local hardening now rejects owner-test grants in production even if an old test flag is still enabled. Released2026-10-11 as source commit62722ed; Worker versionac21e31b-6f19-488e-9fbb-80f523406bd2. Public smoke tests passed; live payment remains owner verification.
 
 ## Owner setup in Cloudflare
 

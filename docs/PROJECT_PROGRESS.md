@@ -280,3 +280,7 @@ Owner reports active Midtrans merchant account; production Server Key not yet in
 Validation: 22 payment/access regression tests PASS; npm.cmd run build PASS (existing large bundle warning). No real payment or remote configuration verification performed.
 
 2026-10-11 Owner reports completing production configuration and notification setup after private Server Key/MIDTRANS_ENV changes. Read-only public verification: health HTTP200, ok/aiConfigured/flightsConfigured true; webhook GET405 (POST-only route reachable). This does not verify key validity, notification delivery, effective payment flags or settlement. Hardened source remains local, not released;22 tests/build previously pass. No real transaction or secret inspection.
+
+
+## Production hardening release completed — 2026-10-11
+Owner-authorized source commit62722ed pushed to codex/qa-repairs-transport-widget and deployed to Cloudflare Worker sorttrip with --keep-vars; versionac21e31b-6f19-488e-9fbb-80f523406bd2.22 payment/access tests and production build PASS; deploy dry-run PASS. Post-deploy homepage/health HTTP200 (ok,aiConfigured,flightsConfigured true), webhook GET405 as expected. Secret/variable values not read or changed; effective Midtrans settings and real settlement remain unverified. Owner now enables PAYMENTS_ENABLED=true if still false and manually completes first live checkout; then verify server-confirmed pass, reload and quota. No automatic payment/SQL/partner activation. Unrelated WORKFLOW deletion/environment/temp artifacts excluded.
