@@ -220,3 +220,6 @@ Review codex/support-faq-telegram and docs/SUPPORT_SETUP.md. Owner applies supab
 # Owner-authorized release — 2026-10-12
 
 Earlier release hold superseded by explicit owner instruction to commit/push/deploy current product changes. Release using wrangler.hotel-browser.jsonc --keep-vars; verify public homepage, API health, support availability and mobile hotel widget afterward. Continue permitted supplier browser access investigation in subsequent work. Live hotel price retrieval, successful price-update persistence/quota debit and owner-led production settlement remain separate unverified checks; payment QA skipped by owner. Do not deploy local owner-login endpoints or publish authentication artifacts.
+# Release live — 2026-10-12
+
+Current product release is live on https://sorttrip.yusufridlo7.workers.dev, code d81bc13, Cloudflare version408fae95-a2b8-4330-ac8c-3daf5d4926e2. Homepage/API/support and mobile hotel widget smoke checks pass. Continue supplier access/price verification later; browser binding availability is not evidence of accepted quotes. Preserve legacy purchased quotas/invoices. Payment QA remains owner-skipped; do not request/reset account credentials or consumption. Local owner login state is not connected to production pricing and has no verified successful snapshot.

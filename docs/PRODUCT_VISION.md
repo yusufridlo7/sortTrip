@@ -72,3 +72,6 @@ Supersedes the earlier per-trip concept: Rp15.000 /30 days, usable for multiple 
 Owner revision2026-10-11: new Rp15.000 /30-day purchases grant10 successful Assistant results account-wide. Existing paid20-result passes retain their original limit, consumption and expiry. Exhaustion permits another same-price purchase; manual editing remains available.
 
 2026-10-12 Pricing checkpoint: owner requested preparation of new Trip Pass tariff Rp30000,10 successful AI results/30days, preserving legacy pass rights and Rp15000 invoices. Implemented locally pending amount-constraint migration and release. Current production tariff remains Rp15000; browser-cost optimization explicitly deferred. Profitability requires measured total cost including failed attempts.
+# Pricing release — 2026-10-12
+
+Owner-authorized frontend/Worker release now uses Rp30.000 for new Trip Pass purchases with10 successful Assistant results over30days across trips. Legacy invoices and existing20-result pass rights remain preserved. Owner reported SQL preparation complete; actual paid settlement at the new tariff was not tested by agent. This supersedes earlier current-production Rp15.000 statements; hotel browser profitability and reliable supplier access remain unverified.
