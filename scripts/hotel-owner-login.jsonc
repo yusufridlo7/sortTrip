@@ -1,0 +1,8 @@
+{
+  "name":"sorttrip-owner-login-check",
+  "compatibility_date":"2026-09-28",
+  "compatibility_flags":["nodejs_compat"],
+  "browser":{"binding":"HOTEL_BROWSER","remote":true},
+  "durable_objects":{"bindings":[{"name":"OWNER_HOTEL_SESSION","class_name":"OwnerHotelSession"}]},
+  "migrations":[{"tag":"owner-login-v1","new_sqlite_classes":["OwnerHotelSession"]}]
+}

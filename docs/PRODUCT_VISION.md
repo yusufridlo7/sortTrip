@@ -67,3 +67,8 @@ This is a product concept, not proof of an active paid production feature.
 
 ### Trip Pass revision — owner clarified 2026-10-09
 Supersedes the earlier per-trip concept: Rp15.000 /30 days, usable for multiple existing or new trips in the same account, with20 successful Assistant results shared across those trips. Failed generations do not count; existing usage remains. Account-scope implementation is local and its database migration awaits owner application.
+
+
+Owner revision2026-10-11: new Rp15.000 /30-day purchases grant10 successful Assistant results account-wide. Existing paid20-result passes retain their original limit, consumption and expiry. Exhaustion permits another same-price purchase; manual editing remains available.
+
+2026-10-12 Pricing checkpoint: owner requested preparation of new Trip Pass tariff Rp30000,10 successful AI results/30days, preserving legacy pass rights and Rp15000 invoices. Implemented locally pending amount-constraint migration and release. Current production tariff remains Rp15000; browser-cost optimization explicitly deferred. Profitability requires measured total cost including failed attempts.

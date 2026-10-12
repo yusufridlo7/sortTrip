@@ -5,12 +5,13 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import ts from 'typescript';
+import {resolveI18n} from './i18n-loader.mjs';
 const dir=await mkdtemp(join(tmpdir(),'sorttrip-day-settings-'));
 let data,city,transport;
 try{
  for(const name of ['travel-data','transport-data','cities','local-transport-data']){
   const source=await readFile(new URL('../app/'+name+'.ts',import.meta.url),'utf8');
-  const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|local-transport-data)\1/g,"'./$2.mjs'");
+  const js=resolveI18n(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|local-transport-data)\1/g,"'./$2.mjs'"));
   await writeFile(join(dir,name+'.mjs'),js);
  }
  data=await import(pathToFileURL(join(dir,'travel-data.mjs')));city=await import(pathToFileURL(join(dir,'cities.mjs')));transport=await import(pathToFileURL(join(dir,'local-transport-data.mjs')));
@@ -48,3 +49,12 @@ test('meal records do not affect current totals, paid balance or per-person cost
 
 test('world itinerary map has no catalog crash and does not invent coordinates',()=>{const t={destination:'TYO',start:'2027-01-01',days:3,people:1,items:[{id:'a',title:'Unknown place',category:'Wisata',day:1,time:'10:00',price:0,paid:false}]};assert.deepEqual(transport.routePoints(t,1),[]);t.items[0].geo={lat:35,lng:139};assert.equal(transport.routePoints(t,1)[0].geo.lat,35);});
 test('map restores exact catalog AI place coordinates without guessing a similar place',()=>{const t={destination:'kl',start:'2027-01-01',days:3,people:1,items:[{id:'a',title:'Visit KLCC Park',place:'KLCC Park',locationCity:'Kuala Lumpur',category:'Wisata',aiGenerated:true,day:1,time:'10:00',price:0,paid:false}]};assert.equal(transport.routePoints(t,1).length,1);t.items[0].place='KLCC Park unknown annex';assert.equal(transport.routePoints(t,1).length,0);});
+
+test('city change replaces AI hotels without coordinates and preserves other nights without duplicates',()=>{
+ const t=trip();const h=t.items.find(x=>x.category==='Penginapan');Object.assign(h,{geo:undefined,aiGenerated:true,dayPlan:true,locationCity:'Kuala Lumpur',priceUnknown:true});t.aiPlan={summary:'old AI plan'};
+ const before=JSON.stringify(t),changed=city.reviseCities(t,2,2,'melaka');
+ assert.equal(JSON.stringify(t),before);assert.equal(changed.aiPlan,undefined);
+ const hotels=changed.items.filter(x=>x.category==='Penginapan');assert.equal(hotels.length,3);
+ assert.equal(hotels.find(x=>x.day===2).cityId,'melaka');assert.notEqual(hotels.find(x=>x.day===2).title,h.title);
+ assert.equal(hotels.find(x=>x.day===1).title,h.title);assert.equal(hotels.find(x=>x.day===3).title,h.title);
+});

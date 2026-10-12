@@ -1,3 +1,4 @@
+import {priceWatchEmail} from './localization.js';
 // Scheduled worker only. Service key must NEVER be exposed through VITE variables.
 async function db(env,path,body,method=body?'POST':'GET'){
  const r=await fetch(`${env.SUPABASE_URL}/rest/v1/${path}`,{method,headers:{apikey:env.SUPABASE_SERVICE_ROLE_KEY,Authorization:`Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(12000)});
@@ -16,7 +17,7 @@ export async function runPriceWatches(env,ctx,searchFlights){
  const pending=await db(env,'price_notifications?email_sent=eq.false&select=*,price_watches!inner(enabled,email_enabled,trip_passes!inner(expires_at))&price_watches.enabled=eq.true&price_watches.email_enabled=eq.true&price_watches.trip_passes.expires_at=gt.'+encodeURIComponent(new Date().toISOString())+'&order=created_at.asc&limit=5');
  for(const n of pending){
   const u=await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${n.user_id}`,{headers:{apikey:env.SUPABASE_SERVICE_ROLE_KEY,Authorization:`Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`},signal:AbortSignal.timeout(10000)});if(!u.ok)continue;const user=await u.json();if(!user.email||!user.email_confirmed_at)continue;
-  const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':`price-watch-${n.id}`},body:JSON.stringify({from:env.PRICE_WATCH_FROM,to:[user.email],subject:'sortTrip: harga penerbangan turun',text:`Harga indikatif untuk rute dan tanggal yang Anda pantau turun dari Rp${n.old_price} menjadi Rp${n.price} / 1 dewasa. Maskapai dan jam dapat berbeda. Bagasi dan ketentuan tarif belum dibandingkan. Periksa harga akhir di penyedia.\n${n.booking_url}\n\nBuka sortTrip untuk melihat notifikasi atau mematikan email di Price Watch:\nhttps://sorttrip.yusufridlo7.workers.dev/`}),signal:AbortSignal.timeout(12000)});
+  const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':`price-watch-${n.id}`},body:JSON.stringify({from:env.PRICE_WATCH_FROM,to:[user.email],...priceWatchEmail(n,user.user_metadata?.language)}),signal:AbortSignal.timeout(12000)});
   if(r.ok)await db(env,`price_notifications?id=eq.${n.id}`,{email_sent:true},'PATCH');
  }
 }

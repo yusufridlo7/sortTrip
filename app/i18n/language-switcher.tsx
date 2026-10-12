@@ -1,0 +1,2 @@
+import i18next,{tr,useLanguage} from './index';
+export default function LanguageSwitcher(){const current=useLanguage();return <label className="language-switcher"><span className="sr-only">{tr('language_label')}</span><select aria-label={tr('language_label')} value={current} onChange={e=>void i18next.changeLanguage(e.target.value)}><option value="id">🇮🇩 Indonesia</option><option value="en">🇬🇧 English</option></select></label>;}

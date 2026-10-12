@@ -2,6 +2,7 @@ import {type Trip,type Item,addDays,dayDiff,destinations} from './travel-data';
 import {transportLink} from './transport-affiliate.mjs';
 export const tripHotelAffiliate='https://www.trip.com/hotels/?Allianceid=10936143&SID=332965312&trip_sub1=&trip_sub3=D20158392';
 export const tripHotelWidget='https://www.trip.com/partners/ad/S20157986?Allianceid=10936143&SID=332965312&trip_sub1=';
+export const tripHotelMobileWidget='https://www.trip.com/partners/ad/S20187449?Allianceid=10936143&SID=332965312&trip_sub1=';
 export const tripLabel=(trip:Trip)=>trip.destinationMeta?.city||destinations.find(d=>d.id===trip.destination)?.city||trip.destination;
 export const partnerTripKey=(trip:Trip)=>[trip.id||'',trip.destination,trip.start,trip.days].join('|');
 export type PartnerContext={name?:string;date?:string;checkOut?:string;from?:string;to?:string;replaceId?:string;tripKey?:string};
@@ -23,7 +24,7 @@ export function applyPartnerSelection(trip:Trip,item:Item,replaceId?:string):Tri
  if(!replaceId)return {...trip,items:[...trip.items,item]};
  const old=trip.items.find(x=>x.id===replaceId);
  if(!old||old.paid||old.category!==item.category)throw Error('Pilihan sebelumnya tidak boleh diganti. Tambahkan sebagai item baru.');
- if(item.category==='Penginapan'&&((old.checkin||addDays(trip.start,old.day-1))!==item.checkin||old.checkout!==item.checkout))throw Error('Penggantian hotel harus mencakup tanggal menginap yang sama. Sesuaikan tanggal atau matikan opsi ganti.');
+ if(item.category==='Penginapan'&&((old.checkin||addDays(trip.start,old.day-1))!==item.checkin||(old.checkout||addDays(trip.start,trip.days-1))!==item.checkout))throw Error('Penggantian hotel harus mencakup tanggal menginap yang sama. Sesuaikan tanggal atau matikan opsi ganti.');
  return {...trip,items:trip.items.map(x=>x.id===replaceId?item:x)};
 }
 

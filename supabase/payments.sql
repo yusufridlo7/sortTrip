@@ -21,7 +21,7 @@ begin
   update public.trip_passes set expires_at=least(expires_at,now()) where payment_reference=o.id;
  elsif p_status='paid' and o.status not in ('refund','partial_refund','chargeback','partial_chargeback') then
   insert into public.trip_passes(user_id,trip_key,expires_at,request_limit,payment_reference)
-  values(o.user_id,o.trip_key,now()+interval '30 days',20,o.id) on conflict(payment_reference) do nothing;
+  values(o.user_id,o.trip_key,now()+interval '30 days',10,o.id) on conflict(payment_reference) do nothing;
   update public.payment_orders set status='paid',paid_at=coalesce(paid_at,now()) where id=o.id;
  elsif o.status not in ('paid','refund','partial_refund','chargeback','partial_chargeback') then
   update public.payment_orders set status=p_status where id=o.id;

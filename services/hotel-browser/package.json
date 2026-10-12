@@ -1,0 +1,7 @@
+{
+  "name":"sorttrip-hotel-browser",
+  "private":true,
+  "type":"module",
+  "scripts":{"start":"node server.mjs","smoke":"node smoke.mjs"},
+  "dependencies":{"playwright":"^1.56.0"}
+}

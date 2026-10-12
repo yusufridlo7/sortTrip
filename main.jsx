@@ -4,5 +4,6 @@ import AuthApp from './app/auth-app';
 import {brandName} from './app/brand';
 import 'leaflet/dist/leaflet.css';
 import './app/globals.css';
-document.title = `${brandName} · Rencanakan perjalananmu`;
+import './app/travel-refresh.css';
+import './app/i18n';
 createRoot(document.getElementById('root')).render(<AuthApp/>);

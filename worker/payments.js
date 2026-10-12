@@ -1,9 +1,10 @@
 import {planningKey,passSummary} from './trip-access.js';
+export const TRIP_PASS_PRICE=30000;
 const json=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store'}});
 const uuid=v=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
 export function tripKey(t){return planningKey(t.destinationMeta?.city||({kl:'Kuala Lumpur',bkk:'Bangkok',sin:'Singapura'}[t.destination]||t.destination),t.start);}
 export function paymentResult(p,order){
- if(p.order_id!==order.id||!/^15000(?:\.0{1,2})?$/.test(String(p.gross_amount))||p.currency!=='IDR')throw Error('PAYMENT_MISMATCH');
+ if(![15000,TRIP_PASS_PRICE].includes(order.amount)||p.order_id!==order.id||!new RegExp('^'+order.amount+'(?:\\.0{1,2})?$').test(String(p.gross_amount))||p.currency!=='IDR')throw Error('PAYMENT_MISMATCH');
  const s=p.transaction_status;
  if(['refund','partial_refund','chargeback','partial_chargeback'].includes(s))return s;
  if((s==='settlement'||s==='capture'&&p.payment_type==='credit_card')&&(!p.fraud_status||p.fraud_status==='accept'))return 'paid';
@@ -54,24 +55,24 @@ export async function handlePayments(request,env){
  if(path==='/api/payments/owner-test'){
   if(!owner(env,user.id))return json({error:'Akses uji hanya untuk pemilik yang terdaftar di server.'},403);
   const reference='owner-test:'+user.id+':'+key;
-  await db(env,'trip_passes?on_conflict=payment_reference',{user_id:user.id,trip_key:key,expires_at:new Date(Date.now()+30*86400000).toISOString(),request_limit:20,payment_reference:reference},'POST','resolution=ignore-duplicates,return=representation');
+  await db(env,'trip_passes?on_conflict=payment_reference',{user_id:user.id,trip_key:key,expires_at:new Date(Date.now()+30*86400000).toISOString(),request_limit:10,payment_reference:reference},'POST','resolution=ignore-duplicates,return=representation');
   return json({ok:true,message:'Akses uji 30 hari diberikan untuk perjalanan ini. Bukan pembayaran sungguhan. Masa aktif tidak diperpanjang dengan klik ulang.'});
  }
  if(path==='/api/payments/status'){
   const orders=await db(env,`payment_orders?user_id=eq.${user.id}&trip_id=eq.${b.tripId}&environment=eq.${mode(env)}&order=created_at.desc&limit=1`);
   let status=orders[0]?.status||'none',refreshDeferred=false,verificationError=null;if(b.refresh===true&&orders[0]&&env.MIDTRANS_SERVER_KEY){if(env.AI_LIMITER&&(await env.AI_LIMITER.limit({key:'payment-status:'+user.id})).success){try{status=await reconcile(env,orders[0])}catch(error){status=orders[0].status;refreshDeferred=true;verificationError=error?.message==='MIDTRANS'?{code:'MIDTRANS_REJECTED',httpStatus:error.httpStatus}:{code:error?.message==='CHECKOUT_NOT_STARTED'?'CHECKOUT_NOT_STARTED':error?.message==='DATABASE'?'PAYMENT_DATABASE_ERROR':error?.message==='PAYMENT_MISMATCH'?'PAYMENT_MISMATCH':['TimeoutError','AbortError'].includes(error?.name)?'PAYMENT_TIMEOUT':error?.name==='TypeError'?'PAYMENT_NETWORK_ERROR':'PAYMENT_STATUS_UNAVAILABLE'};}}else refreshDeferred=true;}
   const passes=await db(env,`trip_passes?user_id=eq.${user.id}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&order=expires_at.desc`);
-  const pass=passSummary(passes);let checkoutUrl=null;if(!pass&&['created','pending'].includes(status)&&orders[0]?.checkout_url){try{const u=new URL(orders[0].checkout_url);if(u.protocol==='https:'&&u.hostname===(mode(env)==='production'?'app.midtrans.com':'app.sandbox.midtrans.com')&&!u.username&&!u.password)checkoutUrl=u.href;}catch{}}return json({checkoutUrl,mode:mode(env),checkoutEnabled:!!env.MIDTRANS_SERVER_KEY&&(mode(env)==='sandbox'?owner(env,user.id):env.PAYMENTS_ENABLED==='true'),checkoutReason:!env.MIDTRANS_SERVER_KEY?'Konfigurasi Midtrans server belum tersedia.':mode(env)==='sandbox'&&!owner(env,user.id)?'Pembayaran sandbox hanya tersedia untuk akun pemilik.':mode(env)==='production'&&env.PAYMENTS_ENABLED!=='true'?'Pembelian production belum dibuka oleh pengelola.':null,ownerTest:owner(env,user.id),status,refreshDeferred,verificationError,pass});
+  const pass=passSummary(passes);let checkoutUrl=null;if((!pass||pass.remaining===0)&&['created','pending'].includes(status)&&orders[0]?.checkout_url){try{const u=new URL(orders[0].checkout_url);if(u.protocol==='https:'&&u.hostname===(mode(env)==='production'?'app.midtrans.com':'app.sandbox.midtrans.com')&&!u.username&&!u.password)checkoutUrl=u.href;}catch{}}return json({checkoutUrl,checkoutAmount:checkoutUrl?orders[0]?.amount:null,mode:mode(env),checkoutEnabled:!!env.MIDTRANS_SERVER_KEY&&(mode(env)==='sandbox'?owner(env,user.id):env.PAYMENTS_ENABLED==='true'),checkoutReason:!env.MIDTRANS_SERVER_KEY?'Konfigurasi Midtrans server belum tersedia.':mode(env)==='sandbox'&&!owner(env,user.id)?'Pembayaran sandbox hanya tersedia untuk akun pemilik.':mode(env)==='production'&&env.PAYMENTS_ENABLED!=='true'?'Pembelian production belum dibuka oleh pengelola.':null,ownerTest:owner(env,user.id),status,refreshDeferred,verificationError,pass});
  }
  if(path!=='/api/payments/checkout')return json({error:'Endpoint tidak ditemukan.'},404);
  if(!env.MIDTRANS_SERVER_KEY||(mode(env)==='sandbox'?!owner(env,user.id):env.PAYMENTS_ENABLED!=='true'))return json({error:'Pembelian belum dibuka. Sandbox hanya tersedia untuk pemilik.'},403);
  if(!env.AI_LIMITER||!(await env.AI_LIMITER.limit({key:'checkout:'+user.id})).success)return json({error:'Tunggu satu menit sebelum mencoba lagi.'},429);
- const active=await db(env,`trip_passes?user_id=eq.${user.id}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&limit=1`);if(active.length)return json({error:'Trip Pass masih aktif untuk akun ini.'},409);
+ const active=await db(env,`trip_passes?user_id=eq.${user.id}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&select=expires_at,request_limit,requests,payment_reference`);if(passSummary(active)?.remaining>0)return json({error:'Trip Pass masih aktif untuk akun ini.'},409);
  const pending=await db(env,`payment_orders?user_id=eq.${user.id}&trip_id=eq.${t.id}&environment=eq.${mode(env)}&status=in.(created,pending)&order=created_at.desc&limit=1`);
  if(pending[0]){if(pending[0].checkout_url)return json({checkoutUrl:pending[0].checkout_url,orderId:pending[0].id,mode:mode(env)});return json({error:'Order sedang disiapkan. Cek status; jika tetap gagal hubungi pengelola sebelum membuat pembayaran baru.'},409);}
  const id=`st-${mode(env)}-${crypto.randomUUID()}`;
- await db(env,'payment_orders',{id,user_id:user.id,trip_id:t.id,trip_key:key,amount:15000,currency:'IDR',environment:mode(env)});
- const snap=await midtrans(env,'/snap/v1/transactions',{transaction_details:{order_id:id,gross_amount:15000},item_details:[{id:'trip-pass-30',price:15000,quantity:1,name:'sortTrip Trip Pass 30 hari'}],customer_details:{email:user.email}});
+ await db(env,'payment_orders',{id,user_id:user.id,trip_id:t.id,trip_key:key,amount:TRIP_PASS_PRICE,currency:'IDR',environment:mode(env)});
+ const snap=await midtrans(env,'/snap/v1/transactions',{transaction_details:{order_id:id,gross_amount:TRIP_PASS_PRICE},item_details:[{id:'trip-pass-30',price:TRIP_PASS_PRICE,quantity:1,name:'sortTrip Trip Pass 30 hari'}],customer_details:{email:user.email}});
  const url=new URL(snap.redirect_url);const expected=mode(env)==='production'?'app.midtrans.com':'app.sandbox.midtrans.com';if(url.protocol!=='https:'||url.hostname!==expected)throw Error('CHECKOUT_URL');
  await db(env,`payment_orders?id=eq.${id}`,{checkout_url:url.href},'PATCH');return json({checkoutUrl:url.href,orderId:id,mode:mode(env)});
  }catch(error){

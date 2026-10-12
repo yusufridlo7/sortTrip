@@ -1,3 +1,4 @@
+import {tr,label as localize,locale} from './i18n';
 import {useEffect,useRef,useState} from 'react';
 import {TrainFront} from 'lucide-react';
 import widgetHtml from './transport-widget';
@@ -21,12 +22,12 @@ export default function TransportSearch(props:PartnerSearchProps){
   return ()=>{window.clearTimeout(timer);window.removeEventListener('message',receive)};
  },[]);
  return <section className="direct-search">
-  <div className="direct-heading"><span className="strip-icon"><TrainFront size={26}/></span><div><div className="eyebrow">SORTTRIP · TRANSPORTASI</div><h1>Cari tiket transportasi</h1><p>Cari kereta, bus, ferry, dan transfer. Pilih asal, tujuan, serta tanggal keberangkatan.</p></div></div>
+  <div className="direct-heading"><span className="strip-icon"><TrainFront size={26}/></span><div><div className="eyebrow">{tr('ui_0549')}</div><h1>{tr('ui_0550')}</h1><p>{tr('ui_0551')}</p></div></div>
   {props.context&&<p className="partner-context">{props.context.from} → {props.context.to} · {props.context.date}</p>}
-  {!ready&&<p role="status">{failed?'Form belum dapat dimuat. Silakan coba muat ulang form.':'Memuat form pencarian transportasi…'}</p>}
-  <iframe ref={frame} title="Form pencarian tiket transportasi" src={widgetUrl} sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox" referrerPolicy="no-referrer" style={{width:'100%',maxWidth:918,height,border:0,display:failed?'none':'block',margin:'0 auto'}}/>
-  <p className="inline-note">Hasil pencarian dan pemesanan dibuka di situs mitra. Harga serta ketersediaan mengikuti penyedia. SortTrip dapat menerima komisi melalui tautan affiliate.</p>
-  {failed&&<button className="secondary" onClick={()=>{setFailed(false);setReady(false);if(frame.current)frame.current.src=widgetUrl}}>Muat ulang form</button>}
+  {!ready&&<p role="status">{failed?tr('ui_0552'):tr('ui_0553')}</p>}
+  <iframe ref={frame} title={tr('ui_0554')} src={widgetUrl} sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox" referrerPolicy="no-referrer" style={{width:'100%',maxWidth:918,height,border:0,display:failed?'none':'block',margin:'0 auto'}}/>
+  <p className="inline-note">{tr('ui_0555')}</p>
+  {failed&&<button className="secondary" onClick={()=>{setFailed(false);setReady(false);if(frame.current)frame.current.src=widgetUrl}}>{tr('ui_0429')}</button>}
   <PartnerSelectionForm {...props} kind="transport"/>
  </section>;
 }

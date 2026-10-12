@@ -1,6 +1,10 @@
+import {requestLanguage,localizedResponse} from './localization.js';
+import {handleSupport,runSupportOutbox} from './support.js';
+import {handleNarrativeTranslation} from './narrative-translation.js';
 import {handlePayments} from './payments.js';
 import {runPriceWatches} from './price-watch.js';
 import {handleItinerary} from './itinerary.js';
+import {externalHotelServiceConfigured} from './external-hotel-browser.js';
 import {handleViator} from './viator.js';
 import locations from './locations.json' with {type:'json'};
 // Tokens stay in Worker runtime secrets, never in the Vite bundle.
@@ -71,14 +75,16 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
  const flights=[...new Map(ok.flatMap(r=>r.flights).map(f=>[f.id,f])).values()].sort((a,b)=>a.price-b.price);
  return json({flights,source:'Aviasales Data API',currency:'IDR',fetchedAt:ok.map(r=>r.fetchedAt).sort()[0],partial:ok.length!==ids.length,limited:ok.some(r=>r.limited),nextPage:ok.some(r=>r.limited)&&(q.page||1)<20?(q.page||1)+1:null,oneAdult:true});
 }
-export default {async scheduled(event,env,ctx){ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));},async fetch(request,env,ctx){
+const worker = {async scheduled(event,env,ctx){if(event.cron!=='*/2 * * * *')ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));ctx.waitUntil(runSupportOutbox(env));},async fetch(request,env,ctx){
  const u=new URL(request.url);
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(request);
+ if(u.pathname.startsWith('/api/support/'))return handleSupport(request,env,ctx);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
+ if(u.pathname==='/api/itinerary/translate')return handleNarrativeTranslation(request,env);
  if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
  if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
- if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),version:'flights-v2-worldwide'});
+ if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),supplierBrowserConfigured:externalHotelServiceConfigured(env)||(env.HOTEL_BROWSER_ENABLED==='true'&&Boolean(env.HOTEL_BROWSER)),externalHotelBrowserConfigured:externalHotelServiceConfigured(env),version:'flights-v2-worldwide'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
  if(u.pathname!=='/api/flights')return json({error:'Endpoint tidak ditemukan.'},404);
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}
@@ -94,5 +100,7 @@ export function searchLocations(query){
  const rank=([code,m])=>code.toLowerCase()===text?0:code===aliases[text]?1:m.city.toLowerCase()===text?2:m.city.toLowerCase().startsWith(text)?3:m.city.toLowerCase().includes(text)?4:5;
  return Object.entries(locations).filter(([code,m])=>code.toLowerCase().includes(text)||m.city.toLowerCase().includes(text)||m.name.toLowerCase().includes(text)||countryName(m.country).toLowerCase().includes(text))
  .sort((a,b)=>rank(a)-rank(b)||a[1].city.localeCompare(b[1].city)||a[0].localeCompare(b[0]))
- .slice(0,25).map(([code,m])=>({code,city:m.city,name:m.name,country:countryName(m.country)}));
+ .slice(0,25).map(([code,m])=>({code,city:m.city,name:m.name,country:countryName(m.country),countryCode:m.country}));
 }
+
+export default {...worker,async fetch(request,env,ctx){return localizedResponse(await worker.fetch(request,env,ctx),requestLanguage(request));}};

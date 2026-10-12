@@ -11,12 +11,14 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "dev:worker": "wrangler dev --ip 127.0.0.1 --port 8787",
+    "dev:worker:browser": "wrangler dev --config wrangler.hotel-browser.jsonc --ip 127.0.0.1 --port 8787",
     "test:api": "node --test checks/flights-api.test.mjs checks/flight-itinerary.test.mjs checks/ai-itinerary.test.mjs checks/viator-api.test.mjs",
     "deploy:check": "wrangler deploy --dry-run",
     "telegram:check": "node --env-file=.env.telegram.local scripts/telegram-notify.mjs --check",
     "telegram:notify": "node --env-file=.env.telegram.local scripts/telegram-notify.mjs",
     "test:telegram": "node --test checks/telegram-notify.test.mjs checks/telegram-agent.test.mjs",
-    "telegram:agent": "node --env-file=.env.telegram.local scripts/telegram-agent.mjs"
+    "telegram:agent": "node --env-file=.env.telegram.local scripts/telegram-agent.mjs",
+    "support:webhook": "node --env-file=.env.support.local scripts/support-webhook.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
@@ -24,14 +26,17 @@
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
+    "i18next": "^26.4.3",
     "leaflet": "1.9.4",
     "lucide-react": "1.31.0",
     "radix-ui": "1.6.7",
     "react": "19.2.6",
     "react-dom": "19.2.6",
+    "react-i18next": "^17.0.16",
     "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
+    "@cloudflare/playwright": "^1.3.6",
     "@tailwindcss/postcss": "4.2.1",
     "@types/leaflet": "1.9.20",
     "@types/node": "22.19.19",

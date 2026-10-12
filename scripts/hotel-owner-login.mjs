@@ -1,0 +1,40 @@
+// Owner-run loopback control panel. Never print Live View URLs or authenticated state.
+import http from 'node:http';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {unstable_dev} from 'wrangler';
+const origin='http://127.0.0.1:8795',privatePath='.sorttrip-auth/cloud-hotel-session.enc';
+const worker=await unstable_dev('scripts/hotel-owner-login-worker.mjs',{config:'scripts/hotel-owner-login.jsonc',envFiles:[],ip:'127.0.0.1',port:8796,persist:false,logLevel:'none',experimental:{disableExperimentalWarning:true,disableDevRegistry:true,watch:false}});
+const html=`<!doctype html><html lang="id"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>SortTrip · Login hotel owner</title><style>body{font:16px system-ui;color:#18324b;max-width:680px;margin:40px auto;padding:20px}button,a,input{font:inherit;padding:12px;border:1px solid #ccdbea;border-radius:8px;margin:5px 0}button{cursor:pointer;background:#edf6ff}input{width:95%}p{line-height:1.6}#status{background:#f0f6fc;padding:16px;border-radius:8px}</style><h1>Login Trip.com untuk pengujian</h1><p>Khusus owner. Browser berjalan di Cloudflare; tampilan login hanya dibuka untuk Anda. Masukkan password/OTP di Live View Trip.com, bukan di chat atau panel ini.</p><button id="start">1. Siapkan browser Cloudflare</button><p><a href="/view" target="_blank" rel="noopener noreferrer">2. Buka Live View dan login sendiri</a></p><p>Setelah login selesai, pilih frasa sandi enkripsi minimal 16 karakter. Simpan sendiri; frasa ini tidak disimpan. Ini melindungi snapshot lokal, bukan password Trip.com.</p><input id="pass" type="password" autocomplete="new-password" minlength="16" maxlength="256" placeholder="Frasa sandi enkripsi"><p><label><input id="confirmed" type="checkbox" style="width:auto"> Saya sudah menyelesaikan login sendiri dan mengizinkan sesi disimpan terenkripsi untuk pengujian harga.</label></p><button id="save">3. Simpan sesi terenkripsi</button><button id="restore">Pulihkan sesi tersimpan</button><button id="close">Tutup browser Cloudflare</button><p id="session-health" role="status">Memeriksa koneksi browser...</p><p id="status" role="status">Belum ada tindakan. Sesi browser dapat kedaluwarsa; snapshot dibatasi 7 hari dan login dapat habis lebih awal.</p><script>async function act(action){const status=document.getElementById('status');status.textContent='Memproses…';try{const response=await fetch('/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({passphrase:document.getElementById('pass').value,confirmed:document.getElementById('confirmed').checked})});const result=await response.json();status.textContent=response.ok?({start:'Browser siap. Buka Live View dan lakukan login sendiri.',save:'Snapshot sesi tersimpan terenkripsi. Login belum diuji untuk pengambilan harga.',restore:'Sesi dipulihkan. Buka Live View untuk memeriksa login.',close:'Browser ditutup.'}[action]):({CLOUD_BROWSER_DAILY_LIMIT:'Jatah waktu browser hari ini habis. Periksa pemakaian di dashboard Cloudflare.',CLOUD_BROWSER_RATE_LIMIT:'Cloudflare membatasi frekuensi permintaan browser. Jangan menutup sesi lain; coba lagi setelah pembatasan mereda.',CLOUD_BROWSER_LIMIT:'Cloudflare membatasi peluncuran browser. Periksa batas Browser Run di dashboard.',CLOUD_BROWSER_PERMISSION:'Cloudflare menolak akses browser. Pengelola perlu memeriksa izin layanan.',CLOUD_BROWSER_LAUNCH_FAILED:'Browser Cloudflare belum dapat diluncurkan.',CLOUD_BROWSER_CONTEXT_FAILED:'Browser terbuka tetapi konteks login gagal dibuat.',SESSION_NOT_ACTIVE:'Sesi browser tidak aktif; siapkan ulang.'}[result.code]||'Tindakan gagal. Sesi mungkin kedaluwarsa, frasa sandi salah, atau layanan belum tersedia.');}catch{status.textContent='Layanan belum tersedia.'}if(action==='save'||action==='restore')document.getElementById('pass').value='';}async function checkSession(){try{const response=await fetch('/status',{cache:'no-store'});const result=await response.json();document.getElementById('session-health').textContent=result.active?(result.keepAliveAllowed?'Browser terhubung. Koneksi dijaga selama jendela login 20 menit.':'Jendela penjagaan koneksi berakhir; sesi dapat kedaluwarsa jika tidak aktif.'):'Browser tidak terhubung. Jika Live View terputus, coba Reconnect; siapkan ulang hanya jika sesi sudah berakhir.';}catch{document.getElementById('session-health').textContent='Koneksi panel terputus.'}}setInterval(checkSession,30000);checkSession();for(const action of ['start','save','restore','close'])document.getElementById(action).onclick=()=>act(action);</script></html>`;
+let busy=false;
+const send=(res,status,body,type='application/json')=>{res.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; frame-ancestors 'none'"});res.end(body);};
+const server=http.createServer(async(req,res)=>{
+ if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)||req.headers.host!=='127.0.0.1:8795')return send(res,403,'{}');
+ if(req.headers.origin&&req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')return send(res,403,'{}');
+ if(req.method==='GET'&&req.url==='/')return send(res,200,html,'text/html; charset=utf-8');
+ if(req.method==='GET'&&req.url==='/status'){
+  try{
+   const response=await worker.fetch('http://localhost/status',{headers:{'X-SortTrip-Owner-Control':'local-panel'}});
+   const result=await response.json();return send(res,response.status,JSON.stringify({active:result.active===true,keepAliveAllowed:result.keepAliveAllowed===true}));
+  }catch{return send(res,502,'{"active":false}');}
+ }
+ if(req.method==='GET'&&req.url==='/view'){
+  // Keep the redirect for the owner's browser; do not follow it in this server.
+  const response=await worker.fetch('http://localhost/view',{redirect:'manual',headers:{'X-SortTrip-Owner-Control':'local-panel'}});
+  if(response.status===302){res.writeHead(302,{Location:response.headers.get('Location'),'Cache-Control':'no-store','Referrer-Policy':'no-referrer'});return res.end();}
+  return send(res,409,'<!doctype html><html lang="id"><meta charset="utf-8"><title>Sesi login perlu disiapkan</title><h1>Sesi browser sudah tidak aktif</h1><p>Kembali ke panel dan klik &ldquo;Siapkan browser Cloudflare&rdquo;, lalu buka Live View lagi.</p><a href="/">Kembali ke panel login</a></html>','text/html; charset=utf-8');
+ }
+ if(req.method!=='POST'||!['/start','/save','/restore','/close'].includes(req.url)||req.headers.origin!==origin)return send(res,403,'{}');
+ if(busy)return send(res,429,'{}');busy=true;
+ try{
+  let body='',bytes=0;for await(const chunk of req){bytes+=chunk.length;if(bytes>4096)return send(res,413,'{}');body+=chunk.toString('utf8');}
+  const input=JSON.parse(body);
+  if(req.url==='/restore')input.envelope=JSON.parse(await readFile(privatePath,'utf8'));
+  const response=await worker.fetch('http://localhost'+req.url,{method:'POST',headers:{'Content-Type':'application/json','X-SortTrip-Owner-Control':'local-panel'},body:JSON.stringify(input)});
+  const result=await response.json();
+  if(req.url==='/save'&&response.ok){await mkdir('.sorttrip-auth',{recursive:true});await writeFile(privatePath,JSON.stringify(result.envelope),{mode:0o600});}
+  send(res,response.status,JSON.stringify({ok:response.ok,...(!response.ok&&['CLOUD_BROWSER_DAILY_LIMIT','CLOUD_BROWSER_RATE_LIMIT','CLOUD_BROWSER_LIMIT','CLOUD_BROWSER_PERMISSION','CLOUD_BROWSER_LAUNCH_FAILED','CLOUD_BROWSER_CONTEXT_FAILED','SESSION_NOT_ACTIVE'].includes(result.code)?{code:result.code}:{})}));
+ }catch{send(res,502,'{"code":"OWNER_SESSION_ACTION_FAILED"}');}finally{busy=false;}
+});
+server.headersTimeout=10000;server.requestTimeout=15000;
+server.listen(8795,'127.0.0.1',()=>console.info('OWNER_LOGIN_PANEL_READY'));
+for(const signal of ['SIGINT','SIGTERM'])process.on(signal,async()=>{server.close();await worker.stop();process.exit(0);});

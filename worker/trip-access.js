@@ -4,5 +4,5 @@ export function planningKey(city,start){
 }
 export function passSummary(rows){
  const p=rows.find(p=>p.request_limit>p.requests)||rows[0];
- return p?{expiresAt:p.expires_at,remaining:Math.max(0,p.request_limit-p.requests),test:typeof p.payment_reference==='string'&&(p.payment_reference.startsWith('owner-test:')||p.payment_reference.startsWith('st-sandbox-'))}:null;
+ return p?{expiresAt:p.expires_at,requestLimit:p.request_limit,remaining:Math.max(0,p.request_limit-p.requests),test:typeof p.payment_reference==='string'&&(p.payment_reference.startsWith('owner-test:')||p.payment_reference.startsWith('st-sandbox-'))}:null;
 }

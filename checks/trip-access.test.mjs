@@ -15,6 +15,10 @@ test('exhausted newest pass cannot hide another valid pass',()=>{
  assert.equal(passSummary([{...row,requests:20},{...row,requests:7}]).remaining,13);
  assert.equal(passSummary([{...row,requests:20}]).remaining,0);assert.equal(passSummary([]),null);
 });
+test('legacy quota stays twenty while new ten-result pass reports its own remaining balance',()=>{
+ const legacy=passSummary([row]);assert.equal(legacy.requestLimit,20);assert.equal(legacy.remaining,17);
+ const fresh=passSummary([{...row,request_limit:10,requests:3}]);assert.equal(fresh.requestLimit,10);assert.equal(fresh.remaining,7);
+});
 test('unsaved draft can recognize its paid pass without DB mutation or Midtrans request',async()=>{
  const old=globalThis.fetch;let reads=0;
  globalThis.fetch=async(url,options)=>{

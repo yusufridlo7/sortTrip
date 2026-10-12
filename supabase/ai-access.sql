@@ -11,7 +11,7 @@ create table if not exists public.trip_passes (
  trip_key text not null,
  expires_at timestamptz not null,
  requests integer not null default 0,
- request_limit integer not null default 20,
+ request_limit integer not null default 10,
  payment_reference text unique not null
 );
 alter table public.ai_membership_usage enable row level security;

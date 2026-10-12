@@ -1,9 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
+import {resolveI18n} from './i18n-loader.mjs';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../app/partner-selection.ts',import.meta.url),'utf8');
-const compile=s=>ts.transpileModule(s,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText;
+const compile=s=>resolveI18n(ts.transpileModule(s,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);
 const dataUrl='data:text/javascript;base64,'+Buffer.from(compile(await readFile(new URL('../app/travel-data.ts',import.meta.url),'utf8'))).toString('base64');
 const compiled=compile(source).replace("'./travel-data'",JSON.stringify(dataUrl)).replace("'./transport-affiliate.mjs'",JSON.stringify(new URL('../app/transport-affiliate.mjs',import.meta.url).href));
 const {manualPartnerItem,applyPartnerSelection,tripHotelAffiliate,tripHotelWidget,hotelAffiliateLink}=await import('data:text/javascript;base64,'+Buffer.from(compiled).toString('base64'));

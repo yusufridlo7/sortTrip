@@ -1,3 +1,4 @@
+import {tr,label as localize,locale,language} from './i18n';
 import {useState} from 'react';
 import {supabase, setupMessage} from './supabase';
 export default function AuthPanel() {
@@ -12,20 +13,20 @@ export default function AuthPanel() {
     setBusy(true); setMessage('');
     try {
       const result = signup
-        ? await supabase.auth.signUp({email, password, options: {emailRedirectTo: window.location.origin}})
+        ? await supabase.auth.signUp({email, password, options: {emailRedirectTo: window.location.origin,data:{language:language()}}})
         : await supabase.auth.signInWithPassword({email, password});
       if (result.error) throw result.error;
-      if (signup && !result.data.session) setMessage('Periksa email untuk konfirmasi akun. Setelah dikonfirmasi, masuk di halaman ini.');
+      if (signup && !result.data.session) setMessage(tr('ui_0071'));
     } catch (e) {setMessage(e instanceof Error ? e.message : 'Belum berhasil. Coba kembali.');}
     finally {setBusy(false);}
   }
   return <form className="sorttrip-auth" onSubmit={submit}>
-    {!supabase && <p role="status">{setupMessage}</p>}
-    <label>Email<input required type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)}/></label>
-    <label>Kata sandi<input required minLength={8} type="password" autoComplete={signup?'new-password':'current-password'} value={password} onChange={e=>setPassword(e.target.value)}/></label>
-    <p className="muted">Minimal 8 karakter. Gunakan kata sandi khusus untuk akun ini.</p>
-    {message && <p role="status">{message}</p>}
-    <button className="primary wide" disabled={busy || !supabase}>{busy?'Memproses…':signup?'Daftar akun':'Masuk'}</button>
-    <button type="button" className="text-action" disabled={busy} onClick={()=>{setSignup(!signup);setMessage('');}}>{signup?'Sudah punya akun? Masuk':'Belum punya akun? Daftar'}</button>
+    {!supabase && <p role="status">{localize(setupMessage)}</p>}
+    <label>{tr('ui_0072')}<input required type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)}/></label>
+    <label>{tr('ui_0073')}<input required minLength={8} type="password" autoComplete={signup?'new-password':'current-password'} value={password} onChange={e=>setPassword(e.target.value)}/></label>
+    <p className="muted">{tr('ui_0074')}</p>
+    {message && <p role="status">{localize(message)}</p>}
+    <button className="primary wide" disabled={busy || !supabase}>{busy?tr('ui_0075'):signup?tr('ui_0076'):tr('ui_0077')}</button>
+    <button type="button" className="text-action" disabled={busy} onClick={()=>{setSignup(!signup);setMessage('');}}>{signup?tr('ui_0078'):tr('ui_0079')}</button>
   </form>;
 }

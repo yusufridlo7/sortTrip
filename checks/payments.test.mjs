@@ -2,8 +2,15 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {paymentResult,validSignature,handlePayments,tripKey} from '../worker/payments.js';
-const order={id:'st-sandbox-abcdefghijk'};const paid={order_id:order.id,gross_amount:'15000.00',currency:'IDR',transaction_status:'settlement'};
+const order={id:'st-sandbox-abcdefghijk',amount:15000};const paid={order_id:order.id,gross_amount:'15000.00',currency:'IDR',transaction_status:'settlement'};
 test('payment requires exact order, IDR and amount',()=>{assert.equal(paymentResult(paid,order),'paid');for(const patch of [{order_id:'other'},{gross_amount:'1500'},{gross_amount:'15000.50'},{currency:'USD'}])assert.throws(()=>paymentResult({...paid,...patch},order));});
+test('price increase validates against stored order amount: new Rp30000 and old Rp15000',()=>{
+ const newOrder={...order,amount:30000},newPaid={...paid,gross_amount:'30000.00'};
+ assert.equal(paymentResult(newPaid,newOrder),'paid');assert.equal(paymentResult(paid,order),'paid');
+ assert.throws(()=>paymentResult(paid,newOrder));assert.throws(()=>paymentResult(newPaid,order));
+ for(const amount of [undefined,0,1500,30001,'30000'])assert.throws(()=>paymentResult(newPaid,{...newOrder,amount}));
+ for(const gross_amount of ['30000.50','3e4','30000junk','-30000','030000'])assert.throws(()=>paymentResult({...newPaid,gross_amount},newOrder));
+});
 test('pending and challenged cards never grant access; refunds revoke',()=>{assert.equal(paymentResult({...paid,transaction_status:'pending'},order),'pending');assert.equal(paymentResult({...paid,fraud_status:'challenge'},order),'pending');assert.equal(paymentResult({...paid,transaction_status:'capture',payment_type:'credit_card',fraud_status:'accept'},order),'paid');assert.equal(paymentResult({...paid,transaction_status:'refund'},order),'refund');});
 test('webhook signature checks exact amount and server key',async()=>{const p={...paid,status_code:'200'};p.signature_key=createHash('sha512').update(p.order_id+p.status_code+p.gross_amount+'secret').digest('hex');assert.equal(await validSignature(p,'secret'),true);assert.equal(await validSignature(p,'wrong'),false);assert.equal(await validSignature({...p,gross_amount:'1'},'secret'),false);});
 test('trip identity agrees with Basic and Price Watch keys',()=>{assert.equal(tripKey({destination:'kl',start:'2027-01-01'}),'kuala lumpur|2027-01-01');assert.equal(tripKey({destinationMeta:{city:'Tokyo'},start:'2027-01-01'}),'tokyo|2027-01-01');});
@@ -28,9 +35,16 @@ test('production rejects owner test grants even if the test flag remains enabled
  }finally{globalThis.fetch=old;}
 });
 test('non-owner cannot grant a test pass',async()=>{const old=globalThis.fetch;let writes=0;globalThis.fetch=async(url,opt)=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);writes++;throw Error('unexpected')};try{assert.equal((await handlePayments(req('owner-test'),env)).status,403);assert.equal(writes,0)}finally{globalThis.fetch=old}});
-test('owner test is isolated, fixed duration and idempotent insert',async()=>{const old=globalThis.fetch;let inserted;globalThis.fetch=async(url,opt)=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);assert.ok(opt.headers.Prefer.includes('ignore-duplicates'));inserted=JSON.parse(opt.body);return Response.json([])};try{assert.equal((await handlePayments(req('owner-test'),{...env,OWNER_USER_ID:uid})).status,200);assert.equal(inserted.user_id,uid);assert.equal(inserted.request_limit,20);assert.ok(inserted.payment_reference.startsWith('owner-test:'));}finally{globalThis.fetch=old}});
+test('owner test is isolated, fixed duration and idempotent insert',async()=>{const old=globalThis.fetch;let inserted;globalThis.fetch=async(url,opt)=>{if(String(url).endsWith('/auth/v1/user'))return Response.json({id:uid});if(String(url).includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);assert.ok(opt.headers.Prefer.includes('ignore-duplicates'));inserted=JSON.parse(opt.body);return Response.json([])};try{assert.equal((await handlePayments(req('owner-test'),{...env,OWNER_USER_ID:uid})).status,200);assert.equal(inserted.user_id,uid);assert.equal(inserted.request_limit,10);assert.ok(inserted.payment_reference.startsWith('owner-test:'));}finally{globalThis.fetch=old}});
 test('unsigned webhook rejected without querying payment status or granting access',async()=>{const r=await handlePayments(new Request('https://sorttrip.test/api/payments/webhook',{method:'POST',body:JSON.stringify(paid)}),{...env,MIDTRANS_SERVER_KEY:'secret'});assert.equal(r.status,403)});
 test('valid webhook rechecks Midtrans rather than trusting payload status',async()=>{const old=globalThis.fetch;let applied;const p={...paid,status_code:'200'};p.signature_key=createHash('sha512').update(p.order_id+p.status_code+p.gross_amount+'secret').digest('hex');globalThis.fetch=async(url,opt)=>{if(String(url).includes('payment_orders?'))return Response.json([{...order,environment:'sandbox'}]);if(String(url).includes('api.sandbox.midtrans.com'))return Response.json({...paid,transaction_status:'pending'});applied=JSON.parse(opt.body);return new Response(null,{status:204})};try{const r=await handlePayments(new Request('https://sorttrip.test/api/payments/webhook',{method:'POST',body:JSON.stringify(p)}),{...env,MIDTRANS_SERVER_KEY:'secret'});assert.equal(r.status,200);assert.equal(applied.p_status,'pending')}finally{globalThis.fetch=old}});
+test('signed production webhook honors old invoices and never fulfills underpaid new invoices',async()=>{
+ const previous=globalThis.fetch;try{for(const [stored,received,accepted] of [[15000,15000,true],[30000,30000,true],[30000,15000,false]]){
+  let applied=0;const payload={...paid,gross_amount:received+'.00',status_code:'200'};payload.signature_key=createHash('sha512').update(payload.order_id+payload.status_code+payload.gross_amount+'fixture').digest('hex');
+  globalThis.fetch=async(url,options)=>{if(String(url).includes('payment_orders?'))return Response.json([{...order,amount:stored,environment:'production'}]);if(String(url).includes('api.midtrans.com'))return Response.json(payload);applied++;assert.equal(JSON.parse(options.body).p_status,'paid');return new Response(null,{status:204});};
+  const r=await handlePayments(new Request('https://sorttrip.test/api/payments/webhook',{method:'POST',body:JSON.stringify(payload)}),{...env,MIDTRANS_ENV:'production',MIDTRANS_SERVER_KEY:'fixture'});assert.equal(r.status===200,accepted);assert.equal(applied,accepted?1:0);
+ }}finally{globalThis.fetch=previous;}
+});
 
 test('production checkout creates a Midtrans Snap redirect with exact price; no browser payment occurs',async()=>{
  const old=globalThis.fetch;let snapBody,orderBody;
@@ -44,8 +58,27 @@ test('production checkout creates a Midtrans Snap redirect with exact price; no 
   if(u.includes('payment_orders?id=')&&opt.method==='PATCH')return Response.json([]);
   throw Error('Unexpected route');
  };
- try{const r=await handlePayments(req('checkout'),{...env,MIDTRANS_SERVER_KEY:'test-only-fixture',MIDTRANS_ENV:'production',PAYMENTS_ENABLED:'true',AI_LIMITER:{limit:async()=>({success:true})}});assert.equal(r.status,200);const b=await r.json();assert.equal(b.mode,'production');assert.equal(new URL(b.checkoutUrl).hostname,'app.midtrans.com');assert.equal(snapBody.transaction_details.gross_amount,15000);assert.equal(orderBody.amount,15000);assert.equal(orderBody.trip_id,tid);}finally{globalThis.fetch=old;}
+ try{const r=await handlePayments(req('checkout'),{...env,MIDTRANS_SERVER_KEY:'test-only-fixture',MIDTRANS_ENV:'production',PAYMENTS_ENABLED:'true',AI_LIMITER:{limit:async()=>({success:true})}});assert.equal(r.status,200);const b=await r.json();assert.equal(b.mode,'production');assert.equal(new URL(b.checkoutUrl).hostname,'app.midtrans.com');assert.equal(snapBody.transaction_details.gross_amount,30000);assert.equal(orderBody.amount,30000);assert.equal(orderBody.trip_id,tid);}finally{globalThis.fetch=old;}
 });
+test('exhausted pass allows renewal but another available legacy pass prevents payment',async()=>{
+ const old=globalThis.fetch;let remainingLegacy=false,providerCalls=0;
+ globalThis.fetch=async(url,opt)=>{
+  const u=String(url);
+  if(u.endsWith('/auth/v1/user'))return Response.json({id:uid});
+  if(u.includes('/trips?'))return Response.json([{id:tid,data:{destination:'kl',start:'2027-01-01'}}]);
+  if(u.includes('trip_passes?'))return Response.json([{request_limit:10,requests:10},...(remainingLegacy?[{request_limit:20,requests:19}]:[])]);
+  if(u==='https://app.midtrans.com/snap/v1/transactions'){providerCalls++;return Response.json({redirect_url:'https://app.midtrans.com/snap/v2/vtweb/fixture'});}
+  return Response.json([]);
+ };
+ try{
+  const production={...env,MIDTRANS_SERVER_KEY:'fixture-only',MIDTRANS_ENV:'production',PAYMENTS_ENABLED:'true',AI_LIMITER:{limit:async()=>({success:true})}};
+  assert.equal((await handlePayments(req('checkout'),production)).status,200);
+  remainingLegacy=true;
+  assert.equal((await handlePayments(req('checkout'),production)).status,409);
+  assert.equal(providerCalls,1);
+ }finally{globalThis.fetch=old;}
+});
+
 test('checkout does not duplicate an existing pending Midtrans order',async()=>{
  const old=globalThis.fetch;let writes=0;
  globalThis.fetch=async(url,opt)=>{
