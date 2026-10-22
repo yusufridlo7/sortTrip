@@ -19,7 +19,7 @@ test('transport quotes require exact route endpoints, source and per-person basi
  assert.equal(validatePriceQuotes({quotes:[{...v,sourceUrl:'https://other.test'}]},targets,[{url:'https://other.test'}],text).length,0);
 });
 test('price-only research consumes one quota on evidence success, none when unavailable; authentication and origin enforced',async()=>{
- const old=globalThis.fetch;
+ const old=globalThis.fetch;const hotelUrl='https://12go.asia/en/travel/johor-bahru/melaka',quote='Johor Bahru to Melaka Rp 125,000 per ticket',target={id:'bus',title:'Coach',category:'Transportasi',day:2,from:'Johor Bahru',to:'Melaka'},entry={id:'bus',amountIDR:125000,basis:'person',sourceUrl:hotelUrl,quote};
  try{for(const success of [true,false]){
   let reserves=0;const finishes=[];
   globalThis.fetch=async(url,opts)=>{
@@ -33,7 +33,7 @@ test('price-only research consumes one quota on evidence success, none when unav
   const body=JSON.stringify({city:'Kuala Lumpur',start:'2027-01-10',days:3,people:1,budget:4000000,mode:'prices',priceTargets:[target]});
   const request=()=>new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Authorization:'Bearer fixture'},body});
   const result=await handleItinerary(request(),env);assert.equal(result.status,success?200:502);assert.equal(reserves,1);assert.deepEqual(finishes,[success]);
-  const data=await result.json();assert.equal(data.plan,undefined);if(success)assert.equal(data.prices[0].amountIDR,540000);else assert.equal(data.code,'PRICE_UNAVAILABLE');
+  const data=await result.json();assert.equal(data.plan,undefined);if(success)assert.equal(data.prices[0].amountIDR,125000);else assert.equal(data.code,'PRICE_UNAVAILABLE');
   assert.equal((await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Origin:'https://evil.test'},body}),env)).status,403);
   assert.equal((await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',body}),env)).status,401);
  }}finally{globalThis.fetch=old;}

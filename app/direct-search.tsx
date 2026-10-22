@@ -1,6 +1,7 @@
 import {tr,label as localize,locale} from './i18n';
 import TransportBooking from './transport-booking';
 import TransportSearch from './transport-search';
+import TripHotelSearch from './trip-hotel-search';
 import HotelSearch from './hotel-search';
 import type {PartnerSearchProps} from './partner-selection';
 'use client';
@@ -15,7 +16,7 @@ import {cities,cityById} from './cities';
 import {hotelCatalog,hotelPlatforms} from './hotel-planner';
 import {journeyOptions} from './transport-data';
 const today=()=>new Date().toISOString().slice(0,10);
-export default function DirectSearch(props:PartnerSearchProps&{kind:'flights'|'hotels'|'transport';onChoose:(t:Trip)=>void}){return props.kind==='flights'?<FlightSearch direct onChoose={props.onChoose}/>:props.kind==='transport'?<TransportSearch {...props}/>:<HotelSearch {...props}/>}
+export default function DirectSearch(props:PartnerSearchProps&{kind:'flights'|'hotels'|'transport';onChoose:(t:Trip)=>void}){return props.kind==='flights'?<FlightSearch direct onChoose={props.onChoose}/>:props.kind==='transport'?<TransportSearch {...props}/>:props.context?<HotelSearch {...props}/>:<TripHotelSearch {...props}/>}
 function FixedSearch({kind,onChoose}:{kind:'flights'|'hotels'|'transport';onChoose:(t:Trip)=>void}){
  const [from,setFrom]=useState(kind==='flights'?'CGK':'kl'),[to,setTo]=useState(kind==='transport'?'melaka':'kl'),[start,setStart]=useState(addDays(today(),30)),[end,setEnd]=useState(addDays(today(),33)),[people,setPeople]=useState('1'),[journey,setJourney]=useState('return'),[mode,setMode]=useState('all'),[sort,setSort]=useState('price'),[airline,setAirline]=useState('all'),[stars,setStars]=useState('all'),[name,setName]=useState(''),[min,setMin]=useState('0'),[max,setMax]=useState('3000000'),[expanded,setExpanded]=useState(''),[error,setError]=useState('');
  const [q,setQ]=useState<null|{from:string;to:string;start:string;end:string;people:number;journey:string;mode:string}>(null);

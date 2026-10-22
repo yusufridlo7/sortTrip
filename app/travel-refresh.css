@@ -72,6 +72,31 @@ main { max-width: 1200px; padding-inline: 24px; }
 .route-recommendation { background: #f5f9fd; border-color: #dce7f1; border-radius: 10px; padding: 12px 16px; font-size: 13px; }
 .partner-selection { background: #fff; border: 1px solid #dce7f1; border-radius: 12px; padding: 16px; }
 footer { border-color: #e1e8f0; padding-block: 30px; font-size: 13px; }
+footer { flex-wrap: wrap; gap: 16px; }
+.policy-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; }
+.policy-links a { text-decoration: underline; text-underline-offset: 3px; }
+.hotel-checkout { max-width: 850px; margin: 24px auto; padding: 24px; }
+.checkout-card { padding: 24px; border: 1px solid #dce6f1; border-radius: 18px; background: white; margin-block: 20px; }
+.checkout-card strong { font-size: 24px; }
+.checkout-card form { display: grid; gap: 18px; }
+.hotel-checkout, .hotel-checkout * { box-sizing: border-box; }
+.hotel-checkout .form-two { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.hotel-checkout label:not(.checkout-consent) { display: grid; gap: 8px; min-width: 0; font-size: 15px; font-weight: 600; }
+.hotel-checkout input:not([type="checkbox"]) { display: block; width: 100%; min-width: 0; border: 1px solid #b9cbdd; border-radius: 10px; padding: 12px 14px; background: #fff; color: #18324b; font: inherit; font-weight: 400; min-height: 48px; }
+.hotel-checkout input:focus-visible { outline: 3px solid #b9ddff; outline-offset: 2px; border-color: #0879cf; }
+.hotel-checkout h3 { margin: 14px 0 0; font-size: 18px; }
+.hotel-checkout fieldset { min-width: 0; margin: 0; }
+.hotel-checkout legend { padding: 0 8px; font-size: 15px; font-weight: 600; }
+.hotel-checkout button { max-width: 100%; white-space: normal; height: auto; min-height: 44px; margin-block: 8px; }
+.hotel-checkout form > button { width: 100%; margin: 0; }
+.hotel-checkout .checkout-consent { font-size: 14px; line-height: 1.6; margin-block: 8px; }
+.hotel-checkout .policy-links { font-size: 13px; flex-wrap: wrap; }
+.hotel-checkout .inline-note { font-size: 13px; line-height: 1.6; }
+.checkout-card fieldset { border: 1px solid #dce6f1; border-radius: 12px; padding: 16px; }
+.checkout-consent { display: flex; align-items: flex-start; gap: 10px; }
+.checkout-consent input { width: 20px; flex-shrink: 0; margin-top: 5px; }
+#liteapi-payment { min-height: 240px; margin-block: 20px; }
+@media(max-width:600px){.hotel-checkout{padding:16px;margin:12px auto}.checkout-card{padding:18px}.checkout-card .form-two{grid-template-columns:1fr}}
 @media (max-width: 850px) {
   .header { height: auto; padding: 14px 18px; gap: 12px; }
   .header nav { width: 100%; gap: 14px; }
@@ -205,3 +230,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
  .partner-selection form>*,.partner-selection input,.partner-selection select { min-width:0; max-width:100%; }
 }
 .trip-hotel-frame-content{min-width:0;width:100%;margin-inline:auto}.trip-hotel-frame-mobile{background:transparent;border:0;border-radius:0}.trip-hotel-frame-mobile iframe{border-radius:12px}.trip-hotel-frame:not(.trip-hotel-frame-mobile) iframe{height:190px}
+.lite-hotel-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0;padding:24px;background:white;border:1px solid #dce6ef;border-radius:20px}
+.lite-hotel-form label,.lite-hotel-trip label{display:flex;flex-direction:column;gap:8px;min-width:0}
+.lite-hotel-form input,.lite-hotel-form select,.lite-hotel-trip select{width:100%;min-width:0;padding:12px;border:1px solid #c9d9e7;border-radius:10px;background:white}
+.lite-hotel-form .primary{grid-column:1/-1;justify-self:end}.lite-hotel-trip{margin:20px 0;max-width:480px}.lite-hotel-results{display:grid;gap:16px}.lite-hotel-card{display:flex;justify-content:space-between;gap:24px;padding:24px;background:white;border:1px solid #dce6ef;border-radius:18px}.lite-hotel-card h2{font-size:22px;margin:8px 0}.lite-hotel-card-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-end;min-width:200px}.lite-hotel-card-actions strong{font-size:24px}
+@media(max-width:640px){.lite-hotel-form{grid-template-columns:minmax(0,1fr);padding:16px}.lite-hotel-form .primary{justify-self:stretch}.lite-hotel-card{flex-direction:column;padding:18px}.lite-hotel-card-actions{align-items:stretch;min-width:0}.lite-hotel-trip{max-width:100%}}
+.google-route-check{margin-top:12px;padding:12px;border:1px solid #dce6ef;border-radius:12px;background:white}.google-route-check summary{cursor:pointer}.google-route-results{margin-top:12px;padding:12px;border:1px solid #dce6ef;border-radius:10px}.gmp-attribution{font-family:Roboto,sans-serif;font-style:normal;font-weight:400;font-size:14px;letter-spacing:normal;white-space:nowrap;color:#5e5e5e}.google-route-results article{padding:12px 0;border-bottom:1px solid #edf2f7}.google-route-results ol{padding-left:20px}.google-route-check input,.google-route-check select{max-width:100%;min-width:0}
+.hotel-details-dialog{width:min(900px,calc(100vw - 32px));max-width:calc(100vw - 32px);max-height:85dvh;overflow:auto;padding:24px}.hotel-details-dialog h3{font-size:18px;margin:24px 0 12px}.hotel-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.hotel-gallery img{width:100%;height:170px;object-fit:cover;border-radius:10px}.hotel-facilities,.hotel-rating{display:flex;flex-wrap:wrap;gap:10px}.hotel-facilities span{background:#eef6fc;border-radius:8px;padding:7px 10px;font-size:13px}.hotel-review{border-top:1px solid #dce6ef;padding:16px 0}.hotel-review small{display:block;color:#60778a;margin-top:6px}.hotel-result-photo{width:220px;max-width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:12px}.lite-hotel-trip .hotel-replace-choice{display:flex;flex-direction:row;align-items:flex-start;gap:10px;margin-top:14px;font-size:14px}.hotel-replace-choice input{width:18px;flex:none;margin-top:3px}.hotel-search-filters{display:flex;flex-wrap:wrap;gap:18px;margin:20px 0}.hotel-search-filters label{display:grid;gap:6px;font-size:14px}.hotel-search-filters select{padding:10px;border:1px solid #c9d9e7;border-radius:8px;background:white}@media(max-width:640px){.hotel-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.hotel-gallery img{height:130px}.hotel-details-dialog{padding:18px}.hotel-result-photo{width:100%;height:190px}.hotel-search-filters>*{flex:1;min-width:130px}}

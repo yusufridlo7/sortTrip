@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import type {Session} from '@supabase/supabase-js';
 import {supabase} from './supabase';
 import TravelApp from './travel-app';
+import HotelCheckout from './hotel-checkout';
 import i18next,{useLanguage,languageKey} from './i18n';
 export default function AuthApp() {
   const selectedLanguage=useLanguage();
@@ -33,5 +34,6 @@ export default function AuthApp() {
   }
   if (!ready) return <main><p role="status">{tr('ui_0070')}</p></main>;
   const email = session?.user.email || '';
+  if(window.location.pathname==='/hotel-checkout')return <HotelCheckout key={session?.user.id||'guest'} signedIn={Boolean(session)}/>;
   return <>{message && <p role="status">{localize(message)}</p>}<TravelApp key={session?.user.id || 'guest'} user={session?{id:session.user.id,name:email.split('@')[0] || 'Traveler', email}:null} onLogout={logout}/></>;
 }

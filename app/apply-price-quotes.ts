@@ -2,7 +2,7 @@ import {type Trip,type PriceQuote,addDays,dayDiff} from './travel-data';
 export function buildPriceTargets(trip:Trip,city:string){
  const names:Record<string,string>={kl:'Kuala Lumpur',sin:'Singapura',bkk:'Bangkok',melaka:'Melaka',penang:'Penang',ayutthaya:'Ayutthaya',putrajaya:'Putrajaya'};
  return trip.items.filter(x=>!x.paid&&['Penginapan','Transportasi'].includes(x.category)).flatMap(x=>{
-  const base={id:x.id,title:x.title,category:x.category,day:x.day,sourceUrl:x.sourceUrl,mode:x.mode,city:x.locationCity||city,from:x.fromPlace||names[x.fromCity||''],to:x.toPlace||names[x.toCity||''],checkin:x.checkin,checkout:x.checkout,rooms:Math.ceil(trip.people/2)};
+  const base={id:x.id,title:x.title,category:x.category,day:x.day,hotelId:x.hotelId,sourceUrl:x.sourceUrl,mode:x.mode,city:x.locationCity||city,from:x.fromPlace||names[x.fromCity||''],to:x.toPlace||names[x.toCity||''],checkin:x.checkin,checkout:x.checkout,rooms:Math.ceil(trip.people/2)};
   const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;
   return x.category==='Transportasi'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:x.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];
  }).slice(0,30);
@@ -19,8 +19,9 @@ export function applyPriceQuotes(trip:Trip,quotes:PriceQuote[]):Trip {
   const quote=byId.get(item.id);if(!quote||!Number.isFinite(quote.amountIDR)||quote.amountIDR<=0||quote.amountIDR>1e9)return item;
   if(item.category==='Penginapan'&&quote.basis==='stay_total'){
    const checkin=item.checkin||addDays(trip.start,item.day-1),checkout=item.checkout||addDays(trip.start,item.day);
-   if(quote.scope!=='dated'||quote.provider!=='Trip.com'||quote.checkin!==checkin||quote.checkout!==checkout||quote.adults!==trip.people||quote.rooms!==1||quote.taxesIncluded!==true||!quote.roomType)return item;
-   return {...item,price:quote.amountIDR,shared:true,priceUnknown:false,priceQuote:quote};
+   if(quote.scope!=='dated'||!['Trip.com','LiteAPI'].includes(quote.provider)||quote.checkin!==checkin||quote.checkout!==checkout||quote.adults!==trip.people||quote.rooms!==(quote.provider==='LiteAPI'?Math.ceil(trip.people/2):1)||quote.taxesIncluded!==true||!quote.roomType)return item;
+   if(quote.provider==='LiteAPI'&&(!quote.hotelId||item.hotelId&&item.hotelId!==quote.hotelId||quote.hotelName!==item.title))return item;
+   return {...item,price:quote.amountIDR,shared:true,priceUnknown:false,priceQuote:quote,...(quote.provider==='LiteAPI'?{provider:'LiteAPI',hotelId:quote.hotelId,bookingUrl:quote.bookingUrl||undefined,hotelArea:quote.hotelArea,geo:quote.geo||item.geo}: {})};
   }
   if(item.category==='Penginapan'&&quote.basis==='room_night'){
    const nights=Math.max(1,dayDiff(item.checkin||addDays(trip.start,item.day-1),item.checkout||addDays(trip.start,item.day)));

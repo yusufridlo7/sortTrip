@@ -1,5 +1,14 @@
 <!doctype html><html lang="id"><head><script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
   (function () {
+      if (location.pathname === '/hotel-checkout') {
+          // Remove provider payment query fields before loading app/third-party assets.
+          var params = new URLSearchParams(location.search);
+          var checkoutId = params.get('checkoutId');
+          if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(checkoutId || '')) {
+              history.replaceState(null, '', '/hotel-checkout?checkoutId=' + encodeURIComponent(checkoutId));
+          }
+          return;
+      }
       var script = document.createElement("script");
       script.async = 1;
       script.setAttribute("data-cmp-ab","2");

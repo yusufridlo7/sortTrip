@@ -121,3 +121,13 @@ test('connecting-route quotes price each leg and leave subtotal incomplete when 
  trip.items[0].routeOptions[0].legs[0].mode='walking';assert.equal(prices.applyPriceQuotes(trip,[quote]).items[0].priceUnknown,false);
  trip.items[0].paid=true;assert.equal(prices.applyPriceQuotes(trip,[quote]).items[0],trip.items[0]);
 });
+
+
+test('LiteAPI dated totals persist as one shared stay and cannot reprice paid or mismatched hotels',()=>{
+ const item={id:'hotel',title:'Hotel A',hotelId:'lpfixture',category:'Penginapan',day:1,checkin:'2027-01-10',checkout:'2027-01-13',paid:false,priceUnknown:true,price:0};
+ const trip={start:'2027-01-10',days:4,people:3,items:[item]};
+ const quote={id:'hotel',hotelName:'Hotel A',hotelId:'lpfixture',provider:'LiteAPI',scope:'dated',basis:'stay_total',amountIDR:900000,checkin:item.checkin,checkout:item.checkout,adults:3,rooms:2,taxesIncluded:true,roomType:'Double / Single',checkedAt:'2027-01-01T00:00:00Z'};
+ const applied=prices.applyPriceQuotes(trip,[quote]);assert.equal(applied.items[0].price,900000);assert.equal(applied.items[0].shared,true);assert.equal(JSON.parse(JSON.stringify(applied)).items[0].hotelId,'lpfixture');
+ for(const invalid of [{...quote,rooms:1},{...quote,hotelId:'wrong'},{...quote,hotelName:'Hotel B'},{...quote,checkout:'2027-01-12'}])assert.equal(prices.applyPriceQuotes(trip,[invalid]).items[0],item);
+ const paid={...item,paid:true};assert.equal(prices.applyPriceQuotes({...trip,items:[paid]},[quote]).items[0],paid);
+});

@@ -5,7 +5,7 @@ export const tripHotelWidget='https://www.trip.com/partners/ad/S20157986?Allianc
 export const tripHotelMobileWidget='https://www.trip.com/partners/ad/S20187449?Allianceid=10936143&SID=332965312&trip_sub1=';
 export const tripLabel=(trip:Trip)=>trip.destinationMeta?.city||destinations.find(d=>d.id===trip.destination)?.city||trip.destination;
 export const partnerTripKey=(trip:Trip)=>[trip.id||'',trip.destination,trip.start,trip.days].join('|');
-export type PartnerContext={name?:string;date?:string;checkOut?:string;from?:string;to?:string;replaceId?:string;tripKey?:string};
+export type PartnerContext={country?:string;name?:string;date?:string;checkOut?:string;from?:string;to?:string;replaceId?:string;tripKey?:string};
 export type PartnerSearchProps={trip:Trip|null;trips:Trip[];context?:PartnerContext;onAdd:(trip:Trip,item:Item,replaceId?:string)=>void};
 const aliases:Record<string,string>={'kuala lumpur':'kl','bangkok':'bkk','singapura':'sin','singapore':'sin','melaka':'melaka','malacca':'melaka','chiang mai':'chiang-mai',kl:'kl',bkk:'bkk',sin:'sin'};
 export function partnerCity(value:string){return aliases[value.trim().toLowerCase()]||value.trim().toLowerCase();}

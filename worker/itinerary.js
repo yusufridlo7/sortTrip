@@ -1,4 +1,5 @@
 import {normalizeLanguage} from './localization.js';
+import {liteHotelConfigured,groupHotelAreas,applyLiteHotels} from './lite-hotel.js';
 import {priceTargets,researchPrices} from './price-research.js';
 import {researchRequest,transportResearchRequest,draftRequest,collectSources,responseText} from './ai-draft.js';
 import {planningKey} from './trip-access.js';
@@ -18,7 +19,7 @@ export function validatePlan(plan,q,sources){
  const allowed=new Set(sources.map(s=>s.url));
  const activities=plan.activities.map((a,i)=>{
   if(!Number.isInteger(a.day)||a.day<1||a.day>q.days||!/^([01]\d|2[0-3]):[0-5]\d$/.test(a.time)||!['Wisata','Penginapan','Area menginap','Transfer'].includes(a.category)||!a.title||!allowed.has(a.sourceUrl))throw Error('Rancangan tidak dapat diverifikasi.');
-  if(a.category==='Penginapan'&&a.day>=q.days)throw Error('Malam penginapan tidak valid.');
+ if(['Penginapan','Area menginap'].includes(a.category)&&a.day>=q.days)throw Error('Malam penginapan tidak valid.');
   if(a.category==='Transfer'&&(a.fromPlace!==undefined||a.toPlace!==undefined)&&(!a.fromPlace||!a.toPlace||!a.mode))throw Error('Rute transportasi belum lengkap.');
   const minutes=v=>Number(v.slice(0,2))*60+Number(v.slice(3,5));
   const scheduled=(a.day-1)*1440+minutes(a.time);
@@ -51,6 +52,7 @@ export async function handleItinerary(request,env){
  const raw=await request.text();if(raw.length>32000)return reply({error:'Permintaan terlalu besar.'},413);
  let q;try{q=validateInput(JSON.parse(raw));if(q.mode!=='prices'&&raw.length>16000)throw Error('size');}catch{return reply({error:'Parameter perjalanan tidak valid.'},400);}
  if(!env.SUPABASE_SERVICE_ROLE_KEY)return reply({error:'Migrasi kuota AI dan konfigurasi server perlu disiapkan.'},503);
+ if(env.LITEAPI_ENABLED==='true'&&!liteHotelConfigured(env))return reply({code:'LITEAPI_PRODUCTION_REQUIRED',error:'lite_production_required'},503);
  const requestId=crypto.randomUUID();
  const quotaResponse=await quota('reserve_ai_request',{p_user:user.id,p_trip_key:planningKey(q.city,q.start),p_request:requestId});
  if(!quotaResponse.ok)return reply({error:'Migrasi kuota AI belum siap.'},503);
@@ -64,7 +66,7 @@ export async function handleItinerary(request,env){
   const prices=await researchPrices(q,q.priceTargets,env,callProvider,priceDeadline,diagnostics);
   if(!prices.length&&diagnostics.hotelAccessRequired)return reply({code:'PRICE_SOURCE_ACCESS_REQUIRED',error:'Trip.com meminta pemeriksaan akses untuk pencarian ini. Harga belum dapat diperbarui; harga lama dan kuota AI tetap.'},502);
   if(!prices.length&&diagnostics.transportAccessRequired)return reply({code:'PRICE_SOURCE_ACCESS_REQUIRED',error:'12Go meminta pemeriksaan akses untuk pencarian ini. Harga belum dapat diperbarui; harga lama dan kuota AI tetap.'},502);
-  if(!prices.length)return reply({code:'PRICE_UNAVAILABLE',error:'Harga yang sesuai belum dapat diverifikasi. Hotel memerlukan pencarian Trip.com sesuai tanggal dan tamu; transportasi memakai sumber 12Go. Harga dan kuota tidak diubah.'},502);
+  if(!prices.length)return reply({code:'PRICE_UNAVAILABLE',error:'lite_price_unavailable'},502);
   const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil.'},503);
   completed=true;return reply({access,prices});
  }
@@ -108,8 +110,10 @@ export async function handleItinerary(request,env){
   if(corrected.status!=='completed')return reply({code:'AI_DRAFT_INCOMPLETE',error:'Koreksi itinerary belum selesai. Itinerary dan kuota tidak diubah.'},502);
   try{plan=parse(corrected)}catch(error){const reason=validationCode(error);return reply({code:'AI_DRAFT_INVALID',validation:reason,error:'Hasil AI belum lolos pemeriksaan ('+reason+'). Itinerary dan kuota tidak diubah.'},502);}
  }
+ plan=groupHotelAreas(plan,q);
  let prices=[];
- try{const targets=priceTargets(plan.activities.filter(x=>['Penginapan','Transfer'].includes(x.category)).flatMap(x=>{const base={id:'ai-plan-'+x.id,title:x.title,category:x.category==='Transfer'?'Transportasi':'Penginapan',day:x.day,city:x.city,sourceUrl:x.sourceUrl,mode:x.mode,from:x.fromPlace,to:x.toPlace,rooms:Math.ceil(q.people/2)};const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;return x.category==='Transfer'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:base.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];}).slice(0,12),q.days);prices=await researchPrices(q,targets,env,callProvider,priceDeadline);}catch{}
+ try{const targets=priceTargets(plan.activities.filter(x=>['Penginapan','Area menginap','Transfer'].includes(x.category)).flatMap(x=>{const base={id:'ai-plan-'+x.id,title:x.title,category:x.category==='Transfer'?'Transportasi':'Penginapan',day:x.day,city:x.city,area:x.category==='Area menginap'?(x.location||x.title):'',hotelId:x.hotelId,checkin:x.checkin,checkout:x.checkout,sourceUrl:x.sourceUrl,mode:x.mode,from:x.fromPlace,to:x.toPlace,rooms:Math.ceil(q.people/2)};const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;return x.category==='Transfer'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:base.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];}).slice(0,12),q.days);prices=await researchPrices(q,targets,env,callProvider,priceDeadline);}catch{}
+ plan=applyLiteHotels(plan,prices);
  const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil. Coba lagi nanti.'},503);completed=true;return reply({access,plan,prices});
  }catch{return reply({error:'Koneksi penyusunan terganggu atau melewati batas waktu. Itinerary lama tetap tersimpan.'},502);}finally{if(reservation&&!completed)try{await quota('finish_ai_request',{...reservation,p_success:false})}catch{}}
 }

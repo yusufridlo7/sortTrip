@@ -5,7 +5,7 @@
   "compatibility_date": "2026-09-28",
   "compatibility_flags": ["nodejs_compat"],
   "browser": {"binding": "HOTEL_BROWSER", "remote": true},
-  "vars": {"HOTEL_BROWSER_ENABLED": "true"},
+  "vars": {"HOTEL_BROWSER_ENABLED": "true", "LITEAPI_WHITELABEL_URL": "https://yusuf-ridlo-kkxjf.nuitee.link", "LITEAPI_ENABLED": "true", "LITEAPI_CHECKOUT_ENABLED": "true", "LITEAPI_CHECKOUT_MODE": "live", "LITEAPI_BOOKING_LIVE_APPROVED": "true", "GOOGLE_ROUTES_ENABLED": "true", "VIATOR_ENVIRONMENT": "production"},
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -15,6 +15,7 @@
     ]
   },
   "ratelimits": [
+    {"name":"VIATOR_LIMITER","namespace_id":"578840","simple":{"limit":10,"period":60}},
     {
       "name": "AI_LIMITER",
       "namespace_id": "578839",
