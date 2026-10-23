@@ -46,3 +46,6 @@ See QA_TEST_MATRIX.csv for each test ID, status, layer and evidence. See FEATURE
 ## Remaining work ownership
 
 Owner-operated controlled financial, multi-user database and messaging tests are in OWNER_ACTION_REQUIRED.md. Engineering follow-ups are in FIX_LOG.md and domain reports. Source RLS and mock provider behavior do not prove deployed policy state, successful payment, supplier reservation, scheduler execution or notification receipt.
+
+## Owner-authorized release checkpoint — 23 October 2026
+The local-only statement above describes the audit snapshot. Its code fixes were subsequently committed770afbd, pushed and deployed version7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1;285latest fixtures/build/i18nPASS. Production read-only smoke and actual Travelpayouts200 verified. Original financial-readiness limitations remain. See RELEASE_2026-10-23.md.

@@ -38,3 +38,6 @@ White-label Nuitée is outside the active product path and is not a release gate
 Review the local fixes and release only on explicit instruction. After release, repeat the production unknown-page 404, robots, sitemap, checkout and authentication smoke checks. Verify the effective RLS/RPC migration state with controlled accounts. Complete the isolated Midtrans lifecycle and any owner-operated Nuitée SDK booking/recovery test with appropriate authorization. Establish scheduled Price Watch receipt and a controlled support conversation. Review privacy wording, static security headers, backup/restore evidence and mobile performance.
 
 Historical rollback reference: 8f76d368-5417-4498-a44f-ee7c038e5a19. A fresh remote-version attestation was not performed. White-label 403 is excluded from release gates by the latest owner instruction; the active API + SDK path does not depend on LAS-3147.
+
+## Release checkpoint — 23 October 2026
+Owner authorized publication of the tested code package:commit770afbd, production7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1,285fixtures/build/i18nPASS. Public smoke and authenticated production Travelpayouts booking-only query200 verified. Deployment does not imply positive conversion, airline issuance or full financial lifecycle verification. Details:RELEASE_2026-10-23.md.

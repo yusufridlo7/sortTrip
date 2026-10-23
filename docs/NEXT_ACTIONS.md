@@ -373,3 +373,6 @@ Actual backend fare extraction now passes for KL→Malacca6Nov2026/oneadult/bus(
 
 ## 2026-10-23 — HTTP400 follow-up resolved
 The earlier requirement to contact Travelpayouts support about HTTP400 is superseded: adapter field mismatch corrected using live sub_type metadata, actual local query200 verified. Do not replace the existing token or re-register. Remaining optional evidence: a naturally occurring positive conversion through a newly scoped link (no artificial purchase needed); source review/release only on owner instruction. No airline ticket issuance guarantee inferred from affiliate report.
+
+## 2026-10-23 — QA release complete
+Owner-authorized commit770afbd pushed and production7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1 verified. Do not repeat deployment/registration/key replacement for the resolved Travelpayouts400: actual production query200 now established. Positive naturally occurring conversion and owner-controlled financial lifecycle remain separate future evidence. No second application deployment required for release-documentation commit. See qa-reports/RELEASE_2026-10-23.md.
