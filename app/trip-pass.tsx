@@ -27,10 +27,10 @@ export default function TripPass({trip,onLogin,onAccessChange}:{trip:Trip;onLogi
    checking=true;lastCheck=Date.now();setLoading(true);
    try{
     const {data}=await supabase.auth.getSession();if(!data.session)return;
-    const accessResponse=await boundedFetch('/api/payments/access',{method:'POST',signal:controller.signal,headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':'application/json'},body:JSON.stringify({city,start:trip.start})});
+    const accessResponse=await boundedFetch('/api/payments/access',{method:'POST',signal:controller.signal,headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':'application/json','X-SortTrip-Language':language()},body:JSON.stringify({city,start:trip.start})});
     const access=await accessResponse.json();if(!accessResponse.ok)throw Error(tr('ui_0011'));
     if(!trip.id){if(generation.current===id)setStatus({...access,mode:'',ownerTest:false,checkoutEnabled:false,status:'none'});return;}
-    const r=await boundedFetch('/api/payments/status',{method:'POST',signal:controller.signal,headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':'application/json'},body:JSON.stringify({tripId:trip.id,city,start:trip.start,refresh:true})});
+    const r=await boundedFetch('/api/payments/status',{method:'POST',signal:controller.signal,headers:{Authorization:`Bearer ${data.session.access_token}`,'Content-Type':'application/json','X-SortTrip-Language':language()},body:JSON.stringify({tripId:trip.id,city,start:trip.start,refresh:true})});
     const b=await r.json();if(!r.ok){if(b.code==='TRIP_IDENTITY_CHANGED'&&access.pass){if(generation.current===id)setStatus({...access,mode:'',ownerTest:false,checkoutEnabled:false,status:'none'});return;}throw Error(b.error||'Status Trip Pass belum dapat dimuat.');}
     if(generation.current===id){setStatus(b);restoreCheckout(b);if(b.verificationError)setMessage(verificationMessage(b));if(b.pass&&b.pass.remaining>0){setMessage('');setCheckoutUrl('');}}
    }catch(e){if(generation.current===id&&!controller.signal.aborted)setMessage(previous=>previous||(e instanceof Error?e.message:'Status Trip Pass belum dapat dimuat.'));}
@@ -59,7 +59,7 @@ export default function TripPass({trip,onLogin,onAccessChange}:{trip:Trip;onLogi
   {(!pass||pass.remaining===0||details)&&<><p>{tr('ui_0700')+' '}{pass?.requestLimit??10}{' '+tr('ui_0701')}</p><p className="inline-note">{tr('ui_0702')}</p></>}
   {pass?.remaining===0&&<p className="pass-exhausted">{tr('ui_0703')}</p>}{pass&&details&&<p>{tr('ui_0704')+' '}{pass.requestLimit??20}{' '+tr('ui_0705')+' '}{new Date(pass.expiresAt).toLocaleDateString(locale())}. {pass.test?tr('ui_0706'):tr('ui_0707')}</p>}
   {(!pass||pass.remaining===0)&&<>
-   {!trip.id?<p>{tr('ui_0708')}</p>:loading?<p role="status">{tr('ui_0709')}</p>:status?.checkoutEnabled?<p>{status.mode==='sandbox'?tr('ui_0710'):tr('ui_0711')}</p>:<p>{status?.checkoutReason||'Pembayaran belum tersedia. Periksa status untuk melihat kendalanya.'}</p>}
+   {!trip.id?<p>{tr('ui_0708')}</p>:loading?<p role="status">{tr('ui_0709')}</p>:status?.checkoutEnabled?<p>{status.mode==='sandbox'?tr('ui_0710'):tr('ui_0711')}</p>:<p>{localize(status?.checkoutReason||tr('msg_0244'))}</p>}
    <div className="ai-controls">{checkoutUrl?<a className="primary" href={checkoutUrl} target="_blank" rel="noopener noreferrer">{status?.checkoutAmount?tr('pass_continue_payment_amount',{amount:money(status.checkoutAmount)}):tr('pass_continue_payment')}</a>:<button className="primary" type="button" disabled={busy||(!status&&loading)||!trip.id||!status?.checkoutEnabled} onClick={()=>act('checkout')}>{busy&&actionName==='checkout'?tr('ui_0713'):pass?.remaining===0?tr('ui_0714'):tr('ui_0712')}</button>}</div>
    <p className="inline-note">{tr('ui_0715')}</p>
   </>}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /hotel-checkout
+Sitemap: https://sorttrip.yusufridlo7.workers.dev/sitemap.xml

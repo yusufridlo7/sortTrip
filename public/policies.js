@@ -1,7 +1,9 @@
 // Public policy pages need no account, provider calls or tracking scripts.
-const preferred=new URLSearchParams(location.search).get('lang');
-if(preferred==='en'){
- document.documentElement.lang='en';
- document.querySelectorAll('[data-policy-lang]').forEach(el=>{el.hidden=el.dataset.policyLang!=='en';});
- document.title=document.querySelector('[data-policy-lang="en"] h1')?.textContent+' | SortTrip';
-}
+const requested=new URLSearchParams(location.search).get('lang');
+let preferred=requested;
+try{if(!['id','en'].includes(preferred))preferred=localStorage.getItem('sorttrip-language');if(['id','en'].includes(requested))localStorage.setItem('sorttrip-language',requested);}catch{}
+preferred=preferred==='en'?'en':'id';
+document.documentElement.lang=preferred;
+document.querySelectorAll('[data-policy-lang]').forEach(el=>{el.hidden=el.dataset.policyLang!==preferred;});
+const heading=document.querySelector(`[data-policy-lang="${preferred}"] h1`);
+if(heading)document.title=heading.textContent+' | SortTrip';

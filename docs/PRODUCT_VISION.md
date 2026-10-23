@@ -1,6 +1,7 @@
 # SortTrip — Product Vision
 
 ## Target users
+Owner focus (2026-10-22): domestic Indonesia and Southeast Asia first, explicitly including Vietnam. Give beginners practical economy/value/comfort comparisons based on actual price, facilities, reviews, location and transfer burden; worldwide destination searches remain available. A budget preference is not proof of availability or that unknown costs fit the budget.
 Initial target:
 - Indonesian travelers.
 - Especially first-time international travelers.

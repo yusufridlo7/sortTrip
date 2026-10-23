@@ -9,6 +9,17 @@ const route={id:'bus',category:'Transportasi',title:'Bus Johor Bahru → Melaka'
 const fare='IDR 125,000\nTaxes included | passenger\nBook now';
 const observation={url:datedTransportUrl(route,1),from:route.from,to:route.to,date:'Jan 30, 2027',travelers:'1 Traveler',currency:'IDR',offers:[{text:'Johor Bahru\n4h | Operator | Bus\nMelaka\n'+fare,fare}]};
 
+test('current 12Go compact date/per-adult cards accepted; grouped from prices and wrong weekdays rejected',()=>{
+ const target={...route,from:'Kuala Lumpur',to:'Melaka',travelDate:'2026-11-06',sourceUrl:'https://12go.asia/en/travel/kuala-lumpur/malacca'};
+ const currentFare='IDR\u00a057,647\nTaxes included\n|\nper adult\nBook now';
+ const current={...observation,url:datedTransportUrl(target,1),from:'Kuala Lumpur',to:'Malacca',date:'Fri, Nov 6',offers:[{text:'09:30\nKuala Lumpur\n1h 45m | Melor Interline Express | Bus | Economy 2X2\n11:15\nMalacca\n'+currentFare,fare:currentFare}]};
+ assert.equal(checkedTransportQuote(target,1,current).amountIDR,57647);
+ assert.equal(checkedTransportQuote(target,1,{...current,date:'Sat, Nov 6'}),null);
+ assert.equal(checkedTransportQuote(target,1,{...current,url:current.url.replace('2026-11-06','2027-11-06')}),null);
+ for(const fare of ['From '+currentFare,currentFare.replace('Book now','Select Time'),currentFare.replace('per adult','per vehicle'),currentFare.replace('Taxes included','Taxes extra')])assert.equal(checkedTransportQuote(target,1,{...current,offers:[{text:current.offers[0].text,fare}]}),null);
+ assert.equal(datedTransportUrl(target,2),null);
+});
+
 test('each supplier operation gets an independent context and cleans up even when context fails',async()=>{
  const contexts=[],closed=[];let launches=0;
  const launch=async()=>{const id=++launches;return {newContext:async options=>{assert.deepEqual(options,{locale:'en-US'});const ctx={id,close:async()=>closed.push('context'+id)};contexts.push(ctx);return ctx;},close:async()=>closed.push('browser'+id)};};
@@ -38,6 +49,15 @@ function fixtureLaunch(observed,fail=false){
  const launch=async()=>({newContext:async()=>({newPage:async()=>page,close:async()=>events.push('context closed')}),close:async()=>events.push('browser closed')});
  return {launch,events};
 }
+test('backend detects an access challenge before currency controls and returns no ticket',async()=>{
+ let clicks=0,closed=0;
+ const locator={waitFor:async()=>{throw Error('must stop before waiting for form');},first(){return this;},click:async()=>{clicks++;}};
+ const page={setDefaultTimeout(){},route:async()=>{},goto:async()=>({status:()=>403}),evaluate:async()=>true,locator:()=>locator,getByText:()=>locator,close:async()=>{closed++;}};
+ const launch=async()=>({newContext:async()=>({newPage:async()=>page,close:async()=>{closed++;}}),close:async()=>{closed++;}});
+ const diagnostics={};
+ assert.deepEqual(await browserTransportPrices({people:1},[route],{HOTEL_BROWSER_ENABLED:'true',HOTEL_BROWSER:{}},Date.now()+30000,diagnostics,launch),[]);
+ assert.equal(diagnostics.transportAccessRequired,true);assert.equal(diagnostics.transportHttpStatus,403);assert.equal(clicks,0);assert.equal(closed,3);
+});
 test('browser adapters return only validated prices and clean up unavailable searches',async()=>{
  const env={HOTEL_BROWSER_ENABLED:'true',HOTEL_BROWSER:{}},transport=fixtureLaunch(observation);
  assert.equal((await browserTransportPrices({people:1},[route],env,Date.now()+30000,{},transport.launch))[0].amountIDR,125000);

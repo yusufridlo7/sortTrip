@@ -21,6 +21,7 @@ The product should help a user move from an idea such as “I want to travel abr
 AI is an orchestrator and planning assistant, not the source of truth for live commercial facts. Prices, schedules, availability, visa rules, weather, and bookable inventory should come from appropriate APIs/databases/sources when available. The AI should not invent these facts.
 
 ## Current positioning
+Initial destination focus includes domestic Indonesia and Southeast Asia (including Vietnam), per owner clarification2026-10-22. Budget/value choices should be surfaced explicitly rather than sampling only premium hotels. Preserve optional worldwide searches and truthful provider coverage.
 Working concept: **AI Travel Planner & Booking Assistant**.
 
 SortTrip should combine planning across providers rather than becoming the merchant of record for every travel product during the initial phase.

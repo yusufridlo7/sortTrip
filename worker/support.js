@@ -19,7 +19,7 @@ export async function runSupportOutbox(env){
  if(!supportConfigured(env))return;
  let entries;try{entries=await db(env,'rpc/support_claim_outbox',{});}catch{return;}
  for(const entry of entries){let telegramId=null;
-  try{const text=safeSupportText(entry.body);const notice=`SortTrip Support #${entry.conversation_id.slice(0,8)}\n${entry.language==='en'?'English':'Indonesia'}\n\n${text}\n\nReply untuk menjawab. Reply /close untuk menutup percakapan.`;
+  try{const text=safeSupportText(entry.body);const notice=`SortTrip Support #${entry.conversation_id.slice(0,8)}\n${entry.language==='en'?'English':'Indonesia'}\n\n${text}\n\n${entry.language==='en'?'Reply to respond. Reply /close to close the conversation.':'Balas untuk menjawab. Balas /close untuk menutup percakapan.'}`;
    const r=await fetch('https://api.telegram.org/bot'+env.SUPPORT_TELEGRAM_BOT_TOKEN+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:env.SUPPORT_TELEGRAM_CHAT_ID,text:notice,protect_content:true,link_preview_options:{is_disabled:true}}),signal:AbortSignal.timeout(10000)});if(r.ok){const result=await r.json();if(result.ok&&Number.isSafeInteger(result.result?.message_id))telegramId=result.result.message_id;}
   }catch{}
   try{await db(env,'rpc/support_finish_outbox',{p_id:entry.id,p_lease:entry.lease,p_telegram_message_id:telegramId,p_chat_id:env.SUPPORT_TELEGRAM_CHAT_ID});}catch{} // Lease expires; provider acceptance plus DB failure may produce a duplicate notification.

@@ -10,14 +10,18 @@ export async function runPriceWatches(env,ctx,searchFlights){
  const watches=await db(env,'rpc/claim_price_watches',{});
  for(const w of watches){
   let fare=null,status='error';
-  try{const response=await searchFlights(w.query,env,ctx);const result=await response.json();if(response.ok){fare=lowerFare(result.flights||[]);status=fare?'ok':'no_data';}}catch{}
-  await db(env,'rpc/finish_price_watch',{p_id:w.id,p_lease:w.lease,p_price:fare?.price||null,p_url:fare?.bookingUrl||'',p_status:status});
+  // A watch targets a saved exact airport, including domestic trips. Old SQL
+  // snapshots used international discovery scope, hiding every Indonesian fare.
+  try{const response=await searchFlights({...w.query,scope:'all'},env,ctx);const result=await response.json();if(response.ok){fare=lowerFare(result.flights||[]);status=fare?'ok':'no_data';}}catch{}
+  try{await db(env,'rpc/finish_price_watch',{p_id:w.id,p_lease:w.lease,p_price:fare?.price||null,p_url:fare?.bookingUrl||'',p_status:status});}catch{console.warn('PRICE_WATCH_FINISH_FAILED');}
  }
  if(!env.RESEND_API_KEY||!env.PRICE_WATCH_FROM)return;
  const pending=await db(env,'price_notifications?email_sent=eq.false&select=*,price_watches!inner(enabled,email_enabled,trip_passes!inner(expires_at))&price_watches.enabled=eq.true&price_watches.email_enabled=eq.true&price_watches.trip_passes.expires_at=gt.'+encodeURIComponent(new Date().toISOString())+'&order=created_at.asc&limit=5');
  for(const n of pending){
+  try{
   const u=await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${n.user_id}`,{headers:{apikey:env.SUPABASE_SERVICE_ROLE_KEY,Authorization:`Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`},signal:AbortSignal.timeout(10000)});if(!u.ok)continue;const user=await u.json();if(!user.email||!user.email_confirmed_at)continue;
   const r=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':`price-watch-${n.id}`},body:JSON.stringify({from:env.PRICE_WATCH_FROM,to:[user.email],...priceWatchEmail(n,user.user_metadata?.language)}),signal:AbortSignal.timeout(12000)});
   if(r.ok)await db(env,`price_notifications?id=eq.${n.id}`,{email_sent:true},'PATCH');
+  }catch{console.warn('PRICE_WATCH_EMAIL_DEFERRED');}
  }
 }

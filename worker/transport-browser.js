@@ -17,12 +17,15 @@ export function checkedTransportQuote(target,people,observation){
  let u;try{u=new URL(observation.url);}catch{return null;}
  if(transportRouteUrl(u.href)!==transportRouteUrl(expected)||['date','people','adults'].some(k=>u.searchParams.get(k)!==new URL(expected).searchParams.get(k)))return null;
  const dateLabel=new Date(target.travelDate+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
- if(endpoint(observation.from)!==endpoint(target.from)||endpoint(observation.to)!==endpoint(target.to)||observation.date!==dateLabel||observation.travelers!==`${people} Traveler`||observation.currency!=='IDR')return null;
+ const compactDate=new Date(target.travelDate+'T12:00:00Z').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',timeZone:'UTC'});
+ // The current UI omits the year. The full ISO date must still match in the
+ // final search URL, and its visible weekday/month/day must agree exactly.
+ if(endpoint(observation.from)!==endpoint(target.from)||endpoint(observation.to)!==endpoint(target.to)||![dateLabel,compactDate].includes(observation.date)||observation.travelers!==`${people} Traveler`||observation.currency!=='IDR')return null;
  const wanted=modeOf(target.mode||target.title);
  const offers=(Array.isArray(observation.offers)?observation.offers:[]).flatMap(o=>{
   if(typeof o.text!=='string'||o.text.length>2500||typeof o.fare!=='string'||o.fare.length>500||modeOf(o.text)!==wanted||/taxi|vehicle|charter|sign in|log in|member|coupon/i.test(o.text))return [];
   // Read a displayed ticket offer, never a route-page "from" price or vehicle total.
-  if(!/Taxes included/i.test(o.fare)||!/(?:passenger|per person|per ticket)/i.test(o.fare)||!/Book now/i.test(o.fare))return [];
+  if(!/Taxes included/i.test(o.fare)||!/(?:passenger|per person|per ticket|per adult)/i.test(o.fare)||!/Book now/i.test(o.fare)||/\bfrom\s+IDR|starting\s+(?:at|from)|select time/i.test(o.fare))return [];
   const match=o.fare.match(/IDR\s*([0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?![0-9.,])/);
   const amount=match&&Number(match[1].replace(/,/g,''));if(!amount||amount>1e9)return [];
   return [{amount,text:o.text.trim()}];
@@ -37,6 +40,7 @@ export async function browserTransportPrices(q,targets,env,deadline=Date.now()+4
  if(!routes.length||deadline-Date.now()<5000)return [];
  let session;
  try{
+  diagnostics.transportPhase='LAUNCH';
   session=await openSupplierBrowser(env.HOTEL_BROWSER,launchBrowser);
   const quotes=[];
   for(const target of routes){
@@ -49,21 +53,27 @@ export async function browserTransportPrices(q,targets,env,deadline=Date.now()+4
       return route.abort();
      }return route.continue();
     });
-    await page.goto(datedTransportUrl(target,q.people),{waitUntil:'domcontentloaded',timeout:remaining});
-    await page.locator('.vue-search-form').waitFor({timeout:Math.max(1,Math.min(12000,deadline-Date.now()))});
+    diagnostics.transportPhase='NAVIGATION';
+    const navigation=await page.goto(datedTransportUrl(target,q.people),{waitUntil:'domcontentloaded',timeout:remaining});
+    diagnostics.transportHttpStatus=navigation?.status()||null;
     if(await page.evaluate(()=>/captcha|verify you are human|access denied|unusual traffic|security check/i.test(document.body?.innerText||''))){blocked=true;diagnostics.transportAccessRequired=true;break;}
     if(blocked)break;
+    diagnostics.transportPhase='SEARCH_FORM';
+    await page.locator('.vue-search-form').waitFor({timeout:Math.max(1,Math.min(12000,deadline-Date.now()))});
     // Only the normal public currency control; no stored cookies or injected session.
+    diagnostics.transportPhase='CURRENCY';
     await page.locator('.curr-selector').first().click();await page.getByText('IDR',{exact:true}).click();
+    diagnostics.transportPhase='OFFERS';
     await page.locator('.trip-cta').filter({hasText:/IDR/}).first().waitFor({timeout:Math.max(1,Math.min(18000,deadline-Date.now()))});
     const observation=await page.evaluate(()=>{
      const form=document.querySelector('.vue-search-form'),places=Array.from(form?.querySelectorAll('.places .vue-search-form-group-field')||[]).map(e=>e.innerText.trim());
      const date=form?.querySelector('.dates')?.innerText.trim().split('\n')[0],travelers=form?.querySelector('.people')?.innerText.trim();
      const currency=document.querySelector('.curr-selector')?.innerText.includes('IDR')?'IDR':null;
-     const offers=Array.from(document.querySelectorAll('.trip-card')).filter(e=>e.querySelector('.trip-card-options')).slice(0,40).map(e=>({text:e.innerText.slice(0,2400),fare:e.querySelector('.trip-cta')?.innerText.slice(0,480)||''}));
+     const offers=Array.from(document.querySelectorAll('.trip-card')).slice(0,40).map(e=>({text:e.innerText.slice(0,2400),fare:e.querySelector('.trip-cta')?.innerText.slice(0,480)||''}));
      return {url:location.href,from:places[0],to:places[1],date,travelers,currency,offers};
     });
-    const quote=checkedTransportQuote(target,q.people,observation);if(quote){quotes.push(quote);console.info('TRANSPORT_BROWSER_QUOTE_OK');}else console.info('TRANSPORT_BROWSER_NO_MATCHING_TICKET');
+    diagnostics.transportPhase='VALIDATION';
+    const quote=checkedTransportQuote(target,q.people,observation);if(quote){quotes.push(quote);diagnostics.transportPhase='QUOTE_ACCEPTED';console.info('TRANSPORT_BROWSER_QUOTE_OK');}else console.info('TRANSPORT_BROWSER_NO_MATCHING_TICKET');
    }catch{console.info(blocked?'TRANSPORT_BROWSER_ACCESS_REQUIRED':'TRANSPORT_BROWSER_PRICE_UNAVAILABLE');}
    finally{await page.close().catch(()=>{});}
    if(blocked)break;

@@ -17,6 +17,14 @@ try{
  data=await import(pathToFileURL(join(dir,'travel-data.mjs')));city=await import(pathToFileURL(join(dir,'cities.mjs')));transport=await import(pathToFileURL(join(dir,'local-transport-data.mjs')));
 }finally{await rm(dir,{recursive:true,force:true});}
 const trip=()=>data.makeTrip(data.destinations[0],'CGK','2027-01-01',4,2,6000000);
+
+test('a day with only the same hotel does not invent a zero-distance transport connection',()=>{
+ const t=trip();t.items=[{id:'qa-hotel',category:'Penginapan',title:'QA hotel',place:'QA hotel',cityId:'kl',day:1,time:'10:00',price:100000,paid:false,note:'',checkin:t.start,checkout:data.addDays(t.start,4),geo:{lat:3.14,lng:101.69}}];
+ assert.equal(transport.localLegs(t,2).length,0);
+ assert.throws(()=>transport.applyLocalTransport(t,2,{}),/Belum ada perpindahan lokal/);
+ t.items.push({id:'qa-visit',category:'Wisata',title:'QA visit',cityId:'kl',day:2,time:'12:00',price:0,paid:false,note:'',geo:{lat:3.15,lng:101.70}});
+ const connections=transport.localLegs(t,2);assert.equal(connections.length,2);assert.ok(connections.every(x=>x.km>0&&x.options.length>0));
+});
 test('changing a city recommends lodging near its visits without overwriting other nights',()=>{
  const t=trip(),changed=city.reviseCities(t,2,2,'melaka');
  assert.equal(city.cityAt(changed,2).id,'melaka');const h=city.hotelAt(changed,2);

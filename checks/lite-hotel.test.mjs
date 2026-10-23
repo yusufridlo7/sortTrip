@@ -9,6 +9,14 @@ const q={city:'Kuala Lumpur',country:'Malaysia',start:'2027-01-10',days:4,people
 const target={id:'ai-plan-a',title:'Bukit Bintang',area:'Bukit Bintang',category:'Penginapan',city:q.city,day:1,checkin:q.start,checkout:'2027-01-13',rooms:1};
 const hotel={id:'lpfixture',name:'Hotel B',address:'Bukit Bintang, Kuala Lumpur',city:'Kuala Lumpur',country:'MY',location:{latitude:3.14,longitude:101.71}};
 const rate=(n=300)=>({rateType:'standard',rates:[{occupancyNumber:1,adultCount:2,childCount:0,name:'Double Room',retailRate:{total:[{amount:n,currency:'IDR'}],suggestedSellingPrice:[{amount:n+20,currency:'IDR'}],taxesAndFees:[{included:true}]},cancellationPolicies:{refundableTag:'NRFN'}}]});
+test('nightly cap filters tax-inclusive public totals per room/night and searches budget city stock',async()=>{
+ const budget={...target,maxNightIDR:500000,maxNightExclusive:true,searchAny:true};
+ const fetcher=async(url)=>String(url).includes('data/hotels')?Response.json({data:[hotel,{...hotel,id:'cheap',name:'Economy',address:'Outside the central area'}]}):Response.json({data:[{hotelId:hotel.id,roomTypes:[rate(1499980)]},{hotelId:'cheap',roomTypes:[rate(899980)]}]});
+ const quotes=await liteHotelPrices(q,[budget],env,Date.now()+45000,{},fetcher);
+ assert.equal(quotes.length,1);assert.equal(quotes[0].hotelId,'cheap');assert.equal(quotes[0].amountIDR/3,300000);
+ assert.deepEqual(await liteHotelPrices(q,[{...budget,maxNightIDR:300000}],env,Date.now()+45000,{},fetcher),[]);
+ assert.equal((await liteHotelPrices(q,[{...budget,maxNightIDR:300000,maxNightExclusive:false}],env,Date.now()+45000,{},fetcher))[0].hotelId,'cheap');
+});
 test('sandbox cannot activate customer hotel prices; invalid/private rates never become public totals',()=>{
  assert.equal(liteHotelConfigured(env),true);assert.equal(liteHotelConfigured({...env,LITEAPI_API_KEY:'sand_fixture'}),false);assert.equal(liteHotelConfigured({...env,LITEAPI_ENABLED:'false'}),false);
  assert.equal(checkedLiteOffer(hotel,rate(),q,target).amountIDR,320);

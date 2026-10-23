@@ -8,7 +8,7 @@ const NarrativeContext=createContext<Context>({text:label,busy:false,error:false
 export const useNarrative=()=>useContext(NarrativeContext).text;
 export function NarrativeText({value}:{value:string}){const text=useNarrative();return <>{text(value)}</>;}
 const cache=new Map<string,Record<string,string>>();
-const storageKey='sorttrip-narrative-translations-v1';
+const storageKey='sorttrip-narrative-translations-v2';
 // A bounded, tab-scoped cache stores narrative text only, never authentication data.
 function readCache(key:string):Record<string,string>|undefined{try{const entries=JSON.parse(sessionStorage.getItem(storageKey)||'[]');const match=Array.isArray(entries)?entries.find(e=>Array.isArray(e)&&e[0]===key):null;if(match&&match[1]&&typeof match[1]==='object'&&Object.values(match[1]).every(v=>typeof v==='string'))return match[1];}catch{}return undefined;}
 function saveCache(key:string,value:Record<string,string>){cache.set(key,value);if(cache.size>10)cache.delete(cache.keys().next().value!);try{let entries=[...cache.entries()].slice(-10);while(JSON.stringify(entries).length>120000&&entries.length>1)entries.shift();if(JSON.stringify(entries).length<=120000)sessionStorage.setItem(storageKey,JSON.stringify(entries));}catch{}}

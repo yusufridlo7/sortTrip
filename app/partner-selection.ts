@@ -23,7 +23,7 @@ export function manualPartnerItem(trip:Trip,kind:'hotels'|'transport',input:{nam
 export function applyPartnerSelection(trip:Trip,item:Item,replaceId?:string):Trip{
  if(!replaceId)return {...trip,items:[...trip.items,item]};
  const old=trip.items.find(x=>x.id===replaceId);
- if(!old||old.paid||old.category!==item.category)throw Error('Pilihan sebelumnya tidak boleh diganti. Tambahkan sebagai item baru.');
+ if(!old||old.paid||old.bookingHold||old.category!==item.category)throw Error('Pilihan sebelumnya tidak boleh diganti. Tambahkan sebagai item baru.');
  if(item.category==='Penginapan'&&((old.checkin||addDays(trip.start,old.day-1))!==item.checkin||(old.checkout||addDays(trip.start,trip.days-1))!==item.checkout))throw Error('Penggantian hotel harus mencakup tanggal menginap yang sama. Sesuaikan tanggal atau matikan opsi ganti.');
  return {...trip,items:trip.items.map(x=>x.id===replaceId?item:x)};
 }

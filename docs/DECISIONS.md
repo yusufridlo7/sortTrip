@@ -1,5 +1,19 @@
 # SortTrip — Decision Log
 
+## 2026-10-23 — Compact itinerary reading
+
+Owner requested collapsed conversation and per-item detail by default. Use native keyboard-accessible disclosures, independent for each item; keep children mounted so form choices persist during hide/show. Expansion is presentation state, never an itinerary mutation or API trigger. Keep title/time/price/Edit visible and Assistant operation/error/cancel controls outside the hidden conversation. Apply consistently in daily catalogue/world itineraries and map stop lists. No persistence of expansion across trip switches or reload was requested.
+
+## 2026-10-23 — QA release scope correction
+
+Owner explicitly confirmed Nuitée White-label is no longer used. Country403/LAS-3147 is archival and must not block the active product: standalone Hotel menu uses Trip.com affiliate widget; itinerary hotels use Nuitée API+Payment SDK. Actual payment/Book/refund and payout remain unverified; LAS-3185 is a separate account-card liability question.
+
+Master QA separates source/fixtures, real read-only API, browser, production and owner-controlled tests. Mock/source success cannot certify deployed RLS, financial transactions or scheduled alert receipt. No automatic release or financial configuration change under this QA request. Reports in `qa-reports/` dated2026-10-23 are the current evidence snapshot.
+
+2026-10-23 Owner replacesRp300000quickcap with optional minimum–maximum budget range perroom/night. Empty bounds remain open; reject inverted bounds rather than silently changing them. Apply range to vetted public full-stay total divided by nights×rooms. Retain class/brand/review sorting and source coverage limits. Local production validation must use owner-installed production credential; never bypass sandbox protection or extract Cloudflare secrets.
+
+2026-10-22 Owner prioritizes beginner budget/value discovery in domestic Indonesia and Southeast Asia including Vietnam. Preserve worldwide optional discovery, Trip.com standalone Hotel menu and Nuitée itinerary booking. Manual native hotel search uses bounded budget-star plus broad city rate passes instead of first40 catalogue ordering; name/brand and per-room/night cap optional. Keep supplier public SSP, taxes/occupancy/cancellation checks and account5% markup inheritance unchanged. AI chooses areas and sourced transport tradeoffs; deterministic supplier lookup supplies inventory/prices. Never guarantee Rp300000 stock or whole-city cheapest from bounded results. Current implementation local; production inventory and browser QA remain separately recorded. No automatic booking, credential change or deployment authorized by this product clarification.
+
 2026-10-09 Owner product change supersedes city/date-scoped Trip Pass: one 30-day Rp15.000 pass supports new and existing trips within the same account;20 successful Assistant results shared across trips. Existing consumption and expiry remain intact. Failed requests do not count; only normal successful settlement increments. Keep payment orders attached to their owned originating trip for audit. Account-scope SQL is prepared, not applied. Chat history is trip context, not quota authority; retaining recent exchanges does not replenish quota. Route fares/durations require sourced dated quotes and remain outside budget until user-confirmed. Do not promise cached Aviasales offers can go straight to checkout.
 
 
@@ -148,3 +162,16 @@ Public hotel discovery/itinerary quotations retain max(retail total, SSP). Verif
 
 ## 2026-10-22 Review valid supplier changes before payment
 Supersedes initial checkout policy that any Prebook price/policy/room change must fail and force re-search. When supplier response passes identity/date/occupancy/tax/payable/session checks, retain confirmed final quote and session, display previous vs current amounts, changed room, meal plan and cancellation terms, and require separate fresh final consent before returning SDK credentials. Inconsistent payable or invalid/incomplete supplier details remain blocked. Never auto-accept changes or Book. Historical failed sessions lacking stored SDK payload cannot be resumed.
+
+## 2026-10-22 Owner-published Nuitée markup5%
+Owner chooses and personally publishes static default hotel markup5% in Nuitée production; direct page reload confirms persisted active5%. Continue inheriting provider account default, with no extra application markup/additionalMarkup and no paid managed dynamic pricing add-on. Markup is measured on net rate (5/105=4.76%of final selling price). Fresh quotes reflect setting; do not rewrite saved trips or in-flight checkout prices automatically. Actual earnings/payout remain subject to booking/stay/partner terms.
+# 2026-10-23 — Explicit replacements and independent directions
+
+Current-message explicit edit intent can release unpaid accommodation/attraction selections, with day-scoped attraction edits preserving other days. Paid items remain immutable. Replacement hotels require supplier identity and complete previous-stay coverage; missing matches preserve the old stay with unmet-budget feedback. Hard hotel ceilings are per room/night from public supplier stay totals, never an AI price. Admission/coordinate research facts are nullable references with exact excerpt, source and identity checks; unknowns are not free, foreign currency is not silently converted. Build hotel/visit/return text directions independently of map coordinates and generated transit suggestions; Google API checks stay explicit-click only. Preserve qualified excursion locations and avoid incomplete polyline claims. This is a local change, not a new partner entitlement or production release.
+
+
+## 2026-10-23 — Distinguish purchase provenance
+Manual marks, partner-reported affiliate purchases and supplier-confirmed hotel reservations are separate states. Opening a link never proves a purchase. Only private live exact-context hotel evidence may automatically mark hotel paid; affiliate reporting never proves airline issuance. Pending hotel reservations block automatic replacement; cancellation never implies refund. Client JSON provenance is a hint, not proof. Saved hotel updates require optimistic concurrency. Affiliate query must discriminate booking from paid clicks and fail closed if unsupported; current Travelpayouts400 leaves flight evidence unavailable.
+
+## 2026-10-23 — Use live Travelpayouts schema for booking discriminator
+Correction to previous HTTP400 limitation: action_type in a documentation example is absent from actual campaign100 metadata. Prefer supported sub_type=booking, with action_type only if explicitly advertised; never force an unknown filter. Require returned booking discriminator/type=action/campaign100, exact scoped subID and valid action state. Do not fill missing discriminator as booking. Upstream200 with empty results means checked/no matching report, not a failed or successful purchase.

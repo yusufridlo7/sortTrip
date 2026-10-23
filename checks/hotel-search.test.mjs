@@ -36,11 +36,11 @@ test('hotel menu returns vetted public offers without auth, AI, booking or quota
  const old=globalThis.fetch;let requests=0;
  try{globalThis.fetch=async(url)=>{requests++;assert.ok(String(url).startsWith('https://api.liteapi.travel/v3.0/'));return String(url).includes('data/hotels')?Response.json({data:[{id:'lpfixture',name:'Hotel',country:'MY',city:'Kuala Lumpur'}]}):Response.json({sandbox:false,data:[{hotelId:'lpfixture',roomTypes:[{rateType:'standard',rates:[{name:'Room',adultCount:2,childCount:0,occupancyNumber:1,retailRate:{total:[{amount:100,currency:'IDR'}],suggestedSellingPrice:[{amount:120,currency:'IDR'}],taxesAndFees:[]},cancellationPolicies:{refundableTag:'NRFN'}}]}]}]});};
  const env={LITEAPI_ENABLED:'true',LITEAPI_API_KEY:'fixture-not-a-key',AI_LIMITER:{limit:async()=>({success:true})}};
- const result=await handleHotelSearch(request(),env);assert.equal(result.status,200);const body=await result.json();assert.equal(body.hotels[0].amountIDR,120);assert.equal(body.hotels[0].bookingUrl,null);assert.equal(requests,2);
- assert.equal((await handleHotelSearch(request({...query,people:9}),env)).status,400);assert.equal((await handleHotelSearch(request({...query,checkout:'2027-02-30'}),env)).status,400);assert.equal(requests,2);
+ const result=await handleHotelSearch(request(),env);assert.equal(result.status,200);const body=await result.json();assert.equal(body.hotels[0].amountIDR,120);assert.equal(body.hotels[0].bookingUrl,null);assert.equal(requests,3);
+ assert.equal((await handleHotelSearch(request({...query,people:9}),env)).status,400);assert.equal((await handleHotelSearch(request({...query,checkout:'2027-02-30'}),env)).status,400);assert.equal(requests,3);
  for(const input of [null,[],{...query,country:'12'},{...query,checkin:query.checkout}])assert.equal((await handleHotelSearch(request(input),env)).status,400);
- assert.equal((await handleHotelSearch(new Request('https://sorttrip.test/api/hotels/search',{method:'POST',body:'{' }),env)).status,400);assert.equal(requests,2);
- assert.equal((await handleHotelSearch(request(),{...env,AI_LIMITER:{limit:async()=>({success:false})}})).status,429);assert.equal(requests,2);
+ assert.equal((await handleHotelSearch(new Request('https://sorttrip.test/api/hotels/search',{method:'POST',body:'{' }),env)).status,400);assert.equal(requests,3);
+ assert.equal((await handleHotelSearch(request(),{...env,AI_LIMITER:{limit:async()=>({success:false})}})).status,429);assert.equal(requests,3);
  }finally{globalThis.fetch=old;}
 });
 test('white-label hotel links preserve dates and occupancy; no owner domain means no invented checkout',()=>{

@@ -1,3 +1,4 @@
+import {itineraryIntent} from './itinerary-intent.mjs';
 import {normalizeLanguage} from './localization.js';
 import {liteHotelConfigured,groupHotelAreas,applyLiteHotels} from './lite-hotel.js';
 import {priceTargets,researchPrices} from './price-research.js';
@@ -10,11 +11,23 @@ const text=(v,n=160)=>typeof v==='string'?v.slice(0,n):'';
 export function validateInput(b){
  if(!b||!/^\d{4}-\d{2}-\d{2}$/.test(b.start)||!Number.isSafeInteger(b.days)||b.days<1||!Number.isFinite(Date.parse(b.start)+(b.days-1)*86400000)||Date.parse(b.start)+(b.days-1)*86400000>253402214400000||!Number.isInteger(b.people)||b.people<1||b.people>8||!Number.isFinite(b.budget)||b.budget<0||b.budget>1e9)throw Error('Parameter perjalanan tidak valid.');
  if(!b.city||typeof b.city!=='string'||b.city.length>100)throw Error('Kota tujuan tidak valid.');
- return {language:normalizeLanguage(b.language),mode:b.mode==='prices'?'prices':'itinerary',priceTargets:b.mode==='prices'?priceTargets(b.priceTargets,b.days):[],city:text(b.city,100),country:text(b.country,100),start:b.start,days:b.days,people:b.people,budget:b.budget,transportPreference:['hemat','cepat','seimbang'].includes(b.transportPreference)?b.transportPreference:undefined,pace:['santai','seimbang','padat'].includes(b.pace)?b.pace:'seimbang',interests:text(b.interests,1000),conversation:Array.isArray(b.conversation)?b.conversation.slice(-6).filter(x=>x&&['user','assistant'].includes(x.role)).map(x=>({role:x.role,text:text(x.text,1000)})):[],arrival:text(b.arrival,40),arrivalDay:Number.isInteger(b.arrivalDay)?Math.max(0,Math.min(b.days-1,b.arrivalDay)):0,returnAt:text(b.returnAt,40),oneWay:!!b.oneWay,dailyCities:Array.isArray(b.dailyCities)?b.dailyCities.slice(0,70).filter(x=>Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,city:text(x.city,100),country:text(x.country,100)})):[],retained:Array.isArray(b.retained)?b.retained.slice(0,100).map(x=>({day:x.day,category:text(x.category,40),title:text(x.title),time:text(x.time,10),checkin:text(x.checkin,10),checkout:text(x.checkout,10)})):[],currency:'IDR',routingTargets:Array.isArray(b.routingTargets)?b.routingTargets.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days&&['Wisata','Penginapan'].includes(x.category)).map(x=>({day:x.day,city:text(x.city,100),place:text(x.place),category:x.category})):[],requestedStops:Array.isArray(b.requestedStops)?b.requestedStops.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,city:text(x.city,100),title:text(x.title),protected:x.protected===true})):[],routeRequests:Array.isArray(b.routeRequests)?b.routeRequests.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,from:text(x.from),to:text(x.to),mode:text(x.mode,100),protected:x.protected===true})):[],locked:Array.isArray(b.locked)?b.locked.slice(0,100).map(x=>({day:x.day,time:text(x.time,10),title:text(x.title)})):[]};
+ const intent=itineraryIntent(text(b.interests,1000));
+ return {preserveItemIds:Array.isArray(b.preserveItemIds)?b.preserveItemIds.filter(id=>typeof id==='string'&&id.length<=120).slice(0,100):[],replaceItemIds:Array.isArray(b.replaceItemIds)?b.replaceItemIds.filter(id=>typeof id==='string'&&id.length<=120).slice(0,100):[],hotelBudget:intent.maxNightIDR?{maxNightIDR:intent.maxNightIDR,exclusive:intent.exclusive===true}:undefined,language:normalizeLanguage(b.language),mode:b.mode==='prices'?'prices':'itinerary',priceTargets:b.mode==='prices'?priceTargets(b.priceTargets,b.days):[],city:text(b.city,100),country:text(b.country,100),start:b.start,days:b.days,people:b.people,budget:b.budget,transportPreference:['hemat','cepat','seimbang'].includes(b.transportPreference)?b.transportPreference:undefined,pace:['santai','seimbang','padat'].includes(b.pace)?b.pace:'seimbang',interests:text(b.interests,1000),conversation:Array.isArray(b.conversation)?b.conversation.slice(-6).filter(x=>x&&['user','assistant'].includes(x.role)).map(x=>({role:x.role,text:text(x.text,1000)})):[],arrival:text(b.arrival,40),arrivalDay:Number.isInteger(b.arrivalDay)?Math.max(0,Math.min(b.days-1,b.arrivalDay)):0,returnAt:text(b.returnAt,40),oneWay:!!b.oneWay,dailyCities:Array.isArray(b.dailyCities)?b.dailyCities.slice(0,70).filter(x=>Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,city:text(x.city,100),country:text(x.country,100)})):[],retained:Array.isArray(b.retained)?b.retained.slice(0,100).map(x=>({day:x.day,category:text(x.category,40),title:text(x.title),time:text(x.time,10),checkin:text(x.checkin,10),checkout:text(x.checkout,10)})):[],currency:'IDR',routingTargets:Array.isArray(b.routingTargets)?b.routingTargets.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days&&['Wisata','Penginapan'].includes(x.category)).map(x=>({day:x.day,city:text(x.city,100),place:text(x.place),category:x.category})):[],requestedStops:Array.isArray(b.requestedStops)?b.requestedStops.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,city:text(x.city,100),title:text(x.title),protected:x.protected===true})):[],routeRequests:Array.isArray(b.routeRequests)?b.routeRequests.slice(0,70).filter(x=>x&&Number.isInteger(x.day)&&x.day>=1&&x.day<=b.days).map(x=>({day:x.day,from:text(x.from),to:text(x.to),mode:text(x.mode,100),protected:x.protected===true})):[],locked:Array.isArray(b.locked)?b.locked.slice(0,100).map(x=>({day:x.day,time:text(x.time,10),title:text(x.title)})):[]};
 }
 function sourceUrl(value){try{const u=new URL(value);return u.protocol==='https:'?u.href:null;}catch{return null;}}
 export function validationCode(error){if(['Pilihan rute transportasi belum lengkap.','Sambungan transportasi tidak dapat diverifikasi.'].includes(error?.message))return 'TRANSPORT_CONNECTIONS';return ({'Rancangan tidak lengkap.':'INCOMPLETE','Rancangan tidak dapat diverifikasi.':'SOURCE_OR_FORMAT','Malam penginapan tidak valid.':'HOTEL_NIGHT','Rute transportasi belum lengkap.':'TRANSFER_ROUTE','Aktivitas sebelum kedatangan.':'BEFORE_ARRIVAL','Aktivitas terlalu dekat penerbangan pulang.':'AFTER_RETURN_BUFFER','Aktivitas berbenturan dengan pesanan.':'BOOKING_CONFLICT','Referensi wisata belum cukup.':'ATTRACTIONS_REQUIRED'})[error?.message]||'INVALID_JSON';}
-export function validatePlan(plan,q,sources){
+export function attractionReferences(a,sources,research=''){
+ const identity=v=>String(v||'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+ const supported=r=>r&&typeof r.quote==='string'&&r.quote.length>=12&&r.quote.length<=700&&research.includes(r.quote)&&sources.some(s=>s.url===r.sourceUrl)&&[a.title,a.location].filter(v=>v&&identity(v)!==identity(a.city)).some(v=>identity(r.quote).includes(identity(v)));
+ const numberIn=(quote,n)=>(quote.match(/-?\d+(?:[.,]\d+)*/g)||[]).some(token=>Number(token.replace(/,/g,''))===n||/^\d{1,3}(?:[.,]\d{3})+$/.test(token)&&Number(token.replace(/[.,]/g,''))===n);
+ const result={};
+ const p=a.admission;
+ if(supported(p)&&Number.isFinite(p.amount)&&p.amount>=0&&p.amount<=1e9&&/^(IDR|MYR|SGD|THB|VND|PHP|USD|KHR|LAK|MMK|BND)$/.test(p.currency)&&p.quote.includes(p.currency)&&numberIn(p.quote,p.amount)&&typeof p.audience==='string'&&p.audience.trim())result.admission={amount:p.amount,currency:p.currency,audience:text(p.audience,160),quote:p.quote,sourceUrl:p.sourceUrl,checkedAt:new Date().toISOString()};
+ const c=a.coordinates;
+ if(supported(c)&&Number.isFinite(c.lat)&&Number.isFinite(c.lng)&&Math.abs(c.lat)<=90&&Math.abs(c.lng)<=180&&(c.lat!==0||c.lng!==0)&&numberIn(c.quote,c.lat)&&numberIn(c.quote,c.lng))result.geo={lat:c.lat,lng:c.lng};
+ return result;
+}
+export function validatePlan(plan,q,sources,research=''){
  if(!plan||!Array.isArray(plan.activities)||plan.activities.length>70||!plan.activities.length)throw Error('Rancangan tidak lengkap.');
  const allowed=new Set(sources.map(s=>s.url));
  const activities=plan.activities.map((a,i)=>{
@@ -31,7 +44,7 @@ export function validatePlan(plan,q,sources){
   if(q.locked.some(x=>x.day===a.day&&/^\d{2}:\d{2}$/.test(x.time)&&Math.abs(minutes(x.time)-minutes(a.time))<90))throw Error('Aktivitas berbenturan dengan pesanan.');
   const routes=a.category==='Transfer'&&(a.routeOptions||q.transportPreference)?validateRoutes(a.routeOptions,sources,q.transportPreference):{};
   const selected=routes.routeOptions?.[routes.selectedRoute];
-  return {id:`ai-${i}`,day:a.day,time:a.time,category:a.category,title:text(a.title),note:text(a.note,500),sourceUrl:a.sourceUrl,city:text(a.city,100),location:text(a.location),fromPlace:selected?selected.legs[0].fromPlace:text(a.fromPlace),toPlace:selected?selected.legs.at(-1).toPlace:text(a.toPlace),mode:selected?selected.legs.map(l=>l.mode).join(' + '):text(a.mode,100),...routes};
+  return {...(a.category==='Wisata'?attractionReferences(a,sources,research):{}),id:`ai-${i}`,day:a.day,time:a.time,category:a.category,title:text(a.title),note:text(a.note,500),sourceUrl:a.sourceUrl,city:text(a.city,100),location:text(a.location),fromPlace:selected?selected.legs[0].fromPlace:text(a.fromPlace),toPlace:selected?selected.legs.at(-1).toPlace:text(a.toPlace),mode:selected?selected.legs.map(l=>l.mode).join(' + '):text(a.mode,100),...routes};
  }).sort((a,b)=>a.day-b.day||a.time.localeCompare(b.time));
  if(new Set(activities.filter(a=>a.category==='Wisata').map(a=>a.title.toLowerCase())).size<2)throw Error('Referensi wisata belum cukup.');
  return {summary:text(plan.summary,1000),activities,sources,createdAt:new Date().toISOString(),context:q};
@@ -70,7 +83,7 @@ export async function handleItinerary(request,env){
   const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil.'},503);
   completed=true;return reply({access,prices});
  }
- let [response,routeResponse]=await Promise.all([callProvider(researchRequest(q,env)),q.transportPreference?callProvider(transportResearchRequest(q,env,'')):null]);
+ let response=await callProvider(researchRequest(q,env));
  let sources=[],researchText='';
  if(response.ok){
   const research=await response.json();
@@ -79,7 +92,7 @@ export async function handleItinerary(request,env){
   if(!sources.length)return reply({code:'AI_SOURCES_UNAVAILABLE',error:'Referensi belum dapat diverifikasi. Tidak ada itinerary yang diubah.'},502);
   researchText=responseText(research);
   if(q.transportPreference){
-   const routes=routeResponse;
+   const routes=await callProvider(transportResearchRequest(q,env,researchText));
    if(!routes.ok)return reply({code:'AI_TRANSPORT_RESEARCH_UNAVAILABLE',error:'Pencarian sambungan transportasi belum berhasil. Itinerary tidak diubah.'},502);
    const routeResearch=await routes.json();if(routeResearch.status!=='completed')return reply({code:'AI_TRANSPORT_RESEARCH_INCOMPLETE',error:'Pencarian rute transit belum selesai. Itinerary tidak diubah.'},502);
    const routeSources=collectSources(routeResearch);if(!routeSources.length)return reply({code:'AI_TRANSPORT_SOURCES_UNAVAILABLE',error:'Sumber rute transit belum dapat diverifikasi. Itinerary tidak diubah.'},502);
@@ -96,7 +109,7 @@ export async function handleItinerary(request,env){
   return reply({code:'AI_PROVIDER_UNAVAILABLE',error:'Layanan AI belum dapat membuat rancangan. Pengelola perlu memeriksa konfigurasi layanan.'},502);
  }
  const data=await response.json();if(data.status!=='completed')return reply({error:'Penyusunan belum selesai. Coba lagi dengan preferensi lebih singkat.'},502);
- const parse=data=>validatePlan(JSON.parse(responseText(data).replace(/^```(?:json)?\s*|\s*```$/g,'')),q,sources);
+ const parse=data=>validatePlan(JSON.parse(responseText(data).replace(/^```(?:json)?\s*|\s*```$/g,'')),q,sources,researchText);
  let plan;
  try{plan=parse(data)}catch(error){
   // One bounded correction within the same reservation and provider deadline.
@@ -112,8 +125,9 @@ export async function handleItinerary(request,env){
  }
  plan=groupHotelAreas(plan,q);
  let prices=[];
- try{const targets=priceTargets(plan.activities.filter(x=>['Penginapan','Area menginap','Transfer'].includes(x.category)).flatMap(x=>{const base={id:'ai-plan-'+x.id,title:x.title,category:x.category==='Transfer'?'Transportasi':'Penginapan',day:x.day,city:x.city,area:x.category==='Area menginap'?(x.location||x.title):'',hotelId:x.hotelId,checkin:x.checkin,checkout:x.checkout,sourceUrl:x.sourceUrl,mode:x.mode,from:x.fromPlace,to:x.toPlace,rooms:Math.ceil(q.people/2)};const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;return x.category==='Transfer'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:base.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];}).slice(0,12),q.days);prices=await researchPrices(q,targets,env,callProvider,priceDeadline);}catch{}
+ try{const targets=priceTargets(plan.activities.filter(x=>['Penginapan','Area menginap','Transfer'].includes(x.category)).flatMap(x=>{const base={id:'ai-plan-'+x.id,title:x.title,category:x.category==='Transfer'?'Transportasi':'Penginapan',day:x.day,city:x.city,area:x.category==='Area menginap'?(x.location||x.title):'',hotelId:x.hotelId,checkin:x.checkin,checkout:x.checkout,sourceUrl:x.sourceUrl,mode:x.mode,from:x.fromPlace,to:x.toPlace,rooms:Math.ceil(q.people/2),searchAny:x.category==='Area menginap',maxNightIDR:q.hotelBudget?.maxNightIDR,maxNightExclusive:q.hotelBudget?.exclusive};const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;return x.category==='Transfer'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:base.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];}).slice(0,12),q.days);prices=await researchPrices(q,targets,env,callProvider,priceDeadline);}catch{}
  plan=applyLiteHotels(plan,prices);
+ if(q.hotelBudget&&plan.activities.some(a=>a.category==='Area menginap'))plan.summary+=(q.language==='en'?' No matching hotel within the nightly budget was verified in the checked inventory. Existing selections remain until a replacement is available.':' Hotel sesuai batas per malam belum ditemukan dalam stok yang diperiksa. Pilihan lama tetap disimpan sampai pengganti tersedia.');
  const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil. Coba lagi nanti.'},503);completed=true;return reply({access,plan,prices});
  }catch{return reply({error:'Koneksi penyusunan terganggu atau melewati batas waktu. Itinerary lama tetap tersimpan.'},502);}finally{if(reservation&&!completed)try{await quota('finish_ai_request',{...reservation,p_success:false})}catch{}}
 }

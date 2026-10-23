@@ -1,5 +1,19 @@
 # SortTrip — Next Actions
 
+## 2026-10-23 — After master QA
+
+1. Review completed reports and local fixes. Release only on explicit owner instruction; rerun production404/robots/sitemap and checkout/auth smoke afterward. Three production SEO/404 failures are fixed locally but unreleased.
+2. Prepare controlled accounts/isolated sandbox for Midtrans/Trip Pass settlement, two-user RLS and migration attestation. Owner operates consequential Nuitée payment/terms; Book/recovery/refund/payout remain unverified. Do not repeat key registration or5%margin publication.
+3. Verify scheduled Price Watch baseline/drop, exactly one in-app alert/controlled email and controlled support Telegram round trip. Existing last_checked is not receipt evidence; do not force production delivery to real recipients.
+4. Review privacy deletion/native SDK wording, static security headers, mobile bundle/CWV and backup/restore. Exact blockers and test boundaries: `qa-reports/`.
+5. Do not require White-label403 repair: owner removed it from active scope. Trip.com menu and Nuitée API+SDK itinerary remain the intended split. Local checkout503/local Viator sandbox are separate environment differences; credentials/financial settings remain owner-controlled.
+
+2026-10-23 browser range/search/clear/mobile QA now COMPLETE: preview4173->Worker8787 realYogyakarta search43cards/180checked,375px no overflow; evidence inPROJECT_PROGRESS. Read-only live budget search blocker resolved; no further key action needed. New min/max and regional changes remain local/uncommitted/undeployed until owner requests release. Preserve existing SDK financial/WhiteLabel support limitations separately.
+
+2026-10-23 local LiteAPI production blocker RESOLVED after owner key replacement/restart. Budget stock verified forYogyakarta/Hanoi with200; do not ask owner to reinstall key again absent new failure. Optional min–max hotelbudget implemented instead of fixedpreset; build/251testsPASS. Complete browser range/search/clear and mobile QA, then owner-authorized release only if requested. No commit/push/deploy yet. Actual SDK payment/Book/settlement, WhiteLabel403 andLAS3185 remain separate, not prerequisites to read-only discovery.
+
+2026-10-22 local regional budget/value implementation complete (Indonesia+SEA inclVN), build/248fixturesPASS, browser form/responsive QA verified. Production inventory validation remains: localYogyakarta/Hanoi/KLqueries503/lite_production_required, so owner privately provides local production runtime configuration if local live QA desired; never copy/reveal keys. Then bounded dated queries establish actual budget coverage (not guaranteeOYO/Rp300000 or whole-city cheapest). Current new changes not committed/pushed/deployed; release only on owner instruction. Preserve Trip.com standalone Hotel menu, Nuitée itinerary/nativeSDK and5%account default. Existing WhiteLabel403 andLAS3185/payment settlement limitations remain independent.
+
 2026-10-11 Latest itinerary repairs are local only: primary flight buttons/Edit enter replacement search; hotel/transport edit routes into partner selection with replace context; current trip manual selection triggers cloud save. City changes reconcile AI lodging without coordinates and remove stale summary. Browser/form/40 targeted tests/build pass. Live Singapore price refresh still unavailable with11 quota unchanged; require independently verifiable supplier IDR evidence/API before claiming reliable exact-date prices. Trip.com/12Go external selections cannot be auto-captured by the current widgets; owner-approved manual confirmation remains. Verify intended choice save/reopen and positive price refresh with owner, without fake quotes or quota resets. No release authorized.
 
 
@@ -335,3 +349,27 @@ Nuitee card inquiry2026-10-15 now SUBMITTED, LAS-3185/Open (Billing/Medium), sup
 2026-10-22 booking UI complete/deployed d6bc33f5-ed10-436c-b32a-e22378c04ff6, desktop/phone verified with no horizontal overflow;29fixtures/buildPASS. No need re-register keys, recreate SDK session or pay for UI verification. Native owner payment tab preserved. Actual financial authorization/Book/recovery/refund still only if requested and owner-operated; LAS-3185 response pending. Existing White-label403 separate; native SDK form rendered in prior owner evidence. Finalization is now in collapsed already-paid recovery section and disabled without final consent, not a primary pre-payment CTA.
 
 2026-10-22 release complete: source2fde1f0 pushed origin/codex/trip-pass-30000, production8f76d368-5417-4498-a44f-ee7c038e5a19.242fixtures/buildPASS; public homepage/health/checkout/assets200, policies canonical200, unauthcheckout401. No further deploy needed for this package. Keep LAS-3185 and actual payment/Book/settlement limitations open; native SDK rendering already owner-evidenced. Local credentials/artifacts and unrelated WORKFLOW deletion excluded from commit. No force push, main merge or PR performed.
+
+2026-10-22 monetization next: provider Default Markup0% verified; SortTrip inherits default (no rates margin override). Owner decides desired percentage and manually publishes any financial configuration; then verify one read-only offer commission metadata without payment. Do not count public SSP versus member price difference as earnings or add frontend markup disconnected from SDK. Paid managed dynamic pricing add-on is unnecessary for static manual markup. LAS-3185 unresolved independently. No margin changed during inquiry.
+
+2026-10-22 owner decided Nuitée5%markup. Draft prepared/read-only preview verified100net->105guest,5earned=4.76%sellingprice. CURRENT PUBLISHED0% per explicit dashboard message; owner must click Publish changes in prepared Production Commission tab. WAITING_FOR_USER publication handoff under financial/sensitive-approval rule; no Telegram task active. Then verify persisted5% and optionally bounded readonly offer metadata; no extra frontend markup or deploy needed.
+
+2026-10-22 markup handoff COMPLETE: owner published and independent production page reload confirms active5%. Do not ask owner to publish again or deploy code for this account setting. New rates inherit default; optional future bounded readonly validation may inspect normalized commission without payment if requested. Existing estimates/sessions not automatically repriced. Actual commission settlement/payout and LAS-3185 remain separate.
+
+2026-10-22 budget hotel coverage priority: owner reports expensive results. Confirmed adapter prices first40 of at most200catalogue hotels and sorts only that sample; same-dateKLtest200/12expensiveoffers. OYO name-filter200empty is NOT proof no budget stock. Next improve bounded catalogue/rates coverage and budget/brand search, show per-night alongside full-stay total, optionally price ceiling; retain exact dates/occupancy/tax/public/member price distinction and free endpoint policy. Do not claim cheapest entire city or raise/remove5% margin to mask sampling issue. No code change made by this diagnosis.
+# 2026-10-23 — Itinerary edit package, local only
+
+Hotel<500k/night and first-day museum request now has local intent/scope/price-target fixes plus sourced admission/coordinate fields and coordinate-independent route controls.269fixtures/build/i18n/browser responsive checks passed. Next: review/release this QA branch only when owner instructs; then one bounded sourced regeneration of the existing KL request to verify real budget stock and current museum references. Existing saved trip and9AI results were preserved during QA. Do not claim model/live inventory verification from fixtures, auto-fill missing admission/coordinates, or deploy without owner instruction. See`qa-reports/ITINERARY_EDIT_ROUTE_QA.md`.
+
+# 2026-10-23 — 12Go QA follow-up
+
+Actual backend fare extraction now passes for KL→Malacca6Nov2026/oneadult/bus(IDR57647), matching desktop. Current-page parser correction and transport-specific price copy are local only; deploy on explicit owner instruction, then verify the deployed price path. Do not repeat credential registration or treat this as API/commission approval. Future bounded QA: exact user's January2027 route, train/ferry/SEA coverage and group search support (current automatic extractor deliberately1adult). No real booking/payment or AIquota needed for the isolated probe. Report:`qa-reports/12GO_ACCESS_PRICE_QA.md`.
+
+
+## 2026-10-23 — Purchase tracking follow-up
+- Resolve Travelpayouts booking-only statistics schema/filter rejection (metadata200, query400) using documented partner guidance; never substitute generic paid-click activity as purchase proof. No support message sent in this task.
+- With owner-controlled financial action, verify one newly context-linked Nuitée reservation end-to-end; historic unlinked checkouts cannot attach automatically. LAS-3185 liability remains separate.
+- Review local booking evidence QA report before any explicitly authorized source release. No deploy performed.
+
+## 2026-10-23 — HTTP400 follow-up resolved
+The earlier requirement to contact Travelpayouts support about HTTP400 is superseded: adapter field mismatch corrected using live sub_type metadata, actual local query200 verified. Do not replace the existing token or re-register. Remaining optional evidence: a naturally occurring positive conversion through a newly scoped link (no artificial purchase needed); source review/release only on owner instruction. No airline ticket issuance guarantee inferred from affiliate report.

@@ -28,6 +28,6 @@ export default function TransportSearch(props:PartnerSearchProps){
   <iframe ref={frame} title={tr('ui_0554')} src={widgetUrl} sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox" referrerPolicy="no-referrer" style={{width:'100%',maxWidth:918,height,border:0,display:failed?'none':'block',margin:'0 auto'}}/>
   <p className="inline-note">{tr('ui_0555')}</p>
   {failed&&<button className="secondary" onClick={()=>{setFailed(false);setReady(false);if(frame.current)frame.current.src=widgetUrl}}>{tr('ui_0429')}</button>}
-  <PartnerSelectionForm {...props} kind="transport"/>
+  <p className="discovery-note">{tr('discovery_transport_tip')}</p><PartnerSelectionForm {...props} kind="transport"/>
  </section>;
 }

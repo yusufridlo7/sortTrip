@@ -4,13 +4,47 @@ import ts from 'typescript';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../app/apply-ai-plan.ts',import.meta.url),'utf8');
 const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/,"const destinations=[];const geoData={};const addDays=(s,n)=>new Date(Date.parse(s+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);\n");
-const {applyAIPlan,aiTripContext}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+const {applyAIPlan,aiTripContext}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href)).toString('base64'));
 const sourceUrl='https://example.com/attraction';
 const context={city:'Kuala Lumpur',start:'2026-12-10',days:3,people:1,budget:4500000};
 const flight={id:'flight',category:'Pesawat',price:1000000,paid:true,day:1,time:'',title:'Flight'};
 const hotel={id:'hotel',category:'Penginapan',price:500000,paid:true,day:1,time:'',title:'Hotel'};
 const manual={id:'manual',category:'Wisata',price:123,paid:false,day:1,time:'10:00',title:'Manual'};
 const trip={...context,destination:'kl',destinationMeta:{city:context.city},items:[flight,hotel,manual]};
+test('pending supplier hotel booking cannot be replaced by an explicit hotel-change prompt',()=>{
+ const held={...hotel,paid:false,bookingHold:true,aiGenerated:true,hotelId:'held'};
+ const input={...trip,items:[flight,held,manual]},ctx=aiTripContext(input,context.city,'Malaysia','ganti hotel di bawah 500000 per malam');
+ assert.ok(!ctx.replaceItemIds.includes(held.id));assert.ok(ctx.retained.some(r=>r.title===held.title));
+ assert.ok(applyAIPlan(input,{...plan,context:{...context,replaceItemIds:[held.id]}}).items.includes(held));
+});
+test('first-day museum edit preserves later-day attractions, including unedited AI selections',()=>{
+ const later={...manual,id:'genting',title:'Genting',day:2,aiGenerated:true};
+ const input={...trip,items:[flight,hotel,manual,later]};
+ const ctx=aiTripContext(input,context.city,'Malaysia','hari pertama ganti menjadi wisata museum, hotel cari yg dibawah 500000 permalam');
+ assert.deepEqual(ctx.replaceItemIds,['manual']);assert.deepEqual(ctx.preserveItemIds,['genting']);
+ assert.ok(ctx.retained.some(x=>x.title==='Genting'));assert.ok(ctx.requestedStops.some(x=>x.title==='Genting'));
+ const result=applyAIPlan(input,{...plan,context:{...context,replaceItemIds:ctx.replaceItemIds,preserveItemIds:ctx.preserveItemIds},activities:[{...plan.activities[0],day:1,title:'Museum'}]});
+ assert.ok(result.items.includes(later));assert.ok(!result.items.some(x=>x.id==='manual'));
+});
+test('explicit museum and nightly budget request releases only unpaid selections and carries budget',()=>{
+ const selected={...hotel,paid:false,hotelId:'selected',checkin:context.start,checkout:'2026-12-12',userEdited:true};
+ const input={...trip,items:[flight,selected,{...manual,day:2},{...manual,time:'',id:'paid-museum',paid:true}]};
+ const ctx=aiTripContext(input,context.city,'Malaysia','ganti wisata menjadi museum dan hotel ganti cari yg dibawah 500000 permalam');
+ assert.deepEqual(ctx.hotelBudget,{maxNightIDR:500000,exclusive:true});
+ assert.deepEqual(ctx.replaceItemIds,['hotel','manual']);
+ assert.ok(!ctx.retained.some(x=>x.title===selected.title));
+ assert.ok(ctx.retained.some(x=>x.title===manual.title)); // paid museum is still retained
+ const fresh={...plan,context:{...context,replaceItemIds:ctx.replaceItemIds},activities:[...plan.activities.filter(a=>a.category!=='Penginapan'),{id:'new-hotel',day:1,time:'16:00',category:'Penginapan',title:'Budget hotel',sourceUrl,hotelId:'budget',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',note:''}]};
+ const result=applyAIPlan(input,fresh);
+ assert.ok(!result.items.some(x=>x.id==='hotel'||x.id==='manual'));
+ assert.ok(result.items.some(x=>x.id==='paid-museum'));
+ assert.ok(result.items.some(x=>x.hotelId==='budget'));
+});
+test('unavailable hotel replacement preserves the existing stay, including a prior AI selection',()=>{
+ const old={...hotel,paid:false,aiGenerated:true,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const result=applyAIPlan({...trip,items:[flight,old]}, {...plan,context:{...context,replaceItemIds:['hotel']},activities:plan.activities.filter(a=>a.category==='Wisata')});
+ assert.ok(result.items.includes(old));
+});
 test('excursion intent reaches AI even when overnight city differs; generated visit schedule is replaceable',()=>{
  const visit={id:'old-visit',category:'Wisata',cityId:'melaka',dayPlan:true,generated:true,day:2,time:'12:23',title:'Dutch Square',price:0,paid:false,note:'Old automatically scheduled visit'};
  const t={...trip,items:[...trip.items,visit]};const ctx=aiTripContext(t,context.city,'Malaysia');assert.equal(ctx.requestedStops.find(x=>x.title==='Dutch Square').city,'Melaka');assert.ok(!ctx.retained.some(x=>x.title==='Dutch Square'));

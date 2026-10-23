@@ -5,13 +5,13 @@
   "compatibility_date": "2026-09-28",
   "compatibility_flags": ["nodejs_compat"],
   "browser": {"binding": "HOTEL_BROWSER", "remote": true},
-  "vars": {"HOTEL_BROWSER_ENABLED": "true", "LITEAPI_WHITELABEL_URL": "https://yusuf-ridlo-kkxjf.nuitee.link", "LITEAPI_ENABLED": "true", "LITEAPI_CHECKOUT_ENABLED": "true", "LITEAPI_CHECKOUT_MODE": "live", "LITEAPI_BOOKING_LIVE_APPROVED": "true", "GOOGLE_ROUTES_ENABLED": "true", "VIATOR_ENVIRONMENT": "production"},
+  "vars": {"TRAVELPAYOUTS_MARKER": "782849", "HOTEL_BROWSER_ENABLED": "true", "LITEAPI_WHITELABEL_URL": "https://yusuf-ridlo-kkxjf.nuitee.link", "LITEAPI_ENABLED": "true", "LITEAPI_CHECKOUT_ENABLED": "true", "LITEAPI_CHECKOUT_MODE": "live", "LITEAPI_BOOKING_LIVE_APPROVED": "true", "GOOGLE_ROUTES_ENABLED": "true", "VIATOR_ENVIRONMENT": "production"},
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
+    "not_found_handling": "404-page",
     "run_worker_first": [
-      "/api/*"
+      "/api/*", "/hotel-checkout"
     ]
   },
   "ratelimits": [

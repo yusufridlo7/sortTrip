@@ -1,3 +1,4 @@
+import {handleBookingEvidence} from './booking-evidence.js';
 import {requestLanguage,localizedResponse} from './localization.js';
 import {handleSupport,runSupportOutbox} from './support.js';
 import {handleNarrativeTranslation} from './narrative-translation.js';
@@ -21,6 +22,8 @@ export function parseQuery(url) {
  const q = Object.fromEntries(['origin','destination','outFrom','outTo','backFrom','backTo','journey'].map(k=>[k,p.get(k)||'']));
  q.page=Number(p.get('page')||1);if(!Number.isInteger(q.page)||q.page<1||q.page>20)throw Error('Halaman pencarian tidak valid.');
  q.scope=p.get('scope')==='all'?'all':'international';
+ q.region=p.get('region')||'world';if(!['world','sea','domestic'].includes(q.region))throw Error('Wilayah pencarian tidak valid.');
+ if(q.region!=='world')q.scope='all';
  q.minDays=Number(p.get('minDays'));q.maxDays=Number(p.get('maxDays'));
  if(!['CGK','SUB','DPS'].includes(q.origin)||!(q.destination==='all'||routes[q.destination]||/^[A-Z]{3}$/.test(q.destination)&&locations[q.destination])||!['oneway','return'].includes(q.journey)) throw Error('Kota atau jenis perjalanan tidak valid.');
  if(![q.outFrom,q.outTo,q.backFrom,q.backTo].every(day)||q.outFrom>q.outTo||q.backFrom>q.backTo||difference(q.outFrom,q.outTo)>366||q.outFrom<new Date().toISOString().slice(0,10)) throw Error('Gunakan tanggal mendatang dan rentang maksimal satu tahun.');
@@ -33,7 +36,7 @@ export function normalize(row,q,id) {
  const origin=row.origin_airport||row.origin, dest=row.destination_airport||row.destination;
  const meta=locations[dest]||locations[row.destination];
  const target=routes[id]||id;
- if(origin!==q.origin||!meta||q.scope!=='all'&&meta.country==='ID'||id!=='all'&&dest!==target&&meta.cityCode!==target||!Number.isFinite(row.price)||row.price<=0) return null;
+ if(origin!==q.origin||!meta||q.region==='domestic'&&meta.country!=='ID'||q.region==='sea'&&!['ID','MY','SG','TH','VN','PH','KH','LA','MM','BN','TL'].includes(meta.country)||q.scope!=='all'&&meta.country==='ID'||id!=='all'&&dest!==target&&meta.cityCode!==target||!Number.isFinite(row.price)||row.price<=0) return null;
  if(!/(Z|[+-]\d\d:\d\d)$/.test(row.departure_at||'')||!Number.isFinite(Date.parse(row.departure_at))) return null;
  const start=localDate(row.departure_at,q.origin==='DPS'?'Asia/Makassar':'Asia/Jakarta');
  if(start<q.outFrom||start>q.outTo||Date.parse(row.departure_at)<Date.now())return null;
@@ -46,7 +49,7 @@ export function normalize(row,q,id) {
  if(row.expires_at&&Date.parse(row.expires_at)<=Date.now())return null;
  let url;try{url=new URL(row.link,'https://www.aviasales.com');if(url.origin!=='https://www.aviasales.com'||!url.pathname.startsWith('/search/')||url.username||url.password) return null;}catch{return null;}
  // One-adult price and provider-generated one-adult search URL are kept together.
- return {id:[origin,dest,row.departure_at,row.return_at||'',row.airline,row.flight_number,row.price].join('|'),destinationId:({KUL:'kl',BKK:'bkk',SIN:'sin'}[meta.cityCode]||meta.cityCode),city:meta.city,country:countryName(meta.country),countryCode:meta.country,cityCode:meta.cityCode,destinationZone:meta.zone,origin,destination:dest,start,end,days,price:row.price,airline:String(row.airline||'Tidak tersedia').slice(0,60),flightNumber:String(row.flight_number||'').slice(0,16),departureAt:row.departure_at,returnAt:q.journey==='return'?row.return_at:null,durationTo:Number.isFinite(row.duration_to)&&row.duration_to>0?row.duration_to:null,durationBack:Number.isFinite(row.duration_back)&&row.duration_back>0?row.duration_back:null,transfers:Number.isInteger(row.transfers)?row.transfers:null,bookingUrl:url.toString()};
+ return {id:[origin,dest,row.departure_at,row.return_at||'',row.airline,row.flight_number,row.price].join('|'),destinationId:({KUL:'kl',BKK:'bkk',SIN:'sin'}[meta.cityCode]||meta.cityCode),city:meta.city,country:countryName(meta.country),countryCode:meta.country,cityCode:meta.cityCode,destinationZone:meta.zone,origin,destination:dest,start,end,days,price:row.price,airline:String(row.airline||'—').slice(0,60),flightNumber:String(row.flight_number||'').slice(0,16),departureAt:row.departure_at,returnAt:q.journey==='return'?row.return_at:null,durationTo:Number.isFinite(row.duration_to)&&row.duration_to>0?row.duration_to:null,durationBack:Number.isFinite(row.duration_back)&&row.duration_back>0?row.duration_back:null,transfers:Number.isInteger(row.transfers)?row.transfers:null,bookingUrl:url.toString()};
 }
 export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.caches?.default}={}) {
  if(!env.TRAVELPAYOUTS_API_TOKEN)return json({error:'API belum dikonfigurasi. Tambahkan Secret TRAVELPAYOUTS_API_TOKEN pada Settings Worker, di luar Build.'},503);
@@ -81,13 +84,14 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
 }
 const worker = {async scheduled(event,env,ctx){if(event.cron!=='*/2 * * * *')ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));ctx.waitUntil(runSupportOutbox(env));},async fetch(request,env,ctx){
  const u=new URL(request.url);
- if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(request);
+ if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(u.pathname==='/hotel-checkout'?new Request(new URL('/',u),request):request);
  if(u.pathname.startsWith('/api/support/'))return handleSupport(request,env,ctx);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
  if(u.pathname==='/api/itinerary/translate')return handleNarrativeTranslation(request,env);
  if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
  if(u.pathname==='/api/hotels/search')return handleHotelSearch(request,env);
  if(u.pathname==='/api/hotels/content')return handleHotelContent(request,env);
+ if(u.pathname.startsWith('/api/bookings/'))return handleBookingEvidence(request,env);
  if(u.pathname.startsWith('/api/hotels/checkout/'))return handleHotelCheckout(request,env);
  if(u.pathname==='/api/routes/google')return handleGoogleRoutes(request,env);
  if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);

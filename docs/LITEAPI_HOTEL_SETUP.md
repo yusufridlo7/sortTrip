@@ -1,5 +1,9 @@
 # LiteAPI accommodation pipeline
 
+## Latest local verification — 2026-10-23
+Local503 was specifically a sandbox key, not a supplier country restriction. Fixed-category runtime diagnostic in hotel search revealed sandbox_key without exposing values. Owner privately replaced credential; freshly restarted Worker now returns production200. Read-only30Jan–1Feb2027/oneadult searches withIDR100000–400000perroom/night returned41Yogyakarta hotels (172checked; Cempaka~154179/night, RedDoorz near Hartono Mall3~170127/night) and1Hanoi hotel (261checked; Family Transit2~331785/night). Dated observed quotes, not held inventory or a whole-city cheapest guarantee. Standard runtime moved back to8787 for Vite/preview proxy. No credential read/change by agent, supplier Prebook/Book/payment, margin override, or deployment. Public discovery keeps SSP floor and inclusive-tax checks.
+Native hotel UI/API now accepts optional minNightly/maxNightly in IDR per room per night; empty/0endpoints are open, finite maximum must be>=minimum. Removed fixedRp300000preset; inclusive filtering divides full-stay quote by nights×rooms. Actual live verification supersedes local production-config blocker, not separate White-label403 or financial liability issues. Historical sections below are dated history, not current readiness.
+
 Implemented locally, not deployed or enabled for customers. Current owner key was verified as sandbox. Owner alone configures credentials/billing; never paste keys into chat.
 
 ## Runtime activation

@@ -58,7 +58,15 @@ export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=fal
  }
  if(guests!==q.people||new Set(rates.map(r=>r.occupancyNumber)).size!==t.rooms||!amount(total))return reject('occupancy_total');
  const geo=hotel.location||hotel;
- return {id:t.id,provider:'LiteAPI',scope:'dated',basis:'stay_total',amountIDR:Math.round(total*100)/100,sourceUrl:LITE_HOTEL_SOURCE,quote:'LiteAPI: '+hotel.name+' · IDR '+(Math.round(total*100)/100)+' · '+t.checkin+' → '+t.checkout+' · '+t.rooms+' room(s), '+q.people+' adults',checkedAt:new Date().toISOString(),checkin:t.checkin,checkout:t.checkout,adults:q.people,rooms:t.rooms,taxesIncluded:true,roomType:[...new Set(roomNames)].join(' / '),policy:policies.every(p=>p==='RFN')?'RFN':'NRFN',hotelId:hotel.id||hotel.hotelId,hotelName:hotel.name,hotelArea:t.area||'',selection:'lowest_checked_public_total',...(Number.isFinite(geo.latitude)&&Number.isFinite(geo.longitude)&&Math.abs(geo.latitude)<=90&&Math.abs(geo.longitude)<=180?{geo:{lat:geo.latitude,lng:geo.longitude}}:{})};
+ return {id:t.id,provider:'LiteAPI',scope:'dated',basis:'stay_total',amountIDR:Math.round(total*100)/100,sourceUrl:LITE_HOTEL_SOURCE,quote:'LiteAPI: '+hotel.name+' · IDR '+(Math.round(total*100)/100)+' · '+t.checkin+' → '+t.checkout+' · '+t.rooms+' room(s), '+q.people+' adults',checkedAt:new Date().toISOString(),checkin:t.checkin,checkout:t.checkout,adults:q.people,rooms:t.rooms,taxesIncluded:true,roomType:[...new Set(roomNames)].join(' / '),policy:policies.every(p=>p==='RFN')?'RFN':'NRFN',hotelId:hotel.id||hotel.hotelId,hotelName:hotel.name,hotelArea:t.area&&clean([hotel.address,hotel.name].join(' ')).includes(clean(t.area))?t.area:'',selection:'lowest_checked_public_total',...(Number.isFinite(geo.latitude)&&Number.isFinite(geo.longitude)&&Math.abs(geo.latitude)<=90&&Math.abs(geo.longitude)<=180?{geo:{lat:geo.latitude,lng:geo.longitude}}:{})};
+}
+export function selectHotelPool(hotels){
+ const bands=[[],[],[],[]];
+ for(const h of hotels){const s=hotelPreview(h).stars;bands[s===null?3:s<=3?0:s<5?1:2].push(h);}
+ const chosen=[...bands[0].slice(0,100),...bands[1].slice(0,60),...bands[2].slice(0,40)];
+ const seen=new Set(chosen.map(h=>h.id||h.hotelId));
+ for(const h of hotels){if(chosen.length>=200)break;const id=h.id||h.hotelId;if(!seen.has(id)){chosen.push(h);seen.add(id);}}
+ return chosen;
 }
 export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,diagnostics={},fetcher=fetch){
  if(!liteHotelConfigured(env))return [];
@@ -67,7 +75,7 @@ export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,di
   assertLiteApiFreeEndpoint(path,body?'POST':'GET');
   const remaining=deadline-Date.now();if(remaining<1000){diagnostics.liteHotelUnavailable=true;return null;}
   try{const response=await fetcher('https://api.liteapi.travel/v3.0/'+path,{method:body?'POST':'GET',redirect:'manual',signal:AbortSignal.timeout(Math.min(18000,remaining)),headers:{'X-API-Key':env.LITEAPI_API_KEY,Accept:'application/json',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
-   if(!response.ok){diagnostics.liteHotelUnavailable=true;return null;}const text=await response.text();if(text.length>2000000){diagnostics.liteHotelUnavailable=true;return null;}const data=JSON.parse(text);if([true,1,'true','1'].includes(data.sandbox)){diagnostics.liteHotelSandbox=true;return null;}if(!Array.isArray(data.data)){diagnostics.liteHotelUnavailable=true;return null;}return data;
+   if(!response.ok){diagnostics.liteHotelUnavailable=true;return null;}const text=await response.text();if(text.length>6000000){diagnostics.liteHotelUnavailable=true;return null;}const data=JSON.parse(text);if([true,1,'true','1'].includes(data.sandbox)){diagnostics.liteHotelSandbox=true;return null;}if(!Array.isArray(data.data)){diagnostics.liteHotelUnavailable=true;return null;}return data;
   }catch{diagnostics.liteHotelUnavailable=true;return null;}
  }
  for(const t of targets.filter(t=>t.category==='Penginapan').slice(0,6)){
@@ -77,14 +85,14 @@ export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,di
    const result=await api('data/hotels?'+new URLSearchParams({hotelIds:t.hotelId,limit:'1'}));hotels=(result?.data||[]).filter(h=>(h.id||h.hotelId)===t.hotelId&&clean(h.name)===clean(t.title));
   }else{
    const cacheKey=location.country+'|'+location.city;
-   if(!cache.has(cacheKey)){const result=await api('data/hotels?'+new URLSearchParams({countryCode:location.country,cityName:location.city,limit:'200'}));cache.set(cacheKey,Array.isArray(result?.data)?result.data:[]);}
+   if(!cache.has(cacheKey)){const result=await api('data/hotels?'+new URLSearchParams({countryCode:location.country,cityName:location.city,limit:'1000'}));cache.set(cacheKey,Array.isArray(result?.data)?result.data:[]);}
    const area=clean(t.area).replace(clean(location.city),'').trim();
-   hotels=cache.get(cacheKey).filter(h=>area?clean([h.address,h.name].join(' ')).includes(area):t.searchAny===true||clean(h.name)===clean(t.title));
+   hotels=cache.get(cacheKey).filter(h=>t.searchAny===true&&t.maxNightIDR?true:area?clean([h.address,h.name].join(' ')).includes(area):t.searchAny===true||clean(h.name)===clean(t.title));
   }
-  hotels=hotels.filter(h=>safeId(h.id||h.hotelId)&&(!h.country||clean(h.country)===clean(location.country))&&(!h.city||clean(cityAliases[clean(h.city)]||h.city)===clean(location.city))).slice(0,40);if(!hotels.length)continue;
+  hotels=selectHotelPool(hotels.filter(h=>safeId(h.id||h.hotelId)&&(!h.country||clean(h.country)===clean(location.country))&&(!h.city||clean(cityAliases[clean(h.city)]||h.city)===clean(location.city))));if(!hotels.length)continue;
   const occupancies=Array.from({length:t.rooms},(_,i)=>({adults:Math.min(2,q.people-i*2),children:[]}));
   const result=await api('hotels/rates',{hotelIds:hotels.map(h=>h.id||h.hotelId),checkin:t.checkin,checkout:t.checkout,currency:'IDR',guestNationality:'ID',occupancies,timeout:12,maxRatesPerHotel:4});
-  const offers=(Array.isArray(result?.data)?result.data:[]).flatMap(h=>{const hotel=hotels.find(v=>(v.id||v.hotelId)===h.hotelId);return hotel?(h.roomTypes||[]).map(offer=>checkedLiteOffer(hotel,offer,q,t)).filter(Boolean):[];}).sort((a,b)=>a.amountIDR-b.amountIDR||a.hotelId.localeCompare(b.hotelId));
+  const offers=(Array.isArray(result?.data)?result.data:[]).flatMap(h=>{const hotel=hotels.find(v=>(v.id||v.hotelId)===h.hotelId);return hotel?(h.roomTypes||[]).map(offer=>checkedLiteOffer(hotel,offer,q,t)).filter(Boolean):[];}).filter(o=>{if(!t.maxNightIDR)return true;const nights=(Date.parse(t.checkout)-Date.parse(t.checkin))/86400000;const perNight=o.amountIDR/nights/t.rooms;return t.maxNightExclusive?perNight<t.maxNightIDR:perNight<=t.maxNightIDR;}).sort((a,b)=>a.amountIDR-b.amountIDR||a.hotelId.localeCompare(b.hotelId));
   const distinct=[...new Map(offers.map(o=>[o.hotelId,offers.find(v=>v.hotelId===o.hotelId)])).values()].map(o=>({...o,...hotelPreview(hotels.find(h=>(h.id||h.hotelId)===o.hotelId)||{}),hotelCity:location.city,checkedHotelCount:hotels.length,matchedOfferCount:offers.length,bookingUrl:liteHotelLink(env,o)}));
   if(t.searchAny===true)diagnostics.liteHotelCandidates=distinct.slice(0,12);
   if(distinct[0])quotes.push(distinct[0]);

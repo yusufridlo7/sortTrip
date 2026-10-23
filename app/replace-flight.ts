@@ -2,7 +2,7 @@ import {destinations,makeTrip,type Trip} from './travel-data';
 
 /** Rebuild only after confirmation; the original itinerary is never mutated. */
 export function replaceFlight(original:Trip,selected:Trip):Trip {
- if(original.items.some(item=>item.paid))throw Error('Ada booking yang sudah dibayar. Penggantian otomatis diblokir agar booking tetap aman.');
+ if(original.items.some(item=>item.paid||item.bookingHold))throw Error('Ada booking yang sudah dibayar. Penggantian otomatis diblokir agar booking tetap aman.');
  if(selected.flight?.source!=='aviasales'||!selected.items.some(x=>x.category==='Pesawat'))throw Error('Pilih penerbangan dari hasil pencarian terlebih dahulu.');
  if(selected.people!==original.people)throw Error('Jumlah pelancong harus sama dengan itinerary saat ini. Sesuaikan pencarian penerbangan.');
  const destination=destinations.find(x=>x.id===selected.destination);

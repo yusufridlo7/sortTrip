@@ -1,0 +1,10 @@
+.discovery-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:16px 0}
+.discovery-controls label{display:grid;gap:7px;min-width:0;flex:1 1 190px}
+.discovery-controls input,.discovery-controls select{width:100%;min-width:0;box-sizing:border-box;padding:12px;border:1px solid #c9d9eb;border-radius:12px;background:#fff;color:inherit}
+.discovery-shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.discovery-shortcuts button{white-space:normal}
+.discovery-note{font-size:.9rem;line-height:1.6;color:#52677e;margin:12px 0}
+.lite-hotel-search .lite-hotel-card-actions small{display:block;line-height:1.5;margin:5px 0 12px}
+.lite-hotel-search .lite-hotel-form label{min-width:0}
+.lite-hotel-form .discovery-controls{grid-column:1/-1;margin:0}
+@media(max-width:640px){.discovery-controls{display:grid;grid-template-columns:minmax(0,1fr)}.lite-hotel-search .lite-hotel-form{grid-template-columns:minmax(0,1fr)}.discovery-shortcuts button{flex:1 1 130px}.lite-hotel-search .lite-hotel-card-actions{min-width:0}}

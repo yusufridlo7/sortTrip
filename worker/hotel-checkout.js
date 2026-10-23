@@ -1,3 +1,4 @@
+import {bookingItemKey} from './booking-identity.mjs';
 import {checkedLiteOffer} from './lite-hotel.js';
 import {assertLiteApiFreeEndpoint} from './liteapi-cost-policy.js';
 const reply=(body,status=200)=>Response.json(body,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'}});
@@ -14,7 +15,8 @@ export function checkoutMode(env){
 }
 export function checkoutQuery(b){
  if(!identifier(b.hotelId)||!day(b.checkin)||!day(b.checkout)||b.checkin<new Date().toISOString().slice(0,10)||b.checkout<=b.checkin||Date.parse(b.checkout)-Date.parse(b.checkin)>31*86400000||!Number.isInteger(b.people)||b.people<1||b.people>8)throw Error('hotel_checkout_invalid');
- return {hotelId:b.hotelId,checkin:b.checkin,checkout:b.checkout,adults:b.people,rooms:Math.ceil(b.people/2)};
+ if((b.tripId||b.itemId)&&(!uuid(b.tripId)||typeof b.itemId!=='string'||!b.itemId.length||b.itemId.length>120))throw Error('hotel_checkout_invalid');
+ return {...(b.tripId?{tripId:b.tripId,itemId:b.itemId}:{}),hotelId:b.hotelId,checkin:b.checkin,checkout:b.checkout,adults:b.people,rooms:Math.ceil(b.people/2)};
 }
 export function checkoutGuests(b,rooms){
  const name=v=>typeof v==='string'&&v.trim().length>=1&&v.length<=80&&!/[\x00-\x1f<>]/.test(v);
@@ -42,7 +44,7 @@ export async function openCheckout(env,value){const [iv,data]=value.split('.');r
 const publicCheckout=r=>({id:r.id,state:r.state,environment:r.environment,summary:r.summary,expiresAt:r.expires_at,...(r.state==='confirmed'?{bookingId:r.booking_id,confirmationCode:r.confirmation_code}:{} )});
 const cancellation=rates=>rates.map(r=>({refundableTag:r.cancellationPolicies.refundableTag,cancelPolicyInfos:(r.cancellationPolicies.cancelPolicyInfos||[]).slice(0,8).map(p=>({cancelTime:typeof p.cancelTime==='string'?p.cancelTime.slice(0,40):'',amount:Number.isFinite(Number(p.amount))?Number(p.amount):null,currency:/^[A-Z]{3}$/.test(p.currency||'')?p.currency:null}))}));
 export function verifiedBooking(data,row){
- if(!identifier(data?.bookingId)||data.clientReference!==row.id||data.hotel?.hotelId!==row.summary.hotelId||data.checkin!==row.summary.checkin||data.checkout!==row.summary.checkout||!['CONFIRMED','CANCELLED','CANCELED'].includes(data.status))return null;
+ if(!identifier(data?.bookingId)||data.clientReference!==row.id||data.hotel?.hotelId!==row.summary.hotelId||data.checkin!==row.summary.checkin||data.checkout!==row.summary.checkout||!['CONFIRMED','CANCELLED','CANCELED','CANCELLED_WITH_CHARGES'].includes(data.status))return null;
  return {state:data.status==='CONFIRMED'?'confirmed':'cancelled',booking_id:data.bookingId,confirmation_code:typeof data.hotelConfirmationCode==='string'&&data.hotelConfirmationCode.length<=100?data.hotelConfirmationCode:null};
 }
 export async function handleHotelCheckout(request,env,fetcher=fetch){
@@ -78,6 +80,7 @@ export async function handleHotelCheckout(request,env,fetcher=fetch){
   if(path==='/api/hotels/checkout/history'&&request.method==='GET')return reply({checkouts:(await db('hotel_checkouts?user_id=eq.'+user.id+'&environment=eq.'+mode+'&state=neq.selected&order=created_at.desc&limit=20')).map(publicCheckout)});
   if(path==='/api/hotels/checkout/rooms'&&request.method==='POST'){
    let q;try{q=checkoutQuery(b)}catch{return reply({error:'hotel_checkout_invalid'},400);}
+   if(q.tripId){const [saved]=await db('trips?select=id,data&id=eq.'+q.tripId+'&user_id=eq.'+user.id);const item=saved?.data?.items?.find(x=>x.id===q.itemId);if(!item||!bookingItemKey(saved.data,item)||item.category!=='Penginapan'||item.hotelId!==q.hotelId||item.checkin!==q.checkin||item.checkout!==q.checkout||saved.data.people!==q.adults)return reply({error:'booking_changed'},409);}
    // Require storage before a supplier call. No user-controlled offer/price accepted.
    await db('hotel_checkouts?select=id&limit=0');
    const detail=await api('data/hotel?'+new URLSearchParams({hotelId:q.hotelId}),null,'api'),hotel={...detail.data,id:q.hotelId};
