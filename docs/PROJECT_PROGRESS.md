@@ -731,3 +731,7 @@ Owner requested no pricing-method explanation in customer UI. Recommendation dia
 
 ## 2026-10-24 — Explore release authorised
 Owner explicitly instructed commit, push and deploy the completed Explore/progress/recommendation package. Final303tests, production build and i18n pass; selected source, tests, reports and UI evidence prepared. Unrelated WORKFLOW.md deletion, .env.example, raw artifacts and report backups excluded. Production release and smoke verification follow; no live AI/payment test needed.
+
+
+## 2026-10-24 — Explore release complete
+Owner-authorised application commit2017a0d pushed and deployed as ede52a3d-de0e-4cad-8945-9a5433c82f9a.303tests/build/i18n pass; actual production homepage/assets/health/recommendations200, new photo hash verified, three budget cards and cost-only Hanoi4-night detail browser-checked desktop/mobile. Unauthenticated SSE terminal401 verified without model/quota debit. Public aggregate KV initialised from real seed; monthly refresh flag/binding/daily09:00Jakarta check deployed. Local-only/release-pending notes for this package are superseded. No need to repeat activation/key registration/deploy for these changes. Remaining additional samples/ground fares/SG activity400 and owner-controlled financial lifecycle stay separate. See qa-reports/RELEASE_EXPLORE_2026-10-24.md.

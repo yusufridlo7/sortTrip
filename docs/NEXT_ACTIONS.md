@@ -390,3 +390,7 @@ Explore/progress/recommendations code is locally tested, not committed/published
 
 ## 2026-10-24 — Hanoi gap superseded
 The prior missing Hanoi ticket/budget action is resolved locally:5-day return fare5314916 accepted;4-night hotel quote total1354480.25; Budget mulai7.1m. Actual frontend search positive, new skyline photo, full-stay totals and303regressions verified. Await owner release instruction for this uncommitted package. Additional observations for SD/annual coverage, comparable ground transport fares and SG activity400 remain separate. Do not widen explicit4-day user queries or claim live bookable inventory from cached fares. See qa-reports/HANOI_BUDGET_QA.md.
+
+
+## 2026-10-24 — Explore release complete
+Owner-authorised application commit2017a0d pushed and deployed as ede52a3d-de0e-4cad-8945-9a5433c82f9a.303tests/build/i18n pass; actual production homepage/assets/health/recommendations200, new photo hash verified, three budget cards and cost-only Hanoi4-night detail browser-checked desktop/mobile. Unauthenticated SSE terminal401 verified without model/quota debit. Public aggregate KV initialised from real seed; monthly refresh flag/binding/daily09:00Jakarta check deployed. Local-only/release-pending notes for this package are superseded. No need to repeat activation/key registration/deploy for these changes. Remaining additional samples/ground fares/SG activity400 and owner-controlled financial lifecycle stay separate. See qa-reports/RELEASE_EXPLORE_2026-10-24.md.
