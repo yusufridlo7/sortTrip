@@ -9,7 +9,7 @@ export function validateGoogleRoute(input,now=Date.now()){
  const body={origin:{address:input.from.trim()},destination:{address:input.to.trim()},travelMode:input.mode,computeAlternativeRoutes:input.mode!=='WALK',languageCode:input.language==='en'?'en':'id',units:'METRIC'};
  if(input.mode==='TRANSIT'){
   const d=Date.parse(input.departureTime);
-  if(typeof input.departureTime!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/.test(input.departureTime)||!Number.isFinite(d)||d<now-7*86400000||d>now+100*86400000)throw Error('DATE');
+  if(typeof input.departureTime!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/.test(input.departureTime)||!Number.isFinite(d)||d<now-7*86400000||d>now+100*86400000)throw Error('DATE');
   body.departureTime=new Date(d).toISOString();body.transitPreferences={routingPreference:'FEWER_TRANSFERS'};
  }
  return body;

@@ -1,7 +1,7 @@
 import {type Trip,type PriceQuote,addDays,dayDiff} from './travel-data';
 export function buildPriceTargets(trip:Trip,city:string){
  const names:Record<string,string>={kl:'Kuala Lumpur',sin:'Singapura',bkk:'Bangkok',melaka:'Melaka',penang:'Penang',ayutthaya:'Ayutthaya',putrajaya:'Putrajaya'};
- return trip.items.filter(x=>!x.paid&&['Penginapan','Transportasi'].includes(x.category)).flatMap(x=>{
+ return trip.items.filter(x=>!x.paid&&!x.bookingHold&&!x.aiLocked&&['Penginapan','Transportasi'].includes(x.category)).flatMap(x=>{
   const base={id:x.id,title:x.title,category:x.category,day:x.day,hotelId:x.hotelId,sourceUrl:x.sourceUrl,mode:x.mode,city:x.locationCity||city,from:x.fromPlace||names[x.fromCity||''],to:x.toPlace||names[x.toCity||''],checkin:x.checkin,checkout:x.checkout,rooms:Math.ceil(trip.people/2)};
   const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;
   return x.category==='Transportasi'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:x.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];
@@ -10,7 +10,7 @@ export function buildPriceTargets(trip:Trip,city:string){
 export function applyPriceQuotes(trip:Trip,quotes:PriceQuote[]):Trip {
  const byId=new Map(quotes.map(x=>[x.id,x]));
  return {...trip,priceCheckedAt:quotes.map(x=>x.checkedAt).sort().at(-1)||trip.priceCheckedAt,items:trip.items.map(item=>{
-  if(item.paid)return item;
+  if(item.paid||item.bookingHold||item.aiLocked)return item;
   const legs=item.routeOptions?.[item.selectedRoute||0]?.legs;
   if(item.category==='Transportasi'&&legs){
    const routePriceQuotes=legs.flatMap((_,i)=>{const quote=byId.get(item.id+'::'+i)||item.routePriceQuotes?.find(x=>x.id===item.id+'::'+i);return quote&&quote.basis==='person'&&Number.isFinite(quote.amountIDR)&&quote.amountIDR>0&&quote.amountIDR<=1e9?[quote]:[]});

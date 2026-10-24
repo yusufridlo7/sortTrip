@@ -4,11 +4,31 @@ import {liteHotelConfigured,checkedLiteOffer,liteHotelPrices,groupHotelAreas,app
 import {researchPrices} from '../worker/price-research.js';
 import {researchRequest,draftRequest} from '../worker/ai-draft.js';
 import {handleItinerary} from '../worker/itinerary.js';
+import {airportStayPolicy,withinAirportScope} from '../worker/hotel-stay-policy.mjs';
 const env={LITEAPI_ENABLED:'true',LITEAPI_API_KEY:'fixture-not-a-real-key'};
 const q={city:'Kuala Lumpur',country:'Malaysia',start:'2027-01-10',days:4,people:2,budget:4000000,dailyCities:[]};
 const target={id:'ai-plan-a',title:'Bukit Bintang',area:'Bukit Bintang',category:'Penginapan',city:q.city,day:1,checkin:q.start,checkout:'2027-01-13',rooms:1};
 const hotel={id:'lpfixture',name:'Hotel B',address:'Bukit Bintang, Kuala Lumpur',city:'Kuala Lumpur',country:'MY',location:{latitude:3.14,longitude:101.71}};
 const rate=(n=300)=>({rateType:'standard',rates:[{occupancyNumber:1,adultCount:2,childCount:0,name:'Double Room',retailRate:{total:[{amount:n,currency:'IDR'}],suggestedSellingPrice:[{amount:n+20,currency:'IDR'}],taxesAndFees:[{included:true}]},cancellationPolicies:{refundableTag:'NRFN'}}]});
+
+test('explicit final KLIA stay splits city nights and rejects cheaper city-centre inventory',async()=>{
+ const query={...q,days:3,interests:'hotel cari di bawah 500000 per malam, hari terakhir penginapan di dekat KLIA'};
+ assert.equal(airportStayPolicy(query).day,2);
+ assert.equal(airportStayPolicy({...query,interests:'last night hotel near KLIA'}).day,2);
+ assert.equal(airportStayPolicy({...query,interests:'jangan ganti hotel, hari terakhir dekat KLIA'}),null);
+ assert.equal(airportStayPolicy({...query,days:1}),null);
+ const area={category:'Area menginap',title:'Chinatown',location:'Chinatown',city:q.city,time:'19:00'};
+ const grouped=groupHotelAreas({activities:[{...area,id:'first',day:1},{...area,id:'last',day:2}]},query);
+ assert.equal(grouped.activities.length,2);assert.equal(grouped.activities[0].checkout,'2027-01-11');assert.equal(grouped.activities[1].city,'Sepang');assert.equal(grouped.activities[1].airportScope,true);
+ const airportHotel={...hotel,id:'airport',name:'Airport fixture',location:{latitude:2.76,longitude:101.71}};
+ let count=0;
+ const fetcher=async(url,options)=>{count++;const b=JSON.parse(options.body);assert.equal(b.radius,20000);assert.equal(b.cityName,undefined);assert.equal(b.checkin,'2027-01-11');assert.equal(b.checkout,'2027-01-12');return Response.json({data:[{hotelId:hotel.id,roomTypes:[rate(10)]},{hotelId:'airport',roomTypes:[rate(399980)]}],hotels:[hotel,airportHotel]});};
+ const quotes=await liteHotelPrices(query,[{...target,city:'Sepang',day:2,checkin:'2027-01-11',checkout:'2027-01-12',searchAny:true,airportScope:true,maxNightIDR:500000}],env,Date.now()+45000,{},fetcher);
+ assert.equal(count,2);assert.equal(quotes[0].hotelId,'airport');assert.equal(quotes[0].amountIDR,400000);
+ assert.equal(withinAirportScope(hotel.location),false);assert.equal(withinAirportScope(quotes[0].geo),true);
+ const unavailable=await liteHotelPrices(query,[{...target,day:2,checkin:'2027-01-11',checkout:'2027-01-12',searchAny:true,airportScope:true,maxNightIDR:100000}],env,Date.now()+45000,{},fetcher);
+ assert.deepEqual(unavailable,[]); // Never silently substitute the cheap city hotel.
+});
 test('nightly cap filters tax-inclusive public totals per room/night and searches budget city stock',async()=>{
  const budget={...target,maxNightIDR:500000,maxNightExclusive:true,searchAny:true};
  const fetcher=async(url)=>String(url).includes('data/hotels')?Response.json({data:[hotel,{...hotel,id:'cheap',name:'Economy',address:'Outside the central area'}]}):Response.json({data:[{hotelId:hotel.id,roomTypes:[rate(1499980)]},{hotelId:'cheap',roomTypes:[rate(899980)]}]});

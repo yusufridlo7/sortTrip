@@ -9,9 +9,9 @@ import {resolveI18n} from './i18n-loader.mjs';
 const dir=await mkdtemp(join(tmpdir(),'sorttrip-day-settings-'));
 let data,city,transport;
 try{
- for(const name of ['travel-data','transport-data','cities','local-transport-data']){
+ for(const name of ['travel-data','transport-data','cities','verified-places','local-transport-data']){
   const source=await readFile(new URL('../app/'+name+'.ts',import.meta.url),'utf8');
-  const js=resolveI18n(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|local-transport-data)\1/g,"'./$2.mjs'"));
+  const js=resolveI18n(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|verified-places|local-transport-data)\1/g,"'./$2.mjs'"));
   await writeFile(join(dir,name+'.mjs'),js);
  }
  data=await import(pathToFileURL(join(dir,'travel-data.mjs')));city=await import(pathToFileURL(join(dir,'cities.mjs')));transport=await import(pathToFileURL(join(dir,'local-transport-data.mjs')));
@@ -65,4 +65,12 @@ test('city change replaces AI hotels without coordinates and preserves other nig
  const hotels=changed.items.filter(x=>x.category==='Penginapan');assert.equal(hotels.length,3);
  assert.equal(hotels.find(x=>x.day===2).cityId,'melaka');assert.notEqual(hotels.find(x=>x.day===2).title,h.title);
  assert.equal(hotels.find(x=>x.day===1).title,h.title);assert.equal(hotels.find(x=>x.day===3).title,h.title);
+});
+
+
+test('verified museum pins use exact source aliases and never an unknown annex',()=>{
+ const item={id:'museum',title:'National Museum (Muzium Negara)',place:'Muzium Negara',locationCity:'Kuala Lumpur',category:'Wisata',day:1,time:'10:00',price:0,paid:false};
+ const trip={destination:'kl',start:'2027-01-30',days:3,people:1,items:[item]};
+ assert.equal(transport.routePoints(trip,1)[0].geo.lat,3.137662);
+ item.place='Muzium Negara unverified annex';assert.equal(transport.routePoints(trip,1).length,0);
 });

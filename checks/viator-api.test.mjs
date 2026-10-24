@@ -102,3 +102,16 @@ test('city-scoped search resolves an exact destination then filters products; am
  const ambiguous=await handleViator(request('?search=tower&city=Paris'),env,{fetcher:async()=>Response.json({destinations:{results:[{id:1,name:'Paris'},{id:2,name:'Paris'}]}})});
  assert.equal(ambiguous.status,400);assert.equal((await ambiguous.json()).code,'VIATOR_DESTINATION_REQUIRED');
 });
+
+
+test('city-state names select only the explicit child of the same-name country',async()=>{
+ let calls=0;
+ const r=await handleViator(request('?search=Gardens%20by%20the%20Bay&city=Singapore'),env,{fetcher:async(url,init)=>{
+  const body=JSON.parse(init.body);calls++;
+  if(calls===1)return Response.json({destinations:{results:[{id:60449,name:'Singapore',parentDestinationId:18,parentDestinationName:'Singapore'},{id:18,name:'Singapore',parentDestinationId:2,parentDestinationName:'Asia'}]}});
+  assert.equal(body.productFiltering.destination,'60449');return Response.json({products:{results:[row]}});
+ }});
+ assert.equal(r.status,200);assert.equal(calls,2);
+ const ambiguous=await handleViator(request('?search=Gardens&city=Singapore'),env,{fetcher:async()=>Response.json({destinations:{results:[{id:60449,name:'Singapore',parentDestinationId:999},{id:18,name:'Singapore',parentDestinationId:2}]}})});
+ assert.equal(ambiguous.status,400);assert.equal((await ambiguous.json()).candidates,undefined);
+});

@@ -43,7 +43,7 @@ export async function handlePayments(request,env){
  // Read-only entitlement lookup also works for an unsaved draft. Never reconcile
  // payments or grant access here; the quota RPC remains authoritative for AI.
  if(path==='/api/payments/access'){
-  let key;try{key=planningKey(b.city,b.start)}catch{return json({error:'Identitas perjalanan tidak valid.'},400)}
+  if(b.scope!=='account'){try{planningKey(b.city,b.start)}catch{return json({error:'Identitas perjalanan tidak valid.'},400)}}
   const rows=await db(env,`trip_passes?user_id=eq.${user.id}&expires_at=gt.${encodeURIComponent(new Date().toISOString())}&select=trip_key,expires_at,request_limit,requests,payment_reference&order=expires_at.desc`);
   const pass=passSummary(rows);
   const otherTrips=[];

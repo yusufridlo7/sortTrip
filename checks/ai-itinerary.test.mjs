@@ -113,3 +113,23 @@ test('validates sourced hotel nights and complete transport endpoints; never ret
  assert.throws(()=>validatePlan({...full,activities:full.activities.map(x=>x.category==='Penginapan'?{...x,day:3}:x)},q,sources));
  assert.throws(()=>validatePlan({...full,activities:full.activities.map(x=>x.category==='Transfer'?{...x,toPlace:null}:x)},q,sources));
 });
+
+
+test('exact retained routing targets permit overlapping research without dropping either source set',{timeout:3000},async()=>{
+ const original=globalThis.fetch;let releaseRoute,tools=0,routeStarted=false;
+ const evidence=text=>Response.json({status:'completed',output:[{action:{sources}},{content:[{type:'output_text',text}]}]});
+ globalThis.fetch=async(url,options)=>{
+  if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture'});
+  if(String(url).includes('reserve_ai_request'))return Response.json({allowed:true});
+  if(String(url).includes('finish_ai_request'))return Response.json({ok:true});
+  const body=JSON.parse(options.body);
+  if(body.tools){tools++;if(body.instructions.includes('dedicated route feasibility investigation')){routeStarted=true;return new Promise(resolve=>{releaseRoute=()=>resolve(evidence('Exact retained target transport research'));});}assert.ok(routeStarted);releaseRoute();return evidence('General attraction research');}
+  const input=JSON.parse(body.input);assert.match(input.research,/Exact retained target transport research/);assert.match(input.research,/General attraction research/);
+  return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(plan)}]}]});
+ };
+ try{
+  const input={...q,transportPreference:'hemat',routingTargets:[{day:2,category:'Wisata',place:'A',city:'Tokyo'},{day:2,category:'Wisata',place:'B',city:'Tokyo'},{day:1,category:'Penginapan',place:'Selected hotel',city:'Tokyo'}]};
+  const response=await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Authorization:'Bearer fixture'},body:JSON.stringify(input)}),{OPENAI_API_KEY:'fixture',SUPABASE_URL:'https://db.test',SUPABASE_SERVICE_ROLE_KEY:'fixture',SUPABASE_PUBLISHABLE_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}});
+  assert.equal(response.status,200);assert.equal(tools,2);
+ }finally{globalThis.fetch=original;}
+});

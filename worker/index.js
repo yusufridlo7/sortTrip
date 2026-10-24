@@ -99,7 +99,7 @@ const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.
  if(u.pathname==='/api/routes/google')return handleGoogleRoutes(request,env);
  if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
- if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),supplierBrowserConfigured:externalHotelServiceConfigured(env)||(env.HOTEL_BROWSER_ENABLED==='true'&&Boolean(env.HOTEL_BROWSER)),externalHotelBrowserConfigured:externalHotelServiceConfigured(env),version:'flights-v2-worldwide'});
+ if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),supplierBrowserConfigured:externalHotelServiceConfigured(env)||(env.HOTEL_BROWSER_ENABLED==='true'&&Boolean(env.HOTEL_BROWSER)),externalHotelBrowserConfigured:externalHotelServiceConfigured(env),version:'flights-v2-worldwide',itineraryRulesVersion:'2026-10-24-order-admission'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
  if(u.pathname!=='/api/flights')return json({error:'Endpoint tidak ditemukan.'},404);
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}

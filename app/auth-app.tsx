@@ -1,3 +1,4 @@
+import BrandLogo from './brand-logo';
 import {tr,label as localize,locale} from './i18n';
 import {useEffect, useState} from 'react';
 import type {Session} from '@supabase/supabase-js';
@@ -32,7 +33,7 @@ export default function AuthApp() {
     const {error} = await supabase.auth.signOut({scope:'local'});
     if (error) setMessage(tr('ui_0069'));
   }
-  if (!ready) return <main><p role="status">{tr('ui_0070')}</p></main>;
+  if (!ready) return <main className="brand-loading"><BrandLogo tagline/><p role="status">{tr('ui_0070')}</p></main>;
   const email = session?.user.email || '';
   if(window.location.pathname==='/hotel-checkout')return <HotelCheckout key={session?.user.id||'guest'} signedIn={Boolean(session)}/>;
   return <>{message && <p role="status">{localize(message)}</p>}<TravelApp key={session?.user.id || 'guest'} user={session?{id:session.user.id,name:email.split('@')[0] || 'Traveler', email}:null} onLogout={logout}/></>;

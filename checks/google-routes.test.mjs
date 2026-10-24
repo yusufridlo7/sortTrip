@@ -44,3 +44,11 @@ test('budget missing/exhausted blocks Google; reservation precedes one billable 
 });
 
 test('database origin normalizes trailing slash and invalid budget responses cannot reach Google',async()=>{for(const validBudget of [true,false]){const urls=[];const r=await handleGoogleRoutes(request(),{...env,SUPABASE_URL:'https://db.test/'},async(u,o)=>{urls.push(String(u));assert.equal(o.redirect,'manual');if(String(u).endsWith('/auth/v1/user'))return Response.json({id:user});if(String(u).includes('/rpc/'))return Response.json(validBudget?{allowed:true,dailyRemaining:999,monthlyRemaining:8999,userDailyRemaining:4}:{allowed:true});return Response.json({routes:[]});});assert.equal(r.status,validBudget?200:503);assert.ok(urls.every(u=>!new URL(u).pathname.includes('//')));assert.equal(urls.filter(u=>u.includes('googleapis')).length,validBudget?1:0);}});
+
+
+test('transit accepts the exact millisecond timestamp emitted by browser Date.toISOString',()=>{
+ const now=Date.parse('2026-10-24T10:00:00Z');
+ const timestamp=new Date(now+86400000).toISOString();
+ assert.equal(validateGoogleRoute({...query,departureTime:timestamp},now).departureTime,timestamp);
+ for(const invalid of ['2026-10-25T10:00:00.abcZ','2026-10-25T10:00:00','2027-10-25T10:00:00.000Z'])assert.throws(()=>validateGoogleRoute({...query,departureTime:invalid},now));
+});

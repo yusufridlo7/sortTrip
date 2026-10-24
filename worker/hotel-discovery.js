@@ -1,3 +1,4 @@
+import {KLIA_SCOPE,withinAirportScope} from './hotel-stay-policy.mjs';
 import {checkedLiteOffer,liteHotelLink} from './lite-hotel.js';
 import {hotelPreview} from './hotel-content.js';
 import {assertLiteApiFreeEndpoint} from './liteapi-cost-policy.js';
@@ -16,7 +17,7 @@ export async function discoverHotelRates(q,env,fetcher=fetch,outerDeadline=Infin
   if(!Array.isArray(data.data))throw Error('hotel_search_unavailable');return data;
  }
  const rooms=Math.ceil(q.people/2),occupancies=Array.from({length:rooms},(_,i)=>({adults:Math.min(2,q.people-i*2),children:[]}));
- const base={countryCode:q.country,cityName:q.city,checkin:q.checkin,checkout:q.checkout,currency:'IDR',guestNationality:'ID',occupancies,includeHotelData:true,limit:200,timeout:12,maxRatesPerHotel:4,...(q.hotelName?{hotelName:q.hotelName}:{})};
+ const base={...(q.airportScope?{latitude:KLIA_SCOPE.latitude,longitude:KLIA_SCOPE.longitude,radius:KLIA_SCOPE.radius}:{countryCode:q.country,cityName:q.city}),checkin:q.checkin,checkout:q.checkout,currency:'IDR',guestNationality:'ID',occupancies,includeHotelData:true,limit:200,timeout:12,maxRatesPerHotel:4,...(q.hotelName?{hotelName:q.hotelName}:{})};
  const requests=[api('hotels/rates',{...base,starRating:[1,1.5,2,2.5,3]})];
  if(q.tier!=='budget')requests.push(api('hotels/rates',base));
  const results=await Promise.allSettled(requests);
@@ -37,7 +38,7 @@ export async function discoverHotelRates(q,env,fetcher=fetch,outerDeadline=Infin
   if(area&&!norm([hotel.name,hotel.address].join(' ')).includes(area))continue;
   const checked=offers.map(o=>checkedLiteOffer(hotel,o,{people:q.people},{id:'hotel-search',rooms,checkin:q.checkin,checkout:q.checkout,area:q.area})).filter(Boolean).sort((a,b)=>a.amountIDR-b.amountIDR);
   matchedOfferCount+=checked.length;if(!checked.length)continue;
-  const quote=checked[0],preview=hotelPreview(hotel);
+  const quote=checked[0];if(q.airportScope&&!withinAirportScope(quote.geo))continue;const preview=hotelPreview(hotel);
   if(q.tier==='budget'&&preview.stars!==null&&preview.stars>3)continue;
   found.push({...quote,...preview,hotelCity:q.city,bookingUrl:liteHotelLink(env,quote)});
  }

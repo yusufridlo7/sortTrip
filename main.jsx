@@ -6,4 +6,5 @@ import 'leaflet/dist/leaflet.css';
 import './app/globals.css';
 import './app/travel-refresh.css';
 import './app/i18n';
+import './app/brand-theme.css';
 createRoot(document.getElementById('root')).render(<AuthApp/>);

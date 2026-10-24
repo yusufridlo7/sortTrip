@@ -1,0 +1,11 @@
+:root{
+ --brand-navy:#0B2D3A;--brand-teal:#0F6E8C;--brand-cyan:#0B8DB0;--brand-bright:#0EA5C9;--brand-coral:#FF6B4A;--brand-offwhite:#F7F7F5;--brand-white:#FFFFFF;
+ --brand-text:var(--brand-navy);--brand-muted:#526770;--brand-link:var(--brand-teal);--brand-primary:var(--brand-teal);--brand-hover:#0B526A;--brand-on-primary:#FFFFFF;
+ --brand-surface:#FFFFFF;--brand-background:var(--brand-offwhite);--brand-subtle:#EFF6F7;--brand-tint:#E3F2F6;--brand-border:#C9DDE2;--brand-border-strong:#8FB5C1;--brand-focus:var(--brand-teal);
+ --brand-font:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;--brand-radius:12px;--brand-radius-card:18px;--brand-shadow:0 4px 20px #0B2D3A0A;
+ --brand-space-1:4px;--brand-space-2:8px;--brand-space-3:12px;--brand-space-4:16px;--brand-space-6:24px;
+}
+.dark,[data-theme=dark]{
+ color-scheme:dark;--brand-text:#EAF3F5;--brand-muted:#ADC3CC;--brand-link:#6AD4EF;--brand-primary:#0F6E8C;--brand-hover:#0B526A;--brand-focus:#6AD4EF;
+ --brand-surface:#123B4B;--brand-background:#0B2D3A;--brand-subtle:#173F4F;--brand-tint:#1A4B5E;--brand-border:#376170;--brand-border-strong:#688D9C;--brand-shadow:0 4px 20px #00000020;
+}

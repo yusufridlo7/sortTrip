@@ -7,3 +7,5 @@ document.documentElement.lang=preferred;
 document.querySelectorAll('[data-policy-lang]').forEach(el=>{el.hidden=el.dataset.policyLang!==preferred;});
 const heading=document.querySelector(`[data-policy-lang="${preferred}"] h1`);
 if(heading)document.title=heading.textContent+' | SortTrip';
+
+document.querySelectorAll('[data-brand-tagline]').forEach(el=>{el.textContent=preferred==='en'?'Travel smarter, plan better':'Sortir tiket, susun itinerary';});

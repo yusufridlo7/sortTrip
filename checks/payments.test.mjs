@@ -153,3 +153,21 @@ test('Snap not-started response restores only validated existing checkout, witho
   const r=await handlePayments(request,{...env,OWNER_USER_ID:uid,MIDTRANS_SERVER_KEY:'FIXTURE_ONLY',AI_LIMITER:{limit:async()=>({success:true})}});const b=await r.json();assert.equal(r.status,200);assert.equal(b.status,'created');assert.equal(b.pass,null);assert.equal(b.verificationError.code,'CHECKOUT_NOT_STARTED');assert.equal(b.checkoutUrl,expected?checkout:null);assert.equal(writes,0);assert.ok(!JSON.stringify(b).includes('PRIVATE_PROVIDER_TEXT'));
  }}finally{globalThis.fetch=old;}
 });
+
+
+test('account entitlement lookup is authenticated, user-scoped and read-only without a trip',async()=>{
+ const original=globalThis.fetch;const calls=[];
+ globalThis.fetch=async(url,options)=>{
+  const u=String(url);calls.push({url:u,method:options?.method||'GET'});
+  if(u.endsWith('/auth/v1/user'))return Response.json({id:uid});
+  assert.ok(u.includes('trip_passes?user_id=eq.'+uid));assert.equal(options?.method||'GET','GET');
+  return Response.json([{expires_at:'2027-01-01T00:00:00Z',request_limit:10,requests:4,payment_reference:'fixture'}]);
+ };
+ try{
+  const request=new Request('https://sorttrip.test/api/payments/access',{method:'POST',headers:{Authorization:'Bearer test'},body:JSON.stringify({scope:'account'})});
+  const response=await handlePayments(request,env);assert.equal(response.status,200);
+  const result=await response.json();assert.equal(result.pass.remaining,6);assert.equal(result.pass.expiresAt,'2027-01-01T00:00:00Z');assert.ok(!JSON.stringify(result).includes('payment_reference'));assert.equal(calls.length,2);
+  const unauthenticated=await handlePayments(new Request('https://sorttrip.test/api/payments/access',{method:'POST',body:JSON.stringify({scope:'account'})}),env);assert.equal(unauthenticated.status,401);assert.equal(calls.length,2);
+  const invalid=await handlePayments(new Request('https://sorttrip.test/api/payments/access',{method:'POST',headers:{Authorization:'Bearer test'},body:'{}'}),env);assert.equal(invalid.status,400);
+ }finally{globalThis.fetch=original;}
+});

@@ -84,8 +84,13 @@ export async function handleViator(request, env, {fetcher = fetch} = {}) {
       const destinations=found?.destinations?.results;
       const normalize=v=>typeof v==='string'?v.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase():'';
       const matches=Array.isArray(destinations)?destinations.filter(d=>normalize(d.name)===normalize(body.city)&&Number.isSafeInteger(d.id)&&d.id>0):[];
-      if(matches.length!==1)return reply({code:'VIATOR_DESTINATION_REQUIRED',error:'Kota belum dapat dicocokkan secara pasti. Gunakan nama kota lain yang lebih spesifik.'},400);
-      body.body.productFiltering={destination:String(matches[0].id)};
+      // City-states can have a country and a city with the same name.
+      // Resolve only an explicit provider parent/child relationship; unrelated
+      // namesakes remain ambiguous and must never be selected arbitrarily.
+      const leaves=matches.filter(d=>matches.every(other=>other.id===d.id||d.parentDestinationId===other.id));
+      const resolved=matches.length===1?matches[0]:leaves.length===1?leaves[0]:null;
+      if(!resolved)return reply({code:'VIATOR_DESTINATION_REQUIRED',error:'Kota belum dapat dicocokkan secara pasti. Gunakan nama kota lain yang lebih spesifik.'},400);
+      body.body.productFiltering={destination:String(resolved.id)};
       failureStage='request';
     }
     const response = await supplierRequest(body.path,body.body);

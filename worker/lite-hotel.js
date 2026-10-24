@@ -1,3 +1,4 @@
+import {airportStayPolicy,withinAirportScope} from './hotel-stay-policy.mjs';
 // Supplier facts are deterministic API data, never model-generated prices/IDs.
 import {assertLiteApiFreeEndpoint} from './liteapi-cost-policy.js';
 import {hotelPreview} from './hotel-content.js';
@@ -11,8 +12,9 @@ const date=v=>/^\d{4}-\d{2}-\d{2}$/.test(v||'')&&Number.isFinite(Date.parse(v+'T
 const amount=v=>Number.isFinite(Number(v))&&Number(v)>0&&Number(v)<=1e9;
 function scope(q,t){
  const dayCity=q.dailyCities?.find(x=>x.day===t.day);
- const city=cityAliases[clean(t.city||dayCity?.city||q.city)]||t.city||dayCity?.city||q.city;
+ const city=t.airportScope===true?'Sepang':cityAliases[clean(t.city||dayCity?.city||q.city)]||t.city||dayCity?.city||q.city;
  const c=dayCity?.country||q.country,country=/^[A-Z]{2}$/.test(c||'')?c:countries[clean(c)];
+ if(t.airportScope&&country!=='MY')return null;
  if(!city||!country||!date(t.checkin)||!date(t.checkout)||t.checkin>=t.checkout||t.checkin<q.start||Date.parse(t.checkout)>Date.parse(q.start)+(q.days-1)*86400000||Date.parse(t.checkout)-Date.parse(t.checkin)>31*86400000)return null;
  if(!Number.isInteger(q.people)||q.people<1||q.people>8||t.rooms!==Math.ceil(q.people/2))return null;
  return {city,country};
@@ -25,7 +27,10 @@ export function groupHotelAreas(plan,q){
   return checkin<=at(a.day)&&checkout>at(a.day);
  });
  const protectedIds=new Set(plan.activities.filter(a=>a.category==='Area menginap'&&retainedNight(a)).map(a=>a.id));
- const lodging=plan.activities.filter(a=>a.category==='Area menginap'&&!protectedIds.has(a.id)).sort((a,b)=>a.day-b.day);
+ const airport=airportStayPolicy(q);
+ const airportSource='https://www.samasamahotels.com/location-map/'; // Geographic KLIA/Sepang reference only; not a hotel selection.
+ const scoped=plan.activities.map(a=>a.category==='Area menginap'&&a.day===airport?.day?{...a,city:airport.city,title:airport.area,location:airport.area,airportScope:true,sourceUrl:airportSource,note:q.language==='en'?'Requested final night near KLIA. Check terminal access and onward transport.':'Permintaan malam terakhir dekat KLIA. Periksa akses terminal dan transportasi selanjutnya.'}:a);
+ const lodging=scoped.filter(a=>a.category==='Area menginap'&&!protectedIds.has(a.id)).sort((a,b)=>a.day-b.day);
  const groups=[];
  for(const a of lodging){
   const previous=groups.at(-1),key=clean(a.city||q.city)+'|'+clean(a.location||a.title);
@@ -33,7 +38,7 @@ export function groupHotelAreas(plan,q){
   else groups.push({key,lastDay:a.day,ids:[a.id],activity:{...a,checkin:at(a.day),checkout:at(a.day+1)}});
  }
  const grouped=new Map(groups.map(g=>[g.ids[0],g.activity])),removed=new Set([...protectedIds,...groups.flatMap(g=>g.ids.slice(1))]);
- return {...plan,activities:plan.activities.filter(a=>!removed.has(a.id)).map(a=>grouped.get(a.id)||a)};
+ return {...plan,...(airport&&scoped.some(a=>a.airportScope)?{sources:[...(plan.sources||[]).filter(s=>s.url!==airportSource),{url:airportSource,title:'KLIA / Sepang location reference'}]}:{}),activities:scoped.filter(a=>!removed.has(a.id)).map(a=>grouped.get(a.id)||a)};
 }
 // Require public standard rates, full occupancy, IDR and an explicit tax breakdown.
 export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=false}={}){
@@ -80,14 +85,14 @@ export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,di
  }
  for(const t of targets.filter(t=>t.category==='Penginapan').slice(0,6)){
   const location=scope(q,t);if(!location)continue;
-  if(t.searchAny===true&&t.maxNightIDR&&!t.hotelId){
+  if(t.searchAny===true&&(t.maxNightIDR||t.airportScope)&&!t.hotelId){
    // Use the same city/rates discovery as the native search form. Sampling
    // the first catalogue hotels can miss real budget stock available there.
    try{
     const {discoverHotelRates}=await import('./hotel-discovery.js');
-    const key='discovery|'+JSON.stringify([location,t.checkin,t.checkout,q.people,t.maxNightIDR]);
-    if(!cache.has(key))cache.set(key,await discoverHotelRates({city:location.city,country:location.country,checkin:t.checkin,checkout:t.checkout,people:q.people,area:'',hotelName:'',tier:'all',minNightly:0,maxNightly:t.maxNightIDR},env,fetcher,deadline));
-    const result=cache.get(key),candidates=result.hotels.filter(h=>!t.maxNightExclusive||h.amountIDR/((Date.parse(t.checkout)-Date.parse(t.checkin))/86400000)/t.rooms<t.maxNightIDR).map(h=>({...h,id:t.id}));
+    const key='discovery|'+JSON.stringify([location,t.checkin,t.checkout,q.people,t.maxNightIDR,t.airportScope,t.area]);
+    if(!cache.has(key))cache.set(key,await discoverHotelRates({city:location.city,country:location.country,checkin:t.checkin,checkout:t.checkout,people:q.people,airportScope:t.airportScope,area:t.airportScope?'':(t.maxNightIDR?'':t.area),hotelName:'',tier:'all',minNightly:0,maxNightly:t.maxNightIDR},env,fetcher,deadline));
+    const result=cache.get(key),candidates=result.hotels.filter(h=>(!t.airportScope||withinAirportScope(h.geo))&&(!t.maxNightExclusive||h.amountIDR/((Date.parse(t.checkout)-Date.parse(t.checkin))/86400000)/t.rooms<t.maxNightIDR)).map(h=>({...h,id:t.id}));
     diagnostics.liteHotelCandidates=candidates.slice(0,12);
     if(result.coverage.partial)diagnostics.liteHotelUnavailable=true;
     if(candidates[0])quotes.push(candidates[0]);

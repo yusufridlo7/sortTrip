@@ -7,13 +7,41 @@ const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES20
 const pricingSource=await readFile(new URL('../app/apply-price-quotes.ts',import.meta.url),'utf8');
 const pricingJs=ts.transpileModule(pricingSource,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/,"const addDays=(s,n)=>new Date(Date.parse(s+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);const dayDiff=(a,b)=>(Date.parse(b)-Date.parse(a))/86400000;\n");
 const pricingUrl='data:text/javascript;base64,'+Buffer.from(pricingJs).toString('base64');
-const {applyAIPlan,aiTripContext}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('./apply-price-quotes',pricingUrl).replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href)).toString('base64'));
+const {applyAIPlan,aiTripContext,reconcileHotelTransfers}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('./apply-price-quotes',pricingUrl).replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href).replace('../worker/hotel-stay-policy.mjs',new URL('../worker/hotel-stay-policy.mjs',import.meta.url).href)).toString('base64'));
 const sourceUrl='https://example.com/attraction';
 const context={city:'Kuala Lumpur',start:'2026-12-10',days:3,people:1,budget:4500000};
 const flight={id:'flight',category:'Pesawat',price:1000000,paid:true,day:1,time:'',title:'Flight'};
 const hotel={id:'hotel',category:'Penginapan',price:500000,paid:true,day:1,time:'',title:'Hotel'};
 const manual={id:'manual',category:'Wisata',price:123,paid:false,day:1,time:'10:00',title:'Manual'};
 const trip={...context,destination:'kl',destinationMeta:{city:context.city},items:[flight,hotel,manual]};
+
+test('hotel change replaces obsolete transfer endpoints, clears old fares and preserves protected bookings',()=>{
+ const old={...hotel,paid:false,title:'Travelodge Kuala Lumpur City Centre',checkin:context.start,checkout:'2026-12-12'};
+ const first={...old,id:'first',title:'Riccarton Capsule Hotel',checkout:'2026-12-11',time:'19:00'};
+ const last={...first,id:'last',day:2,title:'KLIA Budget Hotel',checkin:'2026-12-11',checkout:'2026-12-12'};
+ const transfer={id:'route',category:'Transportasi',day:2,time:'17:00',title:'Genting → Travelodge',fromPlace:'Sky Sentral Genting',toPlace:old.title,routeOptions:[{legs:[{fromPlace:'Genting',toPlace:old.title}]}],price:100000,priceUnknown:false,paid:false,bookingUrl:'https://12go.asia/old',priceQuote:{amountIDR:100000},note:'old route'};
+ const input={...trip,items:[old,transfer]};
+ const result=reconcileHotelTransfers(input,[first,last,transfer,{...transfer,id:'paid',paid:true},{...transfer,id:'manual',userEdited:true,aiLocked:true}]);
+ const changed=result.find(x=>x.id==='route');assert.equal(changed.toPlace,last.title);assert.equal(changed.title,'Sky Sentral Genting → KLIA Budget Hotel');assert.equal(changed.routeOptions,undefined);assert.equal(changed.priceQuote,undefined);assert.equal(changed.bookingUrl,undefined);assert.equal(changed.priceUnknown,true);assert.doesNotMatch(changed.note,/Travelodge/);
+ assert.equal(result.find(x=>x.id==='paid').toPlace,old.title);assert.equal(result.find(x=>x.id==='manual').toPlace,old.title);
+ const morning=reconcileHotelTransfers(input,[first,last,{...transfer,day:3,time:'06:00',fromPlace:'Travelodge',toPlace:'KLIA',title:'Travelodge → KLIA'}]).at(-1);assert.equal(morning.fromPlace,last.title);
+ const ctx=aiTripContext(input,context.city,'Malaysia','hotel cari dibawah 500000 permalam');assert.equal(ctx.routeRequests.length,0);assert.ok(!ctx.retained.some(x=>x.category==='Transportasi'));
+ assert.equal(reconcileHotelTransfers(input,[first,last,changed]).at(-1),changed);
+ const validMorning={...transfer,time:'08:00',title:first.title+' → Museum',fromPlace:first.title,toPlace:'Museum'};
+ assert.equal(reconcileHotelTransfers(input,[first,last,validMorning]).at(-1),validMorning);
+});
+
+test('final airport night requires a geographically matching quote before an old full stay can be replaced',()=>{
+ const old={...hotel,paid:false,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const base={category:'Penginapan',time:'19:00',provider:'LiteAPI',sourceUrl,note:''};
+ const first={...base,id:'first',hotelId:'city',title:'City hotel',day:1,checkin:context.start,checkout:'2026-12-11'};
+ const last={...base,id:'last',hotelId:'airport',title:'Airport hotel',day:2,checkin:'2026-12-11',checkout:'2026-12-12'};
+ const fresh={context:{...context,replaceItemIds:[old.id],hotelStay:{day:2,city:'Sepang',area:'KLIA'}},sources:[{url:sourceUrl}],activities:[first,last]};
+ const input={...trip,items:[old]},quotes=[hotelQuote(first,250000),hotelQuote(last,300000)];
+ assert.ok(applyAIPlan(input,fresh,quotes).items.includes(old));
+ const near={lat:2.76,lng:101.71};const valid={...fresh,activities:[first,{...last,geo:near}]};
+ const result=applyAIPlan(input,valid,[quotes[0],{...quotes[1],geo:near}]);assert.ok(!result.items.includes(old));assert.deepEqual(result.items.map(x=>x.hotelId),['city','airport']);
+});
 test('pending supplier hotel booking cannot be replaced by an explicit hotel-change prompt',()=>{
  const held={...hotel,paid:false,bookingHold:true,aiGenerated:true,hotelId:'held'};
  const input={...trip,items:[flight,held,manual]},ctx=aiTripContext(input,context.city,'Malaysia','ganti hotel di bawah 500000 per malam');
@@ -53,9 +81,9 @@ test('excursion intent reaches AI even when overnight city differs; generated vi
  const t={...trip,items:[...trip.items,visit]};const ctx=aiTripContext(t,context.city,'Malaysia');assert.equal(ctx.requestedStops.find(x=>x.title==='Dutch Square').city,'Melaka');assert.ok(!ctx.retained.some(x=>x.title==='Dutch Square'));
  const next=applyAIPlan(t,plan);assert.ok(!next.items.some(x=>x.id==='old-visit'));
 });
-test('regeneration replaces automatic day-plan transport but preserves paid/manual transport',()=>{
+test('regeneration replaces automatic day-plan transport but preserves paid/explicitly locked transport',()=>{
  const old={id:'old-bus',dayPlan:true,generated:true,category:'Transportasi',title:'Old expensive transfer',paid:false,day:2,time:'08:00',price:500,note:''};
- const protectedItem={...old,id:'manual-transport',userEdited:true};const paidItem={...old,id:'paid-transport',paid:true,time:''};
+ const protectedItem={...old,id:'manual-transport',userEdited:true,aiLocked:true};const paidItem={...old,id:'paid-transport',paid:true,time:''};
  const updated=applyAIPlan({...trip,items:[...trip.items,old,protectedItem,paidItem]},plan);
  assert.ok(!updated.items.some(x=>x.id===old.id));assert.ok(updated.items.includes(protectedItem));assert.ok(updated.items.includes(paidItem));
 });
@@ -90,8 +118,8 @@ test('hotel and transport recommendations are daily items replacing only templat
  const route=next.items.find(x=>x.category==='Transportasi'&&x.aiGenerated);assert.equal(route.fromPlace,'Sourced hotel');assert.equal(route.toPlace,'Attraction');assert.equal(route.mode,'MRT');
  const restored=JSON.parse(JSON.stringify(next));assert.deepEqual(restored.items,next.items);
 });
-test('AI receives per-day cities and retained choices; edited items survive regeneration',()=>{
- const edited={...manual,id:'edited-ai',aiGenerated:true,userEdited:true};const input={...trip,cityDays:['kl','melaka','kl'],items:[flight,hotel,edited]};const ctx=aiTripContext(input,'Kuala Lumpur','Malaysia');assert.equal(ctx.dailyCities[1].city,'Melaka');assert.ok(ctx.retained.some(x=>x.title===hotel.title));assert.ok(!ctx.locked.some(x=>x.title===hotel.title));assert.ok(applyAIPlan(input,plan).items.includes(edited));
+test('AI receives per-day cities; manual edits alone are not protected',()=>{
+ const edited={...manual,id:'edited-ai',aiGenerated:true,userEdited:true};const input={...trip,cityDays:['kl','melaka','kl'],items:[flight,hotel,edited]};const ctx=aiTripContext(input,'Kuala Lumpur','Malaysia');assert.equal(ctx.dailyCities[1].city,'Melaka');assert.ok(ctx.retained.some(x=>x.title===hotel.title));assert.ok(!ctx.locked.some(x=>x.title===hotel.title));assert.ok(!ctx.retained.some(x=>x.title===edited.title));assert.ok(!applyAIPlan(input,plan).items.includes(edited));
 });
 test('rejects a stale multi-city plan and protects selected unpaid hotel stays',()=>{
  assert.throws(()=>applyAIPlan({...trip,cityDays:['kl','melaka','kl']},{...plan,context:{...context,dailyCities:[{day:2,city:'Kuala Lumpur'}]}}));
@@ -109,7 +137,7 @@ test('AI-generated hotel survives unrelated regeneration without an explicit rep
 
 test('retained activity ID collision cannot discard a valid replacement hotel or its quote',()=>{
  const old={...hotel,paid:false,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
- const protectedVisit={...manual,id:'ai-plan-collision',userEdited:true};
+ const protectedVisit={...manual,id:'ai-plan-collision',userEdited:true,aiLocked:true,time:''};
  const a={id:'collision',category:'Penginapan',day:1,time:'16:00',title:'Budget hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
  const input={...trip,items:[flight,old,protectedVisit]},replacement={...plan,context:{...context,replaceItemIds:[old.id]},activities:[a]};
  const result=applyAIPlan(input,replacement,[hotelQuote(a)]);
@@ -132,8 +160,59 @@ test('missing, partial, out-of-budget or malformed replacement quote preserves t
 
 test('partial overlap cannot delete one stay when its replacement conflicts with a retained later stay',()=>{
  const first={...hotel,paid:false,hotelId:'first',checkin:context.start,checkout:'2026-12-11'};
- const second={...hotel,id:'second',day:2,paid:false,hotelId:'second',checkin:'2026-12-11',checkout:'2026-12-12',userEdited:true};
+ const second={...hotel,id:'second',day:2,paid:false,hotelId:'second',checkin:'2026-12-11',checkout:'2026-12-12',userEdited:true,aiLocked:true};
  const a={id:'overlap',category:'Penginapan',day:1,time:'16:00',title:'Overlapping hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
  const next=applyAIPlan({...trip,items:[flight,first,second]},{...plan,context:{...context,replaceItemIds:[first.id]},activities:[a]},[hotelQuote(a)]);
  assert.ok(next.items.includes(first));assert.ok(next.items.includes(second));assert.equal(next.items.filter(x=>x.category==='Penginapan').length,2);
+});
+
+
+test('manual edits can be replaced; explicit locks survive regeneration and unlocking releases them',()=>{
+ const edited={...manual,id:'edited',day:2,time:'06:00',userEdited:true};
+ const input={...trip,items:[flight,hotel,edited]};
+ assert.ok(!applyAIPlan(input,plan).items.some(x=>x.id===edited.id));
+ const locked={...edited,aiLocked:true};
+ const frozen={...input,items:[flight,hotel,locked]};
+ assert.ok(aiTripContext(frozen,context.city,'Malaysia','ganti wisata').retained.some(x=>x.title===locked.title));
+ assert.ok(!aiTripContext(frozen,context.city,'Malaysia','ganti wisata').replaceItemIds.includes(locked.id));
+ const result=applyAIPlan(frozen,{...plan,context:{...context,replaceItemIds:[locked.id]}});
+ assert.equal(result.items.find(x=>x.id===locked.id),locked);
+ assert.equal(JSON.parse(JSON.stringify(result)).items.find(x=>x.id===locked.id).aiLocked,true);
+ assert.ok(!applyAIPlan({...frozen,items:[flight,hotel,{...locked,aiLocked:false}]},plan).items.some(x=>x.id===locked.id));
+});
+
+test('legacy manually edited Travelodge routes are reconciled unless explicitly locked or bought',()=>{
+ const old={...hotel,paid:false,title:'Travelodge Kuala Lumpur City Centre'};
+ const first={...old,id:'first',title:'City Budget Hotel',checkin:context.start,checkout:'2026-12-11'};
+ const last={...first,id:'last',day:2,title:'KLIA Budget Hotel',checkin:'2026-12-11',checkout:'2026-12-12'};
+ const route={...manual,id:'route',category:'Transportasi',day:2,time:'17:00',title:'Sky Sentral Genting → KL Sentral → Travelodge',userEdited:true,price:100,routeOptions:[{legs:[{toPlace:'Travelodge'}]}]};
+ const items=reconcileHotelTransfers({...trip,items:[old,route]},[first,last,route,{...route,id:'locked',aiLocked:true},{...route,id:'bought',paid:true}]);
+ const changed=items.find(x=>x.id==='route');assert.match(changed.title,/KLIA Budget Hotel/);assert.doesNotMatch(changed.title,/Travelodge/);assert.equal(changed.routeOptions,undefined);assert.equal(changed.price,0);assert.equal(changed.priceUnknown,true);
+ assert.match(items.find(x=>x.id==='locked').title,/Travelodge/);assert.match(items.find(x=>x.id==='bought').title,/Travelodge/);
+});
+
+test('a current user lock wins over an older plan requesting a priced hotel replacement',()=>{
+ const old={...hotel,paid:false,aiLocked:true,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const a={id:'replacement',category:'Penginapan',day:1,time:'16:00',title:'New hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
+ const result=applyAIPlan({...trip,items:[flight,old]},{...plan,context:{...context,replaceItemIds:[old.id]},activities:[a]},[hotelQuote(a)]);
+ assert.equal(result.items.find(x=>x.id===old.id),old);assert.ok(!result.items.some(x=>x.hotelId==='new'));
+});
+
+test('supplier-verified hotel replacement does not require narrow replacement keywords',()=>{
+ const old={...hotel,paid:false,hotelId:'old',userEdited:true,checkin:context.start,checkout:'2026-12-12'};
+ const a={id:'replacement',category:'Penginapan',day:1,time:'16:00',title:'New hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
+ const result=applyAIPlan({...trip,items:[flight,old]},{...plan,activities:[a]},[hotelQuote(a)]);
+ assert.ok(!result.items.includes(old));assert.ok(result.items.some(x=>x.hotelId==='new'));
+});
+
+
+test('AI price refresh cannot mutate paid, pending or user-locked items',async()=>{
+ const {applyPriceQuotes,buildPriceTargets}=await import(pricingUrl);
+ const item={id:'bus',title:'Bus',category:'Transportasi',day:2,time:'10:00',price:100,paid:false};
+ for(const protection of [{paid:true},{bookingHold:true},{aiLocked:true}]){
+  const frozen={...item,...protection};const input={...trip,items:[frozen]};
+  assert.deepEqual(buildPriceTargets(input,context.city),[]);
+  assert.equal(applyPriceQuotes(input,[{id:'bus',basis:'person',amountIDR:999,checkedAt:'2026-10-24'}]).items[0],frozen);
+ }
+ assert.equal(applyPriceQuotes({...trip,items:[item]},[{id:'bus',basis:'person',amountIDR:999,checkedAt:'2026-10-24'}]).items[0].price,999);
 });

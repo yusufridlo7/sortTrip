@@ -51,3 +51,7 @@ Trip.com's “0 Children” and the 12Go English form in an Indonesian shell are
 ## Verification
 
 All 259 automated regressions passed. Evidence includes localization-coverage.json, ui-actions.json, ui-responsive.json and screenshots under 2026-10-23/evidence. Fresh-build accessible labels for booking, item information and prices were observed in English. The layout metric checks the top-level document; it does not certify every provider frame, all screen-reader behavior or WCAG conformance. See the matrix for exact exclusions.
+
+
+## 24 October 2026 comprehensive QA follow-up
+Static key/interpolation scan passes after elapsed AI, walking-only route and partial-budget copy additions. ID/EN responsive checks: 14 viewport/language combinations without document overflow. Full regression suite328 passes; build passes. Supplier reviews/descriptions retain original languages and were not rewritten; fresh email/Telegram delivery and arbitrary future AI text are not certified. Evidence and full limitations: 2026-10-24-full/QA_REPORT.md.

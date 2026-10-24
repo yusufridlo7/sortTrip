@@ -173,3 +173,23 @@ worker/recommendation-budgets.js collects fixed CGK return4-day flight series fo
 
 ## 2026-10-24 — Destination duration follow-up
 Recommendation cities now declare days (Hanoi5; KL/Singapore4). Collector queries the corresponding exact duration and actual hotel nights; snapshot tripDays prevents mixed-duration pooling. Published budgetVersion2 includes days/nights/journey, flightEstimate, hotelTotal and foodTotal; old published schema falls back to the verified bundled seed. CTA preserves city duration; details do not reimplement fixed3-night/four-day arithmetic. Read-only diagnostic verified prior Hanoi empty result was cached5/9-day fares filtered by4-day query, not supplier authentication. Local only.
+
+
+## 2026-10-24 — Airport overnight constraints and hotel route reconciliation (local)
+Shared hotel-stay-policy.mjs derives explicit last-night KLIA intent from the current message. The server requires the final overnight, splits it to KLIA/Sepang before grouping and resolves rates using a20km coordinate radius with independent hotel-geo validation. Budget/occupancy/full-stay validation remains. Client applyAIPlan rejects mismatched airport replacement coverage and reconciles mutable old-hotel transfer endpoints to the actual selected nightly stays; changed routes lose old fare/options/duration/links and require Google Maps recheck. Paid/held/manual transfers remain protected. This does not run Google Routes automatically or silently migrate saved trips.
+
+
+## 2026-10-24 — Shared branding assets/tokens (local)
+public/branding is canonical for self-contained outlined logos, version3favicon/ICO/PNGs, app/maskable/social assets and shared CSS tokens. Main/static HTML load tokenCSS; ReactBrandLogo/BrandIcon reference same localSVGs. app/brand-theme.css owns logo/layout/interaction styling; existing featureCSS uses semantic variables. Lightdefault and explicit .dark/data-theme variants, no theme-setting toggle. i18n updates title/description/OG/Twitter when language switches. site.webmanifest is installmetadata only, no serviceworker/offline/push added. GeneratorPython(FontTools/WindowsSegoeUI outlines) andNodeSharp produce staticoutput; Sharp is devdependency only. QA review entries stay under qa-reports, outside productionentry graph.
+
+
+## 2026-10-24 — Itinerary AI lock state
+Optional Item.aiLocked is a user-controlled JSON field, separate from userEdited. apply-ai-plan honors current paid/bookingHold/aiLocked state during context/merge/reconciliation; apply-price-quotes excludes protected items. ItemAILock is shared by standard/world rows. Local stale-hotel route reconciliation marks the draft dirty without silently writing account data.
+
+
+## 2026-10-24 — Account menu
+AccountMenu uses existing Radix DropdownMenu/Dialog primitives. Read-only account Trip Pass dialog calls /api/payments/access with scope=account; authentication and user filter remain before the scope branch. No artificial trip identity needed. Profile currently displays existing identity and fixed supported IDR currency; language uses the existing selector. Financial actions remain in the established itinerary UI.
+
+
+### QA hardening — 2026-10-24
+Itinerary order validation resides in worker/itinerary-order.mjs; fixed-source admission parsing in worker/official-admission.js and expiring checked references in worker/admission-reference.mjs. Exact source-backed museum coordinates are in app/verified-places.ts. Airport connection anchors follow selected flight endpoints. Route selection clears old quotes and pending/paid mutations remain guarded. Parallel route research is limited to already-known targets; unknown targets retain sequential discovery. No new credential storage, financial activation or automatic release was introduced.

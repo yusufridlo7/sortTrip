@@ -161,7 +161,10 @@
     "watch_future": "Pilih tanggal keberangkatan yang belum lewat",
     "geo_singapore": "Singapura",
     "geo_thailand": "Thailand",
-    "reload_page": "Muat ulang halaman"
+    "reload_page": "Muat ulang halaman",
+    "support_local_unavailable": "Chat bantuan belum diaktifkan di server lokal. Buka SortTrip online, lalu pilih Bantuan untuk menggunakan chat production.",
+    "support_online_link": "Buka SortTrip online",
+    "support_connection_error": "Tidak dapat terhubung ke layanan bantuan. Periksa koneksi lalu coba lagi."
   },
   "en": {
     "hotel_invalid_budget": "Minimum budget cannot exceed the maximum. Leave either field empty for an open-ended range.",
@@ -325,6 +328,9 @@
     "watch_future": "Choose a departure date that has not passed.",
     "geo_singapore": "Singapore",
     "geo_thailand": "Thailand",
-    "reload_page": "Reload page"
+    "reload_page": "Reload page",
+    "support_local_unavailable": "Support chat is not enabled on this local server. Open SortTrip online and choose Help to use the live support chat.",
+    "support_online_link": "Open SortTrip online",
+    "support_connection_error": "We couldn’t connect to support. Check your connection and try again."
   }
 }

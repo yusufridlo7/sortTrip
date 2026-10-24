@@ -250,3 +250,14 @@ Existing production native search KL30Jan–1Feb2027/oneadult/max500kperroomnigh
 
 
 **Aviasales Hanoi sample —24October2026:** Existing local runtime access200 verifies CGK⇄HAN7–11November2026/oneadult cached combined return fareIDR5314916 and positive actual frontend5-day search. Four-day recommendation mismatch corrected locally; no new API entitlement/partner approval, booking, settlement or credential change. Cache offered5/9-day November rows and no accepted rows in the other two sampled months; do not infer no flights. Report qa-reports/HANOI_BUDGET_QA.md.
+
+
+**Nuitée airport inventory evidence — 2026-10-24:** Bounded local production-key rates query for31Jan–1Feb2027/oneadult/one room returned S Rose Hotel244048.58IDR for the final night, supplier coordinates within the implemented20km KLIA search radius. Exact-date read-only access verified; not proof of driving time, shuttle service, live checkout or a reservation. No new approval/status change, account financial action, secret access or deployment. Evidence artifacts/airport-stay-live.json; qa-reports/HOTEL_AIRPORT_ROUTE_QA.md.
+
+
+### Verification note — 2026-10-24 comprehensive QA
+Local Viator production health says configured; fresh search returns upstream401, so local production connectivity is NOT currently verified. Owner credential/entitlement review pending; no key read/change. Nuitée production owner-approved Riccarton prebook/payment iframe passed to portal only, without card/payment/booking confirmation; this proves portal reachability, not liability approval, settlement or final booking. Actual 12Go backend KL–Melaka 6 Nov one-adult dated bus quote Rp57,611 accepted. One Google TRANSIT request passed (22min/1.5km, walking only, fare unknown). These observations do not upgrade all routes/products or contractual partner approvals. Evidence: qa-reports/2026-10-24-full/QA_REPORT.md.
+
+
+### Viator latest verification — 2026-10-24 owner-key follow-up
+Supersedes same-day localupstream401: owner privately replaced key; restarted local Worker reports production and actual KL/Genting plus Singapore/Gardens searchesHTTP200. Singapore same-name country/city hierarchy resolver fixed locally using explicit providerparent relation. Starting fare examples: Awana cable-car ticketIDR72856.94; Gardens optionsIDR174856.64/276856.35. These do not establish exact-date/participantavailability, payout/certification or newpartnerapproval. No agentcredentialaccess/change or deploy. Evidence qa-reports/2026-10-24-full/VIATOR_FOLLOWUP.md.

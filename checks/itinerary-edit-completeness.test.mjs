@@ -45,3 +45,25 @@ test('hotel targets remain in bounded search even after many transit legs',async
  const result=itineraryPriceTargets({activities:[...transfers,hotel]},q);
  assert.equal(result.length,12);assert.equal(result[0].category,'Penginapan');assert.equal(result[0].id,'ai-plan-stay');assert.equal(result[0].maxNightIDR,500000);
 });
+
+test('draft cannot silently omit the requested final KLIA overnight',()=>{
+ const sourceUrl='https://tourism.example/places',sources=[{url:sourceUrl}];
+ const q=validateInput({city:'Kuala Lumpur',country:'Malaysia',start:'2027-01-30',days:3,people:1,budget:4000000,interests:'hotel cari dibawah 500000 permalam, hari terakhir penginapan dekat KLIA'});
+ assert.equal(q.hotelStay.day,2);assert.equal(q.hotelStay.city,'Sepang');
+ const activities=[{day:1,time:'10:00',category:'Wisata',title:'Museum A',sourceUrl},{day:2,time:'11:00',category:'Wisata',title:'Genting',sourceUrl},{day:1,time:'19:00',category:'Area menginap',title:'Chinatown',sourceUrl}];
+ assert.throws(()=>validatePlan({activities},q,sources),/Area malam terakhir/);
+ const valid=validatePlan({activities:[...activities,{...activities[2],day:2,title:'KLIA',city:'Sepang'}]},q,sources);
+ assert.ok(valid.activities.some(a=>a.day===2&&a.category==='Area menginap'));
+ const cityHotel={id:'city',title:'City hotel',category:'Penginapan',day:1,checkin:'2027-01-30',checkout:'2027-01-31'};
+ const airportHotel={...cityHotel,id:'airport',title:'Airport hotel',day:2,checkin:'2027-01-31',checkout:'2027-02-01',locationCity:'Sepang'};
+ const trip={start:q.start,days:3,destination:'kl',destinationMeta:{city:q.city},items:[cityHotel,airportHotel,{id:'visit',title:'Genting',category:'Wisata',day:2,time:'11:00'}]};
+ const links=itineraryConnections(trip,2);assert.equal(links[0].from,'City hotel, Kuala Lumpur');assert.equal(links.at(-1).to,'Airport hotel, Sepang');
+});
+
+
+test('arrival and departure connections use the selected airport, not an unvisited hotel',()=>{
+ const stay={id:'stay',title:'Selected hotel',category:'Penginapan',day:1,checkin:'2027-01-30',checkout:'2027-02-01'};
+ const trip={start:'2027-01-30',days:3,destination:'kl',destinationMeta:{city:'Kuala Lumpur'},journey:'return',flight:{destinationCode:'KUL',arrivalDay:0,returnAt:'2027-02-01T21:40:00+08:00'},items:[stay,{id:'museum',title:'Museum A',category:'Wisata',day:1,time:'10:00'}]};
+ const arrival=itineraryConnections(trip,1);assert.match(arrival[0].from,/KUL/);assert.match(arrival[0].to,/Museum A/);assert.match(arrival.at(-1).to,/Selected hotel/);
+ const departure=itineraryConnections(trip,3);assert.equal(departure.length,1);assert.match(departure[0].from,/Selected hotel/);assert.match(departure[0].to,/KUL/);assert.equal(departure[0].returnToStay,false);
+});

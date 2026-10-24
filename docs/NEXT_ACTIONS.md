@@ -394,3 +394,35 @@ The prior missing Hanoi ticket/budget action is resolved locally:5-day return fa
 
 ## 2026-10-24 — Explore release complete
 Owner-authorised application commit2017a0d pushed and deployed as ede52a3d-de0e-4cad-8945-9a5433c82f9a.303tests/build/i18n pass; actual production homepage/assets/health/recommendations200, new photo hash verified, three budget cards and cost-only Hanoi4-night detail browser-checked desktop/mobile. Unauthenticated SSE terminal401 verified without model/quota debit. Public aggregate KV initialised from real seed; monthly refresh flag/binding/daily09:00Jakarta check deployed. Local-only/release-pending notes for this package are superseded. No need to repeat activation/key registration/deploy for these changes. Remaining additional samples/ground fares/SG activity400 and owner-controlled financial lifecycle stay separate. See qa-reports/RELEASE_EXPLORE_2026-10-24.md.
+
+
+## 2026-10-24 — Airport-night correction awaiting release
+Local KLIA-final-night/location and stale hotel transfer corrections tested with actual read-only airport quote and307regressions. Release only on owner instruction, preserving dashboard vars. Existing saved itinerary needs explicit update after publication; do not silently rewrite it or spend owner AI quota for a demonstration. Full model regeneration and driving/shuttle/fare verification remain separate; no booking/payment required. Report qa-reports/HOTEL_AIRPORT_ROUTE_QA.md.
+
+
+## 2026-10-24 — KLIA hotel/route correction deployed
+Owner requested deploy now. Version8e0b708d-46f0-4700-a549-da678fa8db80 published with existing dashboard vars preserved; finalbuild and production homepage/newasset hash/health/recommendations/authgate checks pass. This supersedes local-only/awaiting-release status for this fix. Source remains uncommitted; no commit/push instruction in this release. Existing saved itinerary needs explicit Assistant update, not silent migration; no AIquota/account write/payment performed during release. Do not repeat deployment/keysetup. Report qa-reports/HOTEL_AIRPORT_ROUTE_QA.md.
+
+
+## 2026-10-24 — Branding review pending
+Approved visual identity is implemented and tested locally on codex/approved-brand-identity-2026-10-24. Review qa-reports/branding/BRAND_IMPLEMENTATION_REPORT.md and assets/screenshots. No automatic commit/push/deploy under owner brief; obtain explicit release instruction. Do not redo API credentials, White-label setup, financial settings or model generation for branding. Optional native-browser bookmark/pinned/home-screen checks and separate compatible Wrangler/Undici maintenance remain; original vector/font masters absent, reconstructed artwork documented. Prior KLIA deployment remains production8e0b708d-46f0-4700-a549-da678fa8db80.
+
+
+## 2026-10-24 — AI lock follow-up pending release
+Review local explicit AI lock and legacy transfer correction (qa-reports/ITINERARY_AI_LOCK_QA.md). No release requested for this follow-up. Owner should save current corrected draft/desired locks through normal UI; do not silently overwrite unsaved owner edits, consume model quota or claim a fresh full AI run. Branding/footer remain local too.
+
+
+## 2026-10-24 — Account menu pending release
+Review qa-reports/ACCOUNT_MENU_QA.md with other local branding/footer/AI-lock changes. No release instruction yet. Root localhost preview retained; do not leave isolated guest/account fixtures as the owner application. Do not claim editable profile fields, selectable budget currencies or unified booking history are implemented. Existing support chat unavailable locally is a separate service issue.
+
+
+## 2026-10-24 — Local support issue resolved by owner-selected production use
+Use existing production Help chat for now; local chat intentionally remains unconfigured. Do not repeat credential setup or diagnose production as down based on local disabled state. UI handoff fix is local, pending release with other uncommitted changes. No new controlled delivery test was sent; existing history/composer and owner confirmation establish current UI availability.
+
+
+## 2026-10-24 — Comprehensive QA follow-up
+Review qa-reports/2026-10-24-full/QA_REPORT.md. Owner privately verify local Viator production credential/entitlement (upstream401); do not read/rewrite keys. Keep local chat disabled per owner and use production Help. New QA changes remain local with branding/account/AI-lock changes; release requires explicit instruction. No additional live AI required: three successful saved outputs verified and pass now three remaining. No payment/confirmation authorized. Remaining live delivery, independent-browser/device and incomplete transport fare coverage must not be described as certified.
+
+
+## 2026-10-24 — Viator blocker resolved locally
+Do not repeat key registration/replacement: fresh production KL andSingaporesearches200 verified after ownerkeyupdate. Singapore resolver fix andotherQAchanges await explicit release instruction. Starting ticketprices are not exact-date/optionquotes. Previous local401 follow-up is superseded; remaining full-audit limitations unchanged. See qa-reports/2026-10-24-full/VIATOR_FOLLOWUP.md.

@@ -1,15 +1,19 @@
-import {Trip,Item,Geo,addDays} from './travel-data';
+import {verifiedPlace} from './verified-places';
+import {Trip,Item,Geo,addDays,geoData,destinations} from './travel-data';
 import {cityAt,hotelAt,cities} from './cities';
 export type RoutePoint={id:string;name:string;geo:Geo;cityId:string;kind:string;time:string};
 export function routePoints(t:Trip,day:number):RoutePoint[]{
  const date=addDays(t.start,day-1);
  const stayAt=(date:string)=>t.items.find(x=>x.category==='Penginapan'&&(x.checkin||t.start)<=date&&(x.checkout||addDays(t.start,t.days-1))>date);
- const first=stayAt(day===1?date:addDays(date,-1)),last=stayAt(date);
+ const code=t.flight?.destinationCode,catalog=destinations.find(d=>d.id===t.destination&&d.code===code);
+ const airport:Item|undefined=catalog?{id:'airport-'+day,title:catalog.code,place:catalog.code,category:'Transportasi',geo:geoData[catalog.id].airport,day,time:'',price:0,paid:false,note:''}:undefined;
+ const first=airport&&(t.flight?.arrivalDay||0)===day-1?airport:stayAt(day===1?date:addDays(date,-1));
+ const last=airport&&t.journey!=='oneway'&&t.flight?.returnAt?.slice(0,10)===date?airport:stayAt(date);
  const events=t.items.filter(x=>x.day===day&&x.category==='Wisata').sort((a,b)=>a.time.localeCompare(b.time));
  const locate=(item:Item)=>{
   const city=cities.find(c=>item.cityId?c.id===item.cityId:item.locationCity?c.name.toLowerCase()===item.locationCity.toLowerCase():c.id===(t.cityDays?.[day-1]||t.destination));
   const known=city?.places.find(p=>p.category===item.category&&p.name.toLowerCase()===(item.place||item.title).toLowerCase());
-  const geo=item.geo||known?.geo;
+  const geo=item.geo||known?.geo||verifiedPlace(item.place||item.title,city?.name||item.locationCity||'')?.geo;
   return geo&&Number.isFinite(geo.lat)&&Number.isFinite(geo.lng)&&Math.abs(geo.lat)<=90&&Math.abs(geo.lng)<=180?{id:item.id,name:item.place||item.title,geo,cityId:city?.id||item.cityId||t.destination,kind:item.category,time:item.time}:null;
  };
  return [...(first?[first]:[]),...events,...(last?[last]:[])].map(locate).filter((p):p is RoutePoint=>!!p);

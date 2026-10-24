@@ -1,2 +1,2 @@
-// Nama merek platform.
-export const brandName = 'sortTrip';
+// Approved platform name.
+export const brandName = 'SortTrip';

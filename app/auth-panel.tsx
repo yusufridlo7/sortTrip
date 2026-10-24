@@ -1,3 +1,4 @@
+import BrandLogo from './brand-logo';
 import {tr,label as localize,locale,language} from './i18n';
 import {useState} from 'react';
 import {supabase, setupMessage} from './supabase';
@@ -20,7 +21,7 @@ export default function AuthPanel() {
     } catch (e) {setMessage(e instanceof Error ? e.message : 'Belum berhasil. Coba kembali.');}
     finally {setBusy(false);}
   }
-  return <form className="sorttrip-auth" onSubmit={submit}>
+  return <form className="sorttrip-auth" onSubmit={submit}><BrandLogo tagline/>
     {!supabase && <p role="status">{localize(setupMessage)}</p>}
     <label>{tr('ui_0072')}<input required type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)}/></label>
     <label>{tr('ui_0073')}<input required minLength={8} type="password" autoComplete={signup?'new-password':'current-password'} value={password} onChange={e=>setPassword(e.target.value)}/></label>

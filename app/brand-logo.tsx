@@ -1,2 +1,5 @@
-import {tr,label as localize,locale} from './i18n';
-export default function BrandLogo(){return <span className="sorttrip-logo"><span>{tr('ui_0085')}</span><svg viewBox="0 0 120 100" aria-hidden="true"><path fill="#258fe5" d="M8 25 40 4Q44 1 44 7V18H83Q100 18 112 35V48L89 33Q86 31 79 31H44V43Q44 48 39 45L8 28Q5 26 8 25Z"/><path fill="#51b8f2" d="m112 75-32 21q-4 3-4-3V82H37Q20 82 8 65V52l23 15q3 2 10 2h35V57q0-5 5-2l31 17q3 2 0 3Z"/></svg></span>}
+import {tr} from './i18n';
+export function BrandIcon({className=''}:{className?:string}){return <img className={'sorttrip-brand-icon '+className} src="/branding/sorttrip-icon.svg?v=3" width="32" height="38" alt="" aria-hidden="true"/>;}
+export default function BrandLogo({tagline=false}:{tagline?:boolean}){
+ return <span className="sorttrip-logo" role="img" aria-label={tagline?'SortTrip · '+tr('brand_tagline'):'SortTrip'}><span className="brand-artwork"><img className="brand-on-light" src="/branding/sorttrip-logo-horizontal.svg?v=3" width="174" height="58" alt=""/><img className="brand-on-dark" src="/branding/sorttrip-logo-horizontal-dark.svg?v=3" width="174" height="58" alt=""/></span>{tagline&&<small className="brand-tagline">{tr('brand_tagline')}</small>}</span>;
+}

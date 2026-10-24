@@ -190,3 +190,19 @@ Recommendation durations are destination-specific: Hanoi5days4nights based on ac
 
 ## 2026-10-24 — Customer-facing budget copy
 Owner supersedes earlier request to expose methodology in recommendation details: do not show statistical methods, sample counts or supplier selection rules to travellers. Keep itemised costs, whole-stay hotel duration/total, update date and exclusions. Preserve internal real-price sampling/mean/deviation logic and audit documentation. Local implementation, not yet released.
+
+
+## 2026-10-24 — Approved SortTrip identity
+Owner supplied final pin/S/coral-dot artwork and explicit implementation brief. Replace the former arrow wordmark with a faithful vector reconstruction; use approved navy0B2D3A, teal0F6E8C, cyan0B8DB0, bright0EA5C9, coralFF6B4A and offwhiteF7F7F5. Brand name SortTrip; taglineID Sortir tiket, susun itinerary / EN Travel smarter, plan better. Central tokens serve React/static pages. Light remains product default; matching dark CSS/assets without adding a preference toggle. No automatic deployment; original vector/font absent, so reconstruction/SegoeUI outlines require visual review rather than a pixel-perfect claim.
+
+
+## 2026-10-24 — User-selected AI protection
+Owner explicitly replaces implicit userEdited protection with aiLocked. Manual edits remain provenance only. AI may revise unlocked unpaid itinerary selections, retaining requested day scope. Paid and pending bookings always protected. Preserve verified accommodation until complete valid supplier replacement exists; explicit locks also exclude AI price refresh. Locks persist in existing trip JSON; user saves via normal itinerary save. No provider/payment permission changes.
+
+
+## 2026-10-24 — Itinerary chronology and admission evidence
+Reject transfers ordered after their destination visit or before their origin visit; preserve paid/pending and explicit AI locks. Known route targets may be researched concurrently to reduce latency without inventing routes. Google browser ISO timestamps include milliseconds and are accepted. Museum references use fixed official URLs and exact identities; a manually verified 24 Oct reference may survive refresh failure for 30 days with its original checkedAt, never relabeled live or silently converted into IDR totals. Unknown category costs display unavailable/partial rather than a zero claim. Map coordinates for the two museums are OSM sourced, not Google data stored on OSM.
+
+
+## 2026-10-24 — Viator city-state resolution
+Same-name destination matches are resolved only if a unique candidate is the explicit direct child of every other exact-name candidate, using provider parentDestinationId. This handles Singapore country/city hierarchy without arbitrary first-match fallback or hardcoded guessed IDs. Unrelated ambiguous cities remain rejected.
