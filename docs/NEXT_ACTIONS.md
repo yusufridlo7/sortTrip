@@ -382,3 +382,11 @@ Local hotel preservation/quote-first replacement/collision and budget-discovery 
 
 ## 2026-10-24 — Hotel correction release complete
 The local-only/release-pending note above is superseded: c8196b3 deployed988ab353-df62-4c4f-8466-bb129432e217 and actual production hotel search shows23budgetresults. No repeated key setup needed. Existing itinerary with unpriced area still needs an explicit new update or user hotel selection; do not invent/restore unknown historical prices.291tests and real adapter read-only quote passed; fresh full AI generation was not run to preserve owner8results.
+
+
+## 2026-10-24 — Latest local feature follow-up
+Explore/progress/recommendations code is locally tested, not committed/published. Release owner-authorised changes with existing vars preserved, verify/api/recommendations/KV and homepage after publication. Need further real four-day Hanoi flight samples, additional ticket observations for numerical SD/annual coverage, comparable ground transport fares and SG activity search400 investigation. Hotel500k is now a recommendation preference with owner-approved higher fallback. Do not relax traveller-specific strict hotel budget filters. Do not repeat paid AI/payment/Google QA merely to capture loading UI. Report qa-reports/EXPLORE_RECOMMENDATIONS_QA.md.
+
+
+## 2026-10-24 — Hanoi gap superseded
+The prior missing Hanoi ticket/budget action is resolved locally:5-day return fare5314916 accepted;4-night hotel quote total1354480.25; Budget mulai7.1m. Actual frontend search positive, new skyline photo, full-stay totals and303regressions verified. Await owner release instruction for this uncommitted package. Additional observations for SD/annual coverage, comparable ground transport fares and SG activity400 remain separate. Do not widen explicit4-day user queries or claim live bookable inventory from cached fares. See qa-reports/HANOI_BUDGET_QA.md.

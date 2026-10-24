@@ -1,3 +1,5 @@
+import {streamItinerary} from './itinerary-stream.js';
+import {recommendationResponse,monthlyRecommendationRefresh} from './recommendation-budgets.js';
 import {handleBookingEvidence} from './booking-evidence.js';
 import {requestLanguage,localizedResponse} from './localization.js';
 import {handleSupport,runSupportOutbox} from './support.js';
@@ -82,13 +84,14 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
  const flights=[...new Map(ok.flatMap(r=>r.flights).map(f=>[f.id,f])).values()].sort((a,b)=>a.price-b.price);
  return json({flights,source:'Aviasales Data API',currency:'IDR',fetchedAt:ok.map(r=>r.fetchedAt).sort()[0],partial:ok.length!==ids.length,limited:ok.some(r=>r.limited),nextPage:ok.some(r=>r.limited)&&(q.page||1)<20?(q.page||1)+1:null,oneAdult:true});
 }
-const worker = {async scheduled(event,env,ctx){if(event.cron!=='*/2 * * * *')ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));ctx.waitUntil(runSupportOutbox(env));},async fetch(request,env,ctx){
+const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.waitUntil(monthlyRecommendationRefresh(env,ctx,searchFlights));return;}if(event.cron!=='*/2 * * * *')ctx.waitUntil(runPriceWatches(env,ctx,searchFlights));ctx.waitUntil(runSupportOutbox(env));},async fetch(request,env,ctx){
  const u=new URL(request.url);
+ if(u.pathname==='/api/recommendations')return recommendationResponse(request,env);
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(u.pathname==='/hotel-checkout'?new Request(new URL('/',u),request):request);
  if(u.pathname.startsWith('/api/support/'))return handleSupport(request,env,ctx);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
  if(u.pathname==='/api/itinerary/translate')return handleNarrativeTranslation(request,env);
- if(u.pathname==='/api/itinerary')return handleItinerary(request,env);
+ if(u.pathname==='/api/itinerary')return request.headers.get('Accept')?.includes('text/event-stream')?streamItinerary(request,env):handleItinerary(request,env);
  if(u.pathname==='/api/hotels/search')return handleHotelSearch(request,env);
  if(u.pathname==='/api/hotels/content')return handleHotelContent(request,env);
  if(u.pathname.startsWith('/api/bookings/'))return handleBookingEvidence(request,env);

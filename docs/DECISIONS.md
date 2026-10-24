@@ -178,3 +178,15 @@ Correction to previous HTTP400 limitation: action_type in a documentation exampl
 
 ## 2026-10-24 — Transactional hotel replacement
 Retain prior AI lodging until a requested replacement has validated supplier price, full stay coverage and requested nightly budget. Prevent ID collisions with retained items, and preserve quote linkage when allocating new IDs. Protected/overlapping stays must reach stable coverage before removing any original item. Hotel search targets receive priority over transfer fanout; explicit AI budget searches reuse city/rates budget discovery and existing deadline/fee policy. No automatic reconstruction of overwritten hotel prices or new booking. Local implementation, not a release.
+
+
+## 2026-10-24 — Recommendation budget policy
+Owner requests Budget mulai cards, monthly real-price collection and mean/sample deviation for transport/attraction tickets only. Hotels use the current cheapest eligible API sample; target<=IDR500000/night, with the cheapest higher rate accepted when no qualifying cheaper sample exists (explicit owner clarification, including Singapore). This is a recommendation preference, not permission to exceed a traveller's explicit search maximum. Never average hotel rates or fabricate annual history. Single ticket sample has no SD; missing flight/hotel suppresses numeric budget. Flight planning floor=max(min,mean−SD), plus3hotel nights+4food allowances, rounded up50k. Local/airport transport and paid attractions remain excluded until comparable prices are available; supplier starting-price references are separate from dated admission fares. Explore is the initial view; stored drafts remain restorable.
+
+
+## 2026-10-24 — Recommendation duration and stay totals
+Recommendation durations are destination-specific: Hanoi5days4nights based on actual cached fares, KL/Singapore4days3nights. This replaces the fixed4-day assumption for every card, without widening an explicit traveller search. Pool ticket statistics only within the same duration. Server publishes hotelTotal=nightlyMinimum×nights, foodTotal=allowance×days and one return-fare component; UI displays whole-stay hotel cost plus nightly multiplication. PP fares are not doubled. Different-date component samples remain planning floors rather than bookable packages.
+
+
+## 2026-10-24 — Customer-facing budget copy
+Owner supersedes earlier request to expose methodology in recommendation details: do not show statistical methods, sample counts or supplier selection rules to travellers. Keep itemised costs, whole-stay hotel duration/total, update date and exclusions. Preserve internal real-price sampling/mean/deviation logic and audit documentation. Local implementation, not yet released.

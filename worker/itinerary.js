@@ -50,7 +50,7 @@ export function validatePlan(plan,q,sources,research=''){
  return {summary:text(plan.summary,1000),activities,sources,createdAt:new Date().toISOString(),context:q};
 }
 export function itineraryPriceTargets(plan,q){return priceTargets(plan.activities.filter(x=>['Penginapan','Area menginap','Transfer'].includes(x.category)).sort((a,b)=>Number(['Penginapan','Area menginap'].includes(b.category))-Number(['Penginapan','Area menginap'].includes(a.category))).flatMap(x=>{const base={id:'ai-plan-'+x.id,title:x.title,category:x.category==='Transfer'?'Transportasi':'Penginapan',day:x.day,city:x.city,area:x.category==='Area menginap'?(x.location||x.title):'',hotelId:x.hotelId,checkin:x.checkin,checkout:x.checkout,sourceUrl:x.sourceUrl,mode:x.mode,from:x.fromPlace,to:x.toPlace,rooms:Math.ceil(q.people/2),searchAny:x.category==='Area menginap',maxNightIDR:q.hotelBudget?.maxNightIDR,maxNightExclusive:q.hotelBudget?.exclusive};const legs=x.routeOptions?.[x.selectedRoute||0]?.legs;return x.category==='Transfer'&&legs?legs.flatMap((leg,i)=>/bus|bis|coach|kereta|train|rail|ferry|feri|shuttle/i.test(leg.mode)?[{...base,id:base.id+'::'+i,title:(leg.mode+' '+leg.fromPlace+' → '+leg.toPlace).slice(0,160),from:leg.fromPlace,to:leg.toPlace,mode:leg.mode,sourceUrl:leg.sourceUrl}]:[]):[base];}).slice(0,12),q.days);}
-export async function handleItinerary(request,env){
+export async function handleItinerary(request,env,onProgress=()=>{}){
  if(request.method!=='POST')return reply({error:'Gunakan POST.'},405);
  if(request.headers.get('Origin')&&request.headers.get('Origin')!==new URL(request.url).origin)return reply({error:'Asal permintaan tidak diizinkan.'},403);
  if(!env.OPENAI_API_KEY||!env.SUPABASE_URL||!env.SUPABASE_PUBLISHABLE_KEY||!env.AI_LIMITER)return reply({error:'AI belum diaktifkan. Administrator perlu mengatur koneksi AI dan autentikasi di server.'},503);
@@ -73,17 +73,19 @@ export async function handleItinerary(request,env){
  const access=await quotaResponse.json();
  if(!access.allowed)return access.busy?reply({error:'Permintaan AI lain sedang diproses. Tunggu hingga selesai.'},429):reply({code:'TRIP_PASS_REQUIRED',error:'Beli Trip Pass untuk melanjutkan AI, atau lanjutkan edit manual.'},402);
  reservation={p_user:user.id,p_request:requestId};
- const providerSignal=AbortSignal.timeout(160000);const priceDeadline=Date.now()+145000;
+ const providerSignal=AbortSignal.any([AbortSignal.timeout(160000),request.signal]);const priceDeadline=Date.now()+145000;
  const callProvider=body=>fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{Authorization:'Bearer '+env.OPENAI_API_KEY,'Content-Type':'application/json'},signal:providerSignal,body:JSON.stringify(body)});
  if(q.mode==='prices'){
   const diagnostics={};
-  const prices=await researchPrices(q,q.priceTargets,env,callProvider,priceDeadline,diagnostics);
+  const prices=await researchPrices(q,q.priceTargets,env,callProvider,priceDeadline,diagnostics,undefined,onProgress);
   if(!prices.length&&diagnostics.hotelAccessRequired)return reply({code:'PRICE_SOURCE_ACCESS_REQUIRED',error:'Trip.com meminta pemeriksaan akses untuk pencarian ini. Harga belum dapat diperbarui; harga lama dan kuota AI tetap.'},502);
   if(!prices.length&&diagnostics.transportAccessRequired)return reply({code:'PRICE_SOURCE_ACCESS_REQUIRED',error:'12Go meminta pemeriksaan akses untuk pencarian ini. Harga belum dapat diperbarui; harga lama dan kuota AI tetap.'},502);
   if(!prices.length)return reply({code:'PRICE_UNAVAILABLE',error:'lite_price_unavailable'},502);
-  const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil.'},503);
+  if(request.signal.aborted)throw Error('cancelled');onProgress('finalizing');
+ const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil.'},503);
   completed=true;return reply({access,prices});
  }
+ onProgress('research');
  let response=await callProvider(researchRequest(q,env));
  let sources=[],researchText='';
  if(response.ok){
@@ -100,6 +102,7 @@ export async function handleItinerary(request,env){
    sources=[...new Map([...routeSources,...sources].map(s=>[s.url,s])).values()].slice(0,80);
    researchText='TRANSPORT RESEARCH:\n'+responseText(routeResearch)+'\nGENERAL RESEARCH:\n'+researchText;
   }
+  onProgress('draft');
   response=await callProvider(draftRequest(q,env,researchText,sources));
  }
  if(!response.ok){
@@ -126,9 +129,10 @@ export async function handleItinerary(request,env){
  }
  plan=groupHotelAreas(plan,q);
  let prices=[];
- try{const targets=itineraryPriceTargets(plan,q);prices=await researchPrices(q,targets,env,callProvider,priceDeadline);}catch{}
+ try{const targets=itineraryPriceTargets(plan,q);prices=await researchPrices(q,targets,env,callProvider,priceDeadline,{},undefined,onProgress);}catch{}
  plan=applyLiteHotels(plan,prices);
  if(q.hotelBudget&&plan.activities.some(a=>a.category==='Area menginap'))plan.summary+=(q.language==='en'?' No matching hotel within the nightly budget was verified in the checked inventory. Existing selections remain until a replacement is available.':' Hotel sesuai batas per malam belum ditemukan dalam stok yang diperiksa. Pilihan lama tetap disimpan sampai pengganti tersedia.');
+ if(request.signal.aborted)throw Error('cancelled');onProgress('finalizing');
  const settled=await quota('finish_ai_request',{...reservation,p_success:true});if(!settled.ok||!(await settled.json()).ok)return reply({error:'Pencatatan kuota belum berhasil. Coba lagi nanti.'},503);completed=true;return reply({access,plan,prices});
  }catch{return reply({error:'Koneksi penyusunan terganggu atau melewati batas waktu. Itinerary lama tetap tersimpan.'},502);}finally{if(reservation&&!completed)try{await quota('finish_ai_request',{...reservation,p_success:false})}catch{}}
 }

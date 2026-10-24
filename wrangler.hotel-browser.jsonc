@@ -5,7 +5,8 @@
   "compatibility_date": "2026-09-28",
   "compatibility_flags": ["nodejs_compat"],
   "browser": {"binding": "HOTEL_BROWSER", "remote": true},
-  "vars": {"TRAVELPAYOUTS_MARKER": "782849", "HOTEL_BROWSER_ENABLED": "true", "LITEAPI_WHITELABEL_URL": "https://yusuf-ridlo-kkxjf.nuitee.link", "LITEAPI_ENABLED": "true", "LITEAPI_CHECKOUT_ENABLED": "true", "LITEAPI_CHECKOUT_MODE": "live", "LITEAPI_BOOKING_LIVE_APPROVED": "true", "GOOGLE_ROUTES_ENABLED": "true", "VIATOR_ENVIRONMENT": "production"},
+  "vars": {"RECOMMENDATIONS_REFRESH_ENABLED": "true", "TRAVELPAYOUTS_MARKER": "782849", "HOTEL_BROWSER_ENABLED": "true", "LITEAPI_WHITELABEL_URL": "https://yusuf-ridlo-kkxjf.nuitee.link", "LITEAPI_ENABLED": "true", "LITEAPI_CHECKOUT_ENABLED": "true", "LITEAPI_CHECKOUT_MODE": "live", "LITEAPI_BOOKING_LIVE_APPROVED": "true", "GOOGLE_ROUTES_ENABLED": "true", "VIATOR_ENVIRONMENT": "production"},
+  "kv_namespaces": [{"binding":"RECOMMENDATION_BUDGETS","id":"04cc6be63be54cc2b23d5f8f4addee1c"}],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
@@ -27,7 +28,7 @@
   ],
   "triggers": {
     "crons": [
-      "0 * * * *", "*/2 * * * *"
+      "0 * * * *", "*/2 * * * *", "0 2 * * *"
     ]
   }
 }

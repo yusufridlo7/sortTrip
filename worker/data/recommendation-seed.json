@@ -1,0 +1,146 @@
+[
+  {
+    "month": "2026-10",
+    "capturedAt": "2026-10-24T01:13:51.318Z",
+    "cities": [
+      {
+        "id": "kl",
+        "flight": {
+          "n": 1,
+          "mean": 2061915,
+          "m2": 0,
+          "sd": null,
+          "min": 2061915,
+          "max": 2061915
+        },
+        "travelMonths": [
+          "2027-06"
+        ],
+        "tickets": [
+          {
+            "series": "viator:235565P7",
+            "title": "Kuala Lumpur City Tour Full Day 8 hours",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 1158364.48,
+              "m2": 0,
+              "sd": null,
+              "min": 1158364.48,
+              "max": 1158364.48
+            }
+          },
+          {
+            "series": "viator:191310P24",
+            "title": "Kuala Lumpur Grand Full Day Guided Tour with 25 Attractions (SIC)",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 444811.96,
+              "m2": 0,
+              "sd": null,
+              "min": 444811.96,
+              "max": 444811.96
+            }
+          },
+          {
+            "series": "viator:104095P76",
+            "title": "Kuala Lumpur City Tour",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 722819.44,
+              "m2": 0,
+              "sd": null,
+              "min": 722819.44,
+              "max": 722819.44
+            }
+          }
+        ],
+        "hotelMinimum": 219905.68666666668,
+        "hotelDateSamples": 3
+      },
+      {
+        "id": "hanoi",
+        "flight": {
+          "n": 1,
+          "mean": 5314916,
+          "m2": 0,
+          "sd": null,
+          "min": 5314916,
+          "max": 5314916
+        },
+        "travelMonths": [
+          "2026-11"
+        ],
+        "tickets": [
+          {
+            "series": "viator:5488076P1",
+            "title": "Hanoi Customized Private City Tour with Train Street",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 834022.43,
+              "m2": 0,
+              "sd": null,
+              "min": 834022.43,
+              "max": 834022.43
+            }
+          },
+          {
+            "series": "viator:59854P54",
+            "title": "Full Day Hanoi City Tour with Hidden Local Life Experience",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 722819.44,
+              "m2": 0,
+              "sd": null,
+              "min": 722819.44,
+              "max": 722819.44
+            }
+          },
+          {
+            "series": "viator:123832P42",
+            "title": "Thang Long Water Puppet Theater Entrance Tickets",
+            "kind": "attraction",
+            "basis": "starting_price",
+            "stats": {
+              "n": 1,
+              "mean": 151792.08,
+              "m2": 0,
+              "sd": null,
+              "min": 151792.08,
+              "max": 151792.08
+            }
+          }
+        ],
+        "hotelMinimum": 338620.0625,
+        "hotelDateSamples": 3,
+        "tripDays": 5
+      },
+      {
+        "id": "singapore",
+        "flight": {
+          "n": 1,
+          "mean": 2903338,
+          "m2": 0,
+          "sd": null,
+          "min": 2903338,
+          "max": 2903338
+        },
+        "travelMonths": [
+          "2026-11"
+        ],
+        "tickets": [],
+        "hotelMinimum": 600457.2166666667,
+        "hotelDateSamples": 3
+      }
+    ]
+  }
+]

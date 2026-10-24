@@ -9,6 +9,12 @@ const ctx={waitUntil:p=>p.catch(()=>{})};
 const provider=overrides=>async()=>Response.json({success:true,currency:'idr',data:[row],...overrides});
 test('valid query and invalid inputs',()=>{const url='https://site/api/flights?'+new URLSearchParams(q);assert.equal(parseQuery(url).origin,'CGK');assert.throws(()=>parseQuery(url.replace('CGK','ZZZ')));assert.throws(()=>parseQuery(url.replace('minDays=3','minDays=19')));assert.throws(()=>parseQuery(url.replace(q.outFrom,'2020-02-30')));});
 test('normalize real PP price and inclusive duration',()=>{const f=normalize(row,q,'kl');assert.equal(f.price,1200000);assert.equal(f.days,4);assert.match(f.bookingUrl,/^https:\/\/www.aviasales.com\/search\//);});
+test('Hanoi five-day return fare remains one combined price and is rejected for an exact four-day search',()=>{
+ const h={...row,destination:'HAN',destination_airport:'HAN',price:5314916,return_at:date(34)+'T21:00:00+07:00'};
+ const query={...q,destination:'HAN',minDays:5,maxDays:5};
+ const f=normalize(h,query,'HAN');assert.equal(f.days,5);assert.equal(f.price,5314916);assert.ok(f.returnAt);
+ assert.equal(normalize(h,{...query,minDays:4,maxDays:4},'HAN'),null);assert.equal(normalize({...h,return_at:null},query,'HAN'),null);
+});
 test('reject wrong airport, expired and outside range',()=>{assert.equal(normalize({...row,origin_airport:'HLP'},q,'kl'),null);assert.equal(normalize({...row,expires_at:'2020-01-01'},q,'kl'),null);assert.equal(normalize({...row,departure_at:date(60)+'T07:00:00Z'},q,'kl'),null);});
 test('PP cannot be returned as one-way',()=>{assert.equal(normalize(row,{...q,journey:'oneway'},'kl'),null);assert.equal(normalize({...row,return_at:null},{...q,journey:'oneway'},'kl').price,1200000);assert.equal(normalize({...row,return_at:null},q,'kl'),null);});
 test('reject malicious booking links and missing time zone',()=>{for(const link of ['https://evil.example/search/a','//evil.example/search/a','javascript:alert(1)'])assert.equal(normalize({...row,link},q,'kl'),null);assert.equal(normalize({...row,departure_at:date(30)+'T07:00:00'},q,'kl'),null);});

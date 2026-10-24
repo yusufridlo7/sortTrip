@@ -164,3 +164,12 @@ Authenticated Worker /api/bookings/status and /flight-link verify saved-trip own
 
 ## 2026-10-23 — Statistics schema adaptation correction
 worker/travelpayouts-bookings.js builds bounded campaign100 booking queries from public get_fields_list metadata, preferring sub_type (current actual API) over action_type (documentation variant). Missing required schema filters prevents execute_query. Returned rows are minimized and require explicit matching type/campaign/booking subtype; no subtype default. Current authenticated local execute_query200 supersedes prior400 blocker. Affiliate-reported state remains separate from issued airline tickets; no live positive conversion or deploy newly verified.
+
+
+## 2026-10-24 — Local recommendation aggregates and AI stage stream
+worker/recommendation-budgets.js collects fixed CGK return4-day flight series for three future months, three3-night hotel samples and production Viator references. RECOMMENDATION_BUDGETS KV holds monthly non-sensitive aggregates (up to12months), retry guards and published JSON; dedicated daily02:00UTC cron checks once per month, max3failed attempts24h apart. RECOMMENDATIONS_REFRESH_ENABLED enables collection. GET/api/recommendations reads KV or bundled actual seed only, no supplier call; numeric budgets hidden after60days. Each public card links to detail/assumptions, then fills search without automatically buying or generating. Ground fare collection remains unimplemented pending comparable dated samples.
+/api/itinerary negotiates text/event-stream with fixed actual-stage callbacks and terminal embeddedHTTPstatus/JSONbody, preserves JSON clients/localisation, abort propagation and quota settlement. app/itinerary-response.mjs reads bounded UTF-8 frames and fails closed on missing result. No fabricated timed progress. Local implementation only; production remains previous release until explicitly deployed.
+
+
+## 2026-10-24 — Destination duration follow-up
+Recommendation cities now declare days (Hanoi5; KL/Singapore4). Collector queries the corresponding exact duration and actual hotel nights; snapshot tripDays prevents mixed-duration pooling. Published budgetVersion2 includes days/nights/journey, flightEstimate, hotelTotal and foodTotal; old published schema falls back to the verified bundled seed. CTA preserves city duration; details do not reimplement fixed3-night/four-day arithmetic. Read-only diagnostic verified prior Hanoi empty result was cached5/9-day fares filtered by4-day query, not supplier authentication. Local only.

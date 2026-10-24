@@ -247,3 +247,6 @@ Application770afbd deployed version7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1. Actual 
 
 ## 2026-10-24 — Nuitée budget inventory reverified read-only
 Existing production native search KL30Jan–1Feb2027/oneadult/max500kperroomnight returned200/23hotels,147checked,partialfalse. Updated local AI budget adapter also returns a matching real supplier quote (RiccartonCapsule2nightRp489159.17) via city/rates discovery. Existing credential/account markup unchanged. API inventory evidence only; no new approval, payment, booking, commission or production publication of this correction. See qa-reports/HOTEL_REPLACEMENT_RECOVERY_QA.md.
+
+
+**Aviasales Hanoi sample —24October2026:** Existing local runtime access200 verifies CGK⇄HAN7–11November2026/oneadult cached combined return fareIDR5314916 and positive actual frontend5-day search. Four-day recommendation mismatch corrected locally; no new API entitlement/partner approval, booking, settlement or credential change. Cache offered5/9-day November rows and no accepted rows in the other two sampled months; do not infer no flights. Report qa-reports/HANOI_BUDGET_QA.md.

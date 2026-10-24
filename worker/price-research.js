@@ -51,7 +51,7 @@ export async function resolveTransportPages(targets,env,callProvider){
   return targets.map(t=>pages.has(t.id)?{...t,sourceUrl:pages.get(t.id)}:t);
  }catch{return targets;}
 }
-export async function researchPrices(q,targets,env,callProvider,deadline=Date.now()+140000,diagnostics={},launchBrowser){
+export async function researchPrices(q,targets,env,callProvider,deadline=Date.now()+140000,diagnostics={},launchBrowser,onProgress=()=>{}){
  if(!targets.length)return [];
  const dateAt=day=>new Date(Date.parse(q.start+'T12:00:00Z')+(day-1)*86400000).toISOString().slice(0,10);
  targets=targets.map(t=>({...t,travelDate:dateAt(t.day),checkin:t.checkin||(t.category==='Penginapan'?dateAt(t.day):null),checkout:t.checkout||(t.category==='Penginapan'?dateAt(t.day+1):null)}));
@@ -60,7 +60,9 @@ export async function researchPrices(q,targets,env,callProvider,deadline=Date.no
  const browserEnabled=externalEnabled||(env.HOTEL_BROWSER_ENABLED==='true'&&!!env.HOTEL_BROWSER);
  // Resolve deterministic hotel inventory before spending the shared deadline
  // on transport web research. A busy transfer day must not starve lodging.
+ if(targets.some(t=>t.category==='Penginapan'))onProgress('hotels');
  const dated=liteEnabled?await liteHotelPrices(q,targets,env,Math.min(deadline,Date.now()+65000),diagnostics):[];
+ if(targets.some(t=>t.category==='Transportasi'))onProgress('transport');
  if(browserEnabled&&deadline-Date.now()>30000){targets=await resolveTransportPages(targets,env,callProvider);}
  const tickets=await browserTransportPrices(q,targets,env,Math.min(deadline,Date.now()+45000),diagnostics,launchBrowser);
  dated.push(...tickets);
