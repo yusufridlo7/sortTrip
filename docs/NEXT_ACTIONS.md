@@ -426,3 +426,7 @@ Review qa-reports/2026-10-24-full/QA_REPORT.md. Owner privately verify local Via
 
 ## 2026-10-24 — Viator blocker resolved locally
 Do not repeat key registration/replacement: fresh production KL andSingaporesearches200 verified after ownerkeyupdate. Singapore resolver fix andotherQAchanges await explicit release instruction. Starting ticketprices are not exact-date/optionquotes. Previous local401 follow-up is superseded; remaining full-audit limitations unchanged. See qa-reports/2026-10-24-full/VIATOR_FOLLOWUP.md.
+
+
+## 2026-10-24 — QA/branding release complete
+Owner-authorized application commit83b333e pushed origin/codex/approved-brand-identity-2026-10-24 and deployed5cb25add-5f48-4a05-a012-2d2f626a24ff usingkeep-vars.329tests/build/i18n/dryrun/stagedsecretpatternscanpass. Actual production assets match build, new brand/account UI/cards browserverified, health/rulesmarker/recommendations/support and SingaporeViator200; protected hotel/payment endpoints401 and badsignature403. This supersedes local-only/pending-release notes for branding/footer/account/AIlocks/comprehensiveQA/Viator. Do not repeat deployment or credential setup for these changes. No AI generation/trip save/payment/prebook during release; Midtransprovider authentication/settlement still not directlyverified. See qa-reports/RELEASE_QA_BRANDING_2026-10-24.md.

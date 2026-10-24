@@ -261,3 +261,7 @@ Local Viator production health says configured; fresh search returns upstream401
 
 ### Viator latest verification — 2026-10-24 owner-key follow-up
 Supersedes same-day localupstream401: owner privately replaced key; restarted local Worker reports production and actual KL/Genting plus Singapore/Gardens searchesHTTP200. Singapore same-name country/city hierarchy resolver fixed locally using explicit providerparent relation. Starting fare examples: Awana cable-car ticketIDR72856.94; Gardens optionsIDR174856.64/276856.35. These do not establish exact-date/participantavailability, payout/certification or newpartnerapproval. No agentcredentialaccess/change or deploy. Evidence qa-reports/2026-10-24-full/VIATOR_FOLLOWUP.md.
+
+
+### Production verification — 2026-10-24 QA release
+After release5cb25add-5f48-4a05-a012-2d2f626a24ff, actual public production ViatorSingapore/Gardens queryHTTP200/twoproducts. City-state resolver is now deployed; prior local-only qualifier is superseded for this code. No newpartnerapproval/commission/payment claim. Midtranscloudkey/mode updated by owner; no direct providerauthentication/settlement tested by agent.
