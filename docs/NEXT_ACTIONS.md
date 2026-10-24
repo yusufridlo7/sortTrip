@@ -376,3 +376,6 @@ The earlier requirement to contact Travelpayouts support about HTTP400 is supers
 
 ## 2026-10-23 — QA release complete
 Owner-authorized commit770afbd pushed and production7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1 verified. Do not repeat deployment/registration/key replacement for the resolved Travelpayouts400: actual production query200 now established. Positive naturally occurring conversion and owner-controlled financial lifecycle remain separate future evidence. No second application deployment required for release-documentation commit. See qa-reports/RELEASE_2026-10-23.md.
+
+## 2026-10-24 — Hotel fix awaiting release
+Local hotel preservation/quote-first replacement/collision and budget-discovery corrections pass291fixtures/build/i18n; actual production native budget query200/23offers and loopback new AI adapter positive. Publish only with owner release instruction. Afterwards use a fresh update to fill a previously unpriced area; do not invent/recover historical hotel prices or consume a test AI result silently. Airport-area matching and full model regeneration remain separate verification.

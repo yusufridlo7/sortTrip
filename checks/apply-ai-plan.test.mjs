@@ -4,7 +4,10 @@ import ts from 'typescript';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../app/apply-ai-plan.ts',import.meta.url),'utf8');
 const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/,"const destinations=[];const geoData={};const addDays=(s,n)=>new Date(Date.parse(s+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);\n");
-const {applyAIPlan,aiTripContext}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href)).toString('base64'));
+const pricingSource=await readFile(new URL('../app/apply-price-quotes.ts',import.meta.url),'utf8');
+const pricingJs=ts.transpileModule(pricingSource,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/,"const addDays=(s,n)=>new Date(Date.parse(s+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);const dayDiff=(a,b)=>(Date.parse(b)-Date.parse(a))/86400000;\n");
+const pricingUrl='data:text/javascript;base64,'+Buffer.from(pricingJs).toString('base64');
+const {applyAIPlan,aiTripContext}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('./apply-price-quotes',pricingUrl).replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href)).toString('base64'));
 const sourceUrl='https://example.com/attraction';
 const context={city:'Kuala Lumpur',start:'2026-12-10',days:3,people:1,budget:4500000};
 const flight={id:'flight',category:'Pesawat',price:1000000,paid:true,day:1,time:'',title:'Flight'};
@@ -35,7 +38,7 @@ test('explicit museum and nightly budget request releases only unpaid selections
  assert.ok(!ctx.retained.some(x=>x.title===selected.title));
  assert.ok(ctx.retained.some(x=>x.title===manual.title)); // paid museum is still retained
  const fresh={...plan,context:{...context,replaceItemIds:ctx.replaceItemIds},activities:[...plan.activities.filter(a=>a.category!=='Penginapan'),{id:'new-hotel',day:1,time:'16:00',category:'Penginapan',title:'Budget hotel',sourceUrl,hotelId:'budget',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',note:''}]};
- const result=applyAIPlan(input,fresh);
+ const result=applyAIPlan(input,fresh,[hotelQuote(fresh.activities.at(-1))]);
  assert.ok(!result.items.some(x=>x.id==='hotel'||x.id==='manual'));
  assert.ok(result.items.some(x=>x.id==='paid-museum'));
  assert.ok(result.items.some(x=>x.hotelId==='budget'));
@@ -94,4 +97,43 @@ test('rejects a stale multi-city plan and protects selected unpaid hotel stays',
  assert.throws(()=>applyAIPlan({...trip,cityDays:['kl','melaka','kl']},{...plan,context:{...context,dailyCities:[{day:2,city:'Kuala Lumpur'}]}}));
  const selected={...hotel,paid:false,hotelId:'selected',checkin:'2026-12-10',checkout:'2026-12-12'};
  const result=applyAIPlan({...trip,items:[flight,selected,manual]},plan);assert.ok(result.items.includes(selected));assert.ok(!result.items.some(x=>x.category==='Penginapan'&&x.aiGenerated));
+});
+
+function hotelQuote(a,amountIDR=600000){return {id:'ai-plan-'+a.id,provider:'LiteAPI',scope:'dated',basis:'stay_total',hotelId:a.hotelId,hotelName:a.title,amountIDR,checkin:a.checkin,checkout:a.checkout,adults:1,rooms:1,taxesIncluded:true,roomType:'Standard',sourceUrl,quote:'Fixture supplier quote',checkedAt:'2026-10-24T00:00:00Z'};}
+
+test('AI-generated hotel survives unrelated regeneration without an explicit replacement',()=>{
+ const old={...hotel,paid:false,aiGenerated:true,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const result=applyAIPlan({...trip,items:[flight,old]},{...plan,activities:plan.activities.filter(a=>a.category==='Wisata')});
+ assert.ok(result.items.includes(old));
+});
+
+test('retained activity ID collision cannot discard a valid replacement hotel or its quote',()=>{
+ const old={...hotel,paid:false,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const protectedVisit={...manual,id:'ai-plan-collision',userEdited:true};
+ const a={id:'collision',category:'Penginapan',day:1,time:'16:00',title:'Budget hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
+ const input={...trip,items:[flight,old,protectedVisit]},replacement={...plan,context:{...context,replaceItemIds:[old.id]},activities:[a]};
+ const result=applyAIPlan(input,replacement,[hotelQuote(a)]);
+ assert.ok(result.items.includes(protectedVisit));assert.ok(!result.items.includes(old));
+ const stay=result.items.find(x=>x.hotelId==='new');assert.ok(stay);assert.equal(stay.price,600000);assert.equal(stay.priceUnknown,false);assert.equal(stay.priceQuote.id,stay.id);
+ assert.equal(new Set(result.items.map(x=>x.id)).size,result.items.length);
+ assert.equal(applyAIPlan(result,replacement,[hotelQuote(a)]).items.length,result.items.length);
+});
+
+test('missing, partial, out-of-budget or malformed replacement quote preserves the original full stay',()=>{
+ const old={...hotel,paid:false,aiGenerated:true,hotelId:'old',checkin:context.start,checkout:'2026-12-12'};
+ const a={id:'budget',category:'Penginapan',day:1,time:'16:00',title:'Budget hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
+ const input={...trip,items:[flight,old]},replacement={...plan,context:{...context,replaceItemIds:[old.id],hotelBudget:{maxNightIDR:500000,exclusive:true}},activities:[a]};
+ for(const quote of [null,{...hotelQuote(a),taxesIncluded:false},{...hotelQuote(a),checkout:'2026-12-11'},hotelQuote(a,1000000)]){
+  const result=applyAIPlan(input,replacement,quote?[quote]:[]);assert.ok(result.items.includes(old));assert.equal(result.items.filter(x=>x.category==='Penginapan').length,1);
+ }
+ const partial={...a,checkout:'2026-12-11'};
+ assert.ok(applyAIPlan(input,{...replacement,activities:[partial]},[hotelQuote(partial)]).items.includes(old));
+});
+
+test('partial overlap cannot delete one stay when its replacement conflicts with a retained later stay',()=>{
+ const first={...hotel,paid:false,hotelId:'first',checkin:context.start,checkout:'2026-12-11'};
+ const second={...hotel,id:'second',day:2,paid:false,hotelId:'second',checkin:'2026-12-11',checkout:'2026-12-12',userEdited:true};
+ const a={id:'overlap',category:'Penginapan',day:1,time:'16:00',title:'Overlapping hotel',hotelId:'new',provider:'LiteAPI',checkin:context.start,checkout:'2026-12-12',sourceUrl,note:''};
+ const next=applyAIPlan({...trip,items:[flight,first,second]},{...plan,context:{...context,replaceItemIds:[first.id]},activities:[a]},[hotelQuote(a)]);
+ assert.ok(next.items.includes(first));assert.ok(next.items.includes(second));assert.equal(next.items.filter(x=>x.category==='Penginapan').length,2);
 });

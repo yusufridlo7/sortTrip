@@ -70,3 +70,15 @@ test('authenticated hotel refresh uses supplier API and one successful quota res
   const sandbox=await handleItinerary(request(),{...configured,LITEAPI_API_KEY:'sand_fixture'});assert.equal(sandbox.status,503);assert.equal((await sandbox.json()).code,'LITEAPI_PRODUCTION_REQUIRED');assert.equal(reserves,1);assert.equal(aiCalls,0);
  }finally{globalThis.fetch=old;}
 });
+
+
+test('AI budget search uses city rate discovery, keeps exact scope, and excludes the nightly ceiling itself',async()=>{
+ const calls=[];
+ const fetcher=async(url,options)=>{
+  calls.push(String(url));assert.ok(String(url).endsWith('/hotels/rates'));
+  const body=JSON.parse(options.body);assert.equal(body.cityName,q.city);assert.equal(body.checkin,q.start);assert.equal(body.checkout,'2027-01-12');assert.equal(body.includeHotelData,true);assert.equal(body.hotelIds,undefined);
+  return Response.json({data:[{hotelId:hotel.id,roomTypes:[rate(400000)]},{hotelId:'ceiling',roomTypes:[rate(999980)]}],hotels:[hotel,{...hotel,id:'ceiling',name:'At ceiling'}]});
+ };
+ const quotes=await liteHotelPrices(q,[{...target,searchAny:true,maxNightIDR:500000,maxNightExclusive:true,checkout:'2027-01-12'}],env,Date.now()+45000,{},fetcher);
+ assert.equal(calls.length,2);assert.equal(quotes.length,1);assert.equal(quotes[0].id,target.id);assert.equal(quotes[0].hotelId,hotel.id);assert.ok(quotes[0].amountIDR/2<500000);
+});

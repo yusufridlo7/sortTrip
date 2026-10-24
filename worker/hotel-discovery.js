@@ -5,8 +5,8 @@ const safeId=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,100}$/.test(v);
 const norm=v=>String(v||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 // City searches include an explicit budget-hotel pass so catalogue order cannot
 // hide economy properties. At most two rate calls and one metadata fallback.
-export async function discoverHotelRates(q,env,fetcher=fetch){
- const deadline=Date.now()+42000;
+export async function discoverHotelRates(q,env,fetcher=fetch,outerDeadline=Infinity){
+ const deadline=Math.min(Date.now()+42000,outerDeadline);
  async function api(path,body){
   assertLiteApiFreeEndpoint(path,body?'POST':'GET');
   const remaining=deadline-Date.now();if(remaining<1000)throw Error('hotel_search_unavailable');

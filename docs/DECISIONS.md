@@ -175,3 +175,6 @@ Manual marks, partner-reported affiliate purchases and supplier-confirmed hotel 
 
 ## 2026-10-23 — Use live Travelpayouts schema for booking discriminator
 Correction to previous HTTP400 limitation: action_type in a documentation example is absent from actual campaign100 metadata. Prefer supported sub_type=booking, with action_type only if explicitly advertised; never force an unknown filter. Require returned booking discriminator/type=action/campaign100, exact scoped subID and valid action state. Do not fill missing discriminator as booking. Upstream200 with empty results means checked/no matching report, not a failed or successful purchase.
+
+## 2026-10-24 — Transactional hotel replacement
+Retain prior AI lodging until a requested replacement has validated supplier price, full stay coverage and requested nightly budget. Prevent ID collisions with retained items, and preserve quote linkage when allocating new IDs. Protected/overlapping stays must reach stable coverage before removing any original item. Hotel search targets receive priority over transfer fanout; explicit AI budget searches reuse city/rates budget discovery and existing deadline/fee policy. No automatic reconstruction of overwritten hotel prices or new booking. Local implementation, not a release.

@@ -1251,5 +1251,6 @@
   "booking_flight_report_checked": "Laporan pembelian pesawat sudah diperiksa. Laporan affiliate tidak membuktikan penerbitan tiket maskapai.",
   "booking_flight_no_match": "Laporan pesawat sudah diperiksa; belum ada pembelian yang cocok dengan tautan itinerary ini.",
   "booking_flight_status_unavailable": "Status pembelian pesawat belum dapat diverifikasi dari mitra.",
-  "booking_resume_pending": "Periksa reservasi yang sedang diproses"
+  "booking_resume_pending": "Periksa reservasi yang sedang diproses",
+  "hotel_replacement_kept": "Belum ada pengganti hotel terverifikasi yang mencakup seluruh masa menginap dan sesuai batas harga. Hotel lama tetap disimpan."
 }

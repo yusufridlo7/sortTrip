@@ -244,3 +244,6 @@ Supersedes previous LIVE VERIFICATION BLOCKED classification for the read-only q
 
 ## 2026-10-23 — Production statistics query verified after release
 Application770afbd deployed version7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1. Actual official authenticated production saved-trip UI verifies Travelpayouts campaign100 fieldmetadata200 and booking-only sub_type query200, available/zero scoped matches. Thus read-only production statistics connection tested; no positive purchase attribution, airline issuance or earned commission proven. Hotel private-record lookup available; no new linked booking/payment exercised. Public marker782849 published; no secret or financial account setting changed. Other partner approvals/liability remain unchanged.
+
+## 2026-10-24 — Nuitée budget inventory reverified read-only
+Existing production native search KL30Jan–1Feb2027/oneadult/max500kperroomnight returned200/23hotels,147checked,partialfalse. Updated local AI budget adapter also returns a matching real supplier quote (RiccartonCapsule2nightRp489159.17) via city/rates discovery. Existing credential/account markup unchanged. API inventory evidence only; no new approval, payment, booking, commission or production publication of this correction. See qa-reports/HOTEL_REPLACEMENT_RECOVERY_QA.md.

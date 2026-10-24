@@ -58,8 +58,10 @@ export async function researchPrices(q,targets,env,callProvider,deadline=Date.no
  const liteEnabled=liteHotelConfigured(env);
  const externalEnabled=false;
  const browserEnabled=externalEnabled||(env.HOTEL_BROWSER_ENABLED==='true'&&!!env.HOTEL_BROWSER);
- if(browserEnabled&&deadline-Date.now()>30000){targets=await resolveTransportPages(targets,env,callProvider);}
+ // Resolve deterministic hotel inventory before spending the shared deadline
+ // on transport web research. A busy transfer day must not starve lodging.
  const dated=liteEnabled?await liteHotelPrices(q,targets,env,Math.min(deadline,Date.now()+65000),diagnostics):[];
+ if(browserEnabled&&deadline-Date.now()>30000){targets=await resolveTransportPages(targets,env,callProvider);}
  const tickets=await browserTransportPrices(q,targets,env,Math.min(deadline,Date.now()+45000),diagnostics,launchBrowser);
  dated.push(...tickets);
  // Trip.com dates/room totals come only from the browser; generic web search never becomes an actual fare.

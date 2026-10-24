@@ -1251,5 +1251,6 @@
   "booking_flight_report_checked": "Flight purchase reports checked. An affiliate report does not prove airline ticket issuance.",
   "booking_flight_no_match": "Flight reports checked; no purchase matches this itinerary’s booking link yet.",
   "booking_flight_status_unavailable": "The partner could not verify the flight purchase status.",
-  "booking_resume_pending": "Check the reservation in progress"
+  "booking_resume_pending": "Check the reservation in progress",
+  "hotel_replacement_kept": "No verified replacement covers the full stay within the requested price limit. Your previous hotel has been kept."
 }

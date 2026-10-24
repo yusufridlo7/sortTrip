@@ -80,6 +80,20 @@ export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,di
  }
  for(const t of targets.filter(t=>t.category==='Penginapan').slice(0,6)){
   const location=scope(q,t);if(!location)continue;
+  if(t.searchAny===true&&t.maxNightIDR&&!t.hotelId){
+   // Use the same city/rates discovery as the native search form. Sampling
+   // the first catalogue hotels can miss real budget stock available there.
+   try{
+    const {discoverHotelRates}=await import('./hotel-discovery.js');
+    const key='discovery|'+JSON.stringify([location,t.checkin,t.checkout,q.people,t.maxNightIDR]);
+    if(!cache.has(key))cache.set(key,await discoverHotelRates({city:location.city,country:location.country,checkin:t.checkin,checkout:t.checkout,people:q.people,area:'',hotelName:'',tier:'all',minNightly:0,maxNightly:t.maxNightIDR},env,fetcher,deadline));
+    const result=cache.get(key),candidates=result.hotels.filter(h=>!t.maxNightExclusive||h.amountIDR/((Date.parse(t.checkout)-Date.parse(t.checkin))/86400000)/t.rooms<t.maxNightIDR).map(h=>({...h,id:t.id}));
+    diagnostics.liteHotelCandidates=candidates.slice(0,12);
+    if(result.coverage.partial)diagnostics.liteHotelUnavailable=true;
+    if(candidates[0])quotes.push(candidates[0]);
+   }catch{diagnostics.liteHotelUnavailable=true;}
+   continue;
+  }
   let hotels;
   if(t.hotelId&&safeId(t.hotelId)){
    const result=await api('data/hotels?'+new URLSearchParams({hotelIds:t.hotelId,limit:'1'}));hotels=(result?.data||[]).filter(h=>(h.id||h.hotelId)===t.hotelId&&clean(h.name)===clean(t.title));

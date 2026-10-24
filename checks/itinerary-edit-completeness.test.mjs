@@ -36,3 +36,12 @@ test('all consecutive visits and hotel return have map directions even without a
  const excursion=itineraryConnections({...trip,items:[hotel,{...trip.items[1],place:'Awana SkyWay, Genting Highlands'}]},2);
  assert.equal(excursion[0].to,'Awana SkyWay, Genting Highlands');
 });
+
+test('hotel targets remain in bounded search even after many transit legs',async()=>{
+ const {itineraryPriceTargets}=await import('../worker/itinerary.js');
+ const q={days:3,people:1,hotelBudget:{maxNightIDR:500000,exclusive:true}};
+ const transfers=Array.from({length:15},(_,i)=>({id:'transfer-'+i,title:'Bus transfer',day:1,category:'Transfer',mode:'bus',city:'Kuala Lumpur',fromPlace:'A',toPlace:'B'}));
+ const hotel={id:'stay',title:'Chinatown',location:'Chinatown',city:'Kuala Lumpur',category:'Area menginap',day:1,checkin:'2027-01-30',checkout:'2027-02-01'};
+ const result=itineraryPriceTargets({activities:[...transfers,hotel]},q);
+ assert.equal(result.length,12);assert.equal(result[0].category,'Penginapan');assert.equal(result[0].id,'ai-plan-stay');assert.equal(result[0].maxNightIDR,500000);
+});
