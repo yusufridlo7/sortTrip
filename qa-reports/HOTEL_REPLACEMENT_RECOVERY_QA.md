@@ -1,7 +1,7 @@
 # Hotel replacement and budget discovery QA — 24 October 2026
 
 ## Result
-Implemented locally; not committed, pushed or deployed. Owner reported a budget-hotel change returning an itinerary with only an unpriced area and no selected hotel. The historical AI response/provider timing was not captured, so the exact sequence of that particular generation is not asserted.
+Implemented, committed and deployed; see the production release checkpoint below. Owner reported a budget-hotel change returning an itinerary with only an unpriced area and no selected hotel. The historical AI response/provider timing was not captured, so the exact sequence of that particular generation is not asserted.
 
 ## Reproduced defects and corrections
 1. Prior AI-generated lodging was excluded from retained items unless manually edited or paid. An unrelated regenerated day could therefore remove it. Existing lodging is now retained unless explicitly requested and fully replaced.
@@ -20,4 +20,7 @@ Implemented locally; not committed, pushed or deployed. Owner reported a budget-
 Evidence retained locally:artifacts/hotel-budget-live.json,hotel-budget-adapter-live.json,hotel-retention-regression.tap,hotel-retention-build.log,hotel-retention-i18n.json. Temporary probe code/config is not part of production routes. Secret values were neither inspected nor changed; existing account markup preserved.
 
 ## Limits
-No fresh full model generation or owner-trip mutation was performed. Exact airport-neighborhood matching, another date/occupancy, positive booking/payment and recovery of already-overwritten historic choices are not verified. Earlier lost selections are not automatically reconstructed from unknown prices. New production behavior requires an owner-authorized release, then a new search/update; saved hotel areas cannot be turned into real hotel inventory without a quote.
+No fresh full model generation or owner-trip mutation was performed. Exact airport-neighborhood matching, another date/occupancy, positive booking/payment and recovery of already-overwritten historic choices are not verified. Earlier lost selections are not automatically reconstructed from unknown prices. Production correction is published; existing saved data requires a new search/update; saved hotel areas cannot be turned into real hotel inventory without a quote.
+
+## Production release checkpoint
+Continued prior owner-authorized release workflow for this regression fix: codecommitc8196b3 pushed/deployed version988ab353-df62-4c4f-8466-bb129432e217 with --keep-vars. Public smoke passes currentJSindex-BRu2QzJC.js, unchangedCSS, homepage/health/checkout/policies200, missing404/authgates401. Official production browser then used the affected saved itinerary's native Cari/ubahhotel action with exact dates and max500000/night. It rendered23actual cards after147hotels checked; RiccartonCapsuleRp489159total/Rp244580night. User8AIresults and original13items remained; no selection saved or booking initiated. Production screenshot artifacts/hotel-budget-production.png and smoke artifacts/hotel-retention-release-smoke.json retained locally. This supersedes release-pending notes for code publication, not the limitations about model regeneration, airport-area specificity or historic data recovery.

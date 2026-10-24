@@ -379,3 +379,6 @@ Owner-authorized commit770afbd pushed and production7f7ea8c2-225e-4a72-9bcf-ce8f
 
 ## 2026-10-24 — Hotel fix awaiting release
 Local hotel preservation/quote-first replacement/collision and budget-discovery corrections pass291fixtures/build/i18n; actual production native budget query200/23offers and loopback new AI adapter positive. Publish only with owner release instruction. Afterwards use a fresh update to fill a previously unpriced area; do not invent/recover historical hotel prices or consume a test AI result silently. Airport-area matching and full model regeneration remain separate verification.
+
+## 2026-10-24 — Hotel correction release complete
+The local-only/release-pending note above is superseded: c8196b3 deployed988ab353-df62-4c4f-8466-bb129432e217 and actual production hotel search shows23budgetresults. No repeated key setup needed. Existing itinerary with unpriced area still needs an explicit new update or user hotel selection; do not invent/restore unknown historical prices.291tests and real adapter read-only quote passed; fresh full AI generation was not run to preserve owner8results.
