@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "targetOrigin": "http://127.0.0.1:5176",
+  "supabaseURL": "https://aytrcvfncsklhqozreyk.supabase.co",
+  "publishableKey": "",
+  "owner": {"email": "", "qaUserId": ""},
+  "review": {
+    "qaProjectVerified": false,
+    "publicKeyProjectVerified": false,
+    "publicKeySHA256": "",
+    "ownerIdentityVerified": false,
+    "redirectsVerified": false,
+    "siteURL": "http://127.0.0.1:5176/",
+    "redirectURLs": ["http://127.0.0.1:5176/"],
+    "noProductionResourcesVerified": false,
+    "accessVerified": false,
+    "accessIssuer": "",
+    "accessAudience": "",
+    "accessOwnerEmail": "",
+    "accessOwnerQAUserId": "",
+    "nextStepAuthorization": ""
+  }
+}

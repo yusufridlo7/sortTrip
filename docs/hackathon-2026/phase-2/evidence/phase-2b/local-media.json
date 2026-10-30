@@ -1,0 +1,31 @@
+{
+  "fixture": true,
+  "durationSeconds": 3,
+  "frames": [
+    {
+      "seconds": 0.45,
+      "bytes": 2434,
+      "height": 180,
+      "width": 320
+    },
+    {
+      "seconds": 1.5,
+      "bytes": 2434,
+      "height": 180,
+      "width": 320
+    },
+    {
+      "seconds": 2.55,
+      "bytes": 2434,
+      "height": 180,
+      "width": 320
+    }
+  ],
+  "audio": {
+    "status": "extracted-local-only",
+    "bytes": 96674
+  },
+  "uploaded": false,
+  "modelCalled": false,
+  "temporaryMediaDeleted": true
+}

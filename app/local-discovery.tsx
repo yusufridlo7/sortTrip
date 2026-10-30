@@ -1,0 +1,37 @@
+import {useEffect,useRef,useState} from 'react';
+import {tr,language,useLanguage,locale} from './i18n';
+import {categories,nearbyRecommendations,destinationAnchor,requestOneShotLocation,recommendationDirections,localQuestionAnswer,addRecommendation,alreadyInTrip,type Category,type Position,type Recommendation} from '../lib/local-discovery.mjs';
+import type {Item,Trip} from './travel-data';
+import './local-discovery.css';
+export default function LocalDiscovery({trip,item,city,country,onTripChange}:{trip:Trip;item:Item;city:string;country:string;onTripChange?:(trip:Trip)=>void}){
+ useLanguage();const lang=language();
+ const [category,setCategory]=useState<Category>('food'),[gps,setGps]=useState<Position|null>(null),[busy,setBusy]=useState(false),[status,setStatus]=useState(''),[demo,setDemo]=useState(false),[halal,setHalal]=useState(false),[question,setQuestion]=useState(''),[answer,setAnswer]=useState(''),[selected,setSelected]=useState<Recommendation|null>(null),[day,setDay]=useState(item.day||1),[time,setTime]=useState('12:00');
+ const generation=useRef(0),pending=useRef(false);
+ useEffect(()=>{generation.current++;pending.current=false;setGps(null);setBusy(false);setStatus('');setSelected(null);setAnswer('');setDemo(false);setHalal(false);setDay(Math.max(1,Math.min(trip.days,item.day||1)));return()=>{generation.current++;pending.current=false;};},[item.id,city,country,trip.days]);
+ useEffect(()=>{setAnswer('');},[lang]);
+ const anchor=destinationAnchor(item,city,country);
+ const rows=nearbyRecommendations({city,country,category,anchor,gps,includeDemo:demo,excludeName:item.place||item.title}).filter(row=>!halal||(row.halal==='verified'&&row.sources.length>0));
+ async function locate(){if(pending.current)return;const request=++generation.current;pending.current=true;setBusy(true);setStatus('');setSelected(null);try{const position=await requestOneShotLocation(navigator.geolocation);if(request!==generation.current)return;setGps(position);setDemo(false);}catch(error){if(request!==generation.current)return;setGps(null);setStatus(error instanceof Error&&['GPS_DENIED','GPS_TIMEOUT','GPS_UNAVAILABLE'].includes(error.message)?error.message:'GPS_UNAVAILABLE');}finally{if(request===generation.current){pending.current=false;setBusy(false);}}}
+ function resetLocation(){generation.current++;pending.current=false;setBusy(false);setGps(null);setStatus('');setSelected(null);}
+ function chooseCategory(value:Category){setCategory(value);setHalal(false);setSelected(null);setStatus('');setAnswer('');}
+ function label(place:Recommendation){return place.mode==='fixture'?tr(place.categories.includes('souvenirs')?'local_demo_shop':'local_demo_place'):place.name;}
+ function add(){if(!selected||!onTripChange)return;try{const next=addRecommendation(trip,selected,{day,time,language:lang,city,country,category});onTripChange(next);setStatus('added');setSelected(null);}catch(error){setStatus(error instanceof Error?error.message:'INVALID_VISIT');}}
+ return <section className="local-discovery" aria-label={tr('local_title')}><h3>{tr('local_title')}</h3><p>{tr('local_reference_notice')}</p>
+ <p className="local-origin">{gps?tr('local_origin_gps',{accuracy:Math.round(gps.accuracy||0)}):tr('local_origin_destination',{name:item.place||item.title,city})}</p>
+ <p className="inline-note">{tr('local_gps_privacy')}</p><div className="video-actions"><button type="button" className="secondary" disabled={busy} onClick={()=>void locate()}>{tr(busy?'local_gps_loading':'local_use_gps')}</button><button type="button" className="secondary" onClick={resetLocation}>{tr('local_use_destination')}</button></div>
+ <div className="local-categories" role="group" aria-label={tr('local_categories')}>{categories.map(value=><button type="button" className="secondary" aria-pressed={category===value} key={value} onClick={()=>chooseCategory(value)}>{tr('local_category_'+value)}</button>)}</div>
+ <form onSubmit={event=>{event.preventDefault();const result=localQuestionAnswer(question,{city,country,language:lang});setAnswer(result?.answer||tr('local_question_unknown'));if(result){setCategory(result.category);setHalal(result.onlyHalal);setSelected(null);}}}><label>{tr('local_question')}<input maxLength={500} required value={question} onChange={event=>setQuestion(event.target.value)}/></label><button type="submit" className="secondary">{tr('guide_send')}</button></form>{answer&&<p className="local-answer" role="status">{answer}</p>}
+ <label className="local-halal"><input type="checkbox" checked={halal} onChange={event=>{setHalal(event.target.checked);setSelected(null);}}/>{tr('local_halal_filter')}</label>
+ {status&&<p role="status">{tr('local_status_'+status)}</p>}
+ {!rows.length&&<div className="city-warning"><p>{tr(halal?'local_no_halal':gps?'local_no_gps_results':'local_no_results')}</p>{!gps&&!halal&&<button type="button" className="secondary" onClick={()=>setDemo(true)}>{tr('local_show_demo')}</button>}</div>}
+ <div className="local-results">{rows.map(place=>{const directions=recommendationDirections(place),duplicate=alreadyInTrip(trip,place);return <article className="local-place" key={place.id}><h4>{label(place)}</h4><span className="local-badge">{tr(place.mode==='fixture'?'local_fixture':'local_curated')}</span><p>{tr('local_category_'+category)} · {place.city}, {place.country}</p><p>{place.description[lang]}</p>
+ <p>{place.address||tr('local_location_unknown')} · {tr(place.geo&&place.locationVerified?'local_pin_verified':place.locationVerified?'local_address_verified':'local_pin_unknown')}</p>
+ <p>{place.distanceKm==null?tr('local_distance_unknown'):tr('local_distance',{distance:new Intl.NumberFormat(locale(),{maximumFractionDigits:2}).format(place.distanceKm)})}</p>
+ <p>{tr('local_price_unknown')}</p><p>{tr('local_hours_unknown')}</p><p>{tr(place.halal==='verified'&&place.sources.length?'local_halal_verified':'local_halal_unknown')}</p>
+ <details><summary>{tr('local_details')}</summary><p>{tr('local_location_note')}</p>{place.sources.map(source=><p key={source}><a href={source} target="_blank" rel="noopener noreferrer">{tr('guide_source')}</a></p>)}{place.checkedAt&&<small>{tr('local_checked',{date:place.checkedAt})}</small>}</details>
+ <div className="video-actions">{directions?<a className="secondary" href={directions} target="_blank" rel="noopener noreferrer">{tr('guide_directions')}</a>:<span>{tr('local_demo_no_map')}</span>}<button type="button" className="secondary" disabled={duplicate||!onTripChange} onClick={()=>{setSelected(place);setStatus('');}}>{tr(duplicate?'local_already_added':'local_select')}</button></div>
+ </article>;})}</div>
+ {!onTripChange&&<p>{tr('local_edit_unavailable')}</p>}
+ {selected&&<form className="local-add-form" aria-label={tr('local_add_form')} onSubmit={event=>{event.preventDefault();add();}}><h4>{label(selected)}</h4><label>{tr('local_visit_day')}<select aria-label={tr('local_visit_day')} value={day} onChange={event=>setDay(Number(event.target.value))}>{Array.from({length:trip.days},(_,i)=><option key={i} value={i+1}>{i+1}</option>)}</select></label><label>{tr('local_visit_time')}<input aria-label={tr('local_visit_time')} type="time" value={time} required onChange={event=>setTime(event.target.value)}/></label><button type="submit" className="primary">{tr('local_add')}</button><button type="button" className="secondary" onClick={()=>setSelected(null)}>{tr('video_cancel')}</button><p>{tr('local_save_note')}</p></form>}
+ </section>;
+}

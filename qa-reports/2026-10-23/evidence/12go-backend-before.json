@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-23T09:29:28.969Z",
+  "route": {
+    "from": "Kuala Lumpur",
+    "to": "Melaka",
+    "date": "2026-11-06",
+    "adults": 1,
+    "mode": "bus"
+  },
+  "elapsedMs": 33466,
+  "accepted": 0,
+  "diagnostics": {},
+  "quotes": []
+}

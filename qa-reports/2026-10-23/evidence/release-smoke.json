@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-10-23T10:53:10.972Z",
+  "commit": "770afbd",
+  "version": "7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1",
+  "pass": true,
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html",
+      "currentJs": true,
+      "currentCss": true
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "contentType": "application/json"
+    },
+    {
+      "path": "/hotel-checkout",
+      "status": 200,
+      "contentType": "text/html"
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "contentType": "text/html"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "contentType": "text/html"
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "contentType": "text/plain"
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml"
+    },
+    {
+      "path": "/release-smoke-missing-page",
+      "status": 404,
+      "contentType": "text/html"
+    },
+    {
+      "path": "/api/hotels/checkout/history",
+      "status": 401,
+      "contentType": "application/json"
+    },
+    {
+      "path": "/assets/index-Cv_VMp6u.js",
+      "status": 200,
+      "contentType": "text/javascript"
+    },
+    {
+      "path": "/assets/index-CtxVYnQq.css",
+      "status": 200,
+      "contentType": "text/css"
+    },
+    {
+      "path": "/api/bookings/status",
+      "status": 401,
+      "authGate": true
+    },
+    {
+      "path": "/api/bookings/flight-link",
+      "status": 401,
+      "authGate": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "path": "/",
+    "http": 200,
+    "bytes": 3341
+  },
+  {
+    "path": "/api/health",
+    "http": 200,
+    "bytes": 214,
+    "itineraryRulesVersion": "2026-10-24-order-admission"
+  },
+  {
+    "path": "/api/activities/health",
+    "http": 200,
+    "bytes": 117,
+    "environment": "production",
+    "configured": true
+  },
+  {
+    "path": "/api/recommendations",
+    "http": 200,
+    "bytes": 3121,
+    "count": 3
+  },
+  {
+    "path": "/api/support/config",
+    "http": 200,
+    "bytes": 16,
+    "enabled": true
+  },
+  {
+    "path": "/api/hotels/checkout/history",
+    "http": 401,
+    "bytes": 67
+  },
+  {
+    "path": "/favicon.svg",
+    "http": 200,
+    "bytes": 622,
+    "matchesBuild": true
+  },
+  {
+    "path": "/branding/sorttrip-logo-horizontal.svg",
+    "http": 200,
+    "bytes": 3186,
+    "matchesBuild": true
+  },
+  {
+    "path": "/assets/index-CWOfGrnq.js",
+    "http": 200,
+    "bytes": 1031484,
+    "matchesBuild": true
+  },
+  {
+    "path": "/api/activities?city=Singapore&search=Gardens+by+the+Bay&count=2",
+    "http": 200,
+    "bytes": 1819,
+    "environment": "production",
+    "count": 2
+  },
+  {
+    "path": "/api/payments/status",
+    "http": 401,
+    "scope": "no-auth or invalid-signature gate only; no payment or provider credential authentication tested"
+  },
+  {
+    "path": "/api/payments/webhook",
+    "http": 403,
+    "scope": "no-auth or invalid-signature gate only; no payment or provider credential authentication tested"
+  }
+]

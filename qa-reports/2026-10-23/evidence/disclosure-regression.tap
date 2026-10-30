@@ -1,0 +1,1593 @@
+TAP version 13
+# Subtest: link preserves existing budget, itinerary identity, route, notes and purchase state by default
+ok 1 - link preserves existing budget, itinerary identity, route, notes and purchase state by default
+  ---
+  duration_ms: 5.6443
+  type: 'test'
+  ...
+# Subtest: explicit estimate updates only selected ticket per-person cost; original item untouched
+ok 2 - explicit estimate updates only selected ticket per-person cost; original item untouched
+  ---
+  duration_ms: 3.8492
+  type: 'test'
+  ...
+# Subtest: paid, changed, removed, wrong-category and unsafe selections are rejected
+ok 3 - paid, changed, removed, wrong-category and unsafe selections are rejected
+  ---
+  duration_ms: 1.1351
+  type: 'test'
+  ...
+# Subtest: invalid draft is corrected once in same quota reservation; failure returns safe rule code
+ok 4 - invalid draft is corrected once in same quota reservation; failure returns safe rule code
+  ---
+  duration_ms: 127.3847
+  type: 'test'
+  ...
+# Subtest: transport preference performs focused route research before final draft with one successful quota use
+ok 5 - transport preference performs focused route research before final draft with one successful quota use
+  ---
+  duration_ms: 9.7677
+  type: 'test'
+  ...
+# Subtest: structured transport preference requires researched connected alternatives and selects requested mode
+ok 6 - structured transport preference requires researched connected alternatives and selects requested mode
+  ---
+  duration_ms: 1.1817
+  type: 'test'
+  ...
+# Subtest: route requests validate day bounds and whitelist planning data only
+ok 7 - route requests validate day bounds and whitelist planning data only
+  ---
+  duration_ms: 0.7262
+  type: 'test'
+  ...
+# Subtest: Luna default and strict grounded drafting preserve travel constraints without inventing references
+ok 8 - Luna default and strict grounded drafting preserve travel constraints without inventing references
+  ---
+  duration_ms: 1.1267
+  type: 'test'
+  ...
+# Subtest: collects only safe HTTPS provider references and deduplicates canonical URLs
+ok 9 - collects only safe HTTPS provider references and deduplicates canonical URLs
+  ---
+  duration_ms: 0.5193
+  type: 'test'
+  ...
+# Subtest: AI health includes quota server configuration without exposing values
+ok 10 - AI health includes quota server configuration without exposing values
+  ---
+  duration_ms: 6.6285
+  type: 'test'
+  ...
+# Subtest: preserves cited activities but never model prices or booking URLs
+ok 11 - preserves cited activities but never model prices or booking URLs
+  ---
+  duration_ms: 0.4301
+  type: 'test'
+  ...
+# Subtest: rejects ungrounded source and unsafe URL
+ok 12 - rejects ungrounded source and unsafe URL
+  ---
+  duration_ms: 0.3517
+  type: 'test'
+  ...
+# Subtest: rejects activities before arrival and too close to departure
+ok 13 - rejects activities before arrival and too close to departure
+  ---
+  duration_ms: 0.6286
+  type: 'test'
+  ...
+# Subtest: rejects conflicting locked bookings
+ok 14 - rejects conflicting locked bookings
+  ---
+  duration_ms: 0.5152
+  type: 'test'
+  ...
+# Subtest: rejects oversized trip and invalid day
+ok 15 - rejects oversized trip and invalid day
+  ---
+  duration_ms: 0.4568
+  type: 'test'
+  ...
+# Subtest: unconfigured server is explicit and old trip is not mutated
+ok 16 - unconfigured server is explicit and old trip is not mutated
+  ---
+  duration_ms: 0.779
+  type: 'test'
+  ...
+# Subtest: configured server requires auth before upstream spend
+ok 17 - configured server requires auth before upstream spend
+  ---
+  duration_ms: 0.5455
+  type: 'test'
+  ...
+# Subtest: cross-origin calls rejected
+ok 18 - cross-origin calls rejected
+  ---
+  duration_ms: 2.4074
+  type: 'test'
+  ...
+# Subtest: authenticated workflow uses web search, returns draft, sanitizes secrets
+ok 19 - authenticated workflow uses web search, returns draft, sanitizes secrets
+  ---
+  duration_ms: 3.4417
+  type: 'test'
+  ...
+# Subtest: exhausted Basic is rejected before any AI spend
+ok 20 - exhausted Basic is rejected before any AI spend
+  ---
+  duration_ms: 1.4642
+  type: 'test'
+  ...
+# Subtest: provider failures expose only safe quota/rate/unavailable classifications
+ok 21 - provider failures expose only safe quota/rate/unavailable classifications
+  ---
+  duration_ms: 24.3851
+  type: 'test'
+  ...
+# Subtest: failed generation releases reservation without counting a successful use
+ok 22 - failed generation releases reservation without counting a successful use
+  ---
+  duration_ms: 1.8088
+  type: 'test'
+  ...
+# Subtest: AI accepts one day and longer journeys without a fourteen-day cap
+ok 23 - AI accepts one day and longer journeys without a fourteen-day cap
+  ---
+  duration_ms: 0.3397
+  type: 'test'
+  ...
+# Subtest: validates sourced hotel nights and complete transport endpoints; never returns inventory prices
+ok 24 - validates sourced hotel nights and complete transport endpoints; never returns inventory prices
+  ---
+  duration_ms: 0.6204
+  type: 'test'
+  ...
+# Subtest: excursion intent reaches AI even when overnight city differs; generated visit schedule is replaceable
+ok 25 - excursion intent reaches AI even when overnight city differs; generated visit schedule is replaceable
+  ---
+  duration_ms: 48.497
+  type: 'test'
+  ...
+# Subtest: regeneration replaces automatic day-plan transport but preserves paid/manual transport
+ok 26 - regeneration replaces automatic day-plan transport but preserves paid/manual transport
+  ---
+  duration_ms: 1.2657
+  type: 'test'
+  ...
+# Subtest: AI context includes cross-city transfer endpoints and protects paid segments; multi-leg recommendations stay separate
+ok 27 - AI context includes cross-city transfer endpoints and protects paid segments; multi-leg recommendations stay separate
+  ---
+  duration_ms: 4.8998
+  type: 'test'
+  ...
+# Subtest: applies daily visits/transfers, preserves paid/manual records and never fabricates prices/hotels
+ok 28 - applies daily visits/transfers, preserves paid/manual records and never fabricates prices/hotels
+  ---
+  duration_ms: 1.4264
+  type: 'test'
+  ...
+# Subtest: reapply replaces prior unpaid AI draft without duplicating or removing manual records
+ok 29 - reapply replaces prior unpaid AI draft without duplicating or removing manual records
+  ---
+  duration_ms: 0.8024
+  type: 'test'
+  ...
+# Subtest: rejects stale context, invalid schedule, ungrounded source and paid conflicts
+ok 30 - rejects stale context, invalid schedule, ungrounded source and paid conflicts
+  ---
+  duration_ms: 1.1908
+  type: 'test'
+  ...
+# Subtest: hotel and transport recommendations are daily items replacing only template coverage
+ok 31 - hotel and transport recommendations are daily items replacing only template coverage
+  ---
+  duration_ms: 2.892
+  type: 'test'
+  ...
+# Subtest: AI receives per-day cities and retained choices; edited items survive regeneration
+ok 32 - AI receives per-day cities and retained choices; edited items survive regeneration
+  ---
+  duration_ms: 1.6325
+  type: 'test'
+  ...
+# Subtest: rejects a stale multi-city plan and protects selected unpaid hotel stays
+ok 33 - rejects a stale multi-city plan and protects selected unpaid hotel stays
+  ---
+  duration_ms: 1.1435
+  type: 'test'
+  ...
+# Subtest: language detection: explicit preference wins, unsupported browser falls back safely
+ok 34 - language detection: explicit preference wins, unsupported browser falls back safely
+  ---
+  duration_ms: 111.8114
+  type: 'test'
+  ...
+# Subtest: catalogue parity, interpolation, plurals, fallback and locale-only formatting
+ok 35 - catalogue parity, interpolation, plurals, fallback and locale-only formatting
+  ---
+  duration_ms: 122.6031
+  type: 'test'
+  ...
+# Subtest: English AI requests preserve exact schema, categories, source URLs and numeric input
+ok 36 - English AI requests preserve exact schema, categories, source URLs and numeric input
+  ---
+  duration_ms: 3.6977
+  type: 'test'
+  ...
+# Subtest: localized responses retain payment URLs, status, amount, codes and caching headers
+ok 37 - localized responses retain payment URLs, status, amount, codes and caching headers
+  ---
+  duration_ms: 14.398
+  type: 'test'
+  ...
+# Subtest: narrative translation rejects changed prices, times, URLs, duplicate entries and excessive input
+ok 38 - narrative translation rejects changed prices, times, URLs, duplicate entries and excessive input
+  ---
+  duration_ms: 2.3399
+  type: 'test'
+  ...
+# Subtest: translation uses authenticated bounded call, no planning tools or result-quota reservation
+ok 39 - translation uses authenticated bounded call, no planning tools or result-quota reservation
+  ---
+  duration_ms: 4.9003
+  type: 'test'
+  ...
+# Subtest: Price Watch email follows stored language while preserving fare values and booking URL
+ok 40 - Price Watch email follows stored language while preserving fare values and booking URL
+  ---
+  duration_ms: 3.1724
+  type: 'test'
+  ...
+# Subtest: a day with only the same hotel does not invent a zero-distance transport connection
+ok 41 - a day with only the same hotel does not invent a zero-distance transport connection
+  ---
+  duration_ms: 9.3693
+  type: 'test'
+  ...
+# Subtest: changing a city recommends lodging near its visits without overwriting other nights
+ok 42 - changing a city recommends lodging near its visits without overwriting other nights
+  ---
+  duration_ms: 41.1021
+  type: 'test'
+  ...
+# Subtest: same-city save is a no-op and preserves manual activities
+ok 43 - same-city save is a no-op and preserves manual activities
+  ---
+  duration_ms: 0.6216
+  type: 'test'
+  ...
+# Subtest: paid hotel and return itinerary constraints are preserved
+ok 44 - paid hotel and return itinerary constraints are preserved
+  ---
+  duration_ms: 1.2225
+  type: 'test'
+  ...
+# Subtest: lodging selection balances last visit and following visit in the same city
+ok 45 - lodging selection balances last visit and following visit in the same city
+  ---
+  duration_ms: 0.7712
+  type: 'test'
+  ...
+# Subtest: meal records do not affect current totals, paid balance or per-person costs
+ok 46 - meal records do not affect current totals, paid balance or per-person costs
+  ---
+  duration_ms: 1.432
+  type: 'test'
+  ...
+# Subtest: world itinerary map has no catalog crash and does not invent coordinates
+ok 47 - world itinerary map has no catalog crash and does not invent coordinates
+  ---
+  duration_ms: 0.6205
+  type: 'test'
+  ...
+# Subtest: map restores exact catalog AI place coordinates without guessing a similar place
+ok 48 - map restores exact catalog AI place coordinates without guessing a similar place
+  ---
+  duration_ms: 0.4886
+  type: 'test'
+  ...
+# Subtest: city change replaces AI hotels without coordinates and preserves other nights without duplicates
+ok 49 - city change replaces AI hotels without coordinates and preserves other nights without duplicates
+  ---
+  duration_ms: 1.4365
+  type: 'test'
+  ...
+# Subtest: item disclosure is initially closed, labelled, and retains controls without nesting them in its summary
+ok 50 - item disclosure is initially closed, labelled, and retains controls without nesting them in its summary
+  ---
+  duration_ms: 25.3906
+  type: 'test'
+  ...
+# Subtest: conversation disclosure uses Indonesian copy and independent accessible targets
+ok 51 - conversation disclosure uses Indonesian copy and independent accessible targets
+  ---
+  duration_ms: 4.4219
+  type: 'test'
+  ...
+# Subtest: external service validates actual evidence again and sends only planning fields
+ok 52 - external service validates actual evidence again and sends only planning fields
+  ---
+  duration_ms: 90.9841
+  type: 'test'
+  ...
+# Subtest: service configuration and browser input cannot accept arbitrary destinations
+ok 53 - service configuration and browser input cannot accept arbitrary destinations
+  ---
+  duration_ms: 1.7229
+  type: 'test'
+  ...
+# Subtest: local server rejects browser-origin calls and returns bounded validated search results
+ok 54 - local server rejects browser-origin calls and returns bounded validated search results
+  ---
+  duration_ms: 242.7016
+  type: 'test'
+  ...
+# Subtest: server mode authenticates requests before invoking the browser
+ok 55 - server mode authenticates requests before invoking the browser
+  ---
+  duration_ms: 56.4412
+  type: 'test'
+  ...
+# Subtest: restores primary flight from saved flight metadata when item provider/url absent, preserves tracking
+ok 56 - restores primary flight from saved flight metadata when item provider/url absent, preserves tracking
+  ---
+  duration_ms: 2.0823
+  type: 'test'
+  ...
+# Subtest: never assigns outbound link to return flight or accepts unrelated/unsafe links
+ok 57 - never assigns outbound link to return flight or accepts unrelated/unsafe links
+  ---
+  duration_ms: 0.9152
+  type: 'test'
+  ...
+# Subtest: assistant hash navigation keeps itinerary while valid browser back still changes view
+ok 58 - assistant hash navigation keeps itinerary while valid browser back still changes view
+  ---
+  duration_ms: 4.5972
+  type: 'test'
+  ...
+# Subtest: hotel amount duration follows the individual stay, not the whole itinerary
+ok 59 - hotel amount duration follows the individual stay, not the whole itinerary
+  ---
+  duration_ms: 62.0147
+  type: 'test'
+  ...
+# Subtest: API itinerary preserves actual returned fare and link, budgets use correct group multiplier
+ok 60 - API itinerary preserves actual returned fare and link, budgets use correct group multiplier
+  ---
+  duration_ms: 5.4833
+  type: 'test'
+  ...
+# Subtest: one-way stays one-way and unknown times not invented
+ok 61 - one-way stays one-way and unknown times not invented
+  ---
+  duration_ms: 1.3162
+  type: 'test'
+  ...
+# Subtest: overnight arrival carries destination day offset and excludes pre-arrival activities
+ok 62 - overnight arrival carries destination day offset and excludes pre-arrival activities
+  ---
+  duration_ms: 3.8522
+  type: 'test'
+  ...
+# Subtest: late arrival hotel time belongs to next day and early return has no conflicting visits
+ok 63 - late arrival hotel time belongs to next day and early return has no conflicting visits
+  ---
+  duration_ms: 2.6706
+  type: 'test'
+  ...
+# Subtest: flight request preserves domestic scope, cancellation and no fake data
+ok 64 - flight request preserves domestic scope, cancellation and no fake data
+  ---
+  duration_ms: 59.9787
+  type: 'test'
+  ...
+# Subtest: worldwide itinerary is saveable without invented hotel or attraction costs
+ok 65 - worldwide itinerary is saveable without invented hotel or attraction costs
+  ---
+  duration_ms: 2.2674
+  type: 'test'
+  ...
+# Subtest: save response keeps concurrent edits and identity, without attaching id to a different draft
+ok 66 - save response keeps concurrent edits and identity, without attaching id to a different draft
+  ---
+  duration_ms: 2.3104
+  type: 'test'
+  ...
+# Subtest: reload restores itinerary rather than flight search only for a valid stored draft
+ok 67 - reload restores itinerary rather than flight search only for a valid stored draft
+  ---
+  duration_ms: 3.148
+  type: 'test'
+  ...
+# Subtest: price refresh waits behind older save and opening saved trips reads the latest persisted amount
+ok 68 - price refresh waits behind older save and opening saved trips reads the latest persisted amount
+  ---
+  duration_ms: 0.9221
+  type: 'test'
+  ...
+# Subtest: a failed save does not discard a queued result; assigning an insert ID is not an unsaved price edit
+ok 69 - a failed save does not discard a queued result; assigning an insert ID is not an unsaved price edit
+  ---
+  duration_ms: 3.0079
+  type: 'test'
+  ...
+# Subtest: bounded fetch preserves cancellation for Request and init signals
+ok 70 - bounded fetch preserves cancellation for Request and init signals
+  ---
+  duration_ms: 8.1499
+  type: 'test'
+  ...
+# Subtest: flight replacement retains account identity and preferences but rebuilds dated itinerary and offer
+ok 71 - flight replacement retains account identity and preferences but rebuilds dated itinerary and offer
+  ---
+  duration_ms: 4.5353
+  type: 'test'
+  ...
+# Subtest: replacement blocks paid reservations, simulations and mismatched passenger counts without mutation
+ok 72 - replacement blocks paid reservations, simulations and mismatched passenger counts without mutation
+  ---
+  duration_ms: 4.4679
+  type: 'test'
+  ...
+# Subtest: replacement arrival and return windows follow new ticket, never old AI routes
+ok 73 - replacement arrival and return windows follow new ticket, never old AI routes
+  ---
+  duration_ms: 2.5971
+  type: 'test'
+  ...
+# Subtest: price refresh protects paid and flight fares, handles room nights/group costs, persists sources
+ok 74 - price refresh protects paid and flight fares, handles room nights/group costs, persists sources
+  ---
+  duration_ms: 3.0403
+  type: 'test'
+  ...
+# Subtest: connecting-route quotes price each leg and leave subtotal incomplete when another fare is unknown
+ok 75 - connecting-route quotes price each leg and leave subtotal incomplete when another fare is unknown
+  ---
+  duration_ms: 3.1646
+  type: 'test'
+  ...
+# Subtest: LiteAPI dated totals persist as one shared stay and cannot reprice paid or mismatched hotels
+ok 76 - LiteAPI dated totals persist as one shared stay and cannot reprice paid or mismatched hotels
+  ---
+  duration_ms: 9.2427
+  type: 'test'
+  ...
+# Subtest: valid query and invalid inputs
+ok 77 - valid query and invalid inputs
+  ---
+  duration_ms: 3.9
+  type: 'test'
+  ...
+# Subtest: normalize real PP price and inclusive duration
+ok 78 - normalize real PP price and inclusive duration
+  ---
+  duration_ms: 19.7162
+  type: 'test'
+  ...
+# Subtest: reject wrong airport, expired and outside range
+ok 79 - reject wrong airport, expired and outside range
+  ---
+  duration_ms: 0.5495
+  type: 'test'
+  ...
+# Subtest: PP cannot be returned as one-way
+ok 80 - PP cannot be returned as one-way
+  ---
+  duration_ms: 0.5682
+  type: 'test'
+  ...
+# Subtest: reject malicious booking links and missing time zone
+ok 81 - reject malicious booking links and missing time zone
+  ---
+  duration_ms: 0.6841
+  type: 'test'
+  ...
+# Subtest: missing token has actionable message
+ok 82 - missing token has actionable message
+  ---
+  duration_ms: 68.9604
+  type: 'test'
+  ...
+# Subtest: token is a header only, never sent back
+ok 83 - token is a header only, never sent back
+  ---
+  duration_ms: 9.133
+  type: 'test'
+  ...
+# Subtest: wrong currency does not become IDR
+ok 84 - wrong currency does not become IDR
+  ---
+  duration_ms: 2.1159
+  type: 'test'
+  ...
+# Subtest: empty data stays empty, never simulated
+ok 85 - empty data stays empty, never simulated
+  ---
+  duration_ms: 3.1757
+  type: 'test'
+  ...
+# Subtest: 401 and rate limit errors are sanitized
+ok 86 - 401 and rate limit errors are sanitized
+  ---
+  duration_ms: 3.038
+  type: 'test'
+  ...
+# Subtest: anywhere omits destination and preserves destinations outside starter catalog
+ok 87 - anywhere omits destination and preserves destinations outside starter catalog
+  ---
+  duration_ms: 2.7903
+  type: 'test'
+  ...
+# Subtest: country lookup and city/airport query validation
+ok 88 - country lookup and city/airport query validation
+  ---
+  duration_ms: 50.9167
+  type: 'test'
+  ...
+# Subtest: international discovery excludes domestic flights
+ok 89 - international discovery excludes domestic flights
+  ---
+  duration_ms: 0.3072
+  type: 'test'
+  ...
+# Subtest: explicit domestic scope keeps valid Indonesian flights
+ok 90 - explicit domestic scope keeps valid Indonesian flights
+  ---
+  duration_ms: 0.943
+  type: 'test'
+  ...
+# Subtest: Bali prioritizes Denpasar and exact airport codes stay first
+ok 91 - Bali prioritizes Denpasar and exact airport codes stay first
+  ---
+  duration_ms: 54.3748
+  type: 'test'
+  ...
+# Subtest: return date uses destination zone rather than Singapore for worldwide flights
+ok 92 - return date uses destination zone rather than Singapore for worldwide flights
+  ---
+  duration_ms: 1.5737
+  type: 'test'
+  ...
+# Subtest: city query includes its airports but excludes other cities
+ok 93 - city query includes its airports but excludes other cities
+  ---
+  duration_ms: 0.4769
+  type: 'test'
+  ...
+# Subtest: pagination preserves query and advertises a next page for full provider pages
+ok 94 - pagination preserves query and advertises a next page for full provider pages
+  ---
+  duration_ms: 13.2271
+  type: 'test'
+  ...
+# Subtest: cache hit skips provider and still applies filters
+ok 95 - cache hit skips provider and still applies filters
+  ---
+  duration_ms: 1.6779
+  type: 'test'
+  ...
+# Subtest: health never discloses token; unknown API and static routing
+ok 96 - health never discloses token; unknown API and static routing
+  ---
+  duration_ms: 4.7752
+  type: 'test'
+  ...
+# Subtest: duration accepts one day and longer fixed trips
+ok 97 - duration accepts one day and longer fixed trips
+  ---
+  duration_ms: 0.781
+  type: 'test'
+  ...
+# Subtest: controlled route defaults, strict date/mode boundaries and no uncontrolled fields
+ok 98 - controlled route defaults, strict date/mode boundaries and no uncontrolled fields
+  ---
+  duration_ms: 5.5558
+  type: 'test'
+  ...
+# Subtest: route response contains bounded facts and no raw errors, identifiers, polylines or secret echoes
+ok 99 - route response contains bounded facts and no raw errors, identifiers, polylines or secret echoes
+  ---
+  duration_ms: 1.0803
+  type: 'test'
+  ...
+# Subtest: unconfigured/unauthenticated/foreign/invalid routes cause no billable upstream request
+ok 100 - unconfigured/unauthenticated/foreign/invalid routes cause no billable upstream request
+  ---
+  duration_ms: 66.8195
+  type: 'test'
+  ...
+# Subtest: budget missing/exhausted blocks Google; reservation precedes one billable call and never touches AI result quota
+ok 101 - budget missing/exhausted blocks Google; reservation precedes one billable call and never touches AI result quota
+  ---
+  duration_ms: 18.3644
+  type: 'test'
+  ...
+# Subtest: database origin normalizes trailing slash and invalid budget responses cannot reach Google
+ok 102 - database origin normalizes trailing slash and invalid budget responses cannot reach Google
+  ---
+  duration_ms: 4.8972
+  type: 'test'
+  ...
+# Subtest: optional supplier terms do not reject valid prices; missing or changed payable totals fail closed
+ok 103 - optional supplier terms do not reject valid prices; missing or changed payable totals fail closed
+  ---
+  duration_ms: 4.9596
+  type: 'test'
+  ...
+# Subtest: hotel checkout date cannot be mistaken for payment-return session; links preserve dates and guests
+ok 104 - hotel checkout date cannot be mistaken for payment-return session; links preserve dates and guests
+  ---
+  duration_ms: 1.1671
+  type: 'test'
+  ...
+# Subtest: authenticated checkout uses supplier payable rather than public SSP floor and validates Prebook consistently
+ok 105 - authenticated checkout uses supplier payable rather than public SSP floor and validates Prebook consistently
+  ---
+  duration_ms: 152.7009
+  type: 'test'
+  ...
+# Subtest: checkout is opt-in, sandbox owner-only, production requires separate approval and correct key mode
+ok 106 - checkout is opt-in, sandbox owner-only, production requires separate approval and correct key mode
+  ---
+  duration_ms: 2.6631
+  type: 'test'
+  ...
+# Subtest: strict guest/date checks and authenticated ciphertext keep provider/payment data out of storage plaintext
+ok 107 - strict guest/date checks and authenticated ciphertext keep provider/payment data out of storage plaintext
+  ---
+  duration_ms: 8.9253
+  type: 'test'
+  ...
+# Subtest: missing storage prevents supplier work; changed final conditions require review before SDK or booking
+ok 108 - missing storage prevents supplier work; changed final conditions require review before SDK or booking
+  ---
+  duration_ms: 66.4501
+  type: 'test'
+  ...
+# Subtest: SDK checkout persists prebook once, reviews final terms, isolates owners and confirms exactly once
+ok 109 - SDK checkout persists prebook once, reviews final terms, isolates owners and confirms exactly once
+  ---
+  duration_ms: 90.59
+  type: 'test'
+  ...
+# Subtest: actual supplier price changes are shown for fresh consent; inconsistent payable still fails closed
+ok 110 - actual supplier price changes are shown for fresh consent; inconsistent payable still fails closed
+  ---
+  duration_ms: 47.5341
+  type: 'test'
+  ...
+# Subtest: lost Book response stays uncertain and reconciles by server-owned reference without a second booking
+ok 111 - lost Book response stays uncertain and reconciles by server-owned reference without a second booking
+  ---
+  duration_ms: 51.7525
+  type: 'test'
+  ...
+# Subtest: payment redirect or mismatched booking details cannot establish confirmed state
+ok 112 - payment redirect or mismatched booking details cannot establish confirmed state
+  ---
+  duration_ms: 5.817
+  type: 'test'
+  ...
+# Subtest: checkout stages have independent rate keys so room search does not block payment portal
+ok 113 - checkout stages have independent rate keys so room search does not block payment portal
+  ---
+  duration_ms: 40.566
+  type: 'test'
+  ...
+# Subtest: database trailing slash is normalized without following redirects or disclosing upstream exceptions
+ok 114 - database trailing slash is normalized without following redirects or disclosing upstream exceptions
+  ---
+  duration_ms: 12.9686
+  type: 'test'
+  ...
+# Subtest: documented Prebook price and empty terms are accepted without invented top-level fields
+ok 115 - documented Prebook price and empty terms are accepted without invented top-level fields
+  ---
+  duration_ms: 23.3754
+  type: 'test'
+  ...
+# Subtest: failed and expired selections explain recovery without another supplier call
+ok 116 - failed and expired selections explain recovery without another supplier call
+  ---
+  duration_ms: 10.8009
+  type: 'test'
+  ...
+# Subtest: supplier session errors preserve only HTTP status and a fixed stage, without exposing provider bodies
+ok 117 - supplier session errors preserve only HTTP status and a fixed stage, without exposing provider bodies
+  ---
+  duration_ms: 10.3864
+  type: 'test'
+  ...
+# Subtest: empty inventory differs from supplier rates rejected by public tax checks
+ok 118 - empty inventory differs from supplier rates rejected by public tax checks
+  ---
+  duration_ms: 14.11
+  type: 'test'
+  ...
+# Subtest: SDK returns to frontend origin rather than local API proxy and excludes payment query fields
+ok 119 - SDK returns to frontend origin rather than local API proxy and excludes payment query fields
+  ---
+  duration_ms: 0.7047
+  type: 'test'
+  ...
+# Subtest: hotel content returns bounded plain text and public HTTPS photos without raw supplier fields
+ok 120 - hotel content returns bounded plain text and public HTTPS photos without raw supplier fields
+  ---
+  duration_ms: 5.4707
+  type: 'test'
+  ...
+# Subtest: details survive unavailable reviews; no AI, payment, redirect-follow or translation requests
+ok 121 - details survive unavailable reviews; no AI, payment, redirect-follow or translation requests
+  ---
+  duration_ms: 105.8763
+  type: 'test'
+  ...
+# Subtest: invalid content IDs and exhausted limits block supplier calls; mismatched hotel cannot be returned
+ok 122 - invalid content IDs and exhausted limits block supplier calls; mismatched hotel cannot be returned
+  ---
+  duration_ms: 3.832
+  type: 'test'
+  ...
+# Subtest: hotel search requires production configuration and rejects foreign origin without provider requests
+ok 123 - hotel search requires production configuration and rejects foreign origin without provider requests
+  ---
+  duration_ms: 85.0314
+  type: 'test'
+  ...
+# Subtest: localized hotel errors preserve their machine key for the search form
+ok 124 - localized hotel errors preserve their machine key for the search form
+  ---
+  duration_ms: 20.5331
+  type: 'test'
+  ...
+# Subtest: supplier failures are unavailable, while a successful empty catalogue is a real empty result
+ok 125 - supplier failures are unavailable, while a successful empty catalogue is a real empty result
+  ---
+  duration_ms: 29.1158
+  type: 'test'
+  ...
+# Subtest: a city repeated as the optional area does not discard every hotel
+ok 126 - a city repeated as the optional area does not discard every hotel
+  ---
+  duration_ms: 5.3021
+  type: 'test'
+  ...
+# Subtest: hotel menu returns vetted public offers without auth, AI, booking or quota RPC calls
+ok 127 - hotel menu returns vetted public offers without auth, AI, booking or quota RPC calls
+  ---
+  duration_ms: 10.8023
+  type: 'test'
+  ...
+# Subtest: white-label hotel links preserve dates and occupancy; no owner domain means no invented checkout
+ok 128 - white-label hotel links preserve dates and occupancy; no owner domain means no invented checkout
+  ---
+  duration_ms: 1.4339
+  type: 'test'
+  ...
+# Subtest: sandbox cannot activate customer hotel prices; invalid/private rates never become public totals
+ok 129 - sandbox cannot activate customer hotel prices; invalid/private rates never become public totals
+  ---
+  duration_ms: 5.6038
+  type: 'test'
+  ...
+# Subtest: area search uses only matching catalogue hotels, public comparable totals and no AI/browser calls
+ok 130 - area search uses only matching catalogue hotels, public comparable totals and no AI/browser calls
+  ---
+  duration_ms: 92.4983
+  type: 'test'
+  ...
+# Subtest: unavailable or sandbox responses preserve unknown prices and fixed hotel identity on refresh
+ok 131 - unavailable or sandbox responses preserve unknown prices and fixed hotel identity on refresh
+  ---
+  duration_ms: 6.0608
+  type: 'test'
+  ...
+# Subtest: consecutive area nights group into one stay; sourced supplier enrichment preserves route research
+ok 132 - consecutive area nights group into one stay; sourced supplier enrichment preserves route research
+  ---
+  duration_ms: 1.6975
+  type: 'test'
+  ...
+# Subtest: AI chooses sourced neighborhoods instead of hotel properties when the API is available
+ok 133 - AI chooses sourced neighborhoods instead of hotel properties when the API is available
+  ---
+  duration_ms: 1.6879
+  type: 'test'
+  ...
+# Subtest: area grouping never covers an already selected hotel night
+ok 134 - area grouping never covers an already selected hotel night
+  ---
+  duration_ms: 2.7479
+  type: 'test'
+  ...
+# Subtest: authenticated hotel refresh uses supplier API and one successful quota result; sandbox activation spends none
+ok 135 - authenticated hotel refresh uses supplier API and one successful quota result; sandbox activation spends none
+  ---
+  duration_ms: 21.0369
+  type: 'test'
+  ...
+# Subtest: allow only reviewed free hotel API endpoint and method/host combinations
+ok 136 - allow only reviewed free hotel API endpoint and method/host combinations
+  ---
+  duration_ms: 2.3376
+  type: 'test'
+  ...
+# Subtest: paid, unknown, flight and alternate-host paths are blocked before outbound fetch
+ok 137 - paid, unknown, flight and alternate-host paths are blocked before outbound fetch
+  ---
+  duration_ms: 2.3047
+  type: 'test'
+  ...
+# Subtest: both dev and build preview forward API to the local Worker
+ok 138 - both dev and build preview forward API to the local Worker
+  ---
+  duration_ms: 1.8037
+  type: 'test'
+  ...
+# Subtest: proxy translates matching local frontend origins only, preserving foreign origins
+ok 139 - proxy translates matching local frontend origins only, preserving foreign origins
+  ---
+  duration_ms: 2.0998
+  type: 'test'
+  ...
+# Subtest: English counts distinguish one city, traveller, room, adult, review and stop
+ok 140 - English counts distinguish one city, traveller, room, adult, review and stop
+  ---
+  duration_ms: 11.6108
+  type: 'test'
+  ...
+# Subtest: fixed regional and Price Watch diagnostics follow English while preserving machine codes
+ok 141 - fixed regional and Price Watch diagnostics follow English while preserving machine codes
+  ---
+  duration_ms: 43.8045
+  type: 'test'
+  ...
+# Subtest: transactional email is natural English with unchanged currency, amount and destination
+ok 142 - transactional email is natural English with unchanged currency, amount and destination
+  ---
+  duration_ms: 2.401
+  type: 'test'
+  ...
+# Subtest: manual transport carries trip day, route and affiliate without inventing price or paid status
+ok 143 - manual transport carries trip day, route and affiliate without inventing price or paid status
+  ---
+  duration_ms: 5.2208
+  type: 'test'
+  ...
+# Subtest: manual hotel preserves immutable generated affiliate URL and correct stay dates
+ok 144 - manual hotel preserves immutable generated affiliate URL and correct stay dates
+  ---
+  duration_ms: 0.637
+  type: 'test'
+  ...
+# Subtest: invalid date, outside trip, negative price, identical transport endpoints or checkout outside trip rejected
+ok 145 - invalid date, outside trip, negative price, identical transport endpoints or checkout outside trip rejected
+  ---
+  duration_ms: 2.823
+  type: 'test'
+  ...
+# Subtest: explicit replacement preserves paid records and refuses partial hotel range replacement
+ok 146 - explicit replacement preserves paid records and refuses partial hotel range replacement
+  ---
+  duration_ms: 3.4436
+  type: 'test'
+  ...
+# Subtest: only verified hotel resolves to exact generated affiliate link, others use working hotel landing
+ok 147 - only verified hotel resolves to exact generated affiliate link, others use working hotel landing
+  ---
+  duration_ms: 1.2899
+  type: 'test'
+  ...
+# Subtest: payment requires exact order, IDR and amount
+ok 148 - payment requires exact order, IDR and amount
+  ---
+  duration_ms: 6.5628
+  type: 'test'
+  ...
+# Subtest: price increase validates against stored order amount: new Rp30000 and old Rp15000
+ok 149 - price increase validates against stored order amount: new Rp30000 and old Rp15000
+  ---
+  duration_ms: 0.8607
+  type: 'test'
+  ...
+# Subtest: pending and challenged cards never grant access; refunds revoke
+ok 150 - pending and challenged cards never grant access; refunds revoke
+  ---
+  duration_ms: 0.5449
+  type: 'test'
+  ...
+# Subtest: webhook signature checks exact amount and server key
+ok 151 - webhook signature checks exact amount and server key
+  ---
+  duration_ms: 107.1733
+  type: 'test'
+  ...
+# Subtest: trip identity agrees with Basic and Price Watch keys
+ok 152 - trip identity agrees with Basic and Price Watch keys
+  ---
+  duration_ms: 1.3522
+  type: 'test'
+  ...
+# Subtest: production rejects owner test grants even if the test flag remains enabled
+ok 153 - production rejects owner test grants even if the test flag remains enabled
+  ---
+  duration_ms: 69.8895
+  type: 'test'
+  ...
+# Subtest: non-owner cannot grant a test pass
+ok 154 - non-owner cannot grant a test pass
+  ---
+  duration_ms: 2.0705
+  type: 'test'
+  ...
+# Subtest: owner test is isolated, fixed duration and idempotent insert
+ok 155 - owner test is isolated, fixed duration and idempotent insert
+  ---
+  duration_ms: 2.7792
+  type: 'test'
+  ...
+# Subtest: unsigned webhook rejected without querying payment status or granting access
+ok 156 - unsigned webhook rejected without querying payment status or granting access
+  ---
+  duration_ms: 1.4256
+  type: 'test'
+  ...
+# Subtest: valid webhook rechecks Midtrans rather than trusting payload status
+ok 157 - valid webhook rechecks Midtrans rather than trusting payload status
+  ---
+  duration_ms: 12.7294
+  type: 'test'
+  ...
+# Subtest: signed production webhook honors old invoices and never fulfills underpaid new invoices
+ok 158 - signed production webhook honors old invoices and never fulfills underpaid new invoices
+  ---
+  duration_ms: 10.1441
+  type: 'test'
+  ...
+# Subtest: production checkout creates a Midtrans Snap redirect with exact price; no browser payment occurs
+ok 159 - production checkout creates a Midtrans Snap redirect with exact price; no browser payment occurs
+  ---
+  duration_ms: 17.1857
+  type: 'test'
+  ...
+# Subtest: exhausted pass allows renewal but another available legacy pass prevents payment
+ok 160 - exhausted pass allows renewal but another available legacy pass prevents payment
+  ---
+  duration_ms: 8.0973
+  type: 'test'
+  ...
+# Subtest: checkout does not duplicate an existing pending Midtrans order
+ok 161 - checkout does not duplicate an existing pending Midtrans order
+  ---
+  duration_ms: 2.4112
+  type: 'test'
+  ...
+# Subtest: status exposes active entitlement and explicit purchase gate without returning configuration values
+ok 162 - status exposes active entitlement and explicit purchase gate without returning configuration values
+  ---
+  duration_ms: 2.2353
+  type: 'test'
+  ...
+# Subtest: Midtrans rejection exposes only fixed description and HTTP status, never provider body
+ok 163 - Midtrans rejection exposes only fixed description and HTTP status, never provider body
+  ---
+  duration_ms: 21.9256
+  type: 'test'
+  ...
+# Subtest: status rate limit defers provider refresh without disabling checkout status or calling Midtrans
+ok 164 - status rate limit defers provider refresh without disabling checkout status or calling Midtrans
+  ---
+  duration_ms: 2.9539
+  type: 'test'
+  ...
+# Subtest: status provider rejection keeps stored state and returns only safe diagnostic fields
+ok 165 - status provider rejection keeps stored state and returns only safe diagnostic fields
+  ---
+  duration_ms: 4.932
+  type: 'test'
+  ...
+# Subtest: Snap not-started response restores only validated existing checkout, without granting a pass or creating an order
+ok 166 - Snap not-started response restores only validated existing checkout, without granting a pass or creating an order
+  ---
+  duration_ms: 11.1533
+  type: 'test'
+  ...
+# Subtest: price evidence requires exact IDR amount, property identity, hotel source and room-night basis
+ok 167 - price evidence requires exact IDR amount, property identity, hotel source and room-night basis
+  ---
+  duration_ms: 11.9636
+  type: 'test'
+  ...
+# Subtest: transport quotes require exact route endpoints, source and per-person basis
+ok 168 - transport quotes require exact route endpoints, source and per-person basis
+  ---
+  duration_ms: 0.9493
+  type: 'test'
+  ...
+# Subtest: price-only research consumes one quota on evidence success, none when unavailable; authentication and origin enforced
+ok 169 - price-only research consumes one quota on evidence success, none when unavailable; authentication and origin enforced
+  ---
+  duration_ms: 93.4
+  type: 'test'
+  ...
+# Subtest: hotel at/@ spelling variants retain location identity and exact supplier quote
+ok 170 - hotel at/@ spelling variants retain location identity and exact supplier quote
+  ---
+  duration_ms: 7.3425
+  type: 'test'
+  ...
+# Subtest: chooses lowest valid price, rejects unsafe booking URLs and zero
+ok 171 - chooses lowest valid price, rejects unsafe booking URLs and zero
+  ---
+  duration_ms: 2.0269
+  type: 'test'
+  ...
+# Subtest: scheduled check records no_data without fabricating a fare
+ok 172 - scheduled check records no_data without fabricating a fare
+  ---
+  duration_ms: 80.8853
+  type: 'test'
+  ...
+# Subtest: provider failure records error, not a price drop
+ok 173 - provider failure records error, not a price drop
+  ---
+  duration_ms: 1.7953
+  type: 'test'
+  ...
+# Subtest: watch runs from saved route without a selected flight
+ok 174 - watch runs from saved route without a selected flight
+  ---
+  duration_ms: 3.567
+  type: 'test'
+  ...
+# PRICE_WATCH_FINISH_FAILED
+# PRICE_WATCH_EMAIL_DEFERRED
+# Subtest: domestic Price Watch normalizes legacy international scope before searching
+ok 175 - domestic Price Watch normalizes legacy international scope before searching
+  ---
+  duration_ms: 85.3064
+  type: 'test'
+  ...
+# Subtest: one failed watch completion does not abandon the remaining claimed watches
+ok 176 - one failed watch completion does not abandon the remaining claimed watches
+  ---
+  duration_ms: 14.5156
+  type: 'test'
+  ...
+# Subtest: one email network failure is deferred and does not prevent another notification; idempotency retained
+ok 177 - one email network failure is deferred and does not prevent another notification; idempotency retained
+  ---
+  duration_ms: 18.0178
+  type: 'test'
+  ...
+# Subtest: checkout SPA entry remains served after enabling real missing-page responses
+ok 178 - checkout SPA entry remains served after enabling real missing-page responses
+  ---
+  duration_ms: 52.963
+  type: 'test'
+  ...
+# TRANSPORT_BROWSER_QUOTE_OK
+# HOTEL_BROWSER_START
+# HOTEL_BROWSER_LAUNCHED
+# HOTEL_BROWSER_HTTP_200
+# HOTEL_BROWSER_PRICE_NOT_RENDERED
+# HOTEL_BROWSER_NO_HOTEL_PAGE
+# HOTEL_BROWSER_START
+# HOTEL_BROWSER_LAUNCHED
+# HOTEL_BROWSER_HTTP_200
+# HOTEL_BROWSER_QUOTE_OK
+# TRANSPORT_BROWSER_PRICE_UNAVAILABLE
+# Subtest: each supplier operation gets an independent context and cleans up even when context fails
+ok 179 - each supplier operation gets an independent context and cleans up even when context fails
+  ---
+  duration_ms: 4.9921
+  type: 'test'
+  ...
+# Subtest: dated transport accepts only exact visible search context and ticket basis, rejecting taxi or stale dates
+ok 180 - dated transport accepts only exact visible search context and ticket basis, rejecting taxi or stale dates
+  ---
+  duration_ms: 49.3105
+  type: 'test'
+  ...
+# Subtest: 12Go route resolution requires a cited public route URL, not a model-only guess
+ok 181 - 12Go route resolution requires a cited public route URL, not a model-only guess
+  ---
+  duration_ms: 70.2771
+  type: 'test'
+  ...
+# Subtest: browser adapters return only validated prices and clean up unavailable searches
+ok 182 - browser adapters return only validated prices and clean up unavailable searches
+  ---
+  duration_ms: 11.4342
+  type: 'test'
+  ...
+# Subtest: browser mode does not replace unavailable tickets with indexed starting prices
+ok 183 - browser mode does not replace unavailable tickets with indexed starting prices
+  ---
+  duration_ms: 1.7896
+  type: 'test'
+  ...
+# Subtest: FAQ and support catalogues have identical nonempty bilingual keys
+ok 184 - FAQ and support catalogues have identical nonempty bilingual keys
+  ---
+  duration_ms: 3.9923
+  type: 'test'
+  ...
+# Subtest: dedicated bridge cannot activate from local-agent credentials and exposes config boolean only
+ok 185 - dedicated bridge cannot activate from local-agent credentials and exposes config boolean only
+  ---
+  duration_ms: 42.0429
+  type: 'test'
+  ...
+# Subtest: known credentials, OTPs, card-like values and oversized text are rejected before persistence
+ok 186 - known credentials, OTPs, card-like values and oversized text are rejected before persistence
+  ---
+  duration_ms: 1.8356
+  type: 'test'
+  ...
+# Subtest: anonymous and cross-origin clients cannot read or send support messages
+ok 187 - anonymous and cross-origin clients cannot read or send support messages
+  ---
+  duration_ms: 2.5484
+  type: 'test'
+  ...
+# Subtest: read lists and detail enforce verified owner, never expose user or Telegram identifiers
+ok 188 - read lists and detail enforce verified owner, never expose user or Telegram identifiers
+  ---
+  duration_ms: 3.8286
+  type: 'test'
+  ...
+# Subtest: another user’s missing conversation cannot trigger a message read
+ok 189 - another user’s missing conversation cannot trigger a message read
+  ---
+  duration_ms: 2.4427
+  type: 'test'
+  ...
+# Subtest: customer send uses authenticated identity and stable request ID, queues server-only delivery
+ok 190 - customer send uses authenticated identity and stable request ID, queues server-only delivery
+  ---
+  duration_ms: 4.3332
+  type: 'test'
+  ...
+# Subtest: sensitive customer text cannot reach database or Telegram
+ok 191 - sensitive customer text cannot reach database or Telegram
+  ---
+  duration_ms: 1.0588
+  type: 'test'
+  ...
+# Subtest: webhook requires separate secret, private allowlisted owner and reply target
+ok 192 - webhook requires separate secret, private allowlisted owner and reply target
+  ---
+  duration_ms: 3.0793
+  type: 'test'
+  ...
+# Subtest: outbox sends plain protected text to dedicated bot and records delivery mapping without customer identity
+ok 193 - outbox sends plain protected text to dedicated bot and records delivery mapping without customer identity
+  ---
+  duration_ms: 1.1528
+  type: 'test'
+  ...
+# Subtest: provider failure never surfaces private error or marks a message delivered
+ok 194 - provider failure never surfaces private error or marks a message delivered
+  ---
+  duration_ms: 1.1131
+  type: 'test'
+  ...
+# Subtest: Worker localizes support errors while preserving authorization status
+ok 195 - Worker localizes support errors while preserving authorization status
+  ---
+  duration_ms: 2.2638
+  type: 'test'
+  ...
+# Subtest: public FAQ renders bilingually and anonymous users get sign-in instead of a message composer
+ok 196 - public FAQ renders bilingually and anonymous users get sign-in instead of a message composer
+  ---
+  duration_ms: 244.9629
+  type: 'test'
+  ...
+# Subtest: unauthorized, forwarded and bot updates cannot enqueue or receive replies
+ok 197 - unauthorized, forwarded and bot updates cannot enqueue or receive replies
+  ---
+  duration_ms: 48.1543
+  type: 'test'
+  ...
+# Subtest: /status and /help do not reflect message content or chat identifiers
+ok 198 - /status and /help do not reflect message content or chat identifiers
+  ---
+  duration_ms: 7.2762
+  type: 'test'
+  ...
+# Subtest: /task read-only health emits received, started and TASK_COMPLETED
+ok 199 - /task read-only health emits received, started and TASK_COMPLETED
+  ---
+  duration_ms: 42.4962
+  type: 'test'
+  ...
+# Subtest: general task waits; /resume requires independent application verification
+ok 200 - general task waits; /resume requires independent application verification
+  ---
+  duration_ms: 116.6171
+  type: 'test'
+  ...
+# Subtest: queue survives restart, deduplicates updates, recovers interrupted tasks
+ok 201 - queue survives restart, deduplicates updates, recovers interrupted tasks
+  ---
+  duration_ms: 12.6735
+  type: 'test'
+  ...
+# Subtest: cancel is safe at queued/waiting states; running requests are deferred
+ok 202 - cancel is safe at queued/waiting states; running requests are deferred
+  ---
+  duration_ms: 4.9846
+  type: 'test'
+  ...
+# Subtest: credentials rejected before persistence; unsafe summaries never leave notifier
+ok 203 - credentials rejected before persistence; unsafe summaries never leave notifier
+  ---
+  duration_ms: 13.7371
+  type: 'test'
+  ...
+# Subtest: failed health uses TASK_FAILED; outbox persists until delivery succeeds
+ok 204 - failed health uses TASK_FAILED; outbox persists until delivery succeeds
+  ---
+  duration_ms: 107.7388
+  type: 'test'
+  ...
+# Subtest: getUpdates uses POST and offset, never exposes raw API errors
+ok 205 - getUpdates uses POST and offset, never exposes raw API errors
+  ---
+  duration_ms: 1.3326
+  type: 'test'
+  ...
+# Subtest: no CLI arguments send the default test message; explicit messages are preserved
+ok 206 - no CLI arguments send the default test message; explicit messages are preserved
+  ---
+  duration_ms: 5.6671
+  type: 'test'
+  ...
+# Subtest: missing configuration does not send a request
+ok 207 - missing configuration does not send a request
+  ---
+  duration_ms: 0.3894
+  type: 'test'
+  ...
+# Subtest: sends a plain text notification using injected configuration
+ok 208 - sends a plain text notification using injected configuration
+  ---
+  duration_ms: 0.6167
+  type: 'test'
+  ...
+# Subtest: network exceptions and Telegram errors are sanitized
+ok 209 - network exceptions and Telegram errors are sanitized
+  ---
+  duration_ms: 1.7789
+  type: 'test'
+  ...
+# Subtest: only safe Telegram diagnostics are exposed
+ok 210 - only safe Telegram diagnostics are exposed
+  ---
+  duration_ms: 0.969
+  type: 'test'
+  ...
+# Subtest: invalid or credential-containing messages never send
+ok 211 - invalid or credential-containing messages never send
+  ---
+  duration_ms: 2.054
+  type: 'test'
+  ...
+# Subtest: preserves partner id, itinerary date and adult count
+ok 212 - preserves partner id, itinerary date and adult count
+  ---
+  duration_ms: 6.3444
+  type: 'test'
+  ...
+# Subtest: maps saved itinerary ids to partner location names
+ok 213 - maps saved itinerary ids to partner location names
+  ---
+  duration_ms: 0.7027
+  type: 'test'
+  ...
+# Subtest: unknown, identical or injected locations do not fabricate route links
+ok 214 - unknown, identical or injected locations do not fabricate route links
+  ---
+  duration_ms: 0.4021
+  type: 'test'
+  ...
+# Subtest: invalid dates and passenger counts are rejected
+ok 215 - invalid dates and passenger counts are rejected
+  ---
+  duration_ms: 0.5533
+  type: 'test'
+  ...
+# Subtest: fallback home also retains the existing public affiliate identifier
+ok 216 - fallback home also retains the existing public affiliate identifier
+  ---
+  duration_ms: 0.6378
+  type: 'test'
+  ...
+# Subtest: transit terminals link Johor Bahru to Melaka with date and tracking
+ok 217 - transit terminals link Johor Bahru to Melaka with date and tracking
+  ---
+  duration_ms: 1.4263
+  type: 'test'
+  ...
+# Subtest: grounded provider route resolves unknown stations but rejects unsafe sources
+ok 218 - grounded provider route resolves unknown stations but rejects unsafe sources
+  ---
+  duration_ms: 1.3932
+  type: 'test'
+  ...
+# Subtest: selects requested feasible alternative, preserves connected legs without invented fares
+ok 219 - selects requested feasible alternative, preserves connected legs without invented fares
+  ---
+  duration_ms: 2.6862
+  type: 'test'
+  ...
+# Subtest: rejects missing transit connection, mismatched endpoints and unresearched operator source
+ok 220 - rejects missing transit connection, mismatched endpoints and unresearched operator source
+  ---
+  duration_ms: 5.0951
+  type: 'test'
+  ...
+# Subtest: keeps dated sourced fare quotes outside budget and rejects undated quotes
+ok 221 - keeps dated sourced fare quotes outside budget and rejects undated quotes
+  ---
+  duration_ms: 0.8711
+  type: 'test'
+  ...
+# Subtest: city discovery includes budget pass, brand, ID occupancy and no margin or paid endpoints
+ok 222 - city discovery includes budget pass, brand, ID occupancy and no margin or paid endpoints
+  ---
+  duration_ms: 72.5972
+  type: 'test'
+  ...
+# Subtest: budget-only discovery limits requests and partial failure is explicit; sandbox fails closed
+ok 223 - budget-only discovery limits requests and partial failure is explicit; sandbox fails closed
+  ---
+  duration_ms: 6.5074
+  type: 'test'
+  ...
+# Subtest: nightly budget range uses inclusive per-room per-night totals and allows either open end
+ok 224 - nightly budget range uses inclusive per-room per-night totals and allows either open end
+  ---
+  duration_ms: 8.0882
+  type: 'test'
+  ...
+# Subtest: invalid budget ranges are rejected before any supplier call
+ok 225 - invalid budget ranges are rejected before any supplier call
+  ---
+  duration_ms: 8.1277
+  type: 'test'
+  ...
+# Subtest: configuration diagnosis returns fixed categories without exposing a credential
+ok 226 - configuration diagnosis returns fixed categories without exposing a credential
+  ---
+  duration_ms: 2.16
+  type: 'test'
+  ...
+# Subtest: Vietnam query stays Vietnam; absent identity is not fabricated
+ok 227 - Vietnam query stays Vietnam; absent identity is not fabricated
+  ---
+  duration_ms: 1.7375
+  type: 'test'
+  ...
+# Subtest: AI pool includes economy hotels after catalogue first forty and is bounded
+ok 228 - AI pool includes economy hotels after catalogue first forty and is bounded
+  ---
+  duration_ms: 6.0918
+  type: 'test'
+  ...
+# Subtest: ranking retains unknown review/duration truth and does not mutate input
+ok 229 - ranking retains unknown review/duration truth and does not mutate input
+  ---
+  duration_ms: 0.8686
+  type: 'test'
+  ...
+# Subtest: flight discovery region includes Indonesia and Vietnam and keeps worldwide optional
+ok 230 - flight discovery region includes Indonesia and Vietnam and keeps worldwide optional
+  ---
+  duration_ms: 14.0246
+  type: 'test'
+  ...
+# Subtest: AI and payment share exact trip scope, reject incomplete or delimiter-containing identities
+ok 231 - AI and payment share exact trip scope, reject incomplete or delimiter-containing identities
+  ---
+  duration_ms: 3.0384
+  type: 'test'
+  ...
+# Subtest: exhausted newest pass cannot hide another valid pass
+ok 232 - exhausted newest pass cannot hide another valid pass
+  ---
+  duration_ms: 0.7705
+  type: 'test'
+  ...
+# Subtest: legacy quota stays twenty while new ten-result pass reports its own remaining balance
+ok 233 - legacy quota stays twenty while new ten-result pass reports its own remaining balance
+  ---
+  duration_ms: 0.645
+  type: 'test'
+  ...
+# Subtest: unsaved draft can recognize its paid pass without DB mutation or Midtrans request
+ok 234 - unsaved draft can recognize its paid pass without DB mutation or Midtrans request
+  ---
+  duration_ms: 85.1317
+  type: 'test'
+  ...
+# Subtest: pass on another date unlocks a new trip within the same account without resetting usage
+ok 235 - pass on another date unlocks a new trip within the same account without resetting usage
+  ---
+  duration_ms: 3.1514
+  type: 'test'
+  ...
+# Subtest: unauthenticated access and invalid identity never query entitlement
+ok 236 - unauthenticated access and invalid identity never query entitlement
+  ---
+  duration_ms: 2.7739
+  type: 'test'
+  ...
+# Subtest: unsaved draft still cannot checkout or grant pass; changed saved identity cannot reconcile payment
+ok 237 - unsaved draft still cannot checkout or grant pass; changed saved identity cannot reconcile payment
+  ---
+  duration_ms: 9.825
+  type: 'test'
+  ...
+# HOTEL_BROWSER_NOT_READY
+# HOTEL_BROWSER_NOT_READY
+# HOTEL_PAGE_RESOLVED
+# HOTEL_PAGE_UNRESOLVED
+# Subtest: navigation diagnostics expose only fixed categories, never opaque URL parts
+ok 238 - navigation diagnostics expose only fixed categories, never opaque URL parts
+  ---
+  duration_ms: 2.6127
+  type: 'test'
+  ...
+# Subtest: public observed dated hotel total includes taxes, preserves exact evidence and room terms
+ok 239 - public observed dated hotel total includes taxes, preserves exact evidence and room terms
+  ---
+  duration_ms: 3.4691
+  type: 'test'
+  ...
+# Subtest: multi-night rendered total includes room/night context and capacity may exceed selected guest count
+ok 240 - multi-night rendered total includes room/night context and capacity may exceed selected guest count
+  ---
+  duration_ms: 1.4527
+  type: 'test'
+  ...
+# Subtest: rejects mismatched hotel, guest, nights, URL dates and missing inclusive total
+ok 241 - rejects mismatched hotel, guest, nights, URL dates and missing inclusive total
+  ---
+  duration_ms: 2.8127
+  type: 'test'
+  ...
+# Subtest: property guard rejects arbitrary origins, account pages, credentials and invalid dates or room scope
+ok 242 - property guard rejects arbitrary origins, account pages, credentials and invalid dates or room scope
+  ---
+  duration_ms: 0.3821
+  type: 'test'
+  ...
+# Subtest: disabled or unbound cloud browser cannot invent a quote
+ok 243 - disabled or unbound cloud browser cannot invent a quote
+  ---
+  duration_ms: 2.5662
+  type: 'test'
+  ...
+# Subtest: property resolution accepts only returned public source URLs and rejects model-only fabricated URLs
+ok 244 - property resolution accepts only returned public source URLs and rejects model-only fabricated URLs
+  ---
+  duration_ms: 37.5411
+  type: 'test'
+  ...
+# Subtest: dated stay total is inserted once, retains metadata in trip JSON, preserves paid or mismatched stay
+ok 245 - dated stay total is inserted once, retains metadata in trip JSON, preserves paid or mismatched stay
+  ---
+  duration_ms: 1.8466
+  type: 'test'
+  ...
+# Subtest: multi-night stay total is not multiplied by nights a second time
+ok 246 - multi-night stay total is not multiplied by nights a second time
+  ---
+  duration_ms: 0.5186
+  type: 'test'
+  ...
+# Subtest: Indonesian public room total includes taxes and does not use headline or crossed-out price
+ok 247 - Indonesian public room total includes taxes and does not use headline or crossed-out price
+  ---
+  duration_ms: 55.5
+  type: 'test'
+  ...
+# Subtest: Indonesian quote requires exact guest/date context and inclusive public price
+ok 248 - Indonesian quote requires exact guest/date context and inclusive public price
+  ---
+  duration_ms: 10.1167
+  type: 'test'
+  ...
+# Subtest: navigation allows only intended public property and landing; account, checkout and spoofed domains blocked
+ok 249 - navigation allows only intended public property and landing; account, checkout and spoofed domains blocked
+  ---
+  duration_ms: 0.7944
+  type: 'test'
+  ...
+# Subtest: missing credential fails closed without a provider request
+ok 250 - missing credential fails closed without a provider request
+  ---
+  duration_ms: 53.7545
+  type: 'test'
+  ...
+# Subtest: Worker routes health without leaking credential or claiming connection tested
+ok 251 - Worker routes health without leaking credential or claiming connection tested
+  ---
+  duration_ms: 3.85
+  type: 'test'
+  ...
+# Subtest: fixed sandbox POST, headers, IDR and tracked click-out; provider-only fields removed
+ok 252 - fixed sandbox POST, headers, IDR and tracked click-out; provider-only fields removed
+  ---
+  duration_ms: 4.1102
+  type: 'test'
+  ...
+# Subtest: reject malformed destination, pagination, methods and environment
+ok 253 - reject malformed destination, pagination, methods and environment
+  ---
+  duration_ms: 3.8036
+  type: 'test'
+  ...
+# Subtest: production uses its fixed host and exposes only numeric upstream status on rejection
+ok 254 - production uses its fixed host and exposes only numeric upstream status on rejection
+  ---
+  duration_ms: 1.3757
+  type: 'test'
+  ...
+# Subtest: provider errors, exception text, malformed JSON and redirects do not escape
+ok 255 - provider errors, exception text, malformed JSON and redirects do not escape
+  ---
+  duration_ms: 6.3785
+  type: 'test'
+  ...
+# Subtest: wrong currency, unsafe URLs and reflected secrets are discarded; empty stays empty
+ok 256 - wrong currency, unsafe URLs and reflected secrets are discarded; empty stays empty
+  ---
+  duration_ms: 1.2058
+  type: 'test'
+  ...
+# Subtest: connection diagnostics return fixed categories without exception details
+ok 257 - connection diagnostics return fixed categories without exception details
+  ---
+  duration_ms: 1.3408
+  type: 'test'
+  ...
+# Subtest: redirects are never followed and sensitive Location is not exposed
+ok 258 - redirects are never followed and sensitive Location is not exposed
+  ---
+  duration_ms: 0.6978
+  type: 'test'
+  ...
+# Subtest: free text search uses fixed product search schema and nested results
+ok 259 - free text search uses fixed product search schema and nested results
+  ---
+  duration_ms: 1.0515
+  type: 'test'
+  ...
+# Subtest: search validation and rate limit prevent supplier calls
+ok 260 - search validation and rate limit prevent supplier calls
+  ---
+  duration_ms: 1.4009
+  type: 'test'
+  ...
+# Subtest: city-scoped search resolves an exact destination then filters products; ambiguous city fails closed
+ok 261 - city-scoped search resolves an exact destination then filters products; ambiguous city fails closed
+  ---
+  duration_ms: 1.8867
+  type: 'test'
+  ...
+1..261
+# tests 261
+# suites 0
+# pass 261
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4741.877

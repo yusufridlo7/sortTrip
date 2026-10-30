@@ -1,3 +1,5 @@
+import {handleVideoItinerary} from './video-itinerary.js';
+import {handleAssistantDiscovery} from './assistant-discovery.js';
 import {streamItinerary} from './itinerary-stream.js';
 import {recommendationResponse,monthlyRecommendationRefresh} from './recommendation-budgets.js';
 import {handleBookingEvidence} from './booking-evidence.js';
@@ -14,6 +16,8 @@ import {handleItinerary} from './itinerary.js';
 import {externalHotelServiceConfigured} from './external-hotel-browser.js';
 import {handleViator} from './viator.js';
 import locations from './locations.json' with {type:'json'};
+import {countryName,searchLocations,resolveLocations} from './location-search.js';
+export {searchLocations} from './location-search.js';
 // Tokens stay in Worker runtime secrets, never in the Vite bundle.
 const routes = {kl: 'KUL', bkk: 'BKK', sin: 'SIN'};
 const day = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') && Number.isFinite(Date.parse(s)) && new Date(s).toISOString().slice(0,10) === s;
@@ -62,7 +66,10 @@ export async function searchFlights(q,env,ctx,{fetcher=fetch,cache=globalThis.ca
   if(id!=='all')u.searchParams.set('destination',routes[id]||id);
   if(q.outFrom===q.outTo)u.searchParams.set('departure_at',q.outFrom);
   else if(q.outFrom.slice(0,7)===q.outTo.slice(0,7))u.searchParams.set('departure_at',q.outFrom.slice(0,7));
-  if(q.journey==='return'&&q.backFrom===q.backTo)u.searchParams.set('return_at',q.backFrom);
+  if(q.journey==='return'){
+   if(q.backFrom===q.backTo)u.searchParams.set('return_at',q.backFrom);
+   else if(q.backFrom.slice(0,7)===q.backTo.slice(0,7))u.searchParams.set('return_at',q.backFrom.slice(0,7));
+  }
   // Cache only sanitized provider responses; token is never part of URL/cache key.
   const key=new Request('https://sorttrip-cache.invalid/v2?'+u.searchParams);
   let data=await cache?.match(key).then(r=>r?.json());
@@ -90,6 +97,9 @@ const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.
  if(!u.pathname.startsWith('/api/'))return env.ASSETS.fetch(u.pathname==='/hotel-checkout'?new Request(new URL('/',u),request):request);
  if(u.pathname.startsWith('/api/support/'))return handleSupport(request,env,ctx);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
+ if(u.pathname==='/api/video-itinerary')return handleVideoItinerary(request,env);
+ if(['/api/assistant/discover','/api/assistant/access'].includes(u.pathname))return handleAssistantDiscovery(request,env);
+ if(u.pathname==='/api/locations/resolve')return resolveLocations(request);
  if(u.pathname==='/api/itinerary/translate')return handleNarrativeTranslation(request,env);
  if(u.pathname==='/api/itinerary')return request.headers.get('Accept')?.includes('text/event-stream')?streamItinerary(request,env):handleItinerary(request,env);
  if(u.pathname==='/api/hotels/search')return handleHotelSearch(request,env);
@@ -105,17 +115,5 @@ const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}
  try{return await searchFlights(q,env,ctx);}catch{return json({error:'Pencarian belum dapat diproses. Coba lagi.'},502);}
 }};
-
-const countryLabels=new Map();
-const regionNames=new Intl.DisplayNames(['id'],{type:'region'});
-function countryName(code){if(!countryLabels.has(code)){try{countryLabels.set(code,regionNames.of(code)||code);}catch{countryLabels.set(code,code);}}return countryLabels.get(code);}
-export function searchLocations(query){
- const text=query.trim().toLowerCase();if(text.length<2)return [];
- const aliases={bali:'DPS',jakarta:'JKT',bangkok:'BKK','kuala lumpur':'KUL',tokyo:'TYO',singapore:'SIN',singapura:'SIN'};
- const rank=([code,m])=>code.toLowerCase()===text?0:code===aliases[text]?1:m.city.toLowerCase()===text?2:m.city.toLowerCase().startsWith(text)?3:m.city.toLowerCase().includes(text)?4:5;
- return Object.entries(locations).filter(([code,m])=>code.toLowerCase().includes(text)||m.city.toLowerCase().includes(text)||m.name.toLowerCase().includes(text)||countryName(m.country).toLowerCase().includes(text))
- .sort((a,b)=>rank(a)-rank(b)||a[1].city.localeCompare(b[1].city)||a[0].localeCompare(b[0]))
- .slice(0,25).map(([code,m])=>({code,city:m.city,name:m.name,country:countryName(m.country),countryCode:m.country}));
-}
 
 export default {...worker,async fetch(request,env,ctx){return localizedResponse(await worker.fetch(request,env,ctx),requestLanguage(request));}};

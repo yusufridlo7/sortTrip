@@ -1,0 +1,98 @@
+[
+  {
+    "file": "supabase\\ai-access.sql",
+    "rlsStatements": 2,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 2,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\ai-pass-account-scope.sql",
+    "rlsStatements": 0,
+    "policyStatements": 0,
+    "securityDefinerStatements": 2,
+    "revokeStatements": 1,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\ai-quota-v2.sql",
+    "rlsStatements": 1,
+    "policyStatements": 0,
+    "securityDefinerStatements": 2,
+    "revokeStatements": 3,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\google-routes-budget.sql",
+    "rlsStatements": 1,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 2,
+    "grantStatements": 2
+  },
+  {
+    "file": "supabase\\liteapi-checkout.sql",
+    "rlsStatements": 1,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 2,
+    "grantStatements": 2
+  },
+  {
+    "file": "supabase\\payments.sql",
+    "rlsStatements": 1,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 2,
+    "grantStatements": 2
+  },
+  {
+    "file": "supabase\\price-watch-itinerary.sql",
+    "rlsStatements": 0,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 0,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\price-watch.sql",
+    "rlsStatements": 2,
+    "policyStatements": 2,
+    "securityDefinerStatements": 3,
+    "revokeStatements": 2,
+    "grantStatements": 5
+  },
+  {
+    "file": "supabase\\schema.sql",
+    "rlsStatements": 1,
+    "policyStatements": 3,
+    "securityDefinerStatements": 0,
+    "revokeStatements": 1,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\support-chat.sql",
+    "rlsStatements": 4,
+    "policyStatements": 2,
+    "securityDefinerStatements": 4,
+    "revokeStatements": 2,
+    "grantStatements": 3
+  },
+  {
+    "file": "supabase\\trip-pass-10.sql",
+    "rlsStatements": 0,
+    "policyStatements": 0,
+    "securityDefinerStatements": 1,
+    "revokeStatements": 1,
+    "grantStatements": 1
+  },
+  {
+    "file": "supabase\\trip-pass-price-30000.sql",
+    "rlsStatements": 0,
+    "policyStatements": 0,
+    "securityDefinerStatements": 0,
+    "revokeStatements": 0,
+    "grantStatements": 0
+  }
+]

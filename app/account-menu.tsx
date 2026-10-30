@@ -17,7 +17,7 @@ function AccountPass(){
   async function load(){try{
    if(!supabase)throw Error('unavailable');
    const {data}=await supabase.auth.getSession();if(!data.session)throw Error('session');
-   const r=await boundedFetch('/api/payments/access',{method:'POST',signal:controller.signal,headers:{'Content-Type':'application/json','X-SortTrip-Language':language(),Authorization:'Bearer '+data.session.access_token},body:JSON.stringify({scope:'account'})});
+   const r=await boundedFetch(import.meta.env.MODE==='staging'?'/api/assistant/access':'/api/payments/access',{method:'POST',signal:controller.signal,headers:{'Content-Type':'application/json','X-SortTrip-Language':language(),Authorization:'Bearer '+data.session.access_token},body:JSON.stringify({scope:'account'})});
    if(!r.ok)throw Error('access');const result=await r.json();
    if(!controller.signal.aborted)setState({loading:false,error:false,pass:result.pass});
   }catch{if(!controller.signal.aborted)setState({loading:false,error:true,pass:null});}}

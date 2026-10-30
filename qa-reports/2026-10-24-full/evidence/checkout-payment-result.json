@@ -1,0 +1,15 @@
+{
+  "environment": "production",
+  "hotel": "Riccarton Capsule Hotel",
+  "room": "Single Capsule",
+  "checkin": "2027-01-30",
+  "checkout": "2027-01-31",
+  "adults": 1,
+  "rooms": 1,
+  "totalIDR": 218716,
+  "prebookSucceeded": true,
+  "paymentPortalLoaded": true,
+  "cardDataEntered": false,
+  "payClicked": false,
+  "bookingConfirmed": false
+}

@@ -1,0 +1,16 @@
+{
+  "observedAt": "2026-10-23T10:54:12.082Z",
+  "source": "Official production browser UI",
+  "version": "7f7ea8c2-225e-4a72-9bcf-ce8f7ee076a1",
+  "result": {
+    "diagnostics": {
+      "data-flight-fields": "action_id,campaign_id,date,state,sub_id,sub_type,type,updated_at",
+      "data-flight-fields-http": "200",
+      "data-flight-http": "200",
+      "data-flight-schema": "[{\"name\":\"state\",\"filters\":[\"eq\",\"ne\",\"in\"],\"values\":[\"cancelled\",\"processing\",\"paid\"]},{\"name\":\"sub_id\",\"filters\":[\"eq\",\"ne\"]},{\"name\":\"sub_type\",\"filters\":[\"eq\",\"ne\"]},{\"name\":\"type\",\"filters\":[\"eq\",\"ne\",\"in\"],\"values\":[\"init\",\"redirect\",\"external\",\"action\",\"referral\",\"init_tool\"]}]",
+      "data-flight-status": "available",
+      "data-hotel-status": "available"
+    },
+    "text": "Status dibedakan antara catatan Anda, pembelian terlapor mitra, dan reservasi terkonfirmasi. Membuka tautan booking belum berarti sudah membeli.\n\nPeriksa status pembelian\nLaporan pesawat sudah diperiksa; belum ada pembelian yang cocok dengan tautan itinerary ini."
+  }
+}

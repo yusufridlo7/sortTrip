@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-23",
+  "total": 529,
+  "counts": {
+    "PASS": 490,
+    "FAIL": 3,
+    "PARTIAL": 1,
+    "BLOCKED": 1,
+    "OWNER_ACTION_REQUIRED": 10,
+    "NOT_IMPLEMENTED": 7,
+    "NOT_TESTED": 17
+  },
+  "automated": 259,
+  "responsive": 147,
+  "actions": 29,
+  "fixedGroups": 15,
+  "openIssueGroups": 12,
+  "whiteLabel": "OUT_OF_SCOPE_NOT_A_RELEASE_GATE",
+  "verdict": "NO-GO unrestricted financial launch; CONDITIONAL GO limited discovery",
+  "reports": 19
+}

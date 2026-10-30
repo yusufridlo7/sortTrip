@@ -1,0 +1,100 @@
+[
+  {
+    "footerWidth": 272.66668701171875,
+    "headerHeight": 102.66667175292967,
+    "language": "id",
+    "overflow": false,
+    "width": 320
+  },
+  {
+    "footerWidth": 328,
+    "headerHeight": 104.66667175292967,
+    "language": "id",
+    "overflow": false,
+    "width": 375
+  },
+  {
+    "footerWidth": 342.66668701171875,
+    "headerHeight": 104.66667175292967,
+    "language": "id",
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "footerWidth": 704.6666870117188,
+    "headerHeight": 143.6666717529297,
+    "language": "id",
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "footerWidth": 960.6666870117188,
+    "headerHeight": 143.6666717529297,
+    "language": "id",
+    "overflow": false,
+    "width": 1024
+  },
+  {
+    "footerWidth": 1152,
+    "headerHeight": 76,
+    "language": "id",
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "footerWidth": 1152,
+    "headerHeight": 76,
+    "language": "id",
+    "overflow": false,
+    "width": 1920
+  },
+  {
+    "footerWidth": 272.66668701171875,
+    "headerHeight": 102.66667175292967,
+    "language": "en",
+    "overflow": false,
+    "width": 320
+  },
+  {
+    "footerWidth": 328,
+    "headerHeight": 104.66667175292967,
+    "language": "en",
+    "overflow": false,
+    "width": 375
+  },
+  {
+    "footerWidth": 342.66668701171875,
+    "headerHeight": 104.66667175292967,
+    "language": "en",
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "footerWidth": 704.6666870117188,
+    "headerHeight": 143.6666717529297,
+    "language": "en",
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "footerWidth": 960.6666870117188,
+    "headerHeight": 143.6666717529297,
+    "language": "en",
+    "overflow": false,
+    "width": 1024
+  },
+  {
+    "footerWidth": 1152,
+    "headerHeight": 76,
+    "language": "en",
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "footerWidth": 1152,
+    "headerHeight": 76,
+    "language": "en",
+    "overflow": false,
+    "width": 1920
+  }
+]

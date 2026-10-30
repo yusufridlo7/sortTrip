@@ -1,0 +1,1299 @@
+{
+  "scope": "listed source/build extensions only; excludes env/secret/queue/git/unrelated files; not a full historical secret audit",
+  "inventory": [
+    {
+      "file": "app\\account-menu.tsx",
+      "lines": 50,
+      "interactiveTags": 1,
+      "apiPaths": [
+        "/api/payments/access"
+      ]
+    },
+    {
+      "file": "app\\activity-selection.ts",
+      "lines": 16,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\activity-tickets.css",
+      "lines": 3,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\activity-tickets.tsx",
+      "lines": 40,
+      "interactiveTags": 8,
+      "apiPaths": [
+        "/api/activities"
+      ]
+    },
+    {
+      "file": "app\\ai-item-details.tsx",
+      "lines": 13,
+      "interactiveTags": 5,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\ai-planner.tsx",
+      "lines": 72,
+      "interactiveTags": 12,
+      "apiPaths": [
+        "/api/payments/access",
+        "/api/itinerary"
+      ]
+    },
+    {
+      "file": "app\\api-flights.ts",
+      "lines": 26,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/flights"
+      ]
+    },
+    {
+      "file": "app\\apply-ai-plan.ts",
+      "lines": 126,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\apply-price-quotes.ts",
+      "lines": 35,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\auth-app.tsx",
+      "lines": 41,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\auth-panel.tsx",
+      "lines": 34,
+      "interactiveTags": 4,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\booking-evidence.tsx",
+      "lines": 25,
+      "interactiveTags": 1,
+      "apiPaths": [
+        "/api/bookings/"
+      ]
+    },
+    {
+      "file": "app\\booking-receipts.ts",
+      "lines": 19,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\booking-status.tsx",
+      "lines": 16,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\bounded-fetch.ts",
+      "lines": 7,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\brand-logo.tsx",
+      "lines": 6,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\brand-theme.css",
+      "lines": 64,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\brand.ts",
+      "lines": 3,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\cities.ts",
+      "lines": 59,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\city-planner.tsx",
+      "lines": 18,
+      "interactiveTags": 9,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\database-trips.ts",
+      "lines": 27,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\day-plan-data.ts",
+      "lines": 10,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\day-trip.tsx",
+      "lines": 10,
+      "interactiveTags": 9,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\destination-input.tsx",
+      "lines": 12,
+      "interactiveTags": 4,
+      "apiPaths": [
+        "/api/locations"
+      ]
+    },
+    {
+      "file": "app\\direct-search.tsx",
+      "lines": 44,
+      "interactiveTags": 9,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\expandable-details.tsx",
+      "lines": 20,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\flight-affiliate.ts",
+      "lines": 8,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\flight-booking.tsx",
+      "lines": 25,
+      "interactiveTags": 3,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\flight-search.tsx",
+      "lines": 68,
+      "interactiveTags": 23,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\globals.css",
+      "lines": 187,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\google-route-check.tsx",
+      "lines": 24,
+      "interactiveTags": 7,
+      "apiPaths": [
+        "/api/routes/google"
+      ]
+    },
+    {
+      "file": "app\\hotel-checkout-link.mjs",
+      "lines": 11,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\hotel-checkout.css",
+      "lines": 38,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\hotel-checkout.tsx",
+      "lines": 91,
+      "interactiveTags": 22,
+      "apiPaths": [
+        "/api/hotels/checkout/"
+      ]
+    },
+    {
+      "file": "app\\hotel-details.tsx",
+      "lines": 13,
+      "interactiveTags": 5,
+      "apiPaths": [
+        "/api/hotels/content"
+      ]
+    },
+    {
+      "file": "app\\hotel-photo.tsx",
+      "lines": 5,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\hotel-photos.ts",
+      "lines": 7,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\hotel-planner.tsx",
+      "lines": 15,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\hotel-search.tsx",
+      "lines": 45,
+      "interactiveTags": 19,
+      "apiPaths": [
+        "/api/hotels/search"
+      ]
+    },
+    {
+      "file": "app\\hotel-stay.ts",
+      "lines": 16,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\i18n\\index.ts",
+      "lines": 32,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\i18n\\language-switcher.tsx",
+      "lines": 3,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\i18n\\narratives.tsx",
+      "lines": 29,
+      "interactiveTags": 1,
+      "apiPaths": [
+        "/api/itinerary/translate"
+      ]
+    },
+    {
+      "file": "app\\info-note.tsx",
+      "lines": 8,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\item-ai-lock.tsx",
+      "lines": 10,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\item-booking.tsx",
+      "lines": 40,
+      "interactiveTags": 11,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\itinerary-connections.ts",
+      "lines": 20,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\itinerary-price.tsx",
+      "lines": 18,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\itinerary-response.mjs",
+      "lines": 16,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\klook-hotel-widget.ts",
+      "lines": 30,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\local-transport-data.ts",
+      "lines": 26,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\local-transport.tsx",
+      "lines": 8,
+      "interactiveTags": 4,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\local-trips.ts",
+      "lines": 17,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\partner-selection-form.tsx",
+      "lines": 16,
+      "interactiveTags": 10,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\partner-selection.ts",
+      "lines": 39,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\price-watch.tsx",
+      "lines": 12,
+      "interactiveTags": 4,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\provider-compare.tsx",
+      "lines": 12,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\provider-data.ts",
+      "lines": 6,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\recommended-trips.tsx",
+      "lines": 36,
+      "interactiveTags": 5,
+      "apiPaths": [
+        "/api/recommendations"
+      ]
+    },
+    {
+      "file": "app\\replace-flight.ts",
+      "lines": 16,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\return-flight.tsx",
+      "lines": 13,
+      "interactiveTags": 4,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\route-map.tsx",
+      "lines": 35,
+      "interactiveTags": 3,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\supabase.ts",
+      "lines": 8,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\support-center.tsx",
+      "lines": 28,
+      "interactiveTags": 11,
+      "apiPaths": [
+        "/api/support/",
+        "/api/support/config"
+      ]
+    },
+    {
+      "file": "app\\support.css",
+      "lines": 5,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\transport-affiliate.mjs",
+      "lines": 31,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\transport-booking.tsx",
+      "lines": 9,
+      "interactiveTags": 2,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\transport-data.ts",
+      "lines": 5,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\transport-search.tsx",
+      "lines": 37,
+      "interactiveTags": 2,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\transport-widget.ts",
+      "lines": 3,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\travel-app.tsx",
+      "lines": 120,
+      "interactiveTags": 56,
+      "apiPaths": [
+        "/api/trips"
+      ]
+    },
+    {
+      "file": "app\\travel-data.ts",
+      "lines": 55,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\travel-discovery.css",
+      "lines": 11,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\travel-discovery.mjs",
+      "lines": 12,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\travel-refresh.css",
+      "lines": 266,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\trip-hotel-search.css",
+      "lines": 2,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\trip-hotel-search.tsx",
+      "lines": 19,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\trip-pass.tsx",
+      "lines": 71,
+      "interactiveTags": 4,
+      "apiPaths": [
+        "/api/payments/",
+        "/api/payments/access",
+        "/api/payments/status"
+      ]
+    },
+    {
+      "file": "app\\trip-save.ts",
+      "lines": 28,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\verified-places.ts",
+      "lines": 8,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "app\\world-planner.tsx",
+      "lines": 28,
+      "interactiveTags": 16,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\admission-reference.mjs",
+      "lines": 15,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\ai-draft.js",
+      "lines": 24,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\booking-evidence.js",
+      "lines": 87,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/bookings/flight-link",
+        "/api/bookings/status"
+      ]
+    },
+    {
+      "file": "worker\\booking-identity.mjs",
+      "lines": 15,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\external-hotel-browser.js",
+      "lines": 22,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\google-routes.js",
+      "lines": 52,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\hotel-checkout.js",
+      "lines": 173,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/hotels/checkout/",
+        "/api/hotels/checkout/history",
+        "/api/hotels/checkout/rooms",
+        "/api/hotels/checkout/status",
+        "/api/hotels/checkout/payment",
+        "/api/hotels/checkout/prebook",
+        "/api/hotels/checkout/book"
+      ]
+    },
+    {
+      "file": "worker\\hotel-content.js",
+      "lines": 21,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\hotel-discovery.js",
+      "lines": 49,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\hotel-search.js",
+      "lines": 22,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\hotel-stay-policy.mjs",
+      "lines": 21,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\index.js",
+      "lines": 122,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/recommendations",
+        "/api/support/",
+        "/api/payments/",
+        "/api/itinerary/translate",
+        "/api/itinerary",
+        "/api/hotels/search",
+        "/api/hotels/content",
+        "/api/bookings/",
+        "/api/hotels/checkout/",
+        "/api/routes/google",
+        "/api/activities",
+        "/api/activities/",
+        "/api/health",
+        "/api/locations",
+        "/api/flights"
+      ]
+    },
+    {
+      "file": "worker\\itinerary-intent.mjs",
+      "lines": 15,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\itinerary-order.mjs",
+      "lines": 15,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\itinerary-stream.js",
+      "lines": 21,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\itinerary.js",
+      "lines": 149,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\lite-hotel.js",
+      "lines": 135,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\liteapi-cost-policy.js",
+      "lines": 19,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\localization.js",
+      "lines": 25,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\narrative-translation.js",
+      "lines": 30,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\official-admission.js",
+      "lines": 33,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\payments.js",
+      "lines": 87,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/payments/webhook",
+        "/api/payments/access",
+        "/api/payments/owner-test",
+        "/api/payments/status",
+        "/api/payments/checkout"
+      ]
+    },
+    {
+      "file": "worker\\price-research.js",
+      "lines": 83,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\price-watch.js",
+      "lines": 28,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\recommendation-budgets.js",
+      "lines": 94,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\supplier-browser.js",
+      "lines": 10,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\support.js",
+      "lines": 62,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/support/telegram/webhook",
+        "/api/support/config",
+        "/api/support/conversations"
+      ]
+    },
+    {
+      "file": "worker\\transport-browser.js",
+      "lines": 84,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\transport-plan.js",
+      "lines": 20,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\travelpayouts-bookings.js",
+      "lines": 24,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\trip-access.js",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\trip-hotel-browser.js",
+      "lines": 99,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "worker\\viator.js",
+      "lines": 122,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/activities/health",
+        "/api/activities"
+      ]
+    },
+    {
+      "file": "components\\ui\\button.tsx",
+      "lines": 65,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\combobox.tsx",
+      "lines": 311,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\dialog.tsx",
+      "lines": 160,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\input-group.tsx",
+      "lines": 171,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\input.tsx",
+      "lines": 22,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\select.tsx",
+      "lines": 191,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\switch.tsx",
+      "lines": 36,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\tabs.tsx",
+      "lines": 92,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "components\\ui\\textarea.tsx",
+      "lines": 19,
+      "interactiveTags": 1,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\ai-access.sql",
+      "lines": 48,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\ai-pass-account-scope.sql",
+      "lines": 58,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\ai-quota-v2.sql",
+      "lines": 53,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\google-routes-budget.sql",
+      "lines": 46,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\liteapi-checkout.sql",
+      "lines": 31,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\payments.sql",
+      "lines": 33,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\price-watch-itinerary.sql",
+      "lines": 36,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\price-watch.sql",
+      "lines": 78,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\schema.sql",
+      "lines": 35,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\support-chat.sql",
+      "lines": 102,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\trip-pass-10.sql",
+      "lines": 24,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "supabase\\trip-pass-price-30000.sql",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\controller.mjs",
+      "lines": 35,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\logging.mjs",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\notifications.mjs",
+      "lines": 39,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\queue.mjs",
+      "lines": 49,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\runner.mjs",
+      "lines": 38,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\security.mjs",
+      "lines": 25,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\agent\\transport.mjs",
+      "lines": 13,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\check-cloud-browser-limits.mjs",
+      "lines": 8,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\check-hotel-browser.mjs",
+      "lines": 10,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\cloud-browser-limits-worker.mjs",
+      "lines": 14,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\generate-branding.mjs",
+      "lines": 19,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\google-routes-budget-check.mjs",
+      "lines": 22,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/health"
+      ]
+    },
+    {
+      "file": "scripts\\google-routes-live-check.mjs",
+      "lines": 28,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\hotel-browser-check-worker.mjs",
+      "lines": 8,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\hotel-browser-check.jsonc",
+      "lines": 7,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\hotel-owner-login-worker.mjs",
+      "lines": 89,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\hotel-owner-login.jsonc",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\hotel-owner-login.mjs",
+      "lines": 41,
+      "interactiveTags": 8,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\i18n-coverage.mjs",
+      "lines": 12,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\liteapi-check.mjs",
+      "lines": 28,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\liteapi-checkout-check.mjs",
+      "lines": 26,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\liteapi-content-check.mjs",
+      "lines": 7,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\liteapi-hotel-check.mjs",
+      "lines": 45,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\liteapi-prebook-availability-check.mjs",
+      "lines": 22,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\qa-12go-worker.mjs",
+      "lines": 10,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\qa-12go.mjs",
+      "lines": 14,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\qa-admission-worker.mjs",
+      "lines": 3,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\qa-disclosure-smoke.mjs",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/health"
+      ]
+    },
+    {
+      "file": "scripts\\qa-hotel-content.mjs",
+      "lines": 9,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/hotels/search",
+        "/api/hotels/content"
+      ]
+    },
+    {
+      "file": "scripts\\qa-live-providers.mjs",
+      "lines": 10,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/flights",
+        "/api/activities"
+      ]
+    },
+    {
+      "file": "scripts\\qa-localization-fixes.mjs",
+      "lines": 19,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\qa-readiness.mjs",
+      "lines": 63,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/health",
+        "/api/qa-unknown",
+        "/api/locations",
+        "/api/flights",
+        "/api/hotels/search",
+        "/api/hotels/checkout/history",
+        "/api/payments/status",
+        "/api/payments/webhook",
+        "/api/support/config",
+        "/api/support/telegram/webhook",
+        "/api/routes/google",
+        "/api/itinerary",
+        "/api/activities/health"
+      ]
+    },
+    {
+      "file": "scripts\\qa-report.mjs",
+      "lines": 275,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/health",
+        "/api/locations",
+        "/api/flights",
+        "/api/itinerary",
+        "/api/hotels/search",
+        "/api/hotels/checkout/",
+        "/api/routes/google",
+        "/api/activities/",
+        "/api/payments/",
+        "/api/support/"
+      ]
+    },
+    {
+      "file": "scripts\\support-webhook.mjs",
+      "lines": 14,
+      "interactiveTags": 0,
+      "apiPaths": [
+        "/api/support/telegram/webhook",
+        "/api/support/config"
+      ]
+    },
+    {
+      "file": "scripts\\telegram-agent.mjs",
+      "lines": 71,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "scripts\\telegram-notify.mjs",
+      "lines": 85,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\404.html",
+      "lines": 3,
+      "interactiveTags": 3,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\branding\\brand-tokens.css",
+      "lines": 12,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\policies.css",
+      "lines": 4,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\policies.js",
+      "lines": 12,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\privacy.html",
+      "lines": 20,
+      "interactiveTags": 10,
+      "apiPaths": []
+    },
+    {
+      "file": "public\\terms.html",
+      "lines": 18,
+      "interactiveTags": 16,
+      "apiPaths": []
+    },
+    {
+      "file": "index.html",
+      "lines": 19,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "main.jsx",
+      "lines": 11,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "wrangler.jsonc",
+      "lines": 35,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "wrangler.hotel-browser.jsonc",
+      "lines": 35,
+      "interactiveTags": 0,
+      "apiPaths": []
+    },
+    {
+      "file": "vite.config.js",
+      "lines": 13,
+      "interactiveTags": 0,
+      "apiPaths": []
+    }
+  ],
+  "environmentVariableNames": [
+    "AI_LIMITER",
+    "ASSETS",
+    "GOOGLE_MAPS_API_KEY",
+    "GOOGLE_ROUTES_DAILY_LIMIT",
+    "GOOGLE_ROUTES_ENABLED",
+    "GOOGLE_ROUTES_MONTHLY_LIMIT",
+    "GOOGLE_ROUTES_USER_DAILY_LIMIT",
+    "HOTEL_BROWSER",
+    "HOTEL_BROWSER_ENABLED",
+    "HOTEL_PRICE_SERVICE_ENABLED",
+    "HOTEL_PRICE_SERVICE_TOKEN",
+    "HOTEL_PRICE_SERVICE_URL",
+    "LITEAPI_API_KEY",
+    "LITEAPI_BOOKING_LIVE_APPROVED",
+    "LITEAPI_CHECKOUT_ENABLED",
+    "LITEAPI_CHECKOUT_MODE",
+    "LITEAPI_ENABLED",
+    "LITEAPI_WHITELABEL_URL",
+    "MIDTRANS_ENV",
+    "MIDTRANS_SERVER_KEY",
+    "OPENAI_API_KEY",
+    "OPENAI_MODEL",
+    "OWNER_HOTEL_SESSION",
+    "OWNER_TEST_ENABLED",
+    "OWNER_USER_ID",
+    "PAYMENTS_ENABLED",
+    "PRICE_WATCH_FROM",
+    "RECOMMENDATIONS_REFRESH_ENABLED",
+    "RECOMMENDATION_BUDGETS",
+    "RESEND_API_KEY",
+    "SUPABASE_PUBLISHABLE_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "SUPABASE_URL",
+    "SUPPORT_TELEGRAM_BOT_TOKEN",
+    "SUPPORT_TELEGRAM_CHAT_ID",
+    "SUPPORT_TELEGRAM_WEBHOOK_SECRET",
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_CHAT_ID",
+    "TRAVELPAYOUTS_API_TOKEN",
+    "TRAVELPAYOUTS_MARKER",
+    "VIATOR_API_KEY",
+    "VIATOR_ENVIRONMENT",
+    "VIATOR_LIMITER",
+    "VITE_SUPABASE_PUBLISHABLE_KEY",
+    "VITE_SUPABASE_URL"
+  ],
+  "secretPatternFindings": [],
+  "assets": [
+    {
+      "file": "dist\\404.html",
+      "bytes": 2076
+    },
+    {
+      "file": "dist\\assets\\index-BOYfzes_.css",
+      "bytes": 177486
+    },
+    {
+      "file": "dist\\assets\\index-CWOfGrnq.js",
+      "bytes": 1031484
+    },
+    {
+      "file": "dist\\assets\\leaflet-src-BXnRqoFw.js",
+      "bytes": 148602
+    },
+    {
+      "file": "dist\\branding\\brand-tokens.css",
+      "bytes": 1162
+    },
+    {
+      "file": "dist\\index.html",
+      "bytes": 3341
+    },
+    {
+      "file": "dist\\policies.css",
+      "bytes": 1494
+    },
+    {
+      "file": "dist\\policies.js",
+      "bytes": 855
+    },
+    {
+      "file": "dist\\privacy.html",
+      "bytes": 9054
+    },
+    {
+      "file": "dist\\terms.html",
+      "bytes": 9180
+    }
+  ]
+}

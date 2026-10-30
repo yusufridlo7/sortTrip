@@ -1,0 +1,78 @@
+[
+  {
+    "id": "LIVE-FLIGHT-CGK-KUL",
+    "journey": "return",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 738,
+    "count": 0,
+    "partial": false,
+    "nextPage": null,
+    "source": "Aviasales Data API",
+    "oneAdult": true,
+    "interpretation": "cached indicative fares; empty results do not prove sold-out flights; no checkout"
+  },
+  {
+    "id": "LIVE-FLIGHT-CGK-SIN",
+    "journey": "oneway",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 389,
+    "count": 2,
+    "partial": false,
+    "nextPage": null,
+    "lowest": 808361,
+    "source": "Aviasales Data API",
+    "oneAdult": true,
+    "interpretation": "cached indicative fares; empty results do not prove sold-out flights; no checkout"
+  },
+  {
+    "id": "LIVE-FLIGHT-CGK-BKK",
+    "journey": "return",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 290,
+    "count": 2,
+    "partial": false,
+    "nextPage": null,
+    "lowest": 4710978,
+    "source": "Aviasales Data API",
+    "oneAdult": true,
+    "interpretation": "cached indicative fares; empty results do not prove sold-out flights; no checkout"
+  },
+  {
+    "id": "LIVE-FLIGHT-CGK-NRT",
+    "journey": "return",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 301,
+    "count": 0,
+    "partial": false,
+    "nextPage": null,
+    "source": "Aviasales Data API",
+    "oneAdult": true,
+    "interpretation": "cached indicative fares; empty results do not prove sold-out flights; no checkout"
+  },
+  {
+    "id": "LIVE-FLIGHT-SUB-SIN",
+    "journey": "return",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 505,
+    "count": 0,
+    "partial": false,
+    "nextPage": null,
+    "source": "Aviasales Data API",
+    "oneAdult": true,
+    "interpretation": "cached indicative fares; empty results do not prove sold-out flights; no checkout"
+  },
+  {
+    "id": "LIVE-VIATOR",
+    "status": "PASS",
+    "httpStatus": 200,
+    "ms": 3699,
+    "count": 0,
+    "environment": "sandbox",
+    "interpretation": "starting price, not date/option availability"
+  }
+]

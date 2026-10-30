@@ -1,0 +1,21 @@
+{
+  "observedAt": "2026-10-23T10:46:48.964Z",
+  "before": {
+    "metadataHttp": 200,
+    "statisticsHttp": 400,
+    "issue": "ACTION_TYPE_REJECTED",
+    "source": "sanitized DOM diagnostics observed during this QA"
+  },
+  "after": {
+    "diagnostics": {
+      "data-flight-fields": "action_id,campaign_id,date,state,sub_id,sub_type,type,updated_at",
+      "data-flight-fields-http": "200",
+      "data-flight-http": "200",
+      "data-flight-schema": "[{\"name\":\"state\",\"filters\":[\"eq\",\"ne\",\"in\"],\"values\":[\"cancelled\",\"processing\",\"paid\"]},{\"name\":\"sub_id\",\"filters\":[\"eq\",\"ne\"]},{\"name\":\"sub_type\",\"filters\":[\"eq\",\"ne\"]},{\"name\":\"type\",\"filters\":[\"eq\",\"ne\",\"in\"],\"values\":[\"init\",\"redirect\",\"external\",\"action\",\"referral\",\"init_tool\"]}]",
+      "data-flight-status": "available",
+      "data-hotel-status": "available"
+    },
+    "text": "Status dibedakan antara catatan Anda, pembelian terlapor mitra, dan reservasi terkonfirmasi. Membuka tautan booking belum berarti sudah membeli.\n\nPeriksa status pembelian\nLaporan pesawat sudah diperiksa; belum ada pembelian yang cocok dengan tautan itinerary ini."
+  },
+  "scope": "Local authenticated saved-trip UI; read-only query; no real purchase performed"
+}

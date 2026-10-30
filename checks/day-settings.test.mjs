@@ -11,7 +11,7 @@ let data,city,transport;
 try{
  for(const name of ['travel-data','transport-data','cities','verified-places','local-transport-data']){
   const source=await readFile(new URL('../app/'+name+'.ts',import.meta.url),'utf8');
-  const js=resolveI18n(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|verified-places|local-transport-data)\1/g,"'./$2.mjs'"));
+  const js=resolveI18n(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/(['"])\.\/(travel-data|transport-data|cities|verified-places|local-transport-data)\1/g,"'./$2.mjs'").replace('../lib/video-itinerary.mjs',new URL('../lib/video-itinerary.mjs',import.meta.url).href));
   await writeFile(join(dir,name+'.mjs'),js);
  }
  data=await import(pathToFileURL(join(dir,'travel-data.mjs')));city=await import(pathToFileURL(join(dir,'cities.mjs')));transport=await import(pathToFileURL(join(dir,'local-transport-data.mjs')));

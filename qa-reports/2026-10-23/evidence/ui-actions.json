@@ -1,0 +1,147 @@
+[
+  {
+    "id": "UI-ABOUT-DIALOG",
+    "status": "PASS",
+    "detail": "About dialog opens and has close control; copy drift recorded separately"
+  },
+  {
+    "id": "UI-FAQ-EMPTY",
+    "status": "PASS",
+    "detail": "Unknown FAQ query displays no-match state"
+  },
+  {
+    "id": "UI-FAQ-EN-1",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-2",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-3",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-4",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-5",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-6",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-7",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-8",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-9",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FAQ-EN-10",
+    "status": "PASS",
+    "detail": "FAQ disclosure expansion"
+  },
+  {
+    "id": "UI-FLIGHT-ONEWAY-SELECT",
+    "status": "PASS",
+    "detail": "One-way choice and Singapore airport autocomplete selection"
+  },
+  {
+    "id": "UI-FLIGHT-RESULTS-DETAILS",
+    "status": "PASS",
+    "detail": "Country/date drilldown, flight details, duration sort, provider purchase link rendered; no purchase"
+  },
+  {
+    "id": "UI-TRIPCOM-WIDGET",
+    "status": "PASS",
+    "detail": "Partner iframe eventually rendered destination, check-in/out and guest fields in English; no submit/booking"
+  },
+  {
+    "id": "UI-EN-PERSISTENCE",
+    "status": "PASS",
+    "detail": "Page reload retains English title and controls; session remains signed in"
+  },
+  {
+    "id": "UI-PRICE-WATCH-READ",
+    "status": "PASS",
+    "detail": "Existing watch reports last checked 23 Oct 2026 05:00:28; no fare data or notifications. Does not establish scheduler delivery."
+  },
+  {
+    "id": "UI-GOOGLE-WALK-LIVE",
+    "status": "PASS",
+    "detail": "Authenticated local route: 44 minutes, 3.0 km, English steps, four checks remaining; one bounded request; no itinerary changes."
+  },
+  {
+    "id": "UI-AI-TRANSLATION-V2",
+    "status": "PASS",
+    "detail": "English summary now uses 30 January–1 February 2027; route summaries translated; original user prompt preserved; 10 AI results remaining."
+  },
+  {
+    "id": "UI-HOTEL-BUDGET-INVERTED",
+    "status": "PASS",
+    "detail": "400000 minimum /100000 maximum rejected with natural English; no supplier booking call."
+  },
+  {
+    "id": "UI-HOTEL-CLEAR-LANGUAGE",
+    "status": "PASS",
+    "detail": "Clear budget resets both fields; same form switches to Indonesian, title and footer links follow language."
+  },
+  {
+    "id": "UI-EDIT-DIALOG-CANCEL",
+    "status": "PASS",
+    "detail": "Opened hotel edit modal, checked labels and seven widths, closed without applying, deleting or changing paid state."
+  },
+  {
+    "id": "UI-12GO-READY",
+    "status": "PASS",
+    "detail": "Vendor form rendered origin/destination/date/Find Tickets and affiliate link; no booking submitted. Provider form is English even in Indonesian shell."
+  },
+  {
+    "id": "UI-POLICIES-LANGUAGE-HISTORY",
+    "status": "PASS",
+    "detail": "Privacy/terms English render, browser back/forward works; Indonesian link switches title/article and persists selection; legal wording retained for owner review."
+  },
+  {
+    "id": "UI-CHECKOUT-CONFIG-ERROR",
+    "status": "PASS",
+    "detail": "Local booking history readiness503 displayed readable English, no raw machine code or payment attempted."
+  },
+  {
+    "id": "UI-ARIA-TRANSLATION-RETEST",
+    "status": "PASS",
+    "detail": "Fresh build accessible booking/info/price labels use English translated itinerary titles, including round trip and Travelodge to KLCC Park."
+  },
+  {
+    "id": "UI-MOBILE-MENU",
+    "status": "PASS",
+    "detail": "At320px Search & Book dropdown opened and Hotels selection navigated to Trip.com rather than White-label."
+  },
+  {
+    "id": "UI-404-LANGUAGE",
+    "status": "PASS",
+    "detail": "Actual Worker missing path renders only selected English or Indonesian article and title; seven-width English overflow checks pass."
+  },
+  {
+    "id": "UI-ZERO-DISTANCE-TRANSPORT-RETEST",
+    "status": "PASS",
+    "detail": "Fresh build no longer suggests zero-distance hotel-to-itself transport; unknown mode/departure placeholders render in English; no itinerary edits saved."
+  }
+]

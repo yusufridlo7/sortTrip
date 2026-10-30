@@ -1,4 +1,5 @@
 import React from 'react';
+import {gateDDemoEnabled,gateDFetch} from './lib/gate-d-network.mjs';
 import {createRoot} from 'react-dom/client';
 import AuthApp from './app/auth-app';
 import {brandName} from './app/brand';
@@ -7,4 +8,5 @@ import './app/globals.css';
 import './app/travel-refresh.css';
 import './app/i18n';
 import './app/brand-theme.css';
+if(gateDDemoEnabled(import.meta.env.MODE,import.meta.env.VITE_GATE_D_DEMO,import.meta.env.VITE_SUPABASE_URL))window.fetch=gateDFetch(window.fetch.bind(window),location.origin);
 createRoot(document.getElementById('root')).render(<AuthApp/>);

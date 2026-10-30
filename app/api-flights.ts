@@ -5,7 +5,8 @@ export type FlightResponse={flights:ApiFlight[];fetchedAt:string;partial:boolean
 export async function fetchFlights(q:SearchCriteria,signal:AbortSignal,page=1):Promise<FlightResponse>{
  const p=new URLSearchParams();for(const k of ['origin','destination','outFrom','outTo','backFrom','backTo','minDays','maxDays'] as const)p.set(k,String(q[k]));p.set('journey',q.journey||'return');
  p.set('region',q.region||'world');p.set('page',String(page));p.set('scope',q.scope||'international');
- const r=await fetch('/api/flights?'+p,{headers:{'X-SortTrip-Language':language()},signal:AbortSignal.any([signal,AbortSignal.timeout(20000)])});
+ const requestFetch=['staging','qa-preparation'].includes(import.meta.env?.MODE)?(await import('./api-fetch')).apiFetch:fetch;
+ const r=await requestFetch('/api/flights?'+p,{headers:{'X-SortTrip-Language':language()},signal:AbortSignal.any([signal,AbortSignal.timeout(20000)])});
  if(!r.headers.get('Content-Type')?.includes('application/json'))throw Error('Server API belum berjalan. Gunakan versi Cloudflare terbaru atau jalankan Worker lokal sesuai panduan.');
  const result=await r.json();if(!r.ok)throw Error(result.error||'Pencarian gagal.');if(!Array.isArray(result.flights))throw Error('Respons API tidak valid.');return result;
 }

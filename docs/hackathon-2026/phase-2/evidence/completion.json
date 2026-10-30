@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-27",
+  "status": "PARTIAL",
+  "branch": "codex/meta-hackathon-phase-2-2026",
+  "startingCommit": "737fbc5636145fc27a0bf4ac41be831835dfbd44",
+  "endingCommit": "737fbc5636145fc27a0bf4ac41be831835dfbd44",
+  "committed": false,
+  "deployed": false,
+  "metaPaidRequests": 0,
+  "metaSpendingUSD": 0,
+  "actualModelUsed": null,
+  "plannedModel": "muse-spark-1.3",
+  "reports": 11,
+  "tests": {
+    "total": 375,
+    "failed": 0
+  },
+  "buildPassed": true,
+  "i18n": {
+    "keys": 1567,
+    "errors": 0,
+    "literals": 0
+  },
+  "baseline": {
+    "unchangedTrackedFiles": 378,
+    "differences": [
+      "app/i18n/index.ts",
+      "app/travel-app.tsx",
+      "app/verified-places.ts",
+      "checks/day-settings.test.mjs",
+      "checks/i18n-loader.mjs",
+      "docs/ARCHITECTURE.md",
+      "docs/DECISIONS.md",
+      "docs/NEXT_ACTIONS.md",
+      "docs/PROJECT_PROGRESS.md",
+      "scripts/i18n-coverage.mjs",
+      "worker/index.js"
+    ],
+    "unexpected": []
+  },
+  "stagedPaths": [],
+  "limitations": [
+    "No real Meta result or billing/account cap verification",
+    "Budget SQL not applied",
+    "Container-only MP4 inspection; native video/ASR/deletion not implemented",
+    "No live Save/RLS or partner/financial E2E test"
+  ]
+}

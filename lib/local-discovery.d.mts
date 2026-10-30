@@ -1,0 +1,16 @@
+import type {Trip,Item} from '../app/travel-data';
+export type Category='food'|'popular'|'souvenirs'|'attractions';
+export type Position={lat:number;lng:number;accuracy?:number};
+export type Recommendation={id:string;name:string;city:string;country:string;categories:string[];address:string;locationVerified:boolean;geo:{lat:number;lng:number}|null;mode:string;sources:string[];checkedAt:string|null;halal:string;priceRange:null;openingHours:null;description:{id:string;en:string};distanceKm?:number|null};
+export const categories:Category[];
+export function validCoordinates(geo:unknown):boolean;
+export function distanceKm(a:unknown,b:unknown):number|null;
+export function recommendationCatalog():Recommendation[];
+export function destinationAnchor(item:Item,city:string,country:string):Position|null;
+export function demoRecommendations(city:string,country:string,category:string):Recommendation[];
+export function nearbyRecommendations(options:{city:string;country:string;category?:Category;anchor?:Position|null;gps?:Position|null;radiusKm?:number;includeDemo?:boolean;excludeName?:string}):Recommendation[];
+export function recommendationDirections(place:Recommendation):string|null;
+export function requestOneShotLocation(geo:Geolocation|undefined):Promise<Position&{accuracy:number}>;
+export function localQuestionAnswer(question:string,context:{city:string;country:string;language?:string}):{answer:string;category:Category;onlyHalal:boolean;topic:string;destination:string;mode:string;sources:string[]}|null;
+export function alreadyInTrip(trip:Trip,place:Recommendation):boolean;
+export function addRecommendation(trip:Trip,place:Recommendation,options:{day:number;time:string;language?:string;city?:string;country?:string;category?:Category}):Trip;

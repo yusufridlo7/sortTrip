@@ -1,0 +1,100 @@
+[
+  {
+    "language": "en",
+    "account": "Sign in",
+    "headerHeight": 103,
+    "overflow": false,
+    "width": 320
+  },
+  {
+    "language": "en",
+    "account": "Sign in",
+    "headerHeight": 105,
+    "overflow": false,
+    "width": 375
+  },
+  {
+    "language": "en",
+    "account": "Sign in",
+    "headerHeight": 105,
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "language": "en",
+    "account": "Sign in / Create account",
+    "headerHeight": 144,
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "language": "en",
+    "account": "Sign in / Create account",
+    "headerHeight": 144,
+    "overflow": false,
+    "width": 1024
+  },
+  {
+    "language": "en",
+    "account": "Sign in / Create account",
+    "headerHeight": 76,
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "language": "en",
+    "account": "Sign in / Create account",
+    "headerHeight": 76,
+    "overflow": false,
+    "width": 1920
+  },
+  {
+    "language": "id",
+    "account": "Masuk",
+    "headerHeight": 103,
+    "overflow": false,
+    "width": 320
+  },
+  {
+    "language": "id",
+    "account": "Masuk",
+    "headerHeight": 105,
+    "overflow": false,
+    "width": 375
+  },
+  {
+    "language": "id",
+    "account": "Masuk",
+    "headerHeight": 105,
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "language": "id",
+    "account": "Masuk / Daftar",
+    "headerHeight": 144,
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "language": "id",
+    "account": "Masuk / Daftar",
+    "headerHeight": 144,
+    "overflow": false,
+    "width": 1024
+  },
+  {
+    "language": "id",
+    "account": "Masuk / Daftar",
+    "headerHeight": 76,
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "language": "id",
+    "account": "Masuk / Daftar",
+    "headerHeight": 76,
+    "overflow": false,
+    "width": 1920
+  }
+]

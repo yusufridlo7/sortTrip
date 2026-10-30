@@ -61,3 +61,134 @@ footer .brand{margin-right:12px}footer .sorttrip-logo>.brand-artwork{width:155px
 .assistant-working small{display:block;margin-top:5px;color:var(--brand-muted);line-height:1.5}.assistant-working .assistant-elapsed{font-variant-numeric:tabular-nums}
 
 .transport-fallback-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--brand-border);border-radius:10px;text-decoration:none}
+
+/* Visual polish only: preserve component structure, ordering and interactions. */
+.search-hero{
+ margin:14px 0 24px;
+ padding:28px 24px 24px;
+ border-radius:24px;
+ background-color:#0F6E8C;
+ background-image:linear-gradient(to bottom,#0B426AA8 0,#0F6E8CAB 170px,#0F6E8C 340px),url('/singapore.jpg');
+ background-repeat:no-repeat;
+ background-size:cover,max(100%,1150px) auto;
+ background-position:center,center -285px;
+}
+.search-hero .search-intro{padding:0 12px 24px;max-width:none;text-align:center}
+.search-hero .search-intro .eyebrow{justify-content:center;color:#E6F7FF;font-size:15px;font-weight:650;letter-spacing:.03em;text-transform:none}
+.search-hero .search-intro h1,.search-hero .search-intro h1 span{color:#FFFFFF}
+.search-hero .search-intro p{color:#E6F7FF;margin:10px auto 0;max-width:720px}
+.search-hero .search-panel{background:var(--brand-surface);border-color:var(--brand-surface);box-shadow:0 12px 30px #062D4D24}
+@media(max-width:640px){
+ .search-hero{margin:12px 0 20px;padding:22px 12px 12px;border-radius:20px}
+ .search-hero{background-size:cover,auto 340px;background-position:center,center -90px}
+ .search-hero .search-intro{padding:0 4px 20px}
+ .search-hero .search-intro .eyebrow{font-size:13px;letter-spacing:0}
+ .search-hero .search-intro h1{font-size:27px;line-height:1.22}
+ .search-hero .search-intro p{font-size:13px;line-height:1.6}
+}
+body{
+ font-family:var(--brand-font);
+ line-height:1.6;
+ -webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select,[data-slot=select-trigger]{font-family:var(--brand-font)}
+h1,h2,h3{color:var(--brand-text);text-wrap:pretty;overflow-wrap:anywhere}
+h1{line-height:1.16;letter-spacing:-.035em}
+h2,h3{line-height:1.3;letter-spacing:-.02em}
+.intro h1{font-size:clamp(30px,3.6vw,46px);line-height:1.18;letter-spacing:-.035em;margin:10px 0 14px}
+.intro h1 span{color:var(--brand-link)}
+.intro p{line-height:1.65;margin:0;max-width:680px}
+.section-heading h2,.recommended-trips>h2{font-size:clamp(23px,2.4vw,30px);line-height:1.3;font-weight:700;margin:0 0 8px;letter-spacing:-.025em}
+.eyebrow{color:var(--brand-link);letter-spacing:.1em;line-height:1.5}
+.header nav button{font-weight:600}
+.header .avatar{background:var(--brand-tint);color:var(--brand-link)}
+.primary,.secondary,.card-cta{font-weight:600;letter-spacing:0;line-height:1.45}
+.primary:focus-visible,.secondary:focus-visible,.card-cta:focus-visible{outline-offset:4px}
+.search-panel,.day,.budget-panel,.ai-planner,.recommendation-card,.assistant-trip-options article{
+ border-color:var(--brand-border);
+ box-shadow:var(--brand-shadow);
+}
+.search-panel{border-radius:20px}
+.search-panel .search-top{padding-top:20px}
+.search-ai-prompt{
+ margin-block:18px;
+ padding:18px;
+ background:linear-gradient(135deg,var(--brand-subtle),var(--brand-surface));
+ border-color:var(--brand-border);
+ border-radius:14px;
+}
+.assistant-brand-label{font-size:16px;font-weight:650;line-height:1.5;color:var(--brand-text)}
+.search-ai-prompt textarea{padding:12px 14px;line-height:1.65;font-size:15px}
+.search-ai-prompt>p,.discovery-note{line-height:1.65}
+.rev-search-options{row-gap:14px}
+.recommendation-grid,.assistant-trip-options{gap:20px}
+.recommendation-card>span{padding:18px 20px;gap:6px}
+.recommendation-card strong{font-size:21px;line-height:1.35;letter-spacing:-.02em;font-weight:700}
+.recommendation-card small{font-size:15px;line-height:1.5;font-weight:600}
+.recommendation-card:hover{border-color:var(--brand-border-strong);box-shadow:0 8px 24px #0B2D3A12}
+.recommended-trips>p{margin:8px 0 0}
+.assistant-trip-options article{padding:22px;background:var(--brand-surface);gap:12px;border-radius:18px}
+.assistant-trip-options h3{font-size:22px;font-weight:700;line-height:1.35}
+.assistant-trip-options p{line-height:1.65}
+.assistant-trip-options small{color:var(--brand-muted);line-height:1.6;margin-top:6px}
+.assistant-trip-options article button{margin-top:auto}
+.planner-title{gap:20px;padding-block:12px 20px;margin-bottom:20px}
+.planner-title h1,.saved-view h1{font-size:clamp(28px,3vw,38px);line-height:1.2;letter-spacing:-.035em}
+.planner-title p{color:var(--brand-muted);line-height:1.6;margin:6px 0 0}
+.planner-title-actions{display:flex;flex-wrap:wrap;gap:10px}
+.ai-planner{border-radius:18px;padding:24px;margin-block:24px}
+.ai-planner h2{font-size:clamp(22px,2.5vw,28px);font-weight:700;line-height:1.3;margin:8px 0 12px}
+.ai-controls{gap:16px}
+.ai-controls label{font-size:13px;line-height:1.5;font-weight:600;color:var(--brand-muted)}
+.day{padding:24px;border-radius:18px;margin:20px 0}
+.day>h3{font-size:19px;font-weight:700;margin:0 0 14px;line-height:1.4}
+.world-item{padding-block:20px;column-gap:16px;row-gap:12px}
+.world-item>div>label{font-size:12px;font-weight:600;color:var(--brand-muted);line-height:1.5;margin-block:10px}
+.world-item>div>label input{color:var(--brand-text);font-size:15px;line-height:1.5;font-weight:400;border-radius:10px}
+.world-item>div>label:first-child input{font-weight:600}
+.world-item p{line-height:1.6}
+.world-item .itinerary-side{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.world-item .itinerary-side label{margin-top:4px}
+.itinerary-price strong,.budget-panel h2,.ticket-price strong{font-variant-numeric:tabular-nums}
+.itinerary-price small{line-height:1.6}
+.budget-panel{border-radius:18px;padding:24px}
+.budget-panel .eyebrow{margin-bottom:18px}
+.budget-panel h2{font-size:30px;line-height:1.2;letter-spacing:-.035em;margin-block:10px}
+.budget-panel>p{color:var(--brand-muted);line-height:1.65}
+.expandable-details>summary{line-height:1.5;font-weight:600}
+.booking-sync-panel{line-height:1.6;border-radius:12px}
+.saved-card{border-color:var(--brand-border);border-radius:16px;box-shadow:var(--brand-shadow)}
+.saved-card h2,.saved-card h3{font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.recommendation-card,.destination-card,.assistant-trip-options article,
+.api-flight-card,.date-option-card,.saved-card,.flight-option{
+ box-shadow:0 3px 8px #0B2D3A0B,0 12px 28px #0B2D3A16;
+ border-color:var(--brand-border);
+ transition:box-shadow .18s ease,border-color .18s ease;
+}
+.recommendation-card:hover,.destination-card:hover,.assistant-trip-options article:hover,
+.api-flight-card:hover,.date-option-card:hover,.saved-card:hover,.flight-option:hover{
+ box-shadow:0 5px 12px #0B2D3A10,0 16px 34px #0B2D3A20;
+ border-color:var(--brand-border-strong);
+}
+@media(prefers-reduced-motion:reduce){
+ .recommendation-card,.destination-card,.assistant-trip-options article,
+ .api-flight-card,.date-option-card,.saved-card,.flight-option{transition:none}
+}
+.lite-hotel-card h2{font-size:22px;line-height:1.35}
+.support-chat h2,.support-chat h3{line-height:1.35}
+@media(max-width:640px){
+ .intro h1{font-size:30px}
+ .intro p{font-size:14px}
+ .search-panel{border-radius:16px}
+ .search-ai-prompt{margin:16px;padding:14px}
+ .search-ai-prompt textarea,.world-item>div>label input{font-size:16px}
+ .recommendation-grid,.assistant-trip-options{gap:16px}
+ .assistant-trip-options article{padding:18px}
+ .planner-title{gap:14px}
+ .planner-title-actions{gap:8px;max-width:100%}
+ .ai-planner,.day,.budget-panel{padding:18px;border-radius:16px}
+ .ai-planner{margin-block:20px}
+ .day{margin-block:16px}
+ .world-item{padding-block:18px}
+ .world-item .itinerary-side{gap:8px}
+}

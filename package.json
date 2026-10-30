@@ -7,6 +7,11 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "test:gate-d": "node --test checks/gate-d-isolation.test.mjs checks/gate-d-safety.test.mjs checks/meta-qa.test.mjs checks/video-itinerary.test.mjs checks/phase2b.test.mjs checks/assistant-discovery.test.mjs checks/phase2c.test.mjs checks/staging.test.mjs checks/assistant-combined.test.mjs",
+    "build:staging": "tsc --noEmit && vite build --config vite.staging.config.js --mode staging && node scripts/staging-verify.mjs",
+    "test:staging": "node --test checks/staging.test.mjs",
+    "verify:staging": "node scripts/staging-verify.mjs",
+    "build:staging-worker": "node scripts/staging-worker-build.mjs",
     "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
@@ -18,7 +23,20 @@
     "telegram:notify": "node --env-file=.env.telegram.local scripts/telegram-notify.mjs",
     "test:telegram": "node --test checks/telegram-notify.test.mjs checks/telegram-agent.test.mjs",
     "telegram:agent": "node --env-file=.env.telegram.local scripts/telegram-agent.mjs",
-    "support:webhook": "node --env-file=.env.support.local scripts/support-webhook.mjs"
+    "support:webhook": "node --env-file=.env.support.local scripts/support-webhook.mjs",
+    "dev:mvp-demo": "vite --config vite.mvp-demo.config.js --mode mvp-demo",
+    "build:mvp-demo": "tsc --noEmit && vite build --config vite.mvp-demo.config.js --mode mvp-demo",
+    "test:mvp": "node --test checks/mvp-video.test.mjs checks/mvp-persistence.test.mjs checks/tour-guide.test.mjs",
+    "dev:qa-preparation": "vite --config vite.qa-preparation.config.js --mode qa-preparation",
+    "dev:gate-d-demo": "vite --config vite.gate-d-demo.config.js --mode qa-preparation",
+    "build:gate-d-demo": "tsc --noEmit && vite build --config vite.gate-d-demo.config.js --mode qa-preparation",
+    "dev:qa-gate-b": "vite --config vite.qa-gate-b.config.js --mode qa-preparation",
+    "qa:config:check": "node scripts/qa-config-status.mjs",
+    "build:qa-preparation": "tsc --noEmit && vite build --config vite.qa-preparation.config.js --mode qa-preparation",
+    "dev:owner-ui": "vite --config vite.owner-ui.config.js --mode owner-ui",
+    "build:owner-ui": "tsc --noEmit && vite build --config vite.owner-ui.config.js --mode owner-ui",
+    "dev:gate-d-live": "vite --config vite.gate-d-live.config.js --mode qa-preparation",
+    "test:meta-cutoff": "node --test checks/meta-cutoff.test.mjs checks/gate-d-live.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

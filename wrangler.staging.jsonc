@@ -1,0 +1,27 @@
+{
+ "$schema":"./node_modules/wrangler/config-schema.json",
+ "name":"sorttrip-staging",
+ "main":"worker/staging.js",
+ "compatibility_date":"2026-09-28",
+ "compatibility_flags":["nodejs_compat"],
+ "workers_dev":true,
+ "preview_urls":false,
+ "assets":{"directory":"./dist-staging","binding":"ASSETS","run_worker_first":true,"not_found_handling":"404-page"},
+ "vars":{
+  "META_AI_CUTOFF_AT":"2026-11-04T17:00:00Z",
+  "APP_ENV":"staging",
+  "STAGING_ORIGIN":"https://sorttrip-staging.yusufridlo7.workers.dev",
+  "SUPABASE_URL":"https://aytrcvfncsklhqozreyk.supabase.co",
+  "STAGING_OWNER_QA_USER_ID":"UNCONFIGURED",
+  "STAGING_OWNER_EMAIL":"UNCONFIGURED",
+  "CF_ACCESS_ISSUER":"UNCONFIGURED",
+  "CF_ACCESS_AUD":"UNCONFIGURED",
+  "STAGING_GENERATION_ENABLED":"false",
+  "QA_SUPPLIER_READS_ENABLED":"false",
+  "META_VIDEO_NONPRODUCTION":"true",
+  "META_VIDEO_TEXT_ENABLED":"false",
+  "META_VIDEO_FRAMES_ENABLED":"false",
+  "META_VIDEO_BUDGET_READY":"false"
+ },
+ "ratelimits":[{"name":"AI_LIMITER","namespace_id":"901028","simple":{"limit":5,"period":60}}]
+}

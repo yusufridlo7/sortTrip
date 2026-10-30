@@ -1,0 +1,122 @@
+[
+  {
+    "id": "event",
+    "url": "https://dev.meta.ai/events/global-hackathon",
+    "checkedDate": "2026-10-27",
+    "finding": "Public schedule/tracks/theme verified; acceptance/rules not proven"
+  },
+  {
+    "id": "rules",
+    "url": "https://cerebralvalley.ai/e/meta-ai-developer-hackathon/waiver",
+    "checkedDate": "2026-10-27",
+    "finding": "Dynamic loading shell; content not verified"
+  },
+  {
+    "id": "models",
+    "url": "https://dev.meta.ai/docs/models",
+    "checkedDate": "2026-10-27",
+    "finding": "Public capability/model IDs, not account entitlement"
+  },
+  {
+    "id": "overview",
+    "url": "https://dev.meta.ai/docs/overview",
+    "checkedDate": "2026-10-27",
+    "finding": "API/auth/model overview"
+  },
+  {
+    "id": "video",
+    "url": "https://dev.meta.ai/docs/video-understanding",
+    "checkedDate": "2026-10-27",
+    "finding": "File/video inputs; Spark1.3 audio caveat"
+  },
+  {
+    "id": "schema",
+    "url": "https://dev.meta.ai/docs/structured-output",
+    "checkedDate": "2026-10-27",
+    "finding": "Strict JSON subset"
+  },
+  {
+    "id": "tools",
+    "url": "https://dev.meta.ai/docs/tool-calling",
+    "checkedDate": "2026-10-27",
+    "finding": "Application executes registered tools"
+  },
+  {
+    "id": "files",
+    "url": "https://dev.meta.ai/docs/file-handling",
+    "checkedDate": "2026-10-27",
+    "finding": "Limits and explicit remote-file cleanup"
+  },
+  {
+    "id": "speech",
+    "url": "https://dev.meta.ai/docs/speech-to-text",
+    "checkedDate": "2026-10-27",
+    "finding": "WAV file endpoint, Indonesian support"
+  },
+  {
+    "id": "pricing",
+    "url": "https://dev.meta.ai/docs/pricing-rate-limits",
+    "checkedDate": "2026-10-27",
+    "finding": "Published rates/team limits and data modes"
+  },
+  {
+    "id": "open",
+    "url": "https://dev.meta.ai/docs/muse-spark-open",
+    "checkedDate": "2026-10-27",
+    "finding": "Open weight footprint and hosting"
+  },
+  {
+    "id": "glimmer",
+    "url": "https://dev.meta.ai/docs/muse-glimmer",
+    "checkedDate": "2026-10-27",
+    "finding": "Text/image open weights and license"
+  },
+  {
+    "id": "tiktok-embed",
+    "url": "https://developers.tiktok.com/docs/en/embed-videos",
+    "checkedDate": "2026-10-27",
+    "finding": "Embed/metadata only; new integration recommendation"
+  },
+  {
+    "id": "tiktok-display",
+    "url": "https://developers.tiktok.com/docs/en/display-api-overview",
+    "checkedDate": "2026-10-27",
+    "finding": "Display integration is separate; account approval unknown"
+  },
+  {
+    "id": "instagram",
+    "url": "https://developers.facebook.com/docs/instagram-platform/",
+    "checkedDate": "2026-10-27",
+    "finding": "Primary docs429; permission/access details unverified"
+  },
+  {
+    "id": "youtube-captions",
+    "url": "https://developers.google.com/youtube/v3/docs/captions/download",
+    "checkedDate": "2026-10-27",
+    "finding": "Edit permission required for caption download"
+  },
+  {
+    "id": "youtube-policy",
+    "url": "https://developers.google.com/youtube/terms/developer-policies",
+    "checkedDate": "2026-10-27",
+    "finding": "Audiovisual copy restrictions"
+  },
+  {
+    "id": "worker-limits",
+    "url": "https://developers.cloudflare.com/workers/platform/limits/",
+    "checkedDate": "2026-10-27",
+    "finding": "Memory/CPU/body/connection limits"
+  },
+  {
+    "id": "r2-pricing",
+    "url": "https://developers.cloudflare.com/r2/pricing/",
+    "checkedDate": "2026-10-27",
+    "finding": "Storage/operations/egress billing"
+  },
+  {
+    "id": "undici",
+    "url": "https://github.com/nodejs/undici/security/advisories/GHSA-xjj6-f33q-929c",
+    "checkedDate": "2026-10-27",
+    "finding": "Upstream high-severity advisory"
+  }
+]

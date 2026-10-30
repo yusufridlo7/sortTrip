@@ -1,0 +1,529 @@
+{
+  "cases": [
+    {
+      "id": "DEFAULT-CLOSED-ID",
+      "status": "PASS",
+      "panels": 15
+    },
+    {
+      "id": "CONVERSATION-OPEN-ID",
+      "status": "PASS",
+      "detail": "Native summary/open and aria-expanded true verified in DOM and accessibility tree; role-based locator did not recognize summary, so keyboard tests use observed summary selector."
+    },
+    {
+      "id": "KEYBOARD-CONVERSATION-ENTER",
+      "status": "PASS",
+      "detail": "Enter closed native conversation disclosure and label/aria state returned to collapsed."
+    },
+    {
+      "id": "ROUTE-DETAILS-OPEN-ID",
+      "status": "PASS",
+      "detail": "Opening route reveals walking/LRT legs, links and existing booking controls; titles/time/price/Edit remain visible."
+    },
+    {
+      "id": "KEYBOARD-ITEM-SPACE-ENTER",
+      "status": "PASS",
+      "detail": "Space closes and Enter reopens the selected item; other item panels remain closed."
+    },
+    {
+      "id": "NESTED-CONTROL-STATE",
+      "status": "PASS",
+      "detail": "Google route mode remains WALK and its subpanel remains expanded after parent close/reopen; Check route was never pressed."
+    },
+    {
+      "id": "HIDDEN-CONTROLS-TAB-ORDER",
+      "status": "PASS",
+      "detail": "Tab from collapsed transport summary skips hidden route/booking controls and reaches visible Edit."
+    },
+    {
+      "id": "EDIT-WHILE-COLLAPSED",
+      "status": "PASS",
+      "detail": "Visible Edit opened the existing hotel editor; closed without applying/deleting/toggling paid."
+    },
+    {
+      "id": "LANGUAGE-TOGGLE-EN",
+      "status": "PASS",
+      "detail": "Open state survives ID→EN switch; Show/Hide conversation/details labels update; open/close works in English."
+    },
+    {
+      "id": "HOTEL-ACTION-FROM-DETAILS",
+      "status": "PASS",
+      "detail": "Expanded hotel action opens native Nuitée form with correct city,30–31Jan2027 and1adult; no search/save/checkout submitted."
+    },
+    {
+      "id": "MAP-DISCLOSURE-AND-ZOOM",
+      "status": "PASS",
+      "detail": "Map list defaults closed; selected route expands and retains existing route controls; zoom in/out works."
+    },
+    {
+      "id": "NO-ITINERARY-MUTATION",
+      "status": "PASS",
+      "detail": "Composer unchanged, saved indicator intact, budget4500000 and10AIresults retained; no generation/payment action executed."
+    },
+    {
+      "id": "COSTS-TAB-CONTROLS",
+      "status": "PASS",
+      "detail": "Costs tab still exposes original hotel/flight/activity booking controls and Edit actions."
+    },
+    {
+      "id": "WORLD-PLANNER-DETAILS",
+      "status": "PASS",
+      "detail": "Saved Bali itinerary has two default-closed item panels and no empty conversation toggle; flight details opens original affiliate link and status control; title/time/price editing fields remain visible, untouched."
+    },
+    {
+      "id": "TRIP-SWITCH-RESET",
+      "status": "PASS",
+      "detail": "Switching Bali→Kuala Lumpur restores default-closed disclosures independently of the previous trip."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-1",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-2",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-3",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-4",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-5",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-6",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-7",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-8",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-9",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-10",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-11",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-12",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-13",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    },
+    {
+      "id": "ALL-ITEM-TOGGLE-14",
+      "status": "PASS",
+      "detail": "Open/close one of all14saved itinerary item disclosures; only selected panel opens; no child transaction/data mutation clicked."
+    }
+  ],
+  "layouts": [
+    {
+      "view": "collapsed-id",
+      "targetWidth": 320,
+      "openPanels": 0,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 375,
+      "openPanels": 0,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 390,
+      "openPanels": 0,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 768,
+      "openPanels": 0,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 1024,
+      "openPanels": 0,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 1440,
+      "openPanels": 0,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-id",
+      "targetWidth": 1920,
+      "openPanels": 0,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 320,
+      "openPanels": 2,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 375,
+      "openPanels": 2,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 390,
+      "openPanels": 2,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 768,
+      "openPanels": 2,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 1024,
+      "openPanels": 2,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 1440,
+      "openPanels": 2,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-id",
+      "targetWidth": 1920,
+      "openPanels": 2,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 320,
+      "openPanels": 2,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 375,
+      "openPanels": 2,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 390,
+      "openPanels": 2,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 768,
+      "openPanels": 2,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 1024,
+      "openPanels": 2,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 1440,
+      "openPanels": 2,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "expanded-en",
+      "targetWidth": 1920,
+      "openPanels": 2,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 320,
+      "openPanels": 0,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 375,
+      "openPanels": 0,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 390,
+      "openPanels": 0,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 768,
+      "openPanels": 0,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 1024,
+      "openPanels": 0,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 1440,
+      "openPanels": 0,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "collapsed-en",
+      "targetWidth": 1920,
+      "openPanels": 0,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 320,
+      "openPanels": 1,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 375,
+      "openPanels": 1,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 390,
+      "openPanels": 1,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 768,
+      "openPanels": 1,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 1024,
+      "openPanels": 1,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 1440,
+      "openPanels": 1,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "map-expanded-en",
+      "targetWidth": 1920,
+      "openPanels": 1,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 320,
+      "openPanels": 1,
+      "scrollWidth": 305,
+      "smallSummary": 0,
+      "width": 305,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 375,
+      "openPanels": 1,
+      "scrollWidth": 360,
+      "smallSummary": 0,
+      "width": 360,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 390,
+      "openPanels": 1,
+      "scrollWidth": 375,
+      "smallSummary": 0,
+      "width": 375,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 768,
+      "openPanels": 1,
+      "scrollWidth": 753,
+      "smallSummary": 0,
+      "width": 753,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 1024,
+      "openPanels": 1,
+      "scrollWidth": 1009,
+      "smallSummary": 0,
+      "width": 1009,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 1440,
+      "openPanels": 1,
+      "scrollWidth": 1425,
+      "smallSummary": 0,
+      "width": 1425,
+      "status": "PASS"
+    },
+    {
+      "view": "world-expanded-en",
+      "targetWidth": 1920,
+      "openPanels": 1,
+      "scrollWidth": 1905,
+      "smallSummary": 0,
+      "width": 1905,
+      "status": "PASS"
+    }
+  ]
+}

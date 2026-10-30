@@ -1,0 +1,6 @@
+# Template kosong untuk owner; bukan konfigurasi aktif.
+# Simpan sebagai .dev.vars.gate-c di root proyek, bukan di frontend.
+# Isi hanya credential existing yang sah untuk QA; jangan gunakan fallback production.
+# Jangan kirim isi file ke chat. Tidak perlu membuat atau mengganti key.
+TRAVELPAYOUTS_API_TOKEN=
+LITEAPI_API_KEY=

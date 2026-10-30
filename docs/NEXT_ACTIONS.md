@@ -1,5 +1,73 @@
 # SortTrip — Next Actions
 
+## 2026-10-28 — Review Local Discovery MVP on existing5175 demo
+
+Open TourGuide→JelajahiSekitar at http://127.0.0.1:5175/; reportqa-reports/LOCAL_DISCOVERY_MVP_2026-10-28.md. Testcategory/localQ&A/optionalone-shotGPS→adddaytime→nativeSave.149targetedtests/build andNearby+corebrowserregressionsPASS. GPStestsstub, Savebrowser/memoryonly; tryrealbrowserpermissionmanually. Limitedcuratedfood/souvenirsBangkok, othercitiesunknown/demofallback; nohalalcertificate/currentprice/hour claims. GPSmodeonlyverifiedcoordinates/10km, sofoodmayempty. No needledgerreaudit orSQL forlocalreview. No authorizationforlivePlacesprovider/Meta, Supabasewrites, payment, deploy/commit/push. Keepallpreexistingwork.
+
+## 2026-10-28 — Owner testing ready at localhost5175
+
+ExistingisolatedMVPserverleft running, GET200verified15:49:21WIB, session39392/PID17300 (historical; revalidatebeforestop). Owner open http://127.0.0.1:5175/ and follow qa-reports/OWNER_DEMO_READINESS_2026-10-28.md. Use labelledBangkokshortcut or authorizedcompatiblevideo, browserSave/reload, existingsearchinterfaces andcuratedGuide. No sourcechanges/fullsuite; browserjourney reverified withfixtures. Keepfixture/live distinction: noMeta/supplier/DBwrite/payment tested, physicalspeechvoiceavailability ownercheck. Wait feedback; no inference/recovery/deploy/SQLauthorization implied. StoponlycorrectdemoterminalviaCtrl+C ifrequested; neverbroadnode/workerdkill.
+
+## 2026-10-28 — Review working local MVP; live gates remain separate
+
+Read qa-reports/HACKATHON_MVP_FINAL_SPRINT_2026-10-28.md. Owner next runs npm run dev:mvp-demo → http://127.0.0.1:5175/ to review labelledBangkokvideo→nativeitinerary→browserSave→bookingsearch→curatedGuide/Q&A/speech/Maps.152targetedtests/build and isolatedbrowseracceptancePASS; fixtures not realMeta/DB/supplierE2E. No need repeat ledger audit/migrations/keysetup merely to view demo. Ledger remainsblocked; remote writers/deployedbody/permissions and future actualinference need separatelyapproved safety work. No SQL06/07, QAserverrestart, Supabasewrites, deploy/commit/push or paidAI authorized bycompletedlocalsprint. Do not present curatedQA as unrestrictedAI or unavailableprices as live.
+
+## 2026-10-28 — Local QA stopped; wait for owner, not recovery
+
+Read qa-reports/META_QA_LOCAL_SERVERS_SHUTDOWN_2026-10-28.md. Owner-approved targeted localstop complete;8790/5174closed and statusunreachable over3checks through13:04:13WIB, no restartobserved. Do not repeatstop using historicalPIDs or restartQA without instruction. Remote writers/deployedfunctions/ACL/jobs and alreadydispatchedsettlements remainUNKNOWN; localshutdown is not globaldrain or ledgerrecoveryreadiness. Config flagsunchanged. SQL06/07 notauthorized/executed bythisstopapproval; no recovery, quota/configchanges, inference/deployment orPhase3. Wait explicitnextinstruction.
+
+## 2026-10-28 — NOT READY: live QA writer must be reviewed, not auto-stopped
+
+Final audit qa-reports/META_QA_FINAL_SAFETY_VERIFICATION_2026-10-28.md confirms QA backend8790 and frontend5174 running with analysis/frames/budget-ready true. Do not claim writer drain or stop processes without explicit approval; verify fresh PID/terminal first, never stop allnode/production. Next owner reviews stop/drain plan and SQL07 private read-only diagnostics (unexecuted) for full deployedfunctions/ACL/RLS/candidatewriters/trigger/rule/job evidence. Runtime payload cap remainsUNKNOWN despite source/bundle2000 verified. SQL06 unchanged/defaultfalse; no recovery execution, even rollbackrehearsal. Correct SQL06 only after separate approval; require exactlyone matching postcheckrow and preserve0.35/sevenrequests. No inferred permission for inference, entitlement, deployment or Phase3.
+
+## 2026-10-28 — SQL06 recovery preparation complete; execution prohibited
+
+Review qa-reports/META_QA_SAFE_LEDGER_RECOVERY_PREPARATION_2026-10-28.md and proposed SQL06. Owner now confirms global7/0unsettled/reconciled0.35; historical2305 remains preserved. Current source/existing local staging bundle Meta2000 cap checked statically. Do not execute proposal or change default false safety attestations without explicit recovery approval. First obtain read-only/private deployed-function review, all-QA-writer stop/drain and runtime/usage evidence; safety not yet established, STOP. SQL02/03 entitlement remains separate. No allocation reset, historical settlement replay, automatic unblock, deployment or paid inference. SQL06 currently preparation-only, no PostgreSQL execution/parser verification.
+
+## 2026-10-28 — Ledger audit delivered; read-only evidence gate
+
+Read qa-reports/META_QA_LEDGER_ROOT_CAUSE_AUDIT_2026-10-28.md. Owner SQL01 confirms blocked=true with0.35allocated/9.65remaining, not exhausted money. Historical discovery4000 versus2000guard is plausible but not causal proof. Next single proposed owner action: approve and personally execute docs/staging-proposal/sql/05_READ_ONLY_LEDGER_ROOT_CAUSE.sql only on QA aytrcvfncsklhqozreyk, plus privately compare deployed reserve/settle bodies; never share secrets. No recovery/automaticunblock/reset, SQL02/03, schema/grants, deployment, paid inference, commit/push or Phase3 authorized. Current source cap2000 does not clear persistedblock or verify runtime. Preserve history/allocatedUSD, check all writers/global reconciliation and repeated-settlement risk before separately proposing any corrective SQL.
+
+## 2026-10-28 — Staging prep complete; stop before runtime changes
+
+Review docs/staging-proposal/IMPLEMENTATION_PREPARATION_2026-10-28.md. Local implementation preparation is authorized/completed, superseding audit-only restriction for that bounded scope. No authorization for SQL/grants, credential/billing/limits/ledger/blocked changes, deployment, paid inference, commit/push or Phase3. First proposed owner action is review/run read-only SQL01 on existing QA account after approval; never substitute the old write-probe, rotate accounts, reset or auto-unblock. Source2000-token alignment is fixed locally, but actual429 cause/current balance remain unknown. SQL02/03 require separate DB/entitlement approval; SQL04 verifies read-only after schema. Access issuer/aud/owner placeholders, provider binding, QA Auth redirect and live staging acceptance remain blockers. Generation defaults must stay false. Do not repeat Meta key registration or copy production secrets/data. 477tests/23staging/builds pass are fixture/local evidence, not real E2E.
+
+
+## 2026-10-28 — Staging proposal awaits owner approval
+
+Read docs/staging-proposal/OWNER_ACCESSIBLE_STAGING_AUDIT_2026-10-28.md. Audit/proposal only: do not implement/deploy/apply SQL/grants or change credentials/billing/spending limits, commit/push or begin Phase3 without explicit authorization. Existing429 underlying ledger state remains unverified; inspect read-only diagnostics only after approval, never infer billing failure or reset counters. Discovery4000 versus settlement2000 output mismatch is confirmed in source, not confirmed cause at incident. Proposed correction preserves/lower-aligns existing caps, with no automatic unblock or account rotation. Preserve production and QA data/RLS. No live E2E success newly established by this audit.
+
+## 2026-10-28 — Current follow-up after prompt flow changes
+
+- Owner deferred quota/subscription work. Do not continue schema grants, test-pass creation or limit resets without renewed instruction. QA read-only results show all5subscription components absent; production pass is separate.
+- Finish live Meta discovery acceptance only when existing test guard permits an authorized run; last429BUDGET_EXHAUSTED, no balance/cause conclusion. No automatic retries or stronger-model fallback. Simulation/UI454tests/build pass do not replace real generation evidence.
+- No production deploy requested for this change. Production model activation, date-specific hotel pricing and bare-link video reading are not completed by the local discovery implementation.
+
+
+## 2026-10-28 — Budget-free discovery verified locally
+
+Review qa-reports/FREE_BUDGET_QA_2026-10-28.md. InitialbudgetnowAnybudget andinitialdurationfree; numericbudgetoptionalunlessSetlimitselected. Actualread-onlysearch andascendingfarecardsverified,435tests/buildpass. Do notrestoreexample/defaultbudget orrequireanominalinthefree mode. Preservepriceuncertainty; fulltripcheapestclaimrequirescomparablecompletecosts. No newliveAI needed for this UI change; no deploymentauthorized.
+
+## 2026-10-28 — Search path now verified in QA
+
+Read qa-reports/DESTINATION_SEARCH_FIX_2026-10-28.md before repeating destination setup. ActualautocompleteHanoi and text→HAN→returnflightsnowwork;434tests/buildpass. QA useslocalcatalogue/resolver andfixedanonymouspublicflightsread; privategeneralplanner/book/paymentremainunavailable. No credentialsetupnecessaryforthispath. Price5314916adult exceeds4500000examplebudget; do notclaimbudgetfit orcompletehotel/transportquote. Next separateverification: broaderambiguousintent/mobile and fullplannerwhereconfigured. No deploymentauthorityimplied; MetaQAremainsactiveforowner.
+
+## 2026-10-28 — Review compact link workflow
+
+Review local compact inspiration handoff in qa-reports/LINK_INSPIRATION_UX_2026-10-28.md:429tests/build/i18n pass and actual desktop ID/EN flow verified. It no longer requires upload/transcript to provide inspiration, but does not automatically read video URL contents. Next verification is full normal search/planner outcome in an appropriately configured environment and mobile acceptance; isolatedmeta-QA has no generalplanner/search API. No source release implied. Keep owner-authorized interactiveMetaQA active underUSD10cap; this UX work consumed no quota.
+
+## 2026-10-28 — Interactive QA is intentionally active
+
+Owner wants to analyse their prepared video. LocalQAtext/frame/readinessflags nowtrue andruntimeverified. Keep this owner-authorized session active under existingUSD10ledgercap; do not restorefalse merely because a bounded agent test/turn ends. No credentialchange/deployrequired. Do not auto-submit or retry the owner's video; ownerclicks analysis. Lastverifiedremaining9.70beforeactivation maychange withowneruse. AutomaticURLvideoreading/multicity/fullvideoASRremain separateunfinishedwork.
+
+## 2026-10-28 — Video/link follow-up
+
+Review qa-reports/VIDEO_UPLOAD_VT_FIX_2026-10-28.md. Localfalse413/shortvtURL/inputfallbackfixes verified; do not repeatkey/schema/RLSsetup. Meta caption and syntheticframeactual200, ledger0.30allocated/9.70remaining/6settled/0unsettled; flagsrestoredfalse. Next: originalownerMP4 check whenavailable within4MiB60seconds, positiveauthorizedtravelfootage, and separatelyscopedautomaticURLmediaaccess/locationverification/multicityplanning. URLacceptance is notautomaticwatching; Sapa/Hanoicaptionresultdidnotcreatedraft. No source release or Phase3 implied.
+
+## 2026-10-27 — RLS and sampled-frame gates completed
+
+Do not repeat QA account creation/login, grants, schema, concurrency or model key setup. Actual two-account/guest trips isolation passed and real sampled-frame synthetic negative inference returned200; owner finalledger0.15allocated/9.85remaining/blockedfalse/3settled/0unsettled. Preserve QA fixtures/draft and restoredfalse flags. Remaining evidence: positive recognition from owner-licensed travel footage, broader mobile/TripPass/PriceWatch acceptance and honest demo packaging. No full-video/ASR, Phase3 or release authority implied. See phase-2/phase-2c reports;419regressions/build/i18n pass.
+
 ## 2026-10-23 — After master QA
 
 1. Review completed reports and local fixes. Release only on explicit owner instruction; rerun production404/robots/sitemap and checkout/auth smoke afterward. Three production SEO/404 failures are fixed locally but unreleased.
@@ -430,3 +498,122 @@ Do not repeat key registration/replacement: fresh production KL andSingaporesear
 
 ## 2026-10-24 — QA/branding release complete
 Owner-authorized application commit83b333e pushed origin/codex/approved-brand-identity-2026-10-24 and deployed5cb25add-5f48-4a05-a012-2d2f626a24ff usingkeep-vars.329tests/build/i18n/dryrun/stagedsecretpatternscanpass. Actual production assets match build, new brand/account UI/cards browserverified, health/rulesmarker/recommendations/support and SingaporeViator200; protected hotel/payment endpoints401 and badsignature403. This supersedes local-only/pending-release notes for branding/footer/account/AIlocks/comprehensiveQA/Viator. Do not repeat deployment or credential setup for these changes. No AI generation/trip save/payment/prebook during release; Midtransprovider authentication/settlement still not directlyverified. See qa-reports/RELEASE_QA_BRANDING_2026-10-24.md.
+
+
+## 2026-10-27 — Hackathon approval gate
+Phase1 audit completed; read docs/hackathon-2026/phase-1/BASELINE.md, IMPLEMENTATION_ROADMAP.md and OWNER_ACTION_REQUIRED.md. STOP before Phase2 until owner explicitly approves. Do not infer acceptance/credits or unrestricted video access. Confirm official rules/pre-existing product eligibility, licensed short demo media, Meta account access and approved spend/privacy/resources. Security maintenance (Wrangler dependency advisory), headers/rate limits and nonproduction RLS verification are planned follow-ups, not authorized fixes in this audit. Preserve existing dirty work and baseline737fbc5636145fc27a0bf4ac41be831835dfbd44; proposed branch/tag not created. No deploy/paid call or reused Oct24 release authorization.
+
+## 2026-10-27 — Phase 2 approved; live gates pending
+Phase1 approval blocker is superseded by explicit Phase2-only brief. Review docs/hackathon-2026/phase-2/OWNER_ACTION_REQUIRED.md. Owner privately verifies Meta access/credits/Standard privacy and installs server secret; review/apply source-only budget SQL in nonproduction and verify concurrency/rates/token upper bound before enabling flags or paid calls. Native video inspection/frames/ASR and retryable remote deletion remain engineering work; no new paid infra approved/provisioned. Real transcript inference and authenticated save/RLS need disposable-account verification. Local demo/review/planner is implemented, not production/live Meta ready. Preserve dirty work; no Phase3, commit/push or production release implied.
+
+## 2026-10-27 — Phase2B owner setup and verification pending
+Owner confirmed nonproduction not ready. Follow docs/hackathon-2026/phase-2/OWNER_ACTION_REQUIRED.md elementary Phase2B guide. Do not enable flags or paid calls before owner-private Meta/account setup, separateQA database/twoaccounts, reviewedSQL application, realcap/concurrency/privilege and token-cost checks. Local browser frame decoder and offlineFFmpeg QA now work; do not repeat container-only blocker as if no fallback exists. Audio helper is not connected to application/Meta, socialURLs still validationonly. Next engineering/live evidence: real Meta result, Save/reload and two-userRLS, TripPass/PriceWatch QA in nonproduction, authorized travel demo media and optional fullvideo/ASR implementation. Phase2B PARTIAL; demo/Phase3 NOT READY; no commit/push/deploy authorized. Reports PHASE_2B_IMPLEMENTATION.md through DEMO_READINESS.md.
+
+## 2026-10-27 — Meta setup now guided with USD10 ceiling
+Follow docs/hackathon-2026/phase-2/META_API_SETUP_ID.md. Owner handles Meta login/keycreation and private local secret entry; keep flagsdisabled while nonproductionledger/model access are unverified. Source budget now10total, previous5authorization superseded; no databasecap is yet verifiedactive. Do not ask to paste/revealkey or copyproductionsecrets intoQA.66targetedtests pass; zero paid calls. Continue live gates only after owner setup and safe verification.
+
+## 2026-10-27 — QA auth and Meta metadata gate resolved; transactional budget probe next
+Owner-privatebackend/frontendsetup and QAlogin nowcomplete; actual browser/server Meta Spark1.3 metadata access200 verified. Do not repeat keycreation/login setup or attribute earlier503 to badkey: runtime redirect:error was unsupported; Meta paths now manual/rejectnon2xx. Next owner executes supabase/meta-video-budget-probe.sql entirely on aytrcvfncsklhqozreyk and sends nine booleanresults, then verifies allocation restored. Inner PLpgSQLsubtransactionrollsback temporaryledgerwrites; sourceprepared, not yet DBtested. ActualparallelSQLconcurrency/realledgerRPC/paidinference and two-userSave/RLS still pending. Keepallanalysis/budgetflagsfalse. Full407regressions/build/i18n1603passed. No paidgeneration/commit/push/deploy.
+
+## 2026-10-27 — Sequential budget probe and restoration complete
+Owner screenshots confirm all nine probe rows true and post-probe allocation0/remaining10/blockedfalse. Do not repeat migration/probe/key setup. Before first bounded inference, finish Standard-mode/credits/current token-count cost verification, runtime ledger and actual concurrency gates. Keep QA analysis flags false pending these checks. Metadata-only Meta access is already verified; no paid inference or production readiness claimed.
+
+## 2026-10-27 — Phase2C next steps supersede prior setup tasks
+Do not recreate Meta key/project or QAlogin. Read phase-2/phase-2c/OWNER_ACTION_REQUIRED.md. Actualruntimeledgerread403/DATABASE_PERMISSION_DENIED before reservation; verifyowner-applied service_roleSELECTpatch withread-onlyQAUI, thenboundedreserve/settleprobe. Originaltwo-sessionBfalse; use revisedmarkerprobes to proveactualoverlap andlockwait. SecondQAaccountnotcreated; ownercredentials/auth/schema/grants remainowner-only. Keepinferenceflagsfalse andzeroMetarequests untilgatespass. ContinueMeta/review/draft/Save/RLS acceptanceaftergates; noPhase3/commit/push/deploy. Final414regressions/build/i18n1610pass; tenPhase2Creportsprepared, statusPARTIAL.
+
+## 2026-10-27 — Resolved HTTP403/concurrency; remaining Phase2C acceptance
+Do NOT repeatMeta/QAkeysetup, serviceSELECTgrant, concurrencyBv2ortripsCREATE TABLE: ownerappliedandactualUIverified. ActualtextMetaandnormalSave/reloadaccountApassed; allocation0.10/remaining9.90/settled2/unsettled0; usageestimated0.00620550. Next: ownersecondQAaccountnormalindependentlogin, thenA/B/guestnegativeRLS; actualauthorizedframeanalysisstillpending. Keepflagsfalseuntilnextboundedtest; preserveQAtrip. Phase2C PARTIAL/Phase3NOTREADY, no releaseauthority.
+
+## 2026-10-28 — Owner review original integrated UI
+Use http://127.0.0.1:5173/ (npm run dev:owner-ui), not standalone5175, for original-homepage/video/native-editor/Guide/Nearby review. Offline profile intentionally has no cloud auth/Save or live supplier/Meta services; guest gate/session draft remain. Read qa-reports/UNIFIED_UI_INTEGRATION_2026-10-28.md for fixtures, screenshots and blockers. Stop for owner review; no deploy, ledger work or paid inference implied.
+
+## 2026-10-28 — Sprint1 owner review, not live activation
+Review http://127.0.0.1:5176/ via npm run dev:qa-preparation and docs/QA_INTEGRATION_PREPARATION_2026-10-28.md. Entry isoriginalUI; Auth/cloudSave/supplier/AI remainoff.91targetedchecks/builds/browserfixturespassed. Next privateQA/Access configuration and read-only dependency verification need explicitapproval; do not rereadsecrets, migrateDB, restart8790/5174, recoverledger, infer, deploy or beginGuide2.0 automatically. Earlier staging-shell/477test reports arehistorical; latestroute matrix supersedes planned availability.
+
+## 2026-10-28 — Sprint2 completed; GateA review next
+Read docs/QA_SAFE_CONNECTIVITY_2026-10-28.md. Live remainsdisabled; no credential/privateenv read. GateA configuration/identity/Access/redirects requires ownerapproval andprivatehandling; B login/write, C supplierreads, D recovery/inference and E deploy eachindependent. Do not equate onehotelUIsearch withone ratescall: defaultadapter maytwo rates+metadatafallback; narrowapprovedrealtest first.47tests/builds/browserfixturesverified, notliveQA.
+
+## 2026-10-28 — GateA owner verification pending, not GateB
+Ownerguide docs/GATE_A_OWNER_SETUP_2026-10-28.md explains ignoredpublicconfig, exactQAURL, keyprovenance/digest, QAidentity/redirect/Access checks, metadataonly qa:config:check and rollback. ConfigcurrentlyMISSING, Authoff. Modernpublickeyprovenance cannotbevalidatedofflinewithoutownerreview. Bothprofiles independentallowAuthenticationfalse; do notflipflags or initiateGateB. Needownerprivatereview/statusonly, no key/UUID/sessionchat, thenexplicitGateB authorization andbackend/CSP/compileactivationreview. RemoteAccess/dashboardstillUNVERIFIED; no deployapproval.
+
+## 2026-10-29 — GateB PASS LIVE; GateC still needs approval
+Do notrepeatQAkeysetup/login/Savefix: ownerlogin+owntripINSERT/UPDATEandtwofullreloadMyTripsreads nowLIVEverified on5176. dev:qa-gate-b isauthorizedlocalprofile; ordinarydev:qa-preparation staysoffline. Do notreadprivateconfig/session, toucholderQAtrips, expandwrites orresetledger. No freshnegativeRLSclaim. Read docs/GATE_B_QA_AUTH_SAVE_2026-10-29.md. GateC supplierreadscope/upstreamcount and GateDMeta/recovery/Edeploy remainindependent; do notactivateautomatically.
+
+## 2026-10-29 — Gate C authorization granted; credential scope blocked
+
+Jangan meminta ulang izin satu flight/satu rates yang sudah diberikan. Selesaikan blocker dalam docs/GATE_C_LIVE_SUPPLIER_TEST_2026-10-29.md: konfirmasi scope credential QA secara non-sensitive, jalur binding server-only terisolasi yang ditangani owner, dan hotel ID publik dari data QA sah. Jangan copy secret production atau memakai proxy production. Sebelum live perlu pembatas kumulatif sebelum egress dan targeted mocks; metadata/discovery/retry nol. Tidak lanjut Gate D/E.
+
+Gate C follow-up29Okt: scope credential telah disetujui. Tunggu owner memasang binding QA privat melalui template kosong qa-config/gate-c.private.example; .dev.vars.gate-c belum ada pada pemeriksaan. Jangan ulangi pertanyaan izin scope. Belum ada loader aktif, limiter atau hotel ID terpilih; jangan memanggil supplier sebelum prasyarat lengkap.
+
+Gate C latest: owner private binding setup complete; metadata-only checker confirms both present, validityunverified. Do not ask to reenter keys. Hotel name Kingstone is not a verified LiteAPI ID. Need existing publicID/location or additional explicit metadata-request permission; original discovery budget0 remains.4mock budget tests pass, transport not wired; continue owner verification/query constraints/UI integration only within scope, zero live calls so far.
+
+## 2026-10-29 — Gate C PARTIAL; Gate B restored
+
+Do not repeat key setup/metadata search: owner bindings present; actual Kingston15metadata200 and selected publicID verified. Native UI flight1request200empty; hotel1rates200→validation502, exactcauseunverified. Both allowancesused, liveclosed, GateB5176running. Review docs/GATE_C_LIVE_SUPPLIER_TEST_2026-10-29.md. Next bounded owner-approved ratesprobe needs safe response-shape/validatorreason recording beforeegress; nextflightpositivepricequery needs separateapproval. Preserve claims/history and no automaticretry, ledgerrecovery or GateD/E.
+
+## 2026-10-29 — Gate C.2 complete; review local supplier fixes
+
+Read docs/GATE_C2_SUPPLIER_FIX_2026-10-29.md. Both actualpricesUIverified (flightindicative1885702;hotelroom990994.37+property89035.10for2nights). Do not repeat keysetup/metadata/old502diagnosis or resetC/C2claims. C2used2flight5rates0metadata, closed; GateB5176active/noMeta/supplier. Ownerreviews localerror-envelope/taxreadonly/monthquery/responsivechanges; no automaticcommit/push/deploy/GateD/E. Quotesnotguaranteedfutureprices; normalproductionexcludedfeecheckoutremainsstrict. Anyfutureliveactivation requires newinstructions/preservedbudget, not deletingclaims.
+
+## 2026-10-29 — Gate D tertahan sebelum live
+
+Pembaruan terbaru: owner telah mengonfirmasi asal kredit Hackathon dan mengizinkan pemulihan flag ledger QA. Jangan meminta ulang izin lingkup ini. Tab Supabase QA sudah dibuka tetapi Sign in; tunggu owner login, lalu verifikasi snapshot/deployedfunctions/writers. Jangan menganggap false gates SQL06 sebagai fakta benar hanya karena izin diberikan. Port lokal UNKNOWN karena inspeksi CIM gagal; remote juga UNKNOWN. Inferensi tetap tertahan dan budget/history tetap.
+
+Ikuti docs/GATE_D_META_LIVE_TEST_2026-10-29.md: owner verifikasi proyek/grant Hackathon, saldo/expiry/eligibility/credit priority/hardstop tanpa mengubah billing atau mengirim secret. Setelah bukti lengkap baru review diagnostik QA existing; tidak menjalankan SQL06, reserve/settle atau mengaktifkan Meta. Pertahankan USD10 ledger/0.05request/2000output dan batas10/user; usulan20 bukan izin memperluasnya. Perlu pembuktian settlement, konkurensi global, entitlement dan runtime sebelum aksi inferensi eksplisit. GateE tidak otomatis.
+
+## 2026-10-29 — Ledger QA sudah dipulihkan
+Jangan ulang recovery atau reset: actualpostcommit0.35/9.65/blockedfalse/7requests/0pending. Berikutnya review settlementokfalse, globalconcurrency dan QAentitlement serta batas promo-only sebelum explicit liveaction. Jangan otomatisrestartMeta atau lanjutGateE. Rujuk update recovery pada docs/GATE_D_META_LIVE_TEST_2026-10-29.md.
+
+
+## 2026-10-29 — Review Gate D local safety
+Review docs/GATE_D_LOCAL_SAFETY_DEMO_2026-10-29.md dan SQL08proposal; janganrerunSQL06.127offlinepass/buildpass. OwnerapprovalDB terpisah sebelum penerapanSQL08QA/konkurensiPostgres; cekentitlementQA danpromo-onlybilling laluapprovalaktivasilocal+satuinference. OldDBsafetystatusmissing sekaranggagal sebelumalokasi. Jangan jalankanunknownusagebudgetprobe ataupakai preview/videoauthonly sebagaidemoTripPass. Pendingstale dipertahankan, tidakreset/refund. Tidakdeploy/commit/push.
+
+
+## 2026-10-29 — Next controlled Gate D activation
+Review docs/GATE_D_CONTROLLED_ACTIVATION_REVIEW_2026-10-29.md. Prioritaslocal: SQL08 preflight/timeout/ACLfinalization dan QA-onlyskipautomaticpricing; belumizinimplementasiDB/live. QAentitlementkomponenaktualabsent; reviewSQL02/03terpisah, janganfakepass/previewbypass. SiapkanPGrollbackprobes sebelumapprovalDBspecific.127pass/buildpass tidakperluulangtanpaperubahan. Recoveryjanganulang, GateEoff.
+
+
+## 2026-10-29 — Review hardened SQL08 and isolated demo
+TaskA/Blocalcomplete; docs/GATE_D_SQL08_NETWORK_IMPLEMENTATION_2026-10-29.md dan rehearsalREADME.130unitofflinePASS, browser6fixturechecksPASS, buildsPASS. Berikutreview danapprovalSQLdisposablePostgresrehearsal saja, tidakQAapplylangsung. SQL08manualattestationUNVERIFIED, ownerpostgresguardbelumactualverified. SetelahPGtestsbaruapprovalQAfunctions danQAentitlement laluoneinferenceactivationbillingsafe. UIprofildev:gate-d-demo backendtetapclosed, nolautopricing; servertestdistop. JanganSQL06/reset/previewbypass/GateE.
+
+
+## 2026-10-29 — Provisioning prerequisite for approved local rehearsal
+Read docs/GATE_D_DISPOSABLE_POSTGRES_REHEARSAL_2026-10-29.md. Localrehearsal authorized but PostgreSQL/container/WSLruntime unavailable in checkedpaths. Next owner menyediakan/menyetujui penyediaanverifiednativeportablePostgresataucontainerlocal; beluminstall/download. Setelahruntime tersedia lanjutnewisolatedcluster/syntheticSQLonly, tidakQAexisting. SQL08QAdeployNOTREADY; noSQL06/reset/live.
+
+
+## 2026-10-29 — SQL08 native rehearsal completed
+Do notrepeatprovisioning/rehearsalwithoutnewreason. Read docs/GATE_D_POSTGRES_REHEARSAL_RESULTS_2026-10-29.md:55PASS0FAILfinal, PG18.6 verifiedsource, serverstopped. NextownerreviewSQL08andseparateQAapplyapprovalafterfreshQAproject/baseline/ownerACL/fingerprint/writerdrainchecks. NoSQL06/reset. Entitlementschema/owner-test entitlement andbillinggatesstillrequired beforeactivatingoneMetaaction. Neverusestoppedtrustsyntheticclusterforrealdata; noautostart.
+
+
+## 2026-10-29 — Review final QA activation approvals
+Read docs/GATE_D_QA_ACTIVATION_APPROVAL_2026-10-29.md. ActualQAmetadataSQL08matches, PG17.11vsrehearsal18.6residualexplicit. FinalQA08gatefalse+hashpins prepared; noexecutionapproval. Next ownerreviewsandapprovesspecificAfunctionswithfreshchecks/writerfreeze; BSQL02schema/Cminowner-test1result1hour separate, Dreadonly04/09notyetexecuted, EnegativeentitlementQAtemporarywrites separate; Fbackend/oneMetaaction onlyafterbilling. NoSQL06/reset/regrant/previewbypass/GateE. No needrepeatoldruntimefulltestswithoutchanges.
+
+
+
+## 2026-10-30 — Lanjut setelah aktivasi QA
+Baca docs/GATE_D_QA_EXECUTION_2026-10-30.md. SQL08/02 dan min grant owner sudah diterapkan, jangan ulang proposal/recovery. Owner login sendiri ke tab Meta; verifikasi billing promo-only tanpa perubahan billing. Belum boleh inference jika hard spillover protection tidak terbukti. Periksa expiry grant 06:23:16 WIB 30 Oktober; jangan regrant otomatis. Sesudah billing aman baru wiring normal authenticated discovery QA, owner-only/network isolation, satu request tanpa retry, edit/Save/MyTrips/reload. AI Guide dan demo setelah live berhasil. Production/deploy/commit/push tetap dilarang.
+
+
+
+## 2026-10-30 — Demo Meta itinerary terbukti
+Buka http://127.0.0.1:5176/ > Perjalanan saya > Kuala Lumpur 30 Oktober. LiveMeta/edit/Save/reload sudahlulus; jangan ulang inferensi, regrant atau hapus claim .sorttrip-qa/gate-d-one-request.claim. Ledger0.40/9.60/false/8/0, ownerquota1sudahdipakai. Cutoffkode lokal teruji 5Nov00WIB; remoteWorker belummenerima kode, perluapprovaldeployterpisah dan cutoffvar wajib. AI Guide Meta baru/submission/video belumselesai; tidakizinMeta tambahan. Lihat docs/META_CUTOFF_LIVE_QA_2026-10-30.md.
+
+
+
+## 2026-10-30 — Tinjau polish visual lokal
+Lihat http://127.0.0.1:5176/ dan docs/UI_POLISH_2026-10-30.md. CSS-only, desktop/mobileIDEN12checks+buildnormalQApass. Tunggu reviewowner sebelumcommit/push/deploy. JanganulangMeta atauhapusclaim; cutoffonline tetapmemerlukanapprovaldeploymentterpisah.
+
+
+
+## 2026-10-30 — Gate deployment demo
+Review docs/HACKATHON_DEMO_DEPLOY_PREPARATION_2026-10-30.md. Targetsorttrip-staging/dist-staging saja, NOTREADY: secureAccessownerconfig dan remoteQAauthwiring belumsiap. Jangan deploy profil lokal ataupreviewbypass. Minrecord buka savedMeta trip; tidak regrant/inference/SQL08/02. Butuhapprovaldeploymentterpisahsetelahblockersresolved.
+
+
+
+## 2026-10-30 — Lengkapi konfigurasi owner staging
+Kodeauthremote selesai, bukan aksesremote terverifikasi. Owner ikuti docs/STAGING_OWNER_AUTH_FIX_2026-10-30.md dan qa-config/staging-connection.example.json; isi fileignoredstaging-connection.local.json + bindingsownerCF/QA publishable danreviewredirectAccess nyata. Jangan salin localhostprofile/SQL/Meta/regrant. npm run build:staging saatiniBLOCKED expectedmissingauthconfig; ulang setelahowner selesai, deploybutuhapprovalterpisah.
+
+
+- Prioritas owner 2026-10-30: existing production, bukan staging. Tinjau proposal production Meta, persetujuan schema/ACL dan cap biaya, rehearsal SQL baru, verifikasi bindings sebelum deploy.
+
+- Production integration deployed. Next verify test-itinerary manual edit/save/reload, then separately authorized controlled Meta production inference/demo. No ledger reset.

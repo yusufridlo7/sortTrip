@@ -40,3 +40,9 @@ A feature being discussed or represented in the UI does not mean that a live sup
 Passwords, OTP/2FA, CAPTCHA, API secrets, recovery codes, payment/bank information, and other sensitive credentials remain owner-controlled.
 
 Agents may work with already-authorized sessions and environment-based configuration without revealing secret values. Never store secrets in project-memory documents.
+
+## Laporan setiap pekerjaan — instruksi owner, 28 Oktober 2026
+
+Setiap pekerjaan SortTrip wajib memiliki laporan Markdown berbahasa Indonesia, disimpan di folder laporan yang sesuai dan ditautkan pada jawaban akhir. Gunakan docs/WORK_REPORT_TEMPLATE.md; skala detail mengikuti pekerjaan. Laporan mencatat lingkup, hasil/perubahan, berkas terkait, pengujian/bukti, keterbatasan/blocker, status commit/push/deploy dan tindak lanjut yang memerlukan persetujuan.
+
+Bedakan pengujian nyata, simulasi, pemeriksaan source dan hal yang belum diuji. Jika pekerjaan berhenti atau belum tuntas, laporkan status sebenarnya. Jangan menyimpan credential/identitas sensitif. Kewajiban laporan bukan izin melakukan SQL, deployment, pembayaran, inferensi berbayar atau tindakan lain di luar otorisasi owner.

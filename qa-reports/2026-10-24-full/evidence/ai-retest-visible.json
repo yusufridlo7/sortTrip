@@ -1,0 +1,90 @@
+{
+  "days": [
+    {
+      "heading": "Hari 1 · 30 Jan · Kuala Lumpur",
+      "items": [
+        {
+          "locked": "false",
+          "time": "05:00",
+          "title": "CGK → KUL · pulang-pergi"
+        },
+        {
+          "admission": "Tarif masuk wisataTarif masuk belum terverifikasi. Jangan menganggap wisata ini gratis.Periksa tarif dan ketentuan pada sumber",
+          "locked": "false",
+          "time": "10:00",
+          "title": "National Museum (Muzium Negara)"
+        },
+        {
+          "locked": "false",
+          "time": "12:00",
+          "title": "National Museum (Muzium Negara) ke Islamic Arts Museum Malaysia"
+        },
+        {
+          "admission": "Tarif masuk wisataTarif masuk belum terverifikasi. Jangan menganggap wisata ini gratis.Periksa tarif dan ketentuan pada sumber",
+          "locked": "false",
+          "time": "13:00",
+          "title": "Islamic Arts Museum Malaysia"
+        },
+        {
+          "locked": "false",
+          "time": "15:30",
+          "title": "Islamic Arts Museum Malaysia ke Riccarton Capsule Hotel"
+        },
+        {
+          "locked": "true",
+          "time": "18:00",
+          "title": "Riccarton Capsule Hotel"
+        }
+      ]
+    },
+    {
+      "heading": "Hari 2 · 31 Jan · Kuala Lumpur",
+      "items": [
+        {
+          "locked": "false",
+          "time": "07:00",
+          "title": "Riccarton Capsule Hotel ke Genting Highlands Station, SkyAvenue"
+        },
+        {
+          "admission": "Tarif masuk wisataTarif masuk belum terverifikasi. Jangan menganggap wisata ini gratis.Periksa tarif dan ketentuan pada sumber",
+          "locked": "false",
+          "time": "11:00",
+          "title": "SkyAvenue, Genting Highlands"
+        },
+        {
+          "locked": "false",
+          "time": "14:00",
+          "title": "Genting Highlands Station, SkyAvenue ke area KLIA, Sepang"
+        },
+        {
+          "locked": "false",
+          "time": "19:00",
+          "title": "Salak Boutique Hotel"
+        }
+      ]
+    },
+    {
+      "heading": "Hari 3 · 1 Feb · Kuala Lumpur",
+      "items": [
+        {
+          "locked": "false",
+          "time": "09:00",
+          "title": "Area KLIA, Sepang ke Pasar Seni / Chinatown"
+        },
+        {
+          "admission": "Tarif masuk wisataTarif masuk belum terverifikasi. Jangan menganggap wisata ini gratis.Periksa tarif dan ketentuan pada sumber",
+          "locked": "false",
+          "time": "10:30",
+          "title": "Pasar Seni / Chinatown"
+        },
+        {
+          "locked": "false",
+          "time": "15:00",
+          "title": "Pasar Seni / Chinatown ke area KLIA, Sepang"
+        }
+      ]
+    }
+  ],
+  "quota": "Trip Pass · 4 hasil AI tersisa",
+  "status": "Itinerary dan percakapan otomatis tersimpan di akunmu. Buka melalui Perjalanan saya."
+}

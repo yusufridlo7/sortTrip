@@ -1,0 +1,1947 @@
+[
+  {
+    "file": ".gitignore",
+    "sha256": "824c64b0a62e79168cebfead820957911321b560fc4528b0291ece7901aafb9f",
+    "bytes": 128
+  },
+  {
+    "file": "AGENTS.md",
+    "sha256": "561839bfb52bef26ab2c55aa7c898d451f96aefc976246ffdbcc717aabfd6035",
+    "bytes": 5324
+  },
+  {
+    "file": "README.md",
+    "sha256": "7c268f2cdea6e4646621be5ca7eb52038f943856aca8cfb4ae8b57eae555c413",
+    "bytes": 3780
+  },
+  {
+    "file": "TELEGRAM.md",
+    "sha256": "6114e8685b5d1eeb01d33013e1c8f0faf2946377537a24673b49d4623136662a",
+    "bytes": 5525
+  },
+  {
+    "file": "app/account-menu.tsx",
+    "sha256": "c2e323fcffd5a124d14c1c95235000d38ca9a3bdd70bc9e7d64dc27ab2608cb2",
+    "bytes": 4846
+  },
+  {
+    "file": "app/activity-selection.ts",
+    "sha256": "0546a7cadeeb2a2bf6e753b146c5bebe4b682d3c0680e2edd0df4f5f73ba954a",
+    "bytes": 1718
+  },
+  {
+    "file": "app/activity-tickets.css",
+    "sha256": "b3fbf2edc61f997ec0b5df3ebc3cd03a9dfb9214192bc829ba0b940fa78b164c",
+    "bytes": 1920
+  },
+  {
+    "file": "app/activity-tickets.tsx",
+    "sha256": "e1f6a7876e2926560bb7550c30907b72ae018fd287a8df38dd768d3ae4f9630c",
+    "bytes": 5131
+  },
+  {
+    "file": "app/ai-item-details.tsx",
+    "sha256": "2c9ed762c90be23057a45a5a975118e06c03f86c67db1ad4de083a1c7a520a17",
+    "bytes": 2831
+  },
+  {
+    "file": "app/ai-planner.tsx",
+    "sha256": "bba485b1d38a39528b567ab52261e76fcd2806295ee689de9658b80282421a4b",
+    "bytes": 13257
+  },
+  {
+    "file": "app/api-flights.ts",
+    "sha256": "1bcee32baf710f24f03b00d5cca270c51a0948067b9c76e280ad96d97614f3ec",
+    "bytes": 4147
+  },
+  {
+    "file": "app/apply-ai-plan.ts",
+    "sha256": "2e53872183df8ab0cc7f5a90fa1195e8061de6591361e8cdd40d3a27729909ed",
+    "bytes": 15477
+  },
+  {
+    "file": "app/apply-price-quotes.ts",
+    "sha256": "bea1e916ea805c9d56787114ca93aa4447a948b86f7ff9b112e9a2373f7daa2d",
+    "bytes": 3686
+  },
+  {
+    "file": "app/auth-app.tsx",
+    "sha256": "a27c2109d5bd0b0a00cae05ae6aed35aed7c74e7c92ec6fe000f725f876a8e1f",
+    "bytes": 2424
+  },
+  {
+    "file": "app/auth-panel.tsx",
+    "sha256": "9f19fc38619c9fa4b4d2d0676675520665b5cc023615fa7e7347d0eed1c2ce63",
+    "bytes": 2023
+  },
+  {
+    "file": "app/booking-evidence.tsx",
+    "sha256": "2ca594a1c8607c3e6f08a1abb71e9e6239a26c7c9091f745b6e46d4e772e568c",
+    "bytes": 4606
+  },
+  {
+    "file": "app/booking-receipts.ts",
+    "sha256": "00b6f23dfd46f134a7a4d644bf09258b97ed427f9ea5117909e5f3db0f88e7bd",
+    "bytes": 1894
+  },
+  {
+    "file": "app/booking-status.tsx",
+    "sha256": "d91570aad7921fb5733b26895a5d147db07aed4ba2b03aa011597b19436341d3",
+    "bytes": 1644
+  },
+  {
+    "file": "app/bounded-fetch.ts",
+    "sha256": "3cc8346b4e675b0048c90f9cc32c1c6fb05978162536740626a275c1c01849f5",
+    "bytes": 363
+  },
+  {
+    "file": "app/brand-logo.tsx",
+    "sha256": "ba6f8c28a2e07b529484d693f07445c3e6b6bf8442268681e07003b91f6f5b72",
+    "bytes": 779
+  },
+  {
+    "file": "app/brand-theme.css",
+    "sha256": "6c8b26c5025330f449af17948f8dd90f929647447befd28847d4da95021db371",
+    "bytes": 9093
+  },
+  {
+    "file": "app/brand.ts",
+    "sha256": "8285459368a9adde81dcda877f1893be1bf31bb0ecae37869f3bdc9dc9f3a1f0",
+    "bytes": 66
+  },
+  {
+    "file": "app/cities.ts",
+    "sha256": "99cefd23c8e5496e8d35f899f9a213e91557fbad55681ceb57eaa8eb0e730894",
+    "bytes": 11331
+  },
+  {
+    "file": "app/city-planner.tsx",
+    "sha256": "1e5b8fd6df31e7f49f2d33591d74adfbcccfd83e144141fe9e4f2ab2d33d528e",
+    "bytes": 7903
+  },
+  {
+    "file": "app/database-trips.ts",
+    "sha256": "e666d6c5b00cc15f69c0af86ea7bfaa00599c56645f7231ff8f3d697997efc49",
+    "bytes": 1574
+  },
+  {
+    "file": "app/day-plan-data.ts",
+    "sha256": "f114c08addfe7b0b8bee7bc773d870de833cdd8470b06f7c73ffe76b9066d176",
+    "bytes": 3467
+  },
+  {
+    "file": "app/day-trip.tsx",
+    "sha256": "28cf105426a3b15f9ea31f57faf865d2709c3c23558f000a27378baeea2429b8",
+    "bytes": 4950
+  },
+  {
+    "file": "app/destination-input.tsx",
+    "sha256": "24230971cb3f6390f48c22577c886db66cf502cafb27529e861412d03188718b",
+    "bytes": 3458
+  },
+  {
+    "file": "app/direct-search.tsx",
+    "sha256": "55f103937998a6a75d618bb8b4e83db78e474c748079059f60f977538623caaf",
+    "bytes": 10307
+  },
+  {
+    "file": "app/expandable-details.tsx",
+    "sha256": "fcbb38c9ddb688d0a9fffba603edb631b5bc05f18c7cba75f1767d3dbd8bb2ca",
+    "bytes": 1118
+  },
+  {
+    "file": "app/flight-affiliate.ts",
+    "sha256": "154edffdeb2c56f96ca365fb9f3f6c1535560d5d164cac13d9fbf60af1b470cc",
+    "bytes": 508
+  },
+  {
+    "file": "app/flight-booking.tsx",
+    "sha256": "4f6cfb357be03efff6bfa7b41f1606c0802d7338432432a28eca877dbefd6695",
+    "bytes": 3403
+  },
+  {
+    "file": "app/flight-search.tsx",
+    "sha256": "e2dfa9c50c483e506660d33a9e115f99bfbc8143dce6e783de000c4f509af0cf",
+    "bytes": 20820
+  },
+  {
+    "file": "app/globals.css",
+    "sha256": "e6773207960ab39e337e1e0d4b66e4c9230e94b21dd4a7b7f35d18e8ec4bc858",
+    "bytes": 59654
+  },
+  {
+    "file": "app/google-route-check.tsx",
+    "sha256": "58c7bf60e7f663ddf50dbbc38ba6e10ae0466a43e39e63973cc211d3751213d4",
+    "bytes": 4630
+  },
+  {
+    "file": "app/hotel-checkout-link.d.mts",
+    "sha256": "fe3a70b5ad443d6318c1251262cbbdc2002ebcbbc289dbdbc8862f9db4b59b73",
+    "bytes": 450
+  },
+  {
+    "file": "app/hotel-checkout-link.mjs",
+    "sha256": "1c6629d9687c08c923c38cb04416dacc12d42f8d939a96feeb0edf0fe0584a9e",
+    "bytes": 1191
+  },
+  {
+    "file": "app/hotel-checkout.css",
+    "sha256": "3264977974fac76d6a95eedd397fec234fa859b6169df703f5c40e61f191c772",
+    "bytes": 11776
+  },
+  {
+    "file": "app/hotel-checkout.tsx",
+    "sha256": "b55dd8f3a1773fb4986223ac57d801b99c17ec117fa11c80eba53d9317e6b743",
+    "bytes": 16934
+  },
+  {
+    "file": "app/hotel-details.tsx",
+    "sha256": "b09ff8f623b544e7f42d99143e4d9f5922aa70de4bf0d7acea2f1de2035ee90c",
+    "bytes": 3798
+  },
+  {
+    "file": "app/hotel-photo.tsx",
+    "sha256": "294df48524ad02008d7ed02f1efe39c557ff048088b3f103c36b63e9f8c5755c",
+    "bytes": 693
+  },
+  {
+    "file": "app/hotel-photos.ts",
+    "sha256": "09b3c5ae39b63873e16033988c2e59cd4fe58d883a9ef952080522211d3c7942",
+    "bytes": 474
+  },
+  {
+    "file": "app/hotel-planner.tsx",
+    "sha256": "8797dbc489b1dafb34fd86e5a64b6ecede9d0f18416a7bb323307e07bbf8ebd2",
+    "bytes": 4563
+  },
+  {
+    "file": "app/hotel-search.tsx",
+    "sha256": "f067fa269fc24c53c57f7e3c5e1f71a9d2530df55bdceb01a0ff795fa5ae8235",
+    "bytes": 11664
+  },
+  {
+    "file": "app/hotel-stay.ts",
+    "sha256": "5248dad0401db2868dd2fc7e9a72f5d88b7ee582358d19955c9608b62f35a450",
+    "bytes": 797
+  },
+  {
+    "file": "app/i18n/index.ts",
+    "sha256": "3a12a52d6b6f7ca589633857de8f04c39af51e2ef9176753fc7287a46cff9418",
+    "bytes": 4389
+  },
+  {
+    "file": "app/i18n/language-switcher.tsx",
+    "sha256": "78008da3d19496b4deff5bec47b0454dbd82844bf0fbb0bed88f9f7ae8040f9e",
+    "bytes": 444
+  },
+  {
+    "file": "app/i18n/locales/en.json",
+    "sha256": "8116c76013ffbe0de8a756cd369b6da8718b60ac1fbe2663f28101c930c83e52",
+    "bytes": 81442
+  },
+  {
+    "file": "app/i18n/locales/id.json",
+    "sha256": "a563c06e329191ff6c989bbc302d6ed56fe919f3c416ca8d1002e716c76e2e45",
+    "bytes": 84875
+  },
+  {
+    "file": "app/i18n/locales/support.json",
+    "sha256": "c9996f691b7bedc85a0ca51a5d774384414ca918a38427e33edf16ce769d5f9f",
+    "bytes": 27080
+  },
+  {
+    "file": "app/i18n/narratives.tsx",
+    "sha256": "7c8816dbc49d46413d36f58dba395213a8adfc2fd9d10015b3de138f37c5b1d8",
+    "bytes": 4849
+  },
+  {
+    "file": "app/info-note.tsx",
+    "sha256": "3e51f1e7bf9a19652f41a7d96deed4a4f8cc68a1b81a48804db1f7b13f608aa1",
+    "bytes": 492
+  },
+  {
+    "file": "app/item-ai-lock.tsx",
+    "sha256": "5a18d27f3e05939f9f2a992a8f9703f45fb9f2d1bbf3cc01cf803dbc52119632",
+    "bytes": 931
+  },
+  {
+    "file": "app/item-booking.tsx",
+    "sha256": "a6b09d16537779dff89173a9692504572b84556a8dc4fa686d8a999ebe7ce51e",
+    "bytes": 7645
+  },
+  {
+    "file": "app/itinerary-connections.ts",
+    "sha256": "1922e80fa4d76ea324bb3dc97158e27278ffe87ee8723426afb63b342968c472",
+    "bytes": 1907
+  },
+  {
+    "file": "app/itinerary-price.tsx",
+    "sha256": "d25d0510673e27bacbe2eff4e5ea337b1dfa93e2c05d149ee0f4eaf1ee6fd952",
+    "bytes": 1277
+  },
+  {
+    "file": "app/itinerary-response.d.mts",
+    "sha256": "c644be109e45602ce154f1b89f2756b2e54881ac2e77192dec7cb7ebd8d581bd",
+    "bytes": 132
+  },
+  {
+    "file": "app/itinerary-response.mjs",
+    "sha256": "315bb810191a06adb460f88637eca9bb126499bce3769d9f85f64248cbffd360",
+    "bytes": 1348
+  },
+  {
+    "file": "app/klook-hotel-widget.ts",
+    "sha256": "d296e13fe68d425a61c28cbce872cc0b9fb8141bbcea833d3dee235a54dafa72",
+    "bytes": 2105
+  },
+  {
+    "file": "app/local-transport-data.ts",
+    "sha256": "78cc8caa5bb7e00436423d084a50647a9f3d45ce10930e3f05bace35a425a229",
+    "bytes": 5451
+  },
+  {
+    "file": "app/local-transport.tsx",
+    "sha256": "ba98667330d8c785f6f9506a8f2388e7726e7cfce30161bf4bfd19d8994e8d9a",
+    "bytes": 2983
+  },
+  {
+    "file": "app/local-trips.ts",
+    "sha256": "7473f9b0fde1b4e43df26c06eb989861c23a73e591f0443363dd834a45bbf016",
+    "bytes": 1086
+  },
+  {
+    "file": "app/partner-selection-form.tsx",
+    "sha256": "d95edb2f28d318dff5aac47e6f601c883b2299a619e2b848f639e959263dfa27",
+    "bytes": 3377
+  },
+  {
+    "file": "app/partner-selection.ts",
+    "sha256": "21da39a3b635aa44c91be932a97a8716896bdbef3e3cdda3f168299425e109a2",
+    "bytes": 5039
+  },
+  {
+    "file": "app/price-watch.tsx",
+    "sha256": "777ea08e3d5c46a72af2e38f017d82d1dd2b05c2ad21faa64eaf9666dad6f30a",
+    "bytes": 3054
+  },
+  {
+    "file": "app/provider-compare.tsx",
+    "sha256": "111948732aea730b96c238a8f34c9a0c3d0483555c2fe2c98f359dc0bb347892",
+    "bytes": 1591
+  },
+  {
+    "file": "app/provider-data.ts",
+    "sha256": "cfbc3daa96c081f605836625ce981f59ed64c6cb0a006909fd90646dd032f5f9",
+    "bytes": 1375
+  },
+  {
+    "file": "app/recommended-trips.tsx",
+    "sha256": "f36f52f003034d5fb54b0be0d1ee43ea21a5b196ebbecd4e38fcf8189572da7e",
+    "bytes": 4328
+  },
+  {
+    "file": "app/replace-flight.ts",
+    "sha256": "e0a5a3b4f1aa2914fb1269cc968e3a617d324d0805ad8d8653d9eff4c4246cfc",
+    "bytes": 1551
+  },
+  {
+    "file": "app/return-flight.tsx",
+    "sha256": "66d5855172d9b3a754d9b3d4699e5acf2588858ac05f80e7e47d66255b966caa",
+    "bytes": 5614
+  },
+  {
+    "file": "app/route-map.tsx",
+    "sha256": "0a7b9e43572b2d904bd350095b7e75d5c5a0e87c7c5d7639ccfe0c373d3068ce",
+    "bytes": 5082
+  },
+  {
+    "file": "app/supabase.ts",
+    "sha256": "300241bae08989b87e10b42daffc1d4772bda3b35d4512b979dc12da68d81d51",
+    "bytes": 446
+  },
+  {
+    "file": "app/support-center.tsx",
+    "sha256": "feeaf4f95f460763d17a836cf987dc0814b72fb2ff694d223ff2bf389aaf8043",
+    "bytes": 9007
+  },
+  {
+    "file": "app/support.css",
+    "sha256": "d999baab8ad4e62e40652b7fcd9a808b4f09336dd7f9789e1e58404668b3c0ad",
+    "bytes": 3871
+  },
+  {
+    "file": "app/transport-affiliate.d.mts",
+    "sha256": "e02fdfdb44009b56142f2545ce637536361edfe14a89dda074a011e0e6bff4dc",
+    "bytes": 319
+  },
+  {
+    "file": "app/transport-affiliate.mjs",
+    "sha256": "6c3e938b1680e63dc2ba827d8eff2ce3c5be3eb265b9504e83b9722bab7306ca",
+    "bytes": 2352
+  },
+  {
+    "file": "app/transport-booking.tsx",
+    "sha256": "6c1c9d2eb7e826625310e2df8ccf373eb36c3229f7dafcc21c470cbe84def726",
+    "bytes": 905
+  },
+  {
+    "file": "app/transport-data.ts",
+    "sha256": "d3a984a7df0951830c9c7e9e5b6cbbfc28cf8f52e58b6392c4ced532acfc4c32",
+    "bytes": 1814
+  },
+  {
+    "file": "app/transport-search.tsx",
+    "sha256": "7ac07ef21dc320c0524b333f53b56f6a6902c1ed3ca2f4e31aefa6afee65dad9",
+    "bytes": 2873
+  },
+  {
+    "file": "app/transport-widget.ts",
+    "sha256": "7bca6db03ff8c53e05e02c68c18d1ea9f3054b6dee549b452cd0ff35c3d775b5",
+    "bytes": 2264
+  },
+  {
+    "file": "app/travel-app.tsx",
+    "sha256": "b2dc12ddbe220f9bfe99b3dde94aa3988374534dccfc11a343f676b6b9805e03",
+    "bytes": 38330
+  },
+  {
+    "file": "app/travel-data.ts",
+    "sha256": "123b3180bdb961bd2a334777bdc2a79a4a1d4ccb2fb18b771894371e30a1bfd9",
+    "bytes": 15751
+  },
+  {
+    "file": "app/travel-discovery.css",
+    "sha256": "ffaddab2fc835e976791a4ff4d2daa72aefc2951baf4983ac9619b5295cd215d",
+    "bytes": 1079
+  },
+  {
+    "file": "app/travel-discovery.d.mts",
+    "sha256": "50ed67f7da8b4cc6d66d06bd825133ea559d95de9220c330abe60607cc453adf",
+    "bytes": 278
+  },
+  {
+    "file": "app/travel-discovery.mjs",
+    "sha256": "2806c18a74fc575838b21fad00cf491024af4b8fbfc5f3246c7ad4bbf5d5233c",
+    "bytes": 1036
+  },
+  {
+    "file": "app/travel-refresh.css",
+    "sha256": "76348db8e67479f259bfd41d1fa552982d6dc0164bc93e5b1234d4a197db2c72",
+    "bytes": 30228
+  },
+  {
+    "file": "app/trip-hotel-search.css",
+    "sha256": "9479257fcf6b71372baaf23558b84f627651b853bfa2bc9551498c742a7a9b28",
+    "bytes": 617
+  },
+  {
+    "file": "app/trip-hotel-search.tsx",
+    "sha256": "157e7f4429ec0474cd35324473dc3b16ae7c1dbd08e91d18db1c60e2f448511b",
+    "bytes": 1893
+  },
+  {
+    "file": "app/trip-pass.tsx",
+    "sha256": "b24e1a3ac278fa15fc3a53cfc5542b3194f37840ccb583932b12e773d3b996ca",
+    "bytes": 8785
+  },
+  {
+    "file": "app/trip-save.ts",
+    "sha256": "171265480409a5fda0098ece95313c99fceb959c526b4c67443f26825f731829",
+    "bytes": 1463
+  },
+  {
+    "file": "app/verified-places.ts",
+    "sha256": "d234427b2080309af67ca980b6df31457dcf854541c6ea6332521757fce64983",
+    "bytes": 806
+  },
+  {
+    "file": "app/world-planner.tsx",
+    "sha256": "b225696a0d98aed03a3f4877e6c48db0eb30536652a28d795b00ba837207731a",
+    "bytes": 7376
+  },
+  {
+    "file": "checks/activity-selection.test.mjs",
+    "sha256": "07f93bd9847b8e112458913e09c899ac3110ec9ac63d79a1096b6f282ef41105",
+    "bytes": 3123
+  },
+  {
+    "file": "checks/ai-itinerary.test.mjs",
+    "sha256": "c454f2507d04a0f84fa69702892a618cb43e252faff5f24642586b10fe52629d",
+    "bytes": 17259
+  },
+  {
+    "file": "checks/apply-ai-plan.test.mjs",
+    "sha256": "915bfa289d243bef1f6defa5d054e0ac07b79ede4e38209a586356b3b3d5bd8b",
+    "bytes": 23517
+  },
+  {
+    "file": "checks/bilingual.test.mjs",
+    "sha256": "0bbe7a29ecdd4c541dc79f3061c36a59de6f679ffb2cd395b8b77650794a8331",
+    "bytes": 7684
+  },
+  {
+    "file": "checks/booking-evidence.test.mjs",
+    "sha256": "124748059ed0f9f124ae61159654aa04da65cd752cb0e33abb8c6945ba93e77b",
+    "bytes": 12064
+  },
+  {
+    "file": "checks/booking-status-ui.test.mjs",
+    "sha256": "b89fb5515be4d0269906336f06f3ae2fb7d5a16a53b01e2c6913810a1f3bb833",
+    "bytes": 3246
+  },
+  {
+    "file": "checks/branding.test.mjs",
+    "sha256": "9e5773c5862da149f9e838f72737eb6a1349f1610d6daaf971e9ad4ca56ecdc6",
+    "bytes": 4306
+  },
+  {
+    "file": "checks/comprehensive-itinerary.test.mjs",
+    "sha256": "14813461a49b68f2423c2f19bac41439eff39e0d637ac732fa2475ee85647c98",
+    "bytes": 5565
+  },
+  {
+    "file": "checks/day-settings.test.mjs",
+    "sha256": "39385e018ed2dbf614fb38d7652f2274c7313cd10084e8a24ee73127543417fb",
+    "bytes": 6727
+  },
+  {
+    "file": "checks/disclosure-ui.test.mjs",
+    "sha256": "c205a6a33ddd54dcc7d3bf8b354f6de379c8c1c9863e16cf3a8228dc5761c419",
+    "bytes": 2657
+  },
+  {
+    "file": "checks/external-hotel-browser.test.mjs",
+    "sha256": "7b75a641f49ee22f4767127cb2a2dff3c241d683de2b4027dcb3d109b7fb09d4",
+    "bytes": 4667
+  },
+  {
+    "file": "checks/flight-affiliate.test.mjs",
+    "sha256": "dfc34647f426905db1ed159c0ad70e5dc74d64de1a59b6d8f3b27d851a0c8ca0",
+    "bytes": 1321
+  },
+  {
+    "file": "checks/flight-itinerary.test.mjs",
+    "sha256": "ffb226932bda9e605ba224973f897f89b2b4bd0fcd3758d982d4ea0332e7d9c8",
+    "bytes": 15098
+  },
+  {
+    "file": "checks/flights-api.test.mjs",
+    "sha256": "93364146e79522bee6d2df0ad12a826d3784e6e17082fdae4c64f07c3b7dbad5",
+    "bytes": 7964
+  },
+  {
+    "file": "checks/google-route-ui.test.mjs",
+    "sha256": "18fa02105775b75b303ba197154727d4665a2d5e0345382a76d2aa0a8448bd86",
+    "bytes": 1749
+  },
+  {
+    "file": "checks/google-routes.test.mjs",
+    "sha256": "371fbfad4894c736464b01b454e7572057907f52549548a188597cc8c91eae67",
+    "bytes": 6608
+  },
+  {
+    "file": "checks/hotel-checkout.test.mjs",
+    "sha256": "3391e5976aec4390795b2dc871676771379592ab763b57c88186ca03e880b4dc",
+    "bytes": 18171
+  },
+  {
+    "file": "checks/hotel-content.test.mjs",
+    "sha256": "78b118c55d87e5e3ca8be7c5339d8679bde66c880acfb252143cb4d5cbc0e3ca",
+    "bytes": 2480
+  },
+  {
+    "file": "checks/hotel-search.test.mjs",
+    "sha256": "246ddf04dc2f092cf7b58b7f2d1e26a464b4dc113a637092f2e853002e396945",
+    "bytes": 6098
+  },
+  {
+    "file": "checks/i18n-loader.mjs",
+    "sha256": "a82de15687ead96d5422329503e854d39b5a76b9074ed34f45840d82e3c7161b",
+    "bytes": 950
+  },
+  {
+    "file": "checks/itinerary-edit-completeness.test.mjs",
+    "sha256": "a4232b5eff468b871d4a8d7b8208310470f6c39e1a8a316aa3ae5b65932734d0",
+    "bytes": 7100
+  },
+  {
+    "file": "checks/itinerary-progress.test.mjs",
+    "sha256": "8fcb7cb770bc577614d8e9d303427cce759291d3fc4fee3d317c831ba14e8de2",
+    "bytes": 2328
+  },
+  {
+    "file": "checks/lite-hotel.test.mjs",
+    "sha256": "e77ecd7091e7cdfa7ff2e92d53088bace19fbc269afeaa82e21d9404b6edbc28",
+    "bytes": 12313
+  },
+  {
+    "file": "checks/liteapi-cost-policy.test.mjs",
+    "sha256": "735da8d9c24450438c26f94b809cc2508e26c3bc8828ce595aa0f4ca47577060",
+    "bytes": 1241
+  },
+  {
+    "file": "checks/local-proxy.test.mjs",
+    "sha256": "ca6dd1a4595301d0d9ebd067779bdaf7013965d0852ceb07a3d18da3e08aadcb",
+    "bytes": 1164
+  },
+  {
+    "file": "checks/localization-qa.test.mjs",
+    "sha256": "702068707e4a4eb78b2d4d8a4cf772a44dbd6c52fb3eed1e2d7096e837eacaa4",
+    "bytes": 2237
+  },
+  {
+    "file": "checks/partner-selection.test.mjs",
+    "sha256": "17a915c6d871a39845a28ba2b8c9749207c33a7c4b21e0acedb5d91a77fa20b3",
+    "bytes": 3884
+  },
+  {
+    "file": "checks/payments.test.mjs",
+    "sha256": "0b9aba05f068fd6929aa2a20e6fd97f589731ad4363d309cd844b49a9dfbc637",
+    "bytes": 18386
+  },
+  {
+    "file": "checks/price-research.test.mjs",
+    "sha256": "da2676c433d52cab8d5499d5c17cd5c166880e4e3685b0201c8669a49dd5e6bb",
+    "bytes": 4863
+  },
+  {
+    "file": "checks/price-watch.test.mjs",
+    "sha256": "68476229fb9269f84727f8a0b13b69f00100ac69f657c9863a201ad76bdc9dec",
+    "bytes": 2659
+  },
+  {
+    "file": "checks/qa-readiness.test.mjs",
+    "sha256": "dca7c7cdc0db4bb1bb97391fd6f58ba61680a6d4db97118c2eabf0c3ce468986",
+    "bytes": 3857
+  },
+  {
+    "file": "checks/recommendation-budgets.test.mjs",
+    "sha256": "3095e2fbe012184b02ad216cd2ce61a92e8323ec0005b278b2fe61cbb6d9d8f7",
+    "bytes": 5248
+  },
+  {
+    "file": "checks/supplier-browser.test.mjs",
+    "sha256": "20ab27bcc0300c95bd527b1284883767c748d19de499507cd5f018d5c8705d9f",
+    "bytes": 8276
+  },
+  {
+    "file": "checks/support.test.mjs",
+    "sha256": "21302d6e4da70c4b52a670565e7687ab388e75abec2ef2299f8847be6e0332f0",
+    "bytes": 9787
+  },
+  {
+    "file": "checks/telegram-agent.test.mjs",
+    "sha256": "408530b5c2b628f5a09f814776a585ff2ca3cdfb05e3127a334c26f49a9dccbd",
+    "bytes": 7246
+  },
+  {
+    "file": "checks/telegram-notify.test.mjs",
+    "sha256": "5e4bc93fe2547d34b03877f36baf4990313cc71f8792c7f15f2e40cd0762f27a",
+    "bytes": 2971
+  },
+  {
+    "file": "checks/transport-affiliate.test.mjs",
+    "sha256": "b36d6da7519c72cedc5dfd462283af44049d21cb7ba589aafa1b50afe718811b",
+    "bytes": 2672
+  },
+  {
+    "file": "checks/transport-plan.test.mjs",
+    "sha256": "b9059ede031d26cab8a5273a291daeac6e37edddbf73922725811fea1a42ca95",
+    "bytes": 1817
+  },
+  {
+    "file": "checks/travel-discovery.test.mjs",
+    "sha256": "552bc1fc1a01ef812a6b8abdd59ee6497cadc2408a4461f763555fe793b760c5",
+    "bytes": 6953
+  },
+  {
+    "file": "checks/travelpayouts-bookings.test.mjs",
+    "sha256": "f5bf28e1e939c43d87362e0b463d23eda04acd9cb299b08a25e134b7c51a98d2",
+    "bytes": 2872
+  },
+  {
+    "file": "checks/trip-access.test.mjs",
+    "sha256": "1e901d36fb91dc644780c80953e21024ca5db73cc1935621e27eb6417af109f1",
+    "bytes": 4372
+  },
+  {
+    "file": "checks/trip-hotel-browser.test.mjs",
+    "sha256": "5668d9c63a917171a933f36ef073b85b671d0876423765963323db06264f5ea1",
+    "bytes": 6325
+  },
+  {
+    "file": "checks/trip-hotel-indonesia.test.mjs",
+    "sha256": "142d3cc1ae0f0d6716be07fed17ac62c0708bdb0e517d42b749ae67f6e27f121",
+    "bytes": 2690
+  },
+  {
+    "file": "checks/viator-api.test.mjs",
+    "sha256": "d7ada79fb12a072d0a21d7a2c2f89ac6b677e3d5ad9623bb21e3437120cd4991",
+    "bytes": 8789
+  },
+  {
+    "file": "components/ui/button.tsx",
+    "sha256": "cc36af0f8b5019c33cc039fbf03bb952a513072b15b55b53c592b78af3e5f4c4",
+    "bytes": 2392
+  },
+  {
+    "file": "components/ui/combobox.tsx",
+    "sha256": "2d68e78b2dc7e38a085f222dede60a80b4f8229a6e91732c484605e204d46735",
+    "bytes": 9158
+  },
+  {
+    "file": "components/ui/dialog.tsx",
+    "sha256": "90f15b8799ed53154b1b3a734951bc0619c33eed8991acff3e13daae0421952f",
+    "bytes": 4346
+  },
+  {
+    "file": "components/ui/input-group.tsx",
+    "sha256": "6afbd58fea4c438e6252dc4568bddc122e84ababead4ad5cee50ace01100c9a0",
+    "bytes": 5065
+  },
+  {
+    "file": "components/ui/input.tsx",
+    "sha256": "8c4612a7c41319ac5049daa3b34b080f9784b6245c17780eb87c127e58e473db",
+    "bytes": 962
+  },
+  {
+    "file": "components/ui/select.tsx",
+    "sha256": "0b796a108a4eb5ba52d9ad938b7aea36dc56ae66c703a6d0a23dbc24f96daff3",
+    "bytes": 6353
+  },
+  {
+    "file": "components/ui/switch.tsx",
+    "sha256": "386d4d4deb39f34126f9700fe9bf5393d238485dd94018bba9d154dda84c62ae",
+    "bytes": 1408
+  },
+  {
+    "file": "components/ui/tabs.tsx",
+    "sha256": "865d0194331b9b2be36723fa79d3575dc83078b4cb941cafee87cb72fc2cff46",
+    "bytes": 3782
+  },
+  {
+    "file": "components/ui/textarea.tsx",
+    "sha256": "253cdeb487c73beaaccdf47fc163e36e7d5b7ae6ddf09a4f64998a109a112979",
+    "bytes": 759
+  },
+  {
+    "file": "docs/AGENTS_CONTEXT_SNIPPET.md",
+    "sha256": "c0f2671fd562dee8d8d7e418d3c4626199971521516cb205fbf443020871ac86",
+    "bytes": 1084
+  },
+  {
+    "file": "docs/AI_ACTIVATION.md",
+    "sha256": "d427cdf536e0327547dce00c3995bf37cdec42543af3b8eba519bba8697008e2",
+    "bytes": 2896
+  },
+  {
+    "file": "docs/ARCHITECTURE.md",
+    "sha256": "4875bb3293c58d2ba96eb534f4c17e464111f927f2996b1c5db65dc5a79b2e2c",
+    "bytes": 27780
+  },
+  {
+    "file": "docs/BILINGUAL_SUPPORT.md",
+    "sha256": "15bf88142fef6fe35eb88e83bf275dc6d87ba592c7ae2c326bdcdb3bc55c79de",
+    "bytes": 9225
+  },
+  {
+    "file": "docs/DECISIONS.md",
+    "sha256": "91698826422e614650fabf66459ed28f0f4f57b6c2401508f9a869eaf73b2604",
+    "bytes": 38466
+  },
+  {
+    "file": "docs/EXTERNAL_HOTEL_BROWSER.md",
+    "sha256": "15c0013bfc675169e4841df34a0a30980c3fa42c848414724b776150b445025f",
+    "bytes": 3911
+  },
+  {
+    "file": "docs/GOOGLE_MAPS_SETUP.md",
+    "sha256": "e11df7b79d891aff1c6e69fa54e6e0f4aa21a425688f7a85ca2851196c84cc49",
+    "bytes": 7078
+  },
+  {
+    "file": "docs/HOTEL_BROWSER_SETUP.md",
+    "sha256": "67e5cef3289dcf840ecf2bfb4edfb7b89d7f8dcca5a7a09b9f9e55652658d829",
+    "bytes": 5527
+  },
+  {
+    "file": "docs/LITEAPI_HOTEL_SETUP.md",
+    "sha256": "cdd19c793350646dc082909d27e5f169919aebb4e6e6a2060dcc3e8c3ae15f0f",
+    "bytes": 7593
+  },
+  {
+    "file": "docs/LITEAPI_PAYMENT_SETUP.md",
+    "sha256": "007a93c7cc413a1dc49e4965e1d45f9199d61a7c56b3b8ce517a8a5e1f0b4b03",
+    "bytes": 6315
+  },
+  {
+    "file": "docs/NEXT_ACTIONS.md",
+    "sha256": "a00a68e5f38a0a1a570ba50d584290005d77b63ba782e0725db1002520f48254",
+    "bytes": 81221
+  },
+  {
+    "file": "docs/NUITEE_PAYMENT_CARD_INQUIRY.md",
+    "sha256": "2037ef1757992bf4bfa7510821a6471e74dbf5b597763b03acbbaedd4e2c2f1b",
+    "bytes": 2061
+  },
+  {
+    "file": "docs/OWNER_HOTEL_LOGIN.md",
+    "sha256": "584b059101041cab8bcb2eb2a5403f9b9cfc2e7eb59ada3c8550a18e78d484aa",
+    "bytes": 3703
+  },
+  {
+    "file": "docs/PARTNERS.md",
+    "sha256": "be0f7d5d386194130c033a4bcff864e94dab1886fb44151b1b066174f0563bd3",
+    "bytes": 50843
+  },
+  {
+    "file": "docs/PARTNER_OUTREACH.md",
+    "sha256": "459c00444780ef00d16ebe7484e364416d58016f51f4a1b09490fbb96b65d7d4",
+    "bytes": 9679
+  },
+  {
+    "file": "docs/PLANNING_UI_REPAIR.md",
+    "sha256": "0c6553f90c9a7125b66e453995ffdd6486673e728c89dc615fb49e64db9b5f66",
+    "bytes": 4789
+  },
+  {
+    "file": "docs/POST_QA_REPAIRS.md",
+    "sha256": "24756a4f3d3031df5a02dbe559ed0c622499d8e2c2f8e8d82905b7dee3950d05",
+    "bytes": 9621
+  },
+  {
+    "file": "docs/PRODUCTION_ACTIVATION.md",
+    "sha256": "8161690dbfeaec40cb21dfde650e2aab51d1fdf5c298a68ebe3df962a793419f",
+    "bytes": 3666
+  },
+  {
+    "file": "docs/PRODUCTION_READINESS_2026-10-22.md",
+    "sha256": "fa3008f6510c8e8d87976feb04f586125a310d6f80645e2364a6d7b276538888",
+    "bytes": 9230
+  },
+  {
+    "file": "docs/PRODUCT_VISION.md",
+    "sha256": "8cd035813a2a2c3d45e3ff66ff4d702da3abd01a1bf640626c264d421287687e",
+    "bytes": 4470
+  },
+  {
+    "file": "docs/PROJECT_CONTEXT.md",
+    "sha256": "2f8b0db1ce41abb3a324f7190046ada87bb0d61478dcd98c5bd12b95f2ee7856",
+    "bytes": 2366
+  },
+  {
+    "file": "docs/PROJECT_PROGRESS.md",
+    "sha256": "c6e5569069ccf6e8140be0372e2ca156ac559b38b3f084160852e7f22250a46b",
+    "bytes": 204544
+  },
+  {
+    "file": "docs/QA_AUDIT.md",
+    "sha256": "011995f9f88f727cacef6db44809adfccae3db0933103fed599bc02af23af4ee",
+    "bytes": 17975
+  },
+  {
+    "file": "docs/SECURITY_PHP2SHELL_2026-10-22.md",
+    "sha256": "612cb51a5ba3b64fa40e970c27da7e65903ac7337b18c749ac8d7a4efa675076",
+    "bytes": 6441
+  },
+  {
+    "file": "docs/SUPPORT_SETUP.md",
+    "sha256": "0012f4c768e548ccd8bdcfab0dce26c36a296c0cbb5f868da359a7c64ad58319",
+    "bytes": 9271
+  },
+  {
+    "file": "docs/TRIP_PASS_10_UI.md",
+    "sha256": "6459458604f89ad5ed321d29af0ed112e291f4b66d1b23328464cb9ee0fe9cc0",
+    "bytes": 1976
+  },
+  {
+    "file": "docs/TRIP_PASS_PRICE_30000.md",
+    "sha256": "84607a1f4cdf650542f8f59020b4043f00cdd9bb293bf2faeb7590b3923109ba",
+    "bytes": 2433
+  },
+  {
+    "file": "docs/VIATOR_SETUP.md",
+    "sha256": "0a53ca14ab29fccb7dd312c47cbaa9c2aeb048084fa05c7c2b3102e682e08d22",
+    "bytes": 5455
+  },
+  {
+    "file": "docs/bilingual-coverage.json",
+    "sha256": "52bcbc627e7fa2514cc4d81b35451ba6ddbdbe32ef7c0d89ffe1e7a5da286b62",
+    "bytes": 85
+  },
+  {
+    "file": "index.html",
+    "sha256": "50b8b966d6872a016579c832f8d41bc71bdfbf54e2dfafd5a026ce72e2af5c9a",
+    "bytes": 3238
+  },
+  {
+    "file": "lib/utils.ts",
+    "sha256": "53f3d3d070f0a9082934da25b875f9499855c2b0693868dd28be8c23d8730f68",
+    "bytes": 177
+  },
+  {
+    "file": "main.jsx",
+    "sha256": "d63e863f560a7604039aea4d784758ea3bc64593ff0a14f537d9b4ac07e90980",
+    "bytes": 374
+  },
+  {
+    "file": "package-lock.json",
+    "sha256": "d014ed9733240c5d639cd08c1aa1b3e1d37c98198925074631adbaaa9f2c8980",
+    "bytes": 186867
+  },
+  {
+    "file": "package.json",
+    "sha256": "2d60fd413b5f85e6f25546823da6d47dd75e1e59ffe518e1303f6cc169709bf3",
+    "bytes": 2025
+  },
+  {
+    "file": "postcss.config.mjs",
+    "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+    "bytes": 94
+  },
+  {
+    "file": "public/404.html",
+    "sha256": "9da1345de0608b9e8a990d24e9fed68ec78c403bb408a5675700be6465f7b83c",
+    "bytes": 2076
+  },
+  {
+    "file": "public/bangkok.jpg",
+    "sha256": "f50d09b329049e0a14c53cfedc1a97d8ebdb460a07aa46945acf2e9fb9612892",
+    "bytes": 176621
+  },
+  {
+    "file": "public/branding/apple-touch-icon.png",
+    "sha256": "ed981395b409914d12a78d2038bcae143328ac81123d9af4722fe963ae6775c7",
+    "bytes": 5761
+  },
+  {
+    "file": "public/branding/brand-tokens.css",
+    "sha256": "be3b14a5f110fc27e343ebb5a521ea66239c50857e0fef884b3713be60fbc54b",
+    "bytes": 1162
+  },
+  {
+    "file": "public/branding/favicon-16x16.png",
+    "sha256": "85ece16daa359d1209d2d6bc07f94b3a0bfc19efd53fce5c77a1766c1c4ae0d1",
+    "bytes": 594
+  },
+  {
+    "file": "public/branding/favicon-32x32.png",
+    "sha256": "1095445d075dadfe25dc7c7e34efc9b52a5c3d2fd28582c2933181847dc8eef2",
+    "bytes": 1125
+  },
+  {
+    "file": "public/branding/favicon-48x48.png",
+    "sha256": "d0b96d459ff8128e7bb3352e4f6f67ecf5817d1809a26ed3052110600a609bf5",
+    "bytes": 1639
+  },
+  {
+    "file": "public/branding/favicon-64x64.png",
+    "sha256": "c60390214f6dc02b875bf4cdc323be8af812d8e20f3118aa80b14030cb03d82c",
+    "bytes": 2141
+  },
+  {
+    "file": "public/branding/favicon.ico",
+    "sha256": "fe6420792315fb4f82c5c873df49d338548c10bf99563fa7304cc1fcee59fc77",
+    "bytes": 5569
+  },
+  {
+    "file": "public/branding/favicon.svg",
+    "sha256": "1891b3d157fd05f9b9fdfbe5f80064d1a8f5803072f50faca5ade564f0e20a0f",
+    "bytes": 622
+  },
+  {
+    "file": "public/branding/icon-192.png",
+    "sha256": "5046fb23a765ea42e6f839cc75a2893a8de7bb2533c16b56f4278c6d57d8ed65",
+    "bytes": 6315
+  },
+  {
+    "file": "public/branding/icon-512.png",
+    "sha256": "5bec9e82d239e02a83b8db0bbdd705c0e90a8904b0d00c833b0f74d53e111730",
+    "bytes": 21178
+  },
+  {
+    "file": "public/branding/icon-maskable-512.png",
+    "sha256": "86f53ad051552cfc56393ec59d876dad32c72c3af74b35b1aa6fbd63b4410596",
+    "bytes": 16621
+  },
+  {
+    "file": "public/branding/social-en.png",
+    "sha256": "b27362405b3cadbe46c76548a4f2608a115174f5c4b9adcea85501918a065a2f",
+    "bytes": 42906
+  },
+  {
+    "file": "public/branding/social-en.svg",
+    "sha256": "9c5287b0efb7361991c268ca06d73900982f1a22085401d0565481cc2c10fe53",
+    "bytes": 9808
+  },
+  {
+    "file": "public/branding/social-id.png",
+    "sha256": "b2ade78a4415c47ec38506d3756c05c87d27355d2c879658c6d53f9d0cec9590",
+    "bytes": 42770
+  },
+  {
+    "file": "public/branding/social-id.svg",
+    "sha256": "c41a4b65a2b358fcec049826e5e5753258b7f90f4c306a99ee0bdfb0d609e3d3",
+    "bytes": 11041
+  },
+  {
+    "file": "public/branding/sorttrip-icon-monochrome.svg",
+    "sha256": "66f196dca8c4552f80fcfdaebdaa41cb94d10c653b2e8ef5d7fb697e83565637",
+    "bytes": 540
+  },
+  {
+    "file": "public/branding/sorttrip-icon-white.svg",
+    "sha256": "e96e02e3dd7046a89baef617b98700bb182af55ee39ae8b8c2232265151709d5",
+    "bytes": 588
+  },
+  {
+    "file": "public/branding/sorttrip-icon.svg",
+    "sha256": "81e0d8b23821764b05d8d66f8bcd7b4d0b4a1681dde0a941c3ac96529598c1db",
+    "bytes": 587
+  },
+  {
+    "file": "public/branding/sorttrip-logo-dark-en.svg",
+    "sha256": "d98d3d195bda4cb276cc8ac3bb855bb6588c3ff900f593fafb958993332153a8",
+    "bytes": 9710
+  },
+  {
+    "file": "public/branding/sorttrip-logo-dark.svg",
+    "sha256": "802f5f997813c284b575ba8cc11f08e2d2c5a7ba4d13591f8bf660d90bb76d14",
+    "bytes": 10943
+  },
+  {
+    "file": "public/branding/sorttrip-logo-horizontal-dark.svg",
+    "sha256": "55246a6377132021a2f35f28f6f4f5bcd6a85e65a3cf83a6a288be8027883b3c",
+    "bytes": 3186
+  },
+  {
+    "file": "public/branding/sorttrip-logo-horizontal.svg",
+    "sha256": "3d4065ee33adf2264bb9142f09233b135fdb72c6df38df415e897b0d12af6a2a",
+    "bytes": 3186
+  },
+  {
+    "file": "public/branding/sorttrip-logo-light-en.svg",
+    "sha256": "140dd010e9107a892997bb5e4c041e657e6858c3c160e336b9297601b107ef12",
+    "bytes": 9710
+  },
+  {
+    "file": "public/branding/sorttrip-logo-light.svg",
+    "sha256": "fd3788d24e8925f682847d0d15077801d28d233dd15f7fc8415551c781420379",
+    "bytes": 10943
+  },
+  {
+    "file": "public/branding/sorttrip-logo-monochrome.svg",
+    "sha256": "4c87e12d7d6f43bf5ec69c1b65cb5a25ca59bae7434bd40c008e943e6d28025e",
+    "bytes": 3124
+  },
+  {
+    "file": "public/branding/sorttrip-logo-vertical.svg",
+    "sha256": "66911cde370a0866b22f4df3a38bc40cc07a06fe70f0fb6009e83d3205f8df11",
+    "bytes": 3175
+  },
+  {
+    "file": "public/favicon.ico",
+    "sha256": "fe6420792315fb4f82c5c873df49d338548c10bf99563fa7304cc1fcee59fc77",
+    "bytes": 5569
+  },
+  {
+    "file": "public/favicon.svg",
+    "sha256": "1891b3d157fd05f9b9fdfbe5f80064d1a8f5803072f50faca5ade564f0e20a0f",
+    "bytes": 622
+  },
+  {
+    "file": "public/file.svg",
+    "sha256": "1e0ae4d1a1ddfa36752988647b731e4abf150c414d069ec83c96fb0aaeff0307",
+    "bytes": 392
+  },
+  {
+    "file": "public/globe.svg",
+    "sha256": "d051a8c47936990a9085693d307bb7cea1bc1b6d7ed956bcbaacf674f4ec96b9",
+    "bytes": 1036
+  },
+  {
+    "file": "public/hanoi.jpg",
+    "sha256": "14dd65bd1a2b0a4596c3d4f79915302beabed14e81773756db716324d5d5a8fb",
+    "bytes": 97203
+  },
+  {
+    "file": "public/images/hotels/simple-room.jpg",
+    "sha256": "3fda59acc1077d12203562ba7ce55f723087d8a7de36bb326e64f16dfadfa1f8",
+    "bytes": 79917
+  },
+  {
+    "file": "public/images/hotels/twin-room.jpg",
+    "sha256": "359857b130571663fb3ce5b3267f4f42b92aa2348f60d9bf2d7f8b43d1cbeca7",
+    "bytes": 188657
+  },
+  {
+    "file": "public/kuala-lumpur.jpg",
+    "sha256": "e2b213f7f86c7307108fbacc19153c12cd43ca3eaf18d2150944460b6269a39c",
+    "bytes": 374263
+  },
+  {
+    "file": "public/policies.css",
+    "sha256": "8f980f957d00652191ded49c06ad6c984b27c64c2c0342ab7610c825f77af3d3",
+    "bytes": 1494
+  },
+  {
+    "file": "public/policies.js",
+    "sha256": "2b2584024e9f24b080820914b5c01dc0422f054c9e5dab6551dd3b95dbd8f609",
+    "bytes": 855
+  },
+  {
+    "file": "public/privacy.html",
+    "sha256": "f2b1c475b462611efc103750979437455f28c4daa1ebd6e55512f64ab2828fa3",
+    "bytes": 9054
+  },
+  {
+    "file": "public/robots.txt",
+    "sha256": "93e05ea34b86366252dba80937418d5fecf88f322cdde407ac79fc301e842be8",
+    "bytes": 127
+  },
+  {
+    "file": "public/singapore.jpg",
+    "sha256": "32904176f3c5babdcd9122485373458a7630c2332338f50f371215cb31334fcf",
+    "bytes": 166750
+  },
+  {
+    "file": "public/site.webmanifest",
+    "sha256": "d941c8f4a4369158ded4199c1d52ec1a204c6280acabb51da5899ec76ae6231e",
+    "bytes": 468
+  },
+  {
+    "file": "public/sitemap.xml",
+    "sha256": "77ddd3926fd155d6f19b1708808a886c607c8b8a9d6e0fc2d3f731fdb179f251",
+    "bytes": 320
+  },
+  {
+    "file": "public/terms.html",
+    "sha256": "41ed8bd12d136628a0702488fa9db20a9c39044a74b14610231a32c3db84ad03",
+    "bytes": 9180
+  },
+  {
+    "file": "public/window.svg",
+    "sha256": "decf1cf7bb22b5c99c4857cfcd5718ce5465c4454166317589c83fc73df74b66",
+    "bytes": 386
+  },
+  {
+    "file": "qa-reports/12GO_ACCESS_PRICE_QA.md",
+    "sha256": "a6c7c84bbfe2337102e52e892e31f64b7faae8911305039ba220e602d1abcd55",
+    "bytes": 4639
+  },
+  {
+    "file": "qa-reports/2026-10-23/AI_PLANNER_AUDIT.md",
+    "sha256": "4a9c21dc36847d2f80ce0c63579affde08aaa98faf5080e16b9fb360764ea19a",
+    "bytes": 2095
+  },
+  {
+    "file": "qa-reports/2026-10-23/API_AUDIT.md",
+    "sha256": "75de0133eebf947059e8e8881ef4ac8b87e7596b9e1de0f2d6dc1e4fd1ceb2ef",
+    "bytes": 5936
+  },
+  {
+    "file": "qa-reports/2026-10-23/ENGLISH_LOCALIZATION_AUDIT.md",
+    "sha256": "9a39bbbf38576c890ecdd894495a7a367bbcf099d135a0d639442064e05c01ae",
+    "bytes": 8647
+  },
+  {
+    "file": "qa-reports/2026-10-23/FEATURE_INVENTORY.md",
+    "sha256": "635b5dae7a803459c62220efbcf6fab15402e0f339733fe1fb8a150181fa7f9f",
+    "bytes": 14996
+  },
+  {
+    "file": "qa-reports/2026-10-23/FIX_LOG.md",
+    "sha256": "d8453fbbcf167d5df7d29406c1aeb34c72defa05c1f82d74aec7f5ca18345366",
+    "bytes": 10639
+  },
+  {
+    "file": "qa-reports/2026-10-23/FLIGHT_AUDIT.md",
+    "sha256": "24b36d73b84e38ec4ead2716d3feb08d985d771834faf2b2a21309117f53500e",
+    "bytes": 1762
+  },
+  {
+    "file": "qa-reports/2026-10-23/NUITEE_AUDIT.md",
+    "sha256": "61db990b4ac3da87efb394fae301a0ced3809352550519f903ae8a68e74c116b",
+    "bytes": 3073
+  },
+  {
+    "file": "qa-reports/2026-10-23/OWNER_ACTION_REQUIRED.md",
+    "sha256": "7bd5f4c38515d9970317b5757e99c1a57981c3e52f191b2d0d6ccc7dbb4cd885",
+    "bytes": 4052
+  },
+  {
+    "file": "qa-reports/2026-10-23/PAYMENT_AUDIT.md",
+    "sha256": "a5c7a47782997bdeb88551087e11d1a1145782a7d0fac62b9543edc6b7fd5f78",
+    "bytes": 1823
+  },
+  {
+    "file": "qa-reports/2026-10-23/PERFORMANCE_AUDIT.md",
+    "sha256": "1f9bf54c0bc16a31f202e2bdfda3b12091e3a88eabced902bdf79f1f4d804b8a",
+    "bytes": 2199
+  },
+  {
+    "file": "qa-reports/2026-10-23/PRICE_WATCH_AUDIT.md",
+    "sha256": "0534a6fdb52c026f7a100ca316e890a4b6d3a05588385d617f7367df4cab378d",
+    "bytes": 2466
+  },
+  {
+    "file": "qa-reports/2026-10-23/PRODUCTION_READINESS.md",
+    "sha256": "c545fc7fe5b244ea9b81c7b5fd0a47c9ca6b20155ca63da662f67cf8f3babced",
+    "bytes": 5136
+  },
+  {
+    "file": "qa-reports/2026-10-23/QA_MASTER_REPORT.md",
+    "sha256": "d4d8fcfa0682e9456c7104ab1cc59c9b1cc76116ee7e2e28575b1a74088c0a53",
+    "bytes": 8184
+  },
+  {
+    "file": "qa-reports/2026-10-23/SECURITY_AUDIT.md",
+    "sha256": "58f578b6cc7cca69f952659810e01861ba41ebb95d13d114374ea48d76521caa",
+    "bytes": 1889
+  },
+  {
+    "file": "qa-reports/2026-10-23/TELEGRAM_SUPPORT_AUDIT.md",
+    "sha256": "706c9148440fb1cb606b2408e1e3c7e76c452f2ceb9db37d218cd1130d1a9c66",
+    "bytes": 2129
+  },
+  {
+    "file": "qa-reports/2026-10-23/TRANSPORT_AUDIT.md",
+    "sha256": "8e6fa5f328a4d83a77599aaf281c2750c0c597d7c3f85a507441e3eff6715a77",
+    "bytes": 2306
+  },
+  {
+    "file": "qa-reports/2026-10-23/TRIP_PASS_AUDIT.md",
+    "sha256": "a6e2f10f61df1d011ca60c438e7cf8cbf1bdff3f8b83e37b32e9b8fd3f695ccf",
+    "bytes": 1430
+  },
+  {
+    "file": "qa-reports/2026-10-23/UX_UI_AUDIT.md",
+    "sha256": "2547bcda98c54304aa53ef91b47ff43e67a03e0bed28c383424aa1069b70adf8",
+    "bytes": 2241
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/explore-compact-desktop-id.png",
+    "sha256": "29ea856e9c2c7499ed1615a0edf420c3c4c4e8e7086bf9a6295747cfebd177b5",
+    "bytes": 74027
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/explore-compact-mobile-en.png",
+    "sha256": "925e5d74004f0c4ceb6748430d5bf1dda687bf2de023c3da35ad9235fc996ab7",
+    "bytes": 40574
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/explore-release-production-cards.png",
+    "sha256": "435c9bc9f47673c521062508912b68208eedbb93af82b211cfb43c5d8cddc2cb",
+    "bytes": 102821
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/explore-release-production-desktop.png",
+    "sha256": "07f49caf89640fb0ec704533e7708a3f3419fc2f6c79c9b291cb6bacebd98164",
+    "bytes": 72284
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/explore-release-production-mobile.png",
+    "sha256": "c0261b87a4ef928a97f3510803dbb024fbfc16c57e662e1d7775dd7966ccd83e",
+    "bytes": 41012
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/hanoi-budget-mobile-en.png",
+    "sha256": "2f3fc048cb8892ed57b77604ff88f56ad4f744994d11759f96fd77e8f3f0d323",
+    "bytes": 49236
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/hanoi-recommendation-desktop-id.png",
+    "sha256": "9ac2cc3fa432b8b66c2cc8ce671f584136be247492d15cd22fddd08f4bb51f7d",
+    "bytes": 103507
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/hanoi-search-positive.png",
+    "sha256": "9846bc9d663b792f56df356b2f85f9ec2ea40eeaa12ae0bf3a5daf847a41b5fb",
+    "bytes": 34109
+  },
+  {
+    "file": "qa-reports/2026-10-23/evidence/recommendation-costs-only-id.png",
+    "sha256": "2a0facddedcbebcdae918d2ba93e5871c1b0e451196d151ef20553605adedaa9",
+    "bytes": 44449
+  },
+  {
+    "file": "qa-reports/2026-10-24-full/QA_REPORT.md",
+    "sha256": "507f22fe34007fe7014256ac57a1ec637550b08f47d8a63812302854e4a823b7",
+    "bytes": 8106
+  },
+  {
+    "file": "qa-reports/2026-10-24-full/VIATOR_FOLLOWUP.md",
+    "sha256": "11dcc0d703c39513056d2550735cec905eb5e6566fe7adb35760879a7b95499b",
+    "bytes": 1983
+  },
+  {
+    "file": "qa-reports/ACCOUNT_MENU_QA.md",
+    "sha256": "8f20873f7b1439473c1ecb4549e025cead345c0331446baf3412cf3f1bc62d0c",
+    "bytes": 2808
+  },
+  {
+    "file": "qa-reports/AI_PLANNER_AUDIT.md",
+    "sha256": "4a9c21dc36847d2f80ce0c63579affde08aaa98faf5080e16b9fb360764ea19a",
+    "bytes": 2095
+  },
+  {
+    "file": "qa-reports/API_AUDIT.md",
+    "sha256": "75de0133eebf947059e8e8881ef4ac8b87e7596b9e1de0f2d6dc1e4fd1ceb2ef",
+    "bytes": 5936
+  },
+  {
+    "file": "qa-reports/BOOKING_STATUS_SYNC_QA.md",
+    "sha256": "34bd7c1235ecaea617ec1d446e6c6350e6c8f43d8052d22c4403358b0cf492d0",
+    "bytes": 7471
+  },
+  {
+    "file": "qa-reports/DISCLOSURE_UI_QA.md",
+    "sha256": "155403e1be98eb368c3706dd0550cb5e98d73e9ce1681ee685bd15fd532fc764",
+    "bytes": 6474
+  },
+  {
+    "file": "qa-reports/ENGLISH_LOCALIZATION_AUDIT.md",
+    "sha256": "91358a6a06080bda5022c2221e9fcb4f6aa75a744f0a374f4bbd83fd3cdc6f4f",
+    "bytes": 9160
+  },
+  {
+    "file": "qa-reports/EXPLORE_RECOMMENDATIONS_QA.md",
+    "sha256": "46ecdb1ce5ecceed269007518cb263634fb1d58ffa2b58e9d545639200c786e2",
+    "bytes": 9211
+  },
+  {
+    "file": "qa-reports/FEATURE_INVENTORY.md",
+    "sha256": "635b5dae7a803459c62220efbcf6fab15402e0f339733fe1fb8a150181fa7f9f",
+    "bytes": 14996
+  },
+  {
+    "file": "qa-reports/FIX_LOG.md",
+    "sha256": "d8453fbbcf167d5df7d29406c1aeb34c72defa05c1f82d74aec7f5ca18345366",
+    "bytes": 10639
+  },
+  {
+    "file": "qa-reports/FLIGHT_AUDIT.md",
+    "sha256": "24b36d73b84e38ec4ead2716d3feb08d985d771834faf2b2a21309117f53500e",
+    "bytes": 1762
+  },
+  {
+    "file": "qa-reports/HANOI_BUDGET_QA.md",
+    "sha256": "2451da8d9226f7096813c4b4e671891d9d2f3049a4187c4567f6d01a9a86bab5",
+    "bytes": 5261
+  },
+  {
+    "file": "qa-reports/HOTEL_AIRPORT_ROUTE_QA.md",
+    "sha256": "545eb0b92180937e1327f4833cb0c86e717ba85099c327a0edc7db28bf05ed49",
+    "bytes": 5304
+  },
+  {
+    "file": "qa-reports/HOTEL_REPLACEMENT_RECOVERY_QA.md",
+    "sha256": "59d7ad11b6195ce913386dab6c37a2a107caad30fa39818d4a90248873e533da",
+    "bytes": 5094
+  },
+  {
+    "file": "qa-reports/ITINERARY_AI_LOCK_QA.md",
+    "sha256": "dd6111f28df8298e17dbac5c07db2305490f208bbb8d89feac7aa7bb33718d0f",
+    "bytes": 3119
+  },
+  {
+    "file": "qa-reports/ITINERARY_EDIT_ROUTE_QA.md",
+    "sha256": "3dafe182b1d33bc4921cc5ccd642cc61aadbcc5b28972155e6033886583884f9",
+    "bytes": 6236
+  },
+  {
+    "file": "qa-reports/NUITEE_AUDIT.md",
+    "sha256": "61db990b4ac3da87efb394fae301a0ced3809352550519f903ae8a68e74c116b",
+    "bytes": 3073
+  },
+  {
+    "file": "qa-reports/OWNER_ACTION_REQUIRED.md",
+    "sha256": "7bd5f4c38515d9970317b5757e99c1a57981c3e52f191b2d0d6ccc7dbb4cd885",
+    "bytes": 4052
+  },
+  {
+    "file": "qa-reports/PAYMENT_AUDIT.md",
+    "sha256": "a5c7a47782997bdeb88551087e11d1a1145782a7d0fac62b9543edc6b7fd5f78",
+    "bytes": 1823
+  },
+  {
+    "file": "qa-reports/PERFORMANCE_AUDIT.md",
+    "sha256": "1f9bf54c0bc16a31f202e2bdfda3b12091e3a88eabced902bdf79f1f4d804b8a",
+    "bytes": 2199
+  },
+  {
+    "file": "qa-reports/PRICE_WATCH_AUDIT.md",
+    "sha256": "0534a6fdb52c026f7a100ca316e890a4b6d3a05588385d617f7367df4cab378d",
+    "bytes": 2466
+  },
+  {
+    "file": "qa-reports/PRODUCTION_READINESS.md",
+    "sha256": "3b14a5f79833023847eb9f9bdff14c1ff5b5c7894b52119b63398daa87aefe5d",
+    "bytes": 5553
+  },
+  {
+    "file": "qa-reports/QA_MASTER_REPORT.md",
+    "sha256": "9428ae6f823219ed3c081366a6766ae5e66cc35df7cbd64b75f2c008b965772a",
+    "bytes": 8599
+  },
+  {
+    "file": "qa-reports/QA_TEST_MATRIX.csv",
+    "sha256": "ee14c5db7766160379c0c71db0799a87e0221fe907f7e0a2eb114ec91a5a399a",
+    "bytes": 93403
+  },
+  {
+    "file": "qa-reports/RELEASE_2026-10-23.md",
+    "sha256": "df8f658cef91656549d2e06b163dce5f7a0c408303b3cfd2376e2dd21a6d6f82",
+    "bytes": 2817
+  },
+  {
+    "file": "qa-reports/RELEASE_EXPLORE_2026-10-24.md",
+    "sha256": "1c78b38ee621da8455ced7405e41b180a0f14c3cda2eb5e24d12e2624c064a14",
+    "bytes": 3497
+  },
+  {
+    "file": "qa-reports/RELEASE_QA_BRANDING_2026-10-24.md",
+    "sha256": "4d8853c84a74b987b64728572a29164d06318d9e3f6cb3ac6b4f78e833a10f7f",
+    "bytes": 3453
+  },
+  {
+    "file": "qa-reports/SECURITY_AUDIT.md",
+    "sha256": "58f578b6cc7cca69f952659810e01861ba41ebb95d13d114374ea48d76521caa",
+    "bytes": 1889
+  },
+  {
+    "file": "qa-reports/SUPPORT_LOCAL_HANDOFF_QA.md",
+    "sha256": "b3a6d97907f96d7a2f85938d35f2312f129f00d619bb40706c5facd3234d7e19",
+    "bytes": 1303
+  },
+  {
+    "file": "qa-reports/TELEGRAM_SUPPORT_AUDIT.md",
+    "sha256": "706c9148440fb1cb606b2408e1e3c7e76c452f2ceb9db37d218cd1130d1a9c66",
+    "bytes": 2129
+  },
+  {
+    "file": "qa-reports/TRANSPORT_AUDIT.md",
+    "sha256": "8e6fa5f328a4d83a77599aaf281c2750c0c597d7c3f85a507441e3eff6715a77",
+    "bytes": 2306
+  },
+  {
+    "file": "qa-reports/TRIP_PASS_AUDIT.md",
+    "sha256": "a6e2f10f61df1d011ca60c438e7cf8cbf1bdff3f8b83e37b32e9b8fd3f695ccf",
+    "bytes": 1430
+  },
+  {
+    "file": "qa-reports/UX_UI_AUDIT.md",
+    "sha256": "2547bcda98c54304aa53ef91b47ff43e67a03e0bed28c383424aa1069b70adf8",
+    "bytes": 2241
+  },
+  {
+    "file": "qa-reports/branding/BRAND_IMPLEMENTATION_REPORT.md",
+    "sha256": "f7f8da69fcc561c8d884c139112fa5fa7190b329b919f8859163f155ad039ac5",
+    "bytes": 3987
+  },
+  {
+    "file": "scripts/agent/controller.mjs",
+    "sha256": "08c3ac7b094c48d2a25e74ac1da2f541330197fa497ae5bb8aeafcd6401b4c1a",
+    "bytes": 1809
+  },
+  {
+    "file": "scripts/agent/logging.mjs",
+    "sha256": "b540315abc18db0354deb117eea835e2f7e7085d39b337486d3fd8221e3d30f4",
+    "bytes": 508
+  },
+  {
+    "file": "scripts/agent/notifications.mjs",
+    "sha256": "51d5d36eb5e866c41f5156a973117af2acd6a6df8c4309697528b5b33c5b530a",
+    "bytes": 2924
+  },
+  {
+    "file": "scripts/agent/queue.mjs",
+    "sha256": "7741cbbd77cab0a03e314b61bcfc0b6671c4d2db37d4f80692836ec6819797b4",
+    "bytes": 2762
+  },
+  {
+    "file": "scripts/agent/runner.mjs",
+    "sha256": "5a00cd344be6bd0d4614147c106a873fe16ce112e777f9f87f1c36f284540268",
+    "bytes": 2029
+  },
+  {
+    "file": "scripts/agent/security.mjs",
+    "sha256": "e8d610a0a263c27ce790b2e1d2f5d5f0931c095636603647feb1ade91b20841a",
+    "bytes": 1662
+  },
+  {
+    "file": "scripts/agent/transport.mjs",
+    "sha256": "e098804f6e1b0ca767de6727e181a47a82bd0dd97b48d2bb020bda05bc4506ac",
+    "bytes": 678
+  },
+  {
+    "file": "scripts/check-cloud-browser-limits.mjs",
+    "sha256": "44290f863592007082182d55df6fe92fb6d078a156ad3d0b6fd0f6e36101083d",
+    "bytes": 479
+  },
+  {
+    "file": "scripts/check-hotel-browser.mjs",
+    "sha256": "0ebeeb8cd9c6cedf7a4bcfdafc80089b22feebbcb95ccedb27d3906fd1762bbf",
+    "bytes": 673
+  },
+  {
+    "file": "scripts/cloud-browser-limits-worker.mjs",
+    "sha256": "e1bec4f012b03fcafb3e6f2c76b49e93d00dc27c55b99072f6aa86f1ea4ec668",
+    "bytes": 1437
+  },
+  {
+    "file": "scripts/generate-branding.mjs",
+    "sha256": "c47e2ec22164c0fca53d87438a858e85cc838428a1044bfe0ca8dc99ed60486b",
+    "bytes": 2229
+  },
+  {
+    "file": "scripts/generate-branding.py",
+    "sha256": "854b980695bffd4fc678ac4a78c4c33200bbae41b193c593d1f03877aa14d505",
+    "bytes": 4067
+  },
+  {
+    "file": "scripts/google-routes-budget-check.mjs",
+    "sha256": "02a5bffaf43b0e91d7011867391a79ba9484985f0aeed58cf4db424266141df9",
+    "bytes": 2029
+  },
+  {
+    "file": "scripts/google-routes-live-check.mjs",
+    "sha256": "d412b78ceb6fe736ad0100a4a706a8e060229d0b946c671ebafe40b81917d006",
+    "bytes": 4429
+  },
+  {
+    "file": "scripts/hotel-browser-check-worker.mjs",
+    "sha256": "f2e57dc1ad5c01e01b8145a60feeb61023be2c9c834926d22bae32de8100e7a9",
+    "bytes": 837
+  },
+  {
+    "file": "scripts/hotel-browser-check.jsonc",
+    "sha256": "3099dec521774a80eb29160086b28080c7b81d75eb903aef5970623266feced8",
+    "bytes": 176
+  },
+  {
+    "file": "scripts/hotel-owner-login-worker.mjs",
+    "sha256": "64f31aac0b8296e43896aabc91bc4262eb56f5e5f016534f55f507c4658a8f26",
+    "bytes": 5668
+  },
+  {
+    "file": "scripts/hotel-owner-login.jsonc",
+    "sha256": "7e9a873f0469b55cb38d41cd5997b3104284afcf619944e73e7dcd4eb5ab1b92",
+    "bytes": 363
+  },
+  {
+    "file": "scripts/hotel-owner-login.mjs",
+    "sha256": "260ec8c22f9bc5c1b85ab47f2ee72c5d44c01d5e15650f3181198bffb905a5a6",
+    "bytes": 8068
+  },
+  {
+    "file": "scripts/i18n-coverage.mjs",
+    "sha256": "10944af571e519c2ddf91baea8a05029f0449e4c4d7da690647d66a190ddb023",
+    "bytes": 1694
+  },
+  {
+    "file": "scripts/liteapi-check.mjs",
+    "sha256": "3f5136fc014359a6b2303b231dc5dc09985ac789bf549b23b32ba4df5166c259",
+    "bytes": 1502
+  },
+  {
+    "file": "scripts/liteapi-checkout-check.mjs",
+    "sha256": "1dc41873f191a186db903ae35fb61446192e889c0a7f85bbc999efb6273b784b",
+    "bytes": 2789
+  },
+  {
+    "file": "scripts/liteapi-content-check.mjs",
+    "sha256": "b5a45b0292b31a4e38e576411c3f737ee1222db11f67b51c5c08fee2a430fc20",
+    "bytes": 774
+  },
+  {
+    "file": "scripts/liteapi-hotel-check.mjs",
+    "sha256": "7975bf2aee87837d065d1cf3ba34c2439726f15ad4966313eb40889bd6b795c1",
+    "bytes": 4996
+  },
+  {
+    "file": "scripts/liteapi-prebook-availability-check.mjs",
+    "sha256": "54a0b823bdf3997eb292a29199f6f90beb82fe269ebfe3fd066d7b760844181d",
+    "bytes": 1734
+  },
+  {
+    "file": "scripts/qa-12go-worker.mjs",
+    "sha256": "948c870f4e3c6240013087ac347c317e42311ff5fd3286abf6cee74161efef83",
+    "bytes": 1010
+  },
+  {
+    "file": "scripts/qa-12go.mjs",
+    "sha256": "9b8301853d04fbd81960bf3ef21681de82dc85548265991d0ed09adc44840b81",
+    "bytes": 977
+  },
+  {
+    "file": "scripts/qa-disclosure-smoke.mjs",
+    "sha256": "b9b07deab523c940e23a72bc9900cc7133a06b4efab4f5e78ff6132876b2b650",
+    "bytes": 728
+  },
+  {
+    "file": "scripts/qa-hotel-content.mjs",
+    "sha256": "3ec79263bd215f2e40fb70005c3934a8a239f011bc5f4d5624febea9763c2d3f",
+    "bytes": 2258
+  },
+  {
+    "file": "scripts/qa-live-providers.mjs",
+    "sha256": "1a08b7bb6e16dc35a08ab835b973055a0477fbf5d73c59c86242171bf804ba95",
+    "bytes": 2002
+  },
+  {
+    "file": "scripts/qa-localization-fixes.mjs",
+    "sha256": "69ee0de3a02d80ae4d8fb828ddd27dc689aaa16292753498ae459edef15e9345",
+    "bytes": 4066
+  },
+  {
+    "file": "scripts/qa-readiness.mjs",
+    "sha256": "929ab36bd79208d80418e43af8153bffd2c1463ff2c4af1e60b458220416336a",
+    "bytes": 6311
+  },
+  {
+    "file": "scripts/qa-report.mjs",
+    "sha256": "1c79b19d7d96600aff292a92ecb37499a5c622f832d549314e0a4e64d7383982",
+    "bytes": 79866
+  },
+  {
+    "file": "scripts/support-webhook.mjs",
+    "sha256": "d845098ff3cb77aba82500c2442fc709408dde03ed0505fb8db26ba54dc72f8a",
+    "bytes": 1438
+  },
+  {
+    "file": "scripts/telegram-agent.mjs",
+    "sha256": "558dca30cdb987870763d4f52e521b5ba5eb26c9f1ae2572b6c3bd8808153c35",
+    "bytes": 4489
+  },
+  {
+    "file": "scripts/telegram-notify.mjs",
+    "sha256": "003de44cb67e8e27c33a086652b7d2fd77a37cdfcf5724908ebcd8c8db3188b3",
+    "bytes": 3759
+  },
+  {
+    "file": "scripts/update-locations.py",
+    "sha256": "a0cd97f191220bea0042378404a1a08f883fd427621fbae372291a638507bd8c",
+    "bytes": 979
+  },
+  {
+    "file": "services/hotel-browser/Dockerfile",
+    "sha256": "87b61ae50d52292dbe120ca50e1c635ac1d65de81f550aa0a2397766afd883bc",
+    "bytes": 761
+  },
+  {
+    "file": "services/hotel-browser/check-access.mjs",
+    "sha256": "b97b5eb26bf6c16eb012a0865164de87624152e4e1af494c91cad8de13827609",
+    "bytes": 3314
+  },
+  {
+    "file": "services/hotel-browser/package-lock.json",
+    "sha256": "b7c5450d5e9d6b4dca3bb6e0f540dfc2bd719d7ae4f0f9c3a0127d0d450bc369",
+    "bytes": 1121
+  },
+  {
+    "file": "services/hotel-browser/package.json",
+    "sha256": "4297e1d77eb4ac6e4c0afe86a6a7d4b0fcc19054af20be7e1763b062489900f3",
+    "bytes": 184
+  },
+  {
+    "file": "services/hotel-browser/server.mjs",
+    "sha256": "f4d15566c5acc340bc305280685f35aab239b49e9581d6a4e1b67cbff9e45ab6",
+    "bytes": 2974
+  },
+  {
+    "file": "services/hotel-browser/service.mjs",
+    "sha256": "41e69d3b06da9d7403e491e5d518616ebad2815bc326eddf610d17c1c409e048",
+    "bytes": 1644
+  },
+  {
+    "file": "services/hotel-browser/smoke.mjs",
+    "sha256": "6e91e148a86c63ce4ac8fe9153c3df4ef369ebae72b4fe6998acc2bb9199dcbb",
+    "bytes": 1249
+  },
+  {
+    "file": "supabase/ai-access.sql",
+    "sha256": "d401edb5b2c0e1b8b430926418c9c8e2714d24a5ff0997533f99a34023428a31",
+    "bytes": 2582
+  },
+  {
+    "file": "supabase/ai-pass-account-scope.sql",
+    "sha256": "6dffd3375f55884ccd135e24da6d9df40b6741ff6b978bd7a25e8e789527838f",
+    "bytes": 4896
+  },
+  {
+    "file": "supabase/ai-quota-v2.sql",
+    "sha256": "5650202536c29a06bc42a909c2105d445760f574e9dc48be5643556cb59fd347",
+    "bytes": 3492
+  },
+  {
+    "file": "supabase/google-routes-budget.sql",
+    "sha256": "749e932e767b9492993fdf0fe7f56bd707aeacc357bd0eb03cb95f3758eca990",
+    "bytes": 2726
+  },
+  {
+    "file": "supabase/liteapi-checkout.sql",
+    "sha256": "9441050bdd1b2e3e349f7fa3b0cd9931d346a256858c3651c2b400760db94c6c",
+    "bytes": 1738
+  },
+  {
+    "file": "supabase/payments.sql",
+    "sha256": "f4b1e4fa2ef1f452331d3eb4355677296dd54d5a559db57748f8db5c355dba43",
+    "bytes": 2298
+  },
+  {
+    "file": "supabase/price-watch-itinerary.sql",
+    "sha256": "edc08b9bd58e3a10c6d2fdc347c393509baf6165711ce2a9f32e55f1d8b83bb0",
+    "bytes": 3274
+  },
+  {
+    "file": "supabase/price-watch.sql",
+    "sha256": "6121e0aab2e7a184ecf97e229e7821a75b82fa8799cdf74ce8ce813907dd75e7",
+    "bytes": 6805
+  },
+  {
+    "file": "supabase/schema.sql",
+    "sha256": "f0c01557bd1d2e33ce5a7c52ba29b7f72068299ba18d206e92e49269fde99c31",
+    "bytes": 1527
+  },
+  {
+    "file": "supabase/support-chat.sql",
+    "sha256": "f572843bf2e2b6def8bc49a9da7330dd52ae2cd97fb7091accb96e42644704b9",
+    "bytes": 8662
+  },
+  {
+    "file": "supabase/trip-pass-10.sql",
+    "sha256": "891d0a7a101ff2ffdd1fd0011fe3a5b47e10a505e6da7acb5918d32164407f10",
+    "bytes": 1600
+  },
+  {
+    "file": "supabase/trip-pass-price-30000.sql",
+    "sha256": "246b6c78d82c9176629e6db7bce9766a86ff5a584caeea2e23653a418881ecfc",
+    "bytes": 519
+  },
+  {
+    "file": "tsconfig.json",
+    "sha256": "6f8e4df6c82b014b3d3cfa32c705630c86809ccd82ef199e5e2e674521aba5fa",
+    "bytes": 340
+  },
+  {
+    "file": "vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+    "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f",
+    "bytes": 1063
+  },
+  {
+    "file": "vendor/shadcn-tailwind-4.13.0.css",
+    "sha256": "bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a",
+    "bytes": 16041
+  },
+  {
+    "file": "vite.config.js",
+    "sha256": "3426695831aa0231bca69a0cb5c33d8ed40fbed5e5dcf68f116a12474b925312",
+    "bytes": 768
+  },
+  {
+    "file": "worker/admission-reference.d.mts",
+    "sha256": "8b64d128519cac5de475a53572573820430ec9c53b8112e07f47d022a1434bb2",
+    "bytes": 178
+  },
+  {
+    "file": "worker/admission-reference.mjs",
+    "sha256": "3dc775d6e7ada78cbfe675b1d72c27cb0956bee42fc345221a1004a9192cd35e",
+    "bytes": 1199
+  },
+  {
+    "file": "worker/ai-draft.js",
+    "sha256": "813a104e4e4f5912eeed04bb4cffe9f6781e12f167d0b8cd6c4fdecb0a260f26",
+    "bytes": 16799
+  },
+  {
+    "file": "worker/booking-evidence.js",
+    "sha256": "bf7217f0f894bda9b2c002907d15465229cb48791c6731d7035c18cd99e132c3",
+    "bytes": 12024
+  },
+  {
+    "file": "worker/booking-identity.d.mts",
+    "sha256": "8bd3a910976afa431487304806a2dc84296f909485ffedf8c97e8f49e22109f5",
+    "bytes": 182
+  },
+  {
+    "file": "worker/booking-identity.mjs",
+    "sha256": "363565b678d539deb7aea901ee0fca946b5c43a7c9e8db3d3aa5e94a533e0086",
+    "bytes": 1197
+  },
+  {
+    "file": "worker/data/recommendation-seed.json",
+    "sha256": "c443ecec188947f4086da680730705d8856f6affd8fda667f960ca032e1dbcf5",
+    "bytes": 3866
+  },
+  {
+    "file": "worker/external-hotel-browser.js",
+    "sha256": "24c8fab7f16bf96b115911cc41a9405796121dea62de6e9958611a19c311f1ee",
+    "bytes": 1867
+  },
+  {
+    "file": "worker/google-routes.js",
+    "sha256": "4d4d1aabeb6f3cfbcd9c38199a13e2dc697c51c5a3f932bcd3b52be989856b24",
+    "bytes": 6549
+  },
+  {
+    "file": "worker/hotel-checkout.js",
+    "sha256": "d84ebade3feab33028b1df145bc1c3db6a29ad855af822cd589becfe8312cde8",
+    "bytes": 18830
+  },
+  {
+    "file": "worker/hotel-content.js",
+    "sha256": "f3a0a1d30895403a290f348586de2263c3722ca9717cfd5fb2e8d20cf65b9861",
+    "bytes": 3518
+  },
+  {
+    "file": "worker/hotel-discovery.js",
+    "sha256": "8c5a72107ac394c9839deb1eae79c7ede3002b00e13feffd692ca838982d1fcd",
+    "bytes": 4904
+  },
+  {
+    "file": "worker/hotel-search.js",
+    "sha256": "344b79721afaf470e21ee83a3410371f1eaf6f607c9b00273aea659a3304fc47",
+    "bytes": 2950
+  },
+  {
+    "file": "worker/hotel-stay-policy.d.mts",
+    "sha256": "f01a9ddb796074f52a4ca6cef237e806e7241a119a385889c521d6bd64c289e6",
+    "bytes": 387
+  },
+  {
+    "file": "worker/hotel-stay-policy.mjs",
+    "sha256": "0967734d7d6c04b2bba4ce96f4aca2a844188d1273775963117332f1c33f0f06",
+    "bytes": 1461
+  },
+  {
+    "file": "worker/index.js",
+    "sha256": "778e50bf29f7d71e298d2a11d6373e782c6a8d2f41241fb4c3e94500cc4f509e",
+    "bytes": 12541
+  },
+  {
+    "file": "worker/itinerary-intent.d.mts",
+    "sha256": "97b89fceb7f6942ceeb7d8e08934ecefcf912e763cbcdd71096434f10ba64ead",
+    "bytes": 190
+  },
+  {
+    "file": "worker/itinerary-intent.mjs",
+    "sha256": "65e1517811d3ed98fcb7e78f48fdfae9f7eaf3206182a57f4818667dd254a6fe",
+    "bytes": 2167
+  },
+  {
+    "file": "worker/itinerary-order.mjs",
+    "sha256": "1118a110b883a36a3201a8cc99dbb84c5cbe997c736585ec7a0df280a59d8b77",
+    "bytes": 1100
+  },
+  {
+    "file": "worker/itinerary-stream.js",
+    "sha256": "a15e73520da01a8413000bb2bd8c2578b793d79cef272b2d0b5f3f092783dc82",
+    "bytes": 1620
+  },
+  {
+    "file": "worker/itinerary.js",
+    "sha256": "3bb7f5a9197ccc002976c001bb29b72594ce5744396b749f5bdeeb093de06c0a",
+    "bytes": 20535
+  },
+  {
+    "file": "worker/lite-hotel.js",
+    "sha256": "604c2cc1cca09d01a070b2623d598a3c606659d346c4613d57fe606abbda6b7f",
+    "bytes": 13937
+  },
+  {
+    "file": "worker/liteapi-cost-policy.js",
+    "sha256": "f904796a45c6290e56be63e26fe4b4f3103209c7501f913062d8bf07b09884bc",
+    "bytes": 925
+  },
+  {
+    "file": "worker/localization.js",
+    "sha256": "b6cdb7c31d6afec8d0583b528f14a8a1b6776a97a43592964899a3f0bdaa2e80",
+    "bytes": 3555
+  },
+  {
+    "file": "worker/locations.json",
+    "sha256": "459fb91cb51711a5519d944f591138b5d8a50745c46863b050d0ef5f30a0150b",
+    "bytes": 1147221
+  },
+  {
+    "file": "worker/narrative-translation.js",
+    "sha256": "e7bb169213b7b0a181f5b2b9ced91387904f51e55f329c98ee7407bdef624d00",
+    "bytes": 4397
+  },
+  {
+    "file": "worker/official-admission.js",
+    "sha256": "74cb7b1a83966b85d75b7a4eac89f8ff95909383ac23206ee491f1bce0312876",
+    "bytes": 2915
+  },
+  {
+    "file": "worker/payments.js",
+    "sha256": "602b1d596413666def59573833518d83bc9779dbda6b3b99b594875af593b925",
+    "bytes": 11896
+  },
+  {
+    "file": "worker/price-research.js",
+    "sha256": "b2bec8444f17d2136e1d4f0cce9febe399b65c615863ce15fe023b6595703e31",
+    "bytes": 12413
+  },
+  {
+    "file": "worker/price-watch.js",
+    "sha256": "85311765ec316563b497b295f1bf68a43871de80ceaaa72037df2a43a58b44b9",
+    "bytes": 2878
+  },
+  {
+    "file": "worker/recommendation-budgets.js",
+    "sha256": "a9a0abdd9fc98bbd03009a8fa40b304e70ed95aed83351ac3355fbc0ad37599f",
+    "bytes": 8088
+  },
+  {
+    "file": "worker/supplier-browser.js",
+    "sha256": "5f650e5dac3cb40dd6b357eff5edc61085f6b5a5e12cd44139d35720ad442c05",
+    "bytes": 514
+  },
+  {
+    "file": "worker/support.js",
+    "sha256": "739759dce4c9b8c6f450c1a8a4cf470e3b2d0f7744f8716c954908a1c7cb3466",
+    "bytes": 8030
+  },
+  {
+    "file": "worker/transport-browser.js",
+    "sha256": "d2771288e887dc0e1da39b081a1d2562894dd5679ff7335e4c5f2fe6cad0f4c3",
+    "bytes": 7062
+  },
+  {
+    "file": "worker/transport-plan.js",
+    "sha256": "de235efd20668c31081947dd46d341e340ec886b2a06d06eac673d43b28c9d03",
+    "bytes": 2685
+  },
+  {
+    "file": "worker/travelpayouts-bookings.js",
+    "sha256": "ab0944485783b31d548e1b56819656ace6b292b6099b741bb8d45ac438040e9d",
+    "bytes": 1907
+  },
+  {
+    "file": "worker/trip-access.js",
+    "sha256": "421a85efbcbf549dbe3bd3ac879c41fbd755a6184901a0c04953abefa64e9abc",
+    "bytes": 635
+  },
+  {
+    "file": "worker/trip-hotel-browser.js",
+    "sha256": "0aa2137b4a41546138a98e87f8c7b6b2c58894872a6f8f046b31222efe0cadc7",
+    "bytes": 12743
+  },
+  {
+    "file": "worker/viator.js",
+    "sha256": "6155ea300ab6bb06a7d07005543416886efc64ecdcc4068e7357391acd374a1d",
+    "bytes": 8684
+  },
+  {
+    "file": "wrangler.hotel-browser.jsonc",
+    "sha256": "4d36308e808adb24ecd38f91e5bb1d9f85949e3fa4c3e867f49fd16f163a062f",
+    "bytes": 1296
+  },
+  {
+    "file": "wrangler.jsonc",
+    "sha256": "4d36308e808adb24ecd38f91e5bb1d9f85949e3fa4c3e867f49fd16f163a062f",
+    "bytes": 1296
+  }
+]

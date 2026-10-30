@@ -2,7 +2,7 @@ import BrandLogo from './brand-logo';
 import {tr,label as localize,locale,language} from './i18n';
 import {useState} from 'react';
 import {supabase, setupMessage} from './supabase';
-export default function AuthPanel() {
+export default function AuthPanel({allowSignup=import.meta.env.MODE!=='staging'&&import.meta.env.MODE!=='qa-preparation'}:{allowSignup?:boolean}) {
   const [signup, setSignup] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +28,6 @@ export default function AuthPanel() {
     <p className="muted">{tr('ui_0074')}</p>
     {message && <p role="status">{localize(message)}</p>}
     <button className="primary wide" disabled={busy || !supabase}>{busy?tr('ui_0075'):signup?tr('ui_0076'):tr('ui_0077')}</button>
-    <button type="button" className="text-action" disabled={busy} onClick={()=>{setSignup(!signup);setMessage('');}}>{signup?tr('ui_0078'):tr('ui_0079')}</button>
+    {allowSignup&&<button type="button" className="text-action" disabled={busy} onClick={()=>{setSignup(!signup);setMessage('');}}>{signup?tr('ui_0078'):tr('ui_0079')}</button>}
   </form>;
 }

@@ -2,6 +2,7 @@ import {KLIA_SCOPE,withinAirportScope} from './hotel-stay-policy.mjs';
 import {checkedLiteOffer,liteHotelLink} from './lite-hotel.js';
 import {hotelPreview} from './hotel-content.js';
 import {assertLiteApiFreeEndpoint} from './liteapi-cost-policy.js';
+import {liteRatesEnvelope} from './liteapi-rates-response.js';
 const safeId=v=>typeof v==='string'&&/^[A-Za-z0-9_-]{1,100}$/.test(v);
 const norm=v=>String(v||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 // City searches include an explicit budget-hotel pass so catalogue order cannot
@@ -13,7 +14,7 @@ export async function discoverHotelRates(q,env,fetcher=fetch,outerDeadline=Infin
   const remaining=deadline-Date.now();if(remaining<1000)throw Error('hotel_search_unavailable');
   const r=await fetcher('https://api.liteapi.travel/v3.0/'+path,{method:body?'POST':'GET',redirect:'manual',headers:{'X-API-Key':env.LITEAPI_API_KEY,Accept:'application/json',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(Math.min(19000,remaining))});
   if(!r.ok)throw Error('hotel_search_unavailable');const raw=await r.text();if(raw.length>6000000)throw Error('hotel_search_unavailable');
-  const data=JSON.parse(raw);if([true,1,'true','1'].includes(data.sandbox))throw Error('lite_production_required');
+  const data=body?liteRatesEnvelope(JSON.parse(raw)):JSON.parse(raw);if([true,1,'true','1'].includes(data.sandbox))throw Error('lite_production_required');
   if(!Array.isArray(data.data))throw Error('hotel_search_unavailable');return data;
  }
  const rooms=Math.ceil(q.people/2),occupancies=Array.from({length:rooms},(_,i)=>({adults:Math.min(2,q.people-i*2),children:[]}));

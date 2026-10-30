@@ -1,0 +1,60 @@
+{
+  "layouts": [
+    {
+      "connections": [
+        "Cek rute Google MapsPasar Seni / Chinatown, Kuala Lumpur → Islamic Arts Museum Malaysia, Kuala Lumpur",
+        "Cek rute Google MapsIslamic Arts Museum Malaysia, Kuala Lumpur → Perdana Botanical Garden, Kuala Lumpur",
+        "Cek rute Google MapsPerdana Botanical Garden, Kuala Lumpur → Pasar Seni / Chinatown, Kuala Lumpur"
+      ],
+      "mapReady": true,
+      "scrollWidth": 305,
+      "width": 320
+    },
+    {
+      "connections": [
+        "Cek rute Google MapsPasar Seni / Chinatown, Kuala Lumpur → Islamic Arts Museum Malaysia, Kuala Lumpur",
+        "Cek rute Google MapsIslamic Arts Museum Malaysia, Kuala Lumpur → Perdana Botanical Garden, Kuala Lumpur",
+        "Cek rute Google MapsPerdana Botanical Garden, Kuala Lumpur → Pasar Seni / Chinatown, Kuala Lumpur"
+      ],
+      "mapReady": true,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "connections": [
+        "Cek rute Google MapsPasar Seni / Chinatown, Kuala Lumpur → Islamic Arts Museum Malaysia, Kuala Lumpur",
+        "Cek rute Google MapsIslamic Arts Museum Malaysia, Kuala Lumpur → Perdana Botanical Garden, Kuala Lumpur",
+        "Cek rute Google MapsPerdana Botanical Garden, Kuala Lumpur → Pasar Seni / Chinatown, Kuala Lumpur"
+      ],
+      "mapReady": true,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "connections": [
+        "Cek rute Google MapsPasar Seni / Chinatown, Kuala Lumpur → Islamic Arts Museum Malaysia, Kuala Lumpur",
+        "Cek rute Google MapsIslamic Arts Museum Malaysia, Kuala Lumpur → Perdana Botanical Garden, Kuala Lumpur",
+        "Cek rute Google MapsPerdana Botanical Garden, Kuala Lumpur → Pasar Seni / Chinatown, Kuala Lumpur"
+      ],
+      "mapReady": true,
+      "scrollWidth": 1265,
+      "width": 1280
+    }
+  ],
+  "final": {
+    "connections": [
+      "Cek rute Google MapsPasar Seni / Chinatown, Kuala Lumpur → Awana SkyWay Sky Sentral, Genting Highlands",
+      "Cek rute Google MapsAwana SkyWay Sky Sentral, Genting Highlands → Chin Swee Caves Temple, Genting Highlands",
+      "Cek rute Google MapsChin Swee Caves Temple, Genting Highlands → SkyAvenue, Genting Highlands",
+      "Cek rute Google MapsSkyAvenue, Genting Highlands → Pasar Seni / Chinatown, Kuala Lumpur"
+    ],
+    "directLinks": [
+      "https://www.google.com/maps/dir/?api=1&origin=Pasar+Seni+%2F+Chinatown%2C+Kuala+Lumpur&destination=Awana+SkyWay+Sky+Sentral%2C+Genting+Highlands&travelmode=transit",
+      "https://www.google.com/maps/dir/?api=1&origin=Awana+SkyWay+Sky+Sentral%2C+Genting+Highlands&destination=Chin+Swee+Caves+Temple%2C+Genting+Highlands&travelmode=transit",
+      "https://www.google.com/maps/dir/?api=1&origin=Chin+Swee+Caves+Temple%2C+Genting+Highlands&destination=SkyAvenue%2C+Genting+Highlands&travelmode=transit",
+      "https://www.google.com/maps/dir/?api=1&origin=SkyAvenue%2C+Genting+Highlands&destination=Pasar+Seni+%2F+Chinatown%2C+Kuala+Lumpur&travelmode=transit"
+    ],
+    "mapInitialized": true,
+    "missingCoordinates": true
+  }
+}

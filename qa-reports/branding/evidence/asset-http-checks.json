@@ -1,0 +1,190 @@
+{
+  "checkedAt": "2026-10-24T06:46:37.566Z",
+  "checks": [
+    {
+      "asset": "apple-touch-icon.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 5761
+    },
+    {
+      "asset": "brand-tokens.css",
+      "status": 200,
+      "contentType": "text/css",
+      "bytes": 1162
+    },
+    {
+      "asset": "favicon-16x16.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 594
+    },
+    {
+      "asset": "favicon-32x32.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 1125
+    },
+    {
+      "asset": "favicon-48x48.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 1639
+    },
+    {
+      "asset": "favicon-64x64.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 2141
+    },
+    {
+      "asset": "favicon.ico",
+      "status": 200,
+      "contentType": "image/x-icon",
+      "bytes": 5569
+    },
+    {
+      "asset": "favicon.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 622
+    },
+    {
+      "asset": "icon-192.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 6315
+    },
+    {
+      "asset": "icon-512.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 21178
+    },
+    {
+      "asset": "icon-maskable-512.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 16621
+    },
+    {
+      "asset": "social-en.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 42906
+    },
+    {
+      "asset": "social-en.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 9808
+    },
+    {
+      "asset": "social-id.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 42770
+    },
+    {
+      "asset": "social-id.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 11041
+    },
+    {
+      "asset": "sorttrip-icon-monochrome.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 540
+    },
+    {
+      "asset": "sorttrip-icon-white.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 588
+    },
+    {
+      "asset": "sorttrip-icon.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 587
+    },
+    {
+      "asset": "sorttrip-logo-dark-en.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 9710
+    },
+    {
+      "asset": "sorttrip-logo-dark.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 10943
+    },
+    {
+      "asset": "sorttrip-logo-horizontal-dark.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 3186
+    },
+    {
+      "asset": "sorttrip-logo-horizontal.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 3186
+    },
+    {
+      "asset": "sorttrip-logo-light-en.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 9710
+    },
+    {
+      "asset": "sorttrip-logo-light.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 10943
+    },
+    {
+      "asset": "sorttrip-logo-monochrome.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 3124
+    },
+    {
+      "asset": "sorttrip-logo-vertical.svg",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "bytes": 3175
+    },
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/privacy.html",
+      "status": 200
+    },
+    {
+      "path": "/terms.html",
+      "status": 200
+    },
+    {
+      "path": "/404.html",
+      "status": 200
+    },
+    {
+      "path": "/site.webmanifest",
+      "status": 200
+    },
+    {
+      "path": "/favicon.svg",
+      "status": 200
+    },
+    {
+      "path": "/favicon.ico",
+      "status": 200
+    }
+  ],
+  "passed": true
+}

@@ -8,3 +8,6 @@
 .lite-hotel-search .lite-hotel-form label{min-width:0}
 .lite-hotel-form .discovery-controls{grid-column:1/-1;margin:0}
 @media(max-width:640px){.discovery-controls{display:grid;grid-template-columns:minmax(0,1fr)}.lite-hotel-search .lite-hotel-form{grid-template-columns:minmax(0,1fr)}.discovery-shortcuts button{flex:1 1 130px}.lite-hotel-search .lite-hotel-card-actions{min-width:0}}
+/* Keep real supplier totals visible at tablet widths as well as narrow phones. */
+@media(max-width:1000px){.api-flight-toggle{flex-wrap:wrap;align-items:flex-start}.api-flight-toggle>div{min-width:0;max-width:100%}.api-flight-toggle>.api-times{flex:1 1 280px;min-width:0}.api-flight-toggle>div:last-child{flex-basis:100%}.rev-search-options>label{flex-wrap:wrap;min-width:0;max-width:100%}.rev-search-options>label>*{max-width:100%}}
+@media(max-width:700px){.api-flight-toggle>.api-times{flex-basis:auto;width:100%;display:grid;grid-template-columns:minmax(0,1fr)}.api-flight-toggle>div:last-child{flex-basis:auto}.lite-hotel-card h2{overflow-wrap:anywhere}}

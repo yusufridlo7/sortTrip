@@ -1,0 +1,519 @@
+[
+  {
+    "id": "LOCAL-HEALTH",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 177,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 161,
+    "summary": {
+      "ok": true,
+      "aiConfigured": true,
+      "flightsConfigured": true,
+      "supplierBrowserConfigured": true,
+      "externalHotelBrowserConfigured": false,
+      "version": "flights-v2-worldwide"
+    }
+  },
+  {
+    "id": "LOCAL-UNKNOWN-API",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/qa-unknown",
+    "status": "PASS",
+    "httpStatus": 404,
+    "expected": [
+      404
+    ],
+    "ms": 11,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 37,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-METHOD",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/health",
+    "status": "PASS",
+    "httpStatus": 405,
+    "expected": [
+      405
+    ],
+    "ms": 17,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-AUTOCOMPLETE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/locations?q=Tokyo",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 40,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 391,
+    "summary": {
+      "errorKey": null,
+      "arrayCount": 4
+    }
+  },
+  {
+    "id": "LOCAL-FLIGHT-INVALID",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/flights?origin=ZZZ",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 15,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-ORIGIN",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 13,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 79,
+    "summary": {
+      "errorKey": "hotel_origin_rejected"
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-INVALID",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 11,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 113,
+    "summary": {
+      "errorKey": "hotel_invalid_search"
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-PRIVATE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/hotels/checkout/history",
+    "status": "BLOCKED",
+    "httpStatus": 503,
+    "expected": [
+      401
+    ],
+    "ms": 8,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": "no-referrer",
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 106,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 9,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-ORIGIN",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 11,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 31,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 9,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 29,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-SUPPORT-CONFIG",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/support/config",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 7,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 17,
+    "summary": {
+      "enabled": false
+    }
+  },
+  {
+    "id": "LOCAL-SUPPORT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/support/telegram/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 8,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 74,
+    "summary": {
+      "errorKey": "SUPPORT_FORBIDDEN"
+    }
+  },
+  {
+    "id": "LOCAL-GOOGLE-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/routes/google",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 11,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-ITINERARY-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/itinerary",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 8,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 55,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-VIATOR-HEALTH",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/activities/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 8,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 114,
+    "summary": {
+      "configured": true,
+      "environment": "sandbox",
+      "configurationValid": true,
+      "connectionTested": false
+    }
+  },
+  {
+    "id": "LOCAL-PAGE-/",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 47,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-PAGE-/hotel-checkout",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/hotel-checkout",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 11,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-PAGE-/terms",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/terms",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 9,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7932
+  },
+  {
+    "id": "LOCAL-PAGE-/privacy",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/privacy",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 20,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7804
+  },
+  {
+    "id": "LOCAL-MISSING-PAGE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/qa-route-that-does-not-exist",
+    "status": "PASS",
+    "httpStatus": 404,
+    "expected": [
+      404
+    ],
+    "ms": 16,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1045
+  },
+  {
+    "id": "LOCAL-ROBOTS",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/robots.txt",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 9,
+    "contentType": "text/plain; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 127
+  },
+  {
+    "id": "LOCAL-SITEMAP",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/sitemap.xml",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 7,
+    "contentType": "application/xml",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 320
+  }
+]

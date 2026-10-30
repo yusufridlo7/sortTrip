@@ -1,0 +1,16 @@
+Anda melanjutkan SortTrip dari Codex. Bekerja dalam Bahasa Indonesia, hemat kuota, dan utamakan perangkat lunak yang terbukti bekerja.
+
+Workspace: C:\Yusuf Ridlo\belajar koding\Platform Itinerary\sortTrip_VSCode_Local\sortTrip-local
+Repo yusufridlo7/sortTrip, branch codex/meta-hackathon-phase-2-2026. Working tree besar dan belum commit; jangan reset/clean atau membuang perubahan.
+
+WAJIB sebelum tindakan: baca AGENTS.md, tujuh persistent context docs yang disebut di sana, lalu docs/MUSE_ACTIVE_HANDOVER_2026-10-30.md secara lengkap. Baca docs/PRODUCTION_DEPLOYMENT_2026-10-30.md dan PRODUCTION_SECURITY_GATE_2026-10-30.md. docs/MUSE_PROJECT_HANDOVER.md bertanggal29Okt sudah historis; checkpoint30Okt mengoreksi status staging, GateD dan deployment. Pelajari source relevan, jangan hanya percaya ringkasan. Inventaris API melalui PARTNERS.md, worker/index.js dan adapter terkait; bedakan API nyata, affiliate/widget dan fixture.
+
+Checkpoint penting: existing production sorttrip.yusufridlo7.workers.dev sudah deploy version b24bc674-7451-4052-a87f-5d63603218f5. Supabase production tznxfgosmjcmwoszvkdk; QA aytrcvfncsklhqozreyk terpisah. Owner memilih existing production, bukan staging baru. SQL01/02/03 sudah diterapkan: paid-discovery wrapper, production ledger meta_ai_* terpisah, cap100USD, allocation0/blockedfalse/requests0 saat terakhir. JANGAN replay SQL, import QAgrant/balance, resetledger atau regrant. QA cap10USD tidak berubah. Meta secret sudah dipasang owner, project pairing dikonfirmasi owner; jangan baca nilainya.
+
+Meta MuseSpark1.3 normal discovery production terintegrasi, tetapi belum diuji inferensi production. Cutoff wajib 2026-11-04T17:00:00Z (5Nov00WIB), failclosed, no retries/fallback; reservation0.05, maxinput20k/output2k, global pending, auth+paidquota wajib. Jangan memperpanjang cutoff atau otomatis beralih ke OpenAI. Non-Meta tetap bekerja.
+
+Bukti: liveMeta QA lokal+edit/save/reload pernah berhasil; production homepage/authenticated MyTrips dan SQLpostflight berhasil;31focusedtests/buildPASS;46PGsynthetictestsPASS. Jangan klaim bukti QA/fixture sebagai production E2E. UI polish sudah deploy, jangan redesign UX/tombol/payment.
+
+Tugas pertama Anda: cukup laporkan pemahaman arsitektur/API/status dan pilih pemeriksaan terarah selanjutnya. Prioritas: verifikasi production edit→Save→MyTrips→reload dengan itinerary uji yang jelas, lalu kontrol inferensi production bila owner memberi aksi eksplisit. AI Guide existing harus diperiksa sumber/live-vs-fixture dahulu; setelah itu demo3menit dan checklist submission. Jangan ulang audit penuh/rehearsal/inferensi tanpa alasan. Jangan mulai perubahan besar, DBmutation, paidrequest, commit/push atau deployment baru hanya karena prompt handover ini. Login/credential tetap owner. Setelah pekerjaan berarti buat laporan serta update PROJECT_PROGRESS.
+
+Berikan ringkasan Indonesia: apa yang sudah dipahami, mana fitur nyata vs fixture, pekerjaan terakhir selesai, blocker tersisa, dan satu langkah berikutnya. Jangan menyalin rahasia dalam output.

@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:04,000
+Liburan lebih terencana.
+Kenali SortTrip dalam 60 detik.
+
+2
+00:00:04,000 --> 00:00:10,000
+1. Mulai dari Jelajahi
+Pilih kota asal dan tujuanmu.
+
+3
+00:00:10,000 --> 00:00:17,000
+2. Cari inspirasi perjalanan
+Buka kartu kota untuk contoh itinerary dan budget.
+
+4
+00:00:17,000 --> 00:00:24,000
+3. Sesuaikan kebutuhanmu
+Atur tanggal, durasi, jumlah traveler, dan budget per orang.
+
+5
+00:00:24,000 --> 00:00:32,000
+4. Bandingkan penerbangan
+Klik Cari perjalanan. Periksa jadwal, transit, dan harga akhir di penyedia.
+
+6
+00:00:32,000 --> 00:00:41,000
+5. Beri instruksi ke Assistant
+Tulis perubahan, lalu pilih Perbarui itinerary dengan AI. Login dan kuota AI diperlukan.
+
+7
+00:00:41,000 --> 00:00:48,000
+6. Buka detail & periksa rute
+Lihat tarif, sumber informasi, dan tautan Google Maps. Harga yang belum tersedia bukan gratis.
+
+8
+00:00:48,000 --> 00:00:54,000
+7. Tinjau sebelum booking
+Periksa hotel dan ketentuan. Kunci item agar tetap dipertahankan AI, lalu simpan itinerary.
+
+9
+00:00:54,000 --> 00:01:00,000
+Siap merencanakan perjalanan?
+Buka SortTrip. Pilih tujuan, susun rencana, lalu cek pilihan booking.

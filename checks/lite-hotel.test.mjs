@@ -10,6 +10,17 @@ const q={city:'Kuala Lumpur',country:'Malaysia',start:'2027-01-10',days:4,people
 const target={id:'ai-plan-a',title:'Bukit Bintang',area:'Bukit Bintang',category:'Penginapan',city:q.city,day:1,checkin:q.start,checkout:'2027-01-13',rooms:1};
 const hotel={id:'lpfixture',name:'Hotel B',address:'Bukit Bintang, Kuala Lumpur',city:'Kuala Lumpur',country:'MY',location:{latitude:3.14,longitude:101.71}};
 const rate=(n=300)=>({rateType:'standard',rates:[{occupancyNumber:1,adultCount:2,childCount:0,name:'Double Room',retailRate:{total:[{amount:n,currency:'IDR'}],suggestedSellingPrice:[{amount:n+20,currency:'IDR'}],taxesAndFees:[{included:true}]},cancellationPolicies:{refundableTag:'NRFN'}}]});
+test('documented literal null taxes means included, missing/unknown/excluded fees still fail closed',()=>{
+ const offer=rate();offer.rates[0].retailRate.taxesAndFees=null;
+ assert.equal(checkedLiteOffer(hotel,offer,q,target).taxesIncluded,true);
+ for(const taxes of [undefined,{},[{included:false}],[{}]]){offer.rates[0].retailRate.taxesAndFees=taxes;assert.equal(checkedLiteOffer(hotel,offer,q,target),null);}
+});
+test('QA read-only property-fee rates require exact sourced amounts/currencies; regular checkout still rejects',()=>{
+ const offer=rate();offer.rates[0].retailRate.taxesAndFees=[{included:false,amount:20,currency:'MYR'}];
+ assert.equal(checkedLiteOffer(hotel,offer,q,target),null);
+ const quote=checkedLiteOffer(hotel,offer,q,target,{}, {allowPayAtProperty:true});assert.equal(quote.amountIDR,320);assert.equal(quote.taxesIncluded,false);assert.equal(quote.readOnlyQuote,true);assert.deepEqual(quote.excludedTaxes,[{amount:20,currency:'MYR'}]);
+ for(const tax of [{included:false},{included:false,amount:-1,currency:'MYR'},{included:false,amount:20,currency:'unknown'}]){offer.rates[0].retailRate.taxesAndFees=[tax];assert.equal(checkedLiteOffer(hotel,offer,q,target,{}, {allowPayAtProperty:true}),null);}
+});
 
 test('explicit final KLIA stay splits city nights and rejects cheaper city-centre inventory',async()=>{
  const query={...q,days:3,interests:'hotel cari di bawah 500000 per malam, hari terakhir penginapan di dekat KLIA'};

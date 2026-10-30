@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-27",
+  "scope": "Only public metadata/static/unauthenticated GET; no supplier search, authenticated DB read, model call or production write",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": null,
+        "x-content-type-options": null,
+        "x-frame-options": null,
+        "strict-transport-security": null
+      }
+    },
+    {
+      "path": "/api/health",
+      "status": 200,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": null,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": null,
+        "strict-transport-security": null
+      },
+      "summary": {
+        "ok": true,
+        "aiConfigured": true,
+        "flightsConfigured": true,
+        "supplierBrowserConfigured": true,
+        "externalHotelBrowserConfigured": false,
+        "version": "flights-v2-worldwide",
+        "itineraryRulesVersion": "2026-10-24-order-admission"
+      }
+    },
+    {
+      "path": "/api/support/config",
+      "status": 200,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": null,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": null,
+        "strict-transport-security": null
+      },
+      "summary": {
+        "enabled": true
+      }
+    },
+    {
+      "path": "/api/activities/health",
+      "status": 200,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": null,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": null,
+        "strict-transport-security": null
+      },
+      "summary": {
+        "configured": true,
+        "environment": "production",
+        "configurationValid": true,
+        "connectionTested": false
+      }
+    },
+    {
+      "path": "/api/hotels/checkout/history",
+      "status": 401,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": null,
+        "strict-transport-security": null
+      },
+      "summary": {}
+    },
+    {
+      "path": "/api/qa-phase1-missing",
+      "status": 404,
+      "headers": {
+        "content-security-policy": null,
+        "referrer-policy": null,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": null,
+        "strict-transport-security": null
+      },
+      "summary": {}
+    }
+  ]
+}

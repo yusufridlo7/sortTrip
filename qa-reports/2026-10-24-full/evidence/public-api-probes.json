@@ -1,0 +1,219 @@
+[
+  {
+    "server": "local",
+    "id": "health",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "local",
+    "id": "support",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "enabled": false,
+    "contentType": "application/json"
+  },
+  {
+    "server": "local",
+    "id": "recommendations",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "count": 3,
+    "contentType": "application/json"
+  },
+  {
+    "server": "local",
+    "id": "missing-api",
+    "http": 404,
+    "expected": 404,
+    "pass": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "local",
+    "id": "missing-page",
+    "http": 404,
+    "expected": 404,
+    "pass": true,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "server": "local",
+    "id": "robots",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/plain; charset=utf-8"
+  },
+  {
+    "server": "local",
+    "id": "sitemap",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "application/xml"
+  },
+  {
+    "server": "local",
+    "id": "hotel-auth",
+    "http": 503,
+    "expected": 401,
+    "pass": false,
+    "contentType": "application/json"
+  },
+  {
+    "server": "local",
+    "id": "terms",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "server": "local",
+    "id": "privacy",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "server": "production",
+    "id": "health",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "production",
+    "id": "support",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "enabled": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "production",
+    "id": "recommendations",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "count": 3,
+    "contentType": "application/json"
+  },
+  {
+    "server": "production",
+    "id": "missing-api",
+    "http": 404,
+    "expected": 404,
+    "pass": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "production",
+    "id": "missing-page",
+    "http": 404,
+    "expected": 404,
+    "pass": true,
+    "contentType": "text/html"
+  },
+  {
+    "server": "production",
+    "id": "robots",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/plain"
+  },
+  {
+    "server": "production",
+    "id": "sitemap",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "application/xml"
+  },
+  {
+    "server": "production",
+    "id": "hotel-auth",
+    "http": 401,
+    "expected": 401,
+    "pass": true,
+    "contentType": "application/json"
+  },
+  {
+    "server": "production",
+    "id": "terms",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/html"
+  },
+  {
+    "server": "production",
+    "id": "privacy",
+    "http": 200,
+    "expected": 200,
+    "pass": true,
+    "contentType": "text/html"
+  },
+  {
+    "id": "flights-KUL",
+    "http": 200,
+    "count": 0,
+    "oneAdult": true,
+    "valid": true,
+    "interpretation": "cached indicative fare, not final bookable inventory"
+  },
+  {
+    "id": "flights-HAN",
+    "http": 200,
+    "count": 0,
+    "oneAdult": true,
+    "valid": true,
+    "interpretation": "cached indicative fare, not final bookable inventory"
+  },
+  {
+    "id": "flights-SIN",
+    "http": 200,
+    "count": 0,
+    "oneAdult": true,
+    "valid": true,
+    "interpretation": "cached indicative fare, not final bookable inventory"
+  },
+  {
+    "id": "flights-DPS",
+    "http": 200,
+    "count": 3,
+    "oneAdult": true,
+    "valid": true,
+    "interpretation": "cached indicative fare, not final bookable inventory"
+  },
+  {
+    "id": "viator-Kuala Lumpur",
+    "http": 200,
+    "count": 0,
+    "environment": "sandbox"
+  },
+  {
+    "id": "viator-Singapore",
+    "http": 400,
+    "code": "VIATOR_DESTINATION_REQUIRED"
+  },
+  {
+    "id": "viator-production-retest",
+    "server": "local",
+    "environment": "production",
+    "configured": true,
+    "http": 502,
+    "upstreamStatus": 401,
+    "code": "VIATOR_UNAVAILABLE",
+    "interpretation": "owner credential or partner access review required; no credential inspected"
+  }
+]

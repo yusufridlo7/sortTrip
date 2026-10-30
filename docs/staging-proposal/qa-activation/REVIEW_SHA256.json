@@ -1,0 +1,7 @@
+{
+  "docs\\staging-proposal\\qa-activation\\08_FINAL_QA_FOR_REVIEW.sql": "a92950ac17b538fc7c432302ed4d8dc727c57914227df0ba1efe0c5fac4a2de5",
+  "docs\\staging-proposal\\qa-activation\\03_MINIMUM_OWNER_TEST_FOR_REVIEW.sql": "d7a2f77e2289136c685cdc796bc339d7f3cc67d7d43d862fbd2cf8932c722565",
+  "docs\\staging-proposal\\sql\\02_MINIMUM_QA_ENTITLEMENT_SCHEMA_PROPOSED.sql": "4fcff94e2462f3523b3715355cfbe0dea10f622f2b4d2cf48a95648441028c76",
+  "docs\\staging-proposal\\sql\\04_READ_ONLY_POST_SCHEMA_VERIFICATION.sql": "a0492ecff8c5552832f9a82422906e8fe9140450f2cd729653f0cf53365518b9",
+  "docs\\staging-proposal\\sql\\09_READ_ONLY_POST_SQL08.sql": "90078097168e1d3d4b3d174e6309cd6252622cdbf881555d1913a2b34719f65d"
+}

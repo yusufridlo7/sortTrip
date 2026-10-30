@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-24T11:34:29.093Z",
+  "route": {
+    "from": "Kuala Lumpur",
+    "to": "Melaka",
+    "date": "2026-11-06",
+    "adults": 1,
+    "mode": "bus"
+  },
+  "elapsedMs": 33817,
+  "accepted": 1,
+  "diagnostics": {
+    "transportPhase": "QUOTE_ACCEPTED",
+    "transportHttpStatus": 202
+  },
+  "quotes": [
+    {
+      "provider": "12Go",
+      "amountIDR": 57611,
+      "basis": "person",
+      "scope": "dated",
+      "travelDate": "2026-11-06",
+      "adults": 1,
+      "taxesIncluded": true,
+      "checkedAt": "2026-10-24T11:34:27.819Z",
+      "sourceUrl": "https://12go.asia/en/travel/kuala-lumpur/malacca?date=2026-11-06&people=1&adults=1&vehclasses_tab=all"
+    }
+  ]
+}

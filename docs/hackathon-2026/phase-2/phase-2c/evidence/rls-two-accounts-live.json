@@ -1,0 +1,93 @@
+{
+  "environment": "nonproduction QA aytrcvfncsklhqozreyk",
+  "accountBOwn": [
+    {
+      "test": "own_insert",
+      "passed": true,
+      "category": "OWN_ROW_CREATED"
+    },
+    {
+      "test": "own_update",
+      "passed": true,
+      "category": "ONE_ROW_UPDATED"
+    },
+    {
+      "test": "own_fixture_unchanged",
+      "passed": true,
+      "category": "OWN_ROW_INTACT"
+    },
+    {
+      "test": "guest_select",
+      "passed": true,
+      "category": "ACCESS_DENIED"
+    }
+  ],
+  "accountBToA": [
+    {
+      "test": "own_fixture_unchanged",
+      "passed": true,
+      "category": "OWN_ROW_INTACT"
+    },
+    {
+      "test": "foreign_select",
+      "passed": true,
+      "category": "ZERO_ROWS"
+    },
+    {
+      "test": "foreign_update",
+      "passed": true,
+      "category": "ZERO_ROWS"
+    },
+    {
+      "test": "foreign_delete",
+      "passed": true,
+      "category": "ACCESS_DENIED"
+    },
+    {
+      "test": "foreign_owner_insert",
+      "passed": true,
+      "category": "ACCESS_DENIED"
+    }
+  ],
+  "accountAToB": [
+    {
+      "test": "own_fixture_unchanged",
+      "passed": true,
+      "category": "OWN_ROW_INTACT"
+    },
+    {
+      "test": "foreign_select",
+      "passed": true,
+      "category": "ZERO_ROWS"
+    },
+    {
+      "test": "foreign_update",
+      "passed": true,
+      "category": "ZERO_ROWS"
+    },
+    {
+      "test": "foreign_delete",
+      "passed": true,
+      "category": "ACCESS_DENIED"
+    },
+    {
+      "test": "foreign_owner_insert",
+      "passed": true,
+      "category": "ACCESS_DENIED"
+    }
+  ],
+  "accountAFinal": [
+    {
+      "test": "own_fixture_unchanged",
+      "passed": true,
+      "category": "OWN_ROW_INTACT"
+    }
+  ],
+  "accountBFinal": [
+    {
+      "test": "own_fixture_unchanged",
+      "passed": true,
+      "category": "OWN_ROW_INTACT"
+    }
+  ]
+}

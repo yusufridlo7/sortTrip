@@ -1,0 +1,42 @@
+# Repository and feature audit
+
+27 October 2026. Baseline `737fbc5636145fc27a0bf4ac41be831835dfbd44`. Status definitions are deliberately scoped: WORKING means the stated local behavior is supported by fresh verification, not that its entire financial/external lifecycle is certified. PARTIALLY IMPLEMENTED means a useful path exists but required coverage or live evidence is missing. NOT VERIFIED is not synonymous with broken. No application path was newly shown BROKEN by the passing regression suite; security findings remain separate.
+
+## Feature register
+
+| Feature | Classification | Repository evidence and verification | Limit / next evidence |
+|---|---|---|---|
+| React/Vite frontend | WORKING — build scope | `package.json`, `main.jsx`, `app/auth-app.tsx`; fresh TypeScript/Vite build passes; public homepage GET200 | No fresh complete browser matrix on Oct 27; Oct 24 UI evidence is historical |
+| Cloudflare Worker routing | WORKING — routing contract | `worker/index.js:87–106`; fixtures cover methods, unknown paths and sanitized errors; fresh health200/unknown404 | No deployment executed; no blanket reliability claim |
+| Supabase auth | PARTIALLY IMPLEMENTED — auth path exists | `app/supabase.ts`, `app/auth-app.tsx`, Worker `/auth/v1/user` checks; mocked auth boundaries pass | Fresh OAuth/OTP/recovery/session-expiry not exercised; credentials owner-only |
+| Saved itineraries | PARTIALLY IMPLEMENTED — persistence exists | `app/database-trips.ts:3–25`, `supabase/schema.sql:14–23`; owner filter on reads/updates; baseline app tests pass | Live two-user RLS isolation and migration state NOT VERIFIED; no DB write made |
+| Account/profile | WORKING — implemented local contract | `app/account-menu.tsx`; profile summary, language, quota, trips/watch/help/logout; branding/account tests pass | Read-only identity, not an editable profile/settings system or unified booking history |
+| Flights / affiliate | PARTIALLY IMPLEMENTED | `worker/index.js:22–85`, `app/flight-search.tsx`, `app/api-flights.ts`; normalization/date/IDR/one-adult fixtures pass | Only CGK/SUB/DPS supported as origins; cached indicative fares, not ticket issuance; no fresh supplier call |
+| Hotel menu | PARTIALLY IMPLEMENTED | `app/hotel-search.tsx`/hotel-widget modules and `app/partner-selection.ts`; prior Trip.com widget evidence | Widget click-out/manual selection, not a Trip.com inventory API or automatic purchase receipt |
+| Nuitée hotel search/content | PARTIALLY IMPLEMENTED | `worker/hotel-search.js`, `hotel-discovery.js`, `hotel-content.js`, `lite-hotel.js`; budget/occupancy/tax/content fixtures pass | Fresh live dated stock not requested; sampled stock is not city-wide cheapest |
+| Nuitée checkout | PARTIALLY IMPLEMENTED | `worker/hotel-checkout.js`, `supabase/liteapi-checkout.sql`; session binding, payable validation, consent, sealing and transition tests pass; fresh unauth history401 | Historical Oct 24 portal rendered; authorization/3DS/Book/refund/settlement/liability not certified; no financial action Phase 1 |
+| Nuitée White-label | NOT VERIFIED / excluded product path | Historical country403; owner removed it from active product | Do not revive it as a release or hackathon dependency; API/SDK path is separate |
+| Transportation | PARTIALLY IMPLEMENTED | `app/transport-search.tsx`, `transport-affiliate.mjs`, `worker/transport-browser.js`; parser/dated-route fixtures pass | No 12Go API; brittle permitted-page observation and affiliate/manual path; one-adult extractor; rights/terms and broad coverage need review |
+| Activities / Viator | PARTIALLY IMPLEMENTED | `worker/viator.js`, `app/activity-tickets.tsx`; 13 provider fixtures including same-name city-state match pass; health production/configured | Historical Oct 24 Singapore/Genting200; fresh health explicitly says connectionTested=false; starting prices, no exact-date options/native booking |
+| OpenAI itinerary | PARTIALLY IMPLEMENTED | `worker/ai-draft.js`, `itinerary.js`, `price-research.js`, `app/ai-planner.tsx`; mocked research→draft→quote→validation pipeline passes | Existing model choice/timeout/quota coupling; live model calls deliberately skipped; cannot count it as Meta integration |
+| Manual edit / AI locks | WORKING — deterministic application | `app/apply-ai-plan.ts:5,18,57`, `app/item-ai-lock.tsx`, edit tests: paid/pending/explicitly locked items protected; quote-first hotel replacement | No owner itinerary edited or saved now; manual purchased mark is not supplier confirmation |
+| Maps / directions | PARTIALLY IMPLEMENTED | `app/route-map.tsx`, `itinerary-connections.ts`, `verified-places.ts`, `worker/google-routes.js`; RFC3339/budget/route tests pass | OSM pins only where identity/coordinates known; Google checks gated/capped; no new Google call or fare guarantee |
+| Budget tracking | WORKING — arithmetic/reference scope | `app/itinerary-price.tsx`, `travel-data.ts`, `apply-price-quotes.ts`, `worker/recommendation-budgets.js`; accounting and statistics fixtures pass | Missing/partial fares remain explicit; reference currency not silently converted; not complete locked package pricing/year-long statistical coverage |
+| Trip Pass / Midtrans | PARTIALLY IMPLEMENTED | `worker/payments.js`, `trip-access.js`, `app/trip-pass.tsx`, SQL; signature, amount/currency/ownership/quota/refund fixtures pass | New pass Rp30k/10 results/30days; legacy rights retained. Owner-reported production configuration is not a fresh real payment test |
+| Price Watch | PARTIALLY IMPLEMENTED | `worker/price-watch.js`, `app/price-watch.tsx`, SQL claim/finish workflow; fixture paths pass | Scheduled end-to-end delivery/email not freshly witnessed; disabled/expired cases must stay enforced |
+| Customer support chat | PARTIALLY IMPLEMENTED | `worker/support.js`, support SQL/outbox; webhook allowlist/replay/sensitive-text fixture tests pass; fresh config enabled=true | No customer message/Telegram delivery made; local support may intentionally be unconfigured |
+| Local Telegram agent | PARTIALLY IMPLEMENTED | `scripts/agent/*`, `scripts/telegram-agent.mjs`; allowlist/queue/confirmation tests | Runner only fixed local smoke; generic autonomous Desktop bridge NOT CONFIGURED/NOT VERIFIED. Do not start polling or process queued tasks |
+| Static localization | WORKING — scan scope | `app/i18n/*`, `scripts/i18n-coverage.mjs`: fresh scan zero missing keys/interpolation errors/untranslated JSX | Does not certify all future AI output, original-language supplier reviews or live emails |
+| Tests and release setup | WORKING — local verification | 43 test files/329 tests; Vite build; `wrangler.jsonc` and hotel-browser config | No `lint` script or ESLint config found; CI/migration orchestration not established; dependency advisories and big JS chunk remain |
+| Meta AI adapter | NOT CONFIGURED | No `api.meta.ai`/Muse integration in app/Worker sources | Model docs verified, account/key/credits not inspected; no API call |
+| Video-to-Itinerary | NOT CONFIGURED | No production upload endpoint, media table/bucket, ingest job or video analysis UI | Entire Phase 2 is proposed only |
+
+## Architecture observed
+
+Vite React client talks to same-origin Worker routes; local dev proxy targets127.0.0.1:8787. Supabase browser client uses publishable configuration, while Worker uses server credentials for authorized service-role operations. Existing itinerary orchestration performs OpenAI web research and structured drafting, deterministic validation, supplier enrichment and quota completion; frontend applies the approved result and can save via RLS-backed trips.
+
+`wrangler.jsonc`: Worker plus static assets, remote HOTEL_BROWSER binding, RECOMMENDATION_BUDGETS KV, AI/Viator rate limiters, hourly Price Watch, two-minute support outbox and daily02:00UTC monthly-budget check. **No video R2/Queue/Workflow binding**. Google/provider calls incur separate possible costs. No static server/database/GPU video processor is configured.
+
+## Evidence interpretation
+
+`evidence/source-anchors.json` maps implementation anchors and hashes. `test-inventory.json` lists fixture titles. `public-readonly-probes.json` contains only fresh metadata/static/unauthenticated GETs. Prior real browser/provider proof is described in `qa-reports/RELEASE_QA_BRANDING_2026-10-24.md` and `qa-reports/2026-10-24-full/`; it is historical, not a new Oct 27 end-to-end test. No pre-existing provider is re-registered or upgraded by this audit.

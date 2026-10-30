@@ -1,0 +1,15 @@
+{
+  "source": "owner read-only SQL result, 2026-10-27",
+  "project": "aytrcvfncsklhqozreyk",
+  "allocated_usd": 0.15,
+  "remaining_usd": 9.85,
+  "blocked": false,
+  "requests_count": 3,
+  "settled_requests": 3,
+  "unsettled_requests": 0,
+  "known_estimated_usage_usd": 0.01032150,
+  "trips_table_present": true,
+  "trips_rls_enabled": true,
+  "trips_authenticated_insert_allowed": true,
+  "final_billed_cost_verified": false
+}

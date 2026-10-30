@@ -1,0 +1,1056 @@
+[
+  {
+    "id": "LOCAL-HEALTH",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 246,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 161,
+    "summary": {
+      "ok": true,
+      "aiConfigured": true,
+      "flightsConfigured": true,
+      "supplierBrowserConfigured": true,
+      "externalHotelBrowserConfigured": false,
+      "version": "flights-v2-worldwide"
+    }
+  },
+  {
+    "id": "LOCAL-UNKNOWN-API",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/qa-unknown",
+    "status": "PASS",
+    "httpStatus": 404,
+    "expected": [
+      404
+    ],
+    "ms": 25,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 37,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-METHOD",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/health",
+    "status": "PASS",
+    "httpStatus": 405,
+    "expected": [
+      405
+    ],
+    "ms": 38,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-AUTOCOMPLETE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/locations?q=Tokyo",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 50,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 391,
+    "summary": {
+      "errorKey": null,
+      "arrayCount": 4
+    }
+  },
+  {
+    "id": "LOCAL-FLIGHT-INVALID",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/flights?origin=ZZZ",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 24,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-ORIGIN",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 16,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 79,
+    "summary": {
+      "errorKey": "hotel_origin_rejected"
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-INVALID",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 16,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 113,
+    "summary": {
+      "errorKey": "hotel_invalid_search"
+    }
+  },
+  {
+    "id": "LOCAL-HOTEL-PRIVATE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/hotels/checkout/history",
+    "status": "BLOCKED",
+    "httpStatus": 503,
+    "expected": [
+      401
+    ],
+    "ms": 17,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": "no-referrer",
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 106,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 18,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-ORIGIN",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 22,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 31,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-PAYMENT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/payments/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 14,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 29,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-SUPPORT-CONFIG",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/support/config",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 13,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 17,
+    "summary": {
+      "enabled": false
+    }
+  },
+  {
+    "id": "LOCAL-SUPPORT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/support/telegram/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 16,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 74,
+    "summary": {
+      "errorKey": "SUPPORT_FORBIDDEN"
+    }
+  },
+  {
+    "id": "LOCAL-GOOGLE-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/routes/google",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 17,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-ITINERARY-PRIVATE",
+    "method": "POST",
+    "url": "http://127.0.0.1:8787/api/itinerary",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 14,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 55,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "LOCAL-VIATOR-HEALTH",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/api/activities/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 14,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 114,
+    "summary": {
+      "configured": true,
+      "environment": "sandbox",
+      "configurationValid": true,
+      "connectionTested": false
+    }
+  },
+  {
+    "id": "LOCAL-PAGE-/",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 111,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-PAGE-/hotel-checkout",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/hotel-checkout",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 16,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-PAGE-/terms",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/terms",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 13,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7932
+  },
+  {
+    "id": "LOCAL-PAGE-/privacy",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/privacy",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 12,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7804
+  },
+  {
+    "id": "LOCAL-MISSING-PAGE",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/qa-route-that-does-not-exist",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      404
+    ],
+    "ms": 14,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-ROBOTS",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/robots.txt",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 12,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "LOCAL-SITEMAP",
+    "method": "GET",
+    "url": "http://127.0.0.1:8787/sitemap.xml",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 11,
+    "contentType": "text/html; charset=utf-8",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "PROD-HEALTH",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 1009,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 161,
+    "summary": {
+      "ok": true,
+      "aiConfigured": true,
+      "flightsConfigured": true,
+      "supplierBrowserConfigured": true,
+      "externalHotelBrowserConfigured": false,
+      "version": "flights-v2-worldwide"
+    }
+  },
+  {
+    "id": "PROD-UNKNOWN-API",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/qa-unknown",
+    "status": "PASS",
+    "httpStatus": 404,
+    "expected": [
+      404
+    ],
+    "ms": 71,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 37,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-METHOD",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/health",
+    "status": "PASS",
+    "httpStatus": 405,
+    "expected": [
+      405
+    ],
+    "ms": 1848,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-AUTOCOMPLETE",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/locations?q=Tokyo",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 228,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 391,
+    "summary": {
+      "errorKey": null,
+      "arrayCount": 4
+    }
+  },
+  {
+    "id": "PROD-FLIGHT-INVALID",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/flights?origin=ZZZ",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 119,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-HOTEL-ORIGIN",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 155,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 79,
+    "summary": {
+      "errorKey": "hotel_origin_rejected"
+    }
+  },
+  {
+    "id": "PROD-HOTEL-INVALID",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/hotels/search",
+    "status": "PASS",
+    "httpStatus": 400,
+    "expected": [
+      400
+    ],
+    "ms": 95,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 113,
+    "summary": {
+      "errorKey": "hotel_invalid_search"
+    }
+  },
+  {
+    "id": "PROD-HOTEL-PRIVATE",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/hotels/checkout/history",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 118,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": "no-referrer",
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 67,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-PAYMENT-PRIVATE",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 213,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 34,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-PAYMENT-ORIGIN",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/payments/status",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 40,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 31,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-PAYMENT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/payments/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 148,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 29,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-SUPPORT-CONFIG",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/support/config",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 225,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 16,
+    "summary": {
+      "enabled": true
+    }
+  },
+  {
+    "id": "PROD-SUPPORT-BAD-WEBHOOK",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/support/telegram/webhook",
+    "status": "PASS",
+    "httpStatus": 403,
+    "expected": [
+      403
+    ],
+    "ms": 169,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 74,
+    "summary": {
+      "errorKey": "SUPPORT_FORBIDDEN"
+    }
+  },
+  {
+    "id": "PROD-GOOGLE-PRIVATE",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/routes/google",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 241,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 51,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-ITINERARY-PRIVATE",
+    "method": "POST",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/itinerary",
+    "status": "PASS",
+    "httpStatus": 401,
+    "expected": [
+      401
+    ],
+    "ms": 100,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 55,
+    "summary": {
+      "errorKey": null
+    }
+  },
+  {
+    "id": "PROD-VIATOR-HEALTH",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/api/activities/health",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 159,
+    "contentType": "application/json",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": "nosniff",
+      "strict-transport-security": null
+    },
+    "bytes": 117,
+    "summary": {
+      "configured": true,
+      "environment": "production",
+      "configurationValid": true,
+      "connectionTested": false
+    }
+  },
+  {
+    "id": "PROD-PAGE-/",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 185,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "PROD-PAGE-/hotel-checkout",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/hotel-checkout",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 301,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "PROD-PAGE-/terms",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/terms",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 108,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7932
+  },
+  {
+    "id": "PROD-PAGE-/privacy",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/privacy",
+    "status": "PASS",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 171,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 7804
+  },
+  {
+    "id": "PROD-MISSING-PAGE",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/qa-route-that-does-not-exist",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      404
+    ],
+    "ms": 72,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "PROD-ROBOTS",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/robots.txt",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 155,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "PROD-SITEMAP",
+    "method": "GET",
+    "url": "https://sorttrip.yusufridlo7.workers.dev/sitemap.xml",
+    "status": "FAIL",
+    "httpStatus": 200,
+    "expected": [
+      200
+    ],
+    "ms": 66,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 1502
+  },
+  {
+    "id": "WHITELABEL",
+    "method": "GET",
+    "url": "https://yusuf-ridlo-kkxjf.nuitee.link/",
+    "status": "FAIL",
+    "httpStatus": 403,
+    "expected": [
+      200
+    ],
+    "ms": 156,
+    "contentType": "text/html",
+    "headers": {
+      "content-security-policy": null,
+      "referrer-policy": null,
+      "x-frame-options": null,
+      "x-content-type-options": null,
+      "strict-transport-security": null
+    },
+    "bytes": 986
+  }
+]

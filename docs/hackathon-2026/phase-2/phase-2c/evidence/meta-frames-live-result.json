@@ -1,0 +1,21 @@
+{
+  "metrics": {
+    "http": 200,
+    "elapsedMs": 6951,
+    "inputKind": "video-frames",
+    "model": "muse-spark-1.3",
+    "inputTokens": 685,
+    "outputTokens": 767,
+    "estimatedUSD": 0.004116
+  },
+  "frames": 3,
+  "seconds": [
+    0.45,
+    1.5,
+    2.55
+  ],
+  "synthetic": true,
+  "optionalTranscriptEmpty": true,
+  "candidates": 0,
+  "createDraftDisabled": true
+}

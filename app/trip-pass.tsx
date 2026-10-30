@@ -1,12 +1,13 @@
 import {tr,label as localize,locale,language} from './i18n';
 import {useEffect,useRef,useState} from 'react';
 import PriceWatch from './price-watch';
+import InfoNote from './info-note';
 import {supabase} from './supabase';
 import {boundedFetch} from './bounded-fetch';
 import {destinations,money,type Trip} from './travel-data';
 type Status={checkoutAmount?:number|null;checkoutUrl?:string|null;mode:string;ownerTest:boolean;checkoutEnabled:boolean;checkoutReason?:string;refreshDeferred?:boolean;verificationError?:{code:string;httpStatus?:number}|null;status:string;pass:null|{expiresAt:string;remaining:number;requestLimit?:number;test:boolean}};
 export default function TripPass({trip,onLogin,onAccessChange}:{trip:Trip;onLogin:()=>void;onAccessChange?:(active:boolean)=>void}){
- const [status,setStatus]=useState<Status|null>(null),[busy,setBusy]=useState(false),[actionName,setActionName]=useState(''),[loading,setLoading]=useState(false),[message,setMessage]=useState(''),[details,setDetails]=useState(false),[checkoutUrl,setCheckoutUrl]=useState('');
+ const [status,setStatus]=useState<Status|null>(null),[busy,setBusy]=useState(false),[actionName,setActionName]=useState(''),[loading,setLoading]=useState(false),[message,setMessage]=useState(''),[checkoutUrl,setCheckoutUrl]=useState('');
  const generation=useRef(0),actionInFlight=useRef(false);
  const city=trip.destinationMeta?.city||destinations.find(d=>d.id===trip.destination)?.city||trip.destination;
  useEffect(()=>{onAccessChange?.(!!status?.pass&&status.pass.remaining>0);},[status?.pass,onAccessChange]);
@@ -21,7 +22,7 @@ export default function TripPass({trip,onLogin,onAccessChange}:{trip:Trip;onLogi
  }
  useEffect(()=>{
   const id=++generation.current,controller=new AbortController();let checking=false,lastCheck=0;
-  setStatus(null);setMessage('');setDetails(false);setBusy(false);setCheckoutUrl('');actionInFlight.current=false;
+  setStatus(null);setMessage('');setBusy(false);setCheckoutUrl('');actionInFlight.current=false;
   async function refresh(){
    if(!supabase||checking||actionInFlight.current||document.visibilityState==='hidden'||Date.now()-lastCheck<65000)return;
    checking=true;lastCheck=Date.now();setLoading(true);
@@ -55,16 +56,16 @@ export default function TripPass({trip,onLogin,onAccessChange}:{trip:Trip;onLogi
  }
  const pass=status?.pass;
  return <div className={'trip-pass'+(pass&&pass.remaining>0?' trip-pass-active':'')}>
-  <div className="trip-pass-heading"><strong>{tr('ui_0693')}{!pass?tr('ui_0694'):''}</strong><button type="button" className="trip-pass-info" aria-label={tr('ui_0695')} aria-expanded={details} onClick={()=>setDetails(!details)}>!</button>{pass&&<span>{pass.remaining===0?tr('ui_0696'):pass.test?tr('ui_0697'):tr('ui_0698')} · {pass.remaining}{' '+tr('ui_0699')}</span>}</div>
-  {(!pass||pass.remaining===0||details)&&<><p>{tr('ui_0700')+' '}{pass?.requestLimit??10}{' '+tr('ui_0701')}</p><p className="inline-note">{tr('ui_0702')}</p></>}
-  {pass?.remaining===0&&<p className="pass-exhausted">{tr('ui_0703')}</p>}{pass&&details&&<p>{tr('ui_0704')+' '}{pass.requestLimit??20}{' '+tr('ui_0705')+' '}{new Date(pass.expiresAt).toLocaleDateString(locale())}. {pass.test?tr('ui_0706'):tr('ui_0707')}</p>}
+  <div className="trip-pass-heading"><strong>{tr('ui_0693')}{!pass?tr('ui_0694'):''}</strong><InfoNote label={tr('ui_0695')}><p>{tr('ui_0700')+' '}{pass?.requestLimit??10}{' '+tr('ui_0701')}</p><p className="inline-note">{tr('ui_0702')}</p>{pass&&<p>{tr('ui_0704')+' '}{pass.requestLimit??20}{' '+tr('ui_0705')+' '}{new Date(pass.expiresAt).toLocaleDateString(locale())}. {pass.test?tr('ui_0706'):tr('ui_0707')}</p>}{trip.id&&<button type="button" className="secondary" disabled={busy||loading} onClick={()=>act('status')}>{busy&&actionName==='status'?tr('ui_0716'):tr('ui_0717')}</button>}{message&&<p role="status">{localize(message)}</p>}{pass&&<PriceWatch trip={trip}/>}</InfoNote>{pass&&<span>{pass.remaining===0?tr('ui_0696'):pass.test?tr('ui_0697'):tr('ui_0698')} · {pass.remaining}{' '+tr('ui_0699')}</span>}</div>
+  {(!pass||pass.remaining===0)&&<><p>{tr('ui_0700')+' '}{pass?.requestLimit??10}{' '+tr('ui_0701')}</p><p className="inline-note">{tr('ui_0702')}</p></>}
+  {pass?.remaining===0&&<p className="pass-exhausted">{tr('ui_0703')}</p>}
   {(!pass||pass.remaining===0)&&<>
    {!trip.id?<p>{tr('ui_0708')}</p>:loading?<p role="status">{tr('ui_0709')}</p>:status?.checkoutEnabled?<p>{status.mode==='sandbox'?tr('ui_0710'):tr('ui_0711')}</p>:<p>{localize(status?.checkoutReason||tr('msg_0244'))}</p>}
    <div className="ai-controls">{checkoutUrl?<a className="primary" href={checkoutUrl} target="_blank" rel="noopener noreferrer">{status?.checkoutAmount?tr('pass_continue_payment_amount',{amount:money(status.checkoutAmount)}):tr('pass_continue_payment')}</a>:<button className="primary" type="button" disabled={busy||(!status&&loading)||!trip.id||!status?.checkoutEnabled} onClick={()=>act('checkout')}>{busy&&actionName==='checkout'?tr('ui_0713'):pass?.remaining===0?tr('ui_0714'):tr('ui_0712')}</button>}</div>
    <p className="inline-note">{tr('ui_0715')}</p>
   </>}
-  {trip.id&&details&&<button className="secondary" disabled={busy||loading} onClick={()=>act('status')}>{busy&&actionName==='status'?tr('ui_0716'):tr('ui_0717')}</button>}
+
   {message&&<p role="status">{localize(message)}</p>}
-  {pass&&details&&<PriceWatch trip={trip}/>}
+
  </div>;
 }

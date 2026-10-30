@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/",
+    "expected": 200,
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "path": "/hotel-checkout",
+    "expected": 200,
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "path": "/api/health",
+    "expected": 200,
+    "httpStatus": 200,
+    "status": "PASS"
+  },
+  {
+    "path": "/qa-disclosure-missing",
+    "expected": 404,
+    "httpStatus": 404,
+    "status": "PASS"
+  }
+]

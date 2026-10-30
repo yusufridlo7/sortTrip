@@ -6,6 +6,11 @@ const q={origin:'CGK',destination:'kl',journey:'return',outFrom:date(20),outTo:d
 const row={origin:'JKT',origin_airport:'CGK',destination:'KUL',destination_airport:'KUL',price:1200000,airline:'AK',flight_number:381,departure_at:date(30)+'T07:00:00+07:00',return_at:date(33)+'T18:00:00+08:00',duration_to:120,duration_back:130,transfers:0,link:'/search/CGK0101KUL04011?expected_price_currency=idr'};
 const env={TRAVELPAYOUTS_API_TOKEN:'test-secret-never-public'};
 const ctx={waitUntil:p=>p.catch(()=>{})};
+test('same-month flexible return range uses documented return month without losing local date filters',async()=>{
+ let target;const query={...q,outFrom:'2026-11-01',outTo:'2026-11-30',backFrom:'2026-11-01',backTo:'2026-11-30'};
+ await searchFlights(query,env,ctx,{cache:null,fetcher:async u=>{target=u;return Response.json({success:true,currency:'idr',data:[]});}});
+ assert.equal(target.searchParams.get('departure_at'),'2026-11');assert.equal(target.searchParams.get('return_at'),'2026-11');assert.equal(target.searchParams.get('one_way'),'false');
+});
 const provider=overrides=>async()=>Response.json({success:true,currency:'idr',data:[row],...overrides});
 test('valid query and invalid inputs',()=>{const url='https://site/api/flights?'+new URLSearchParams(q);assert.equal(parseQuery(url).origin,'CGK');assert.throws(()=>parseQuery(url.replace('CGK','ZZZ')));assert.throws(()=>parseQuery(url.replace('minDays=3','minDays=19')));assert.throws(()=>parseQuery(url.replace(q.outFrom,'2020-02-30')));});
 test('normalize real PP price and inclusive duration',()=>{const f=normalize(row,q,'kl');assert.equal(f.price,1200000);assert.equal(f.days,4);assert.match(f.bookingUrl,/^https:\/\/www.aviasales.com\/search\//);});

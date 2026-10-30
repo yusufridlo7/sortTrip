@@ -1,5 +1,41 @@
 # SortTrip — Decision Log
 
+## 2026-10-28 — Approve focused local Nearby companion, retain explicit live gates
+
+Owner requestedlocation-awareMVP withinTourGuide, overridingpriorGPSdeferralonlyforoptionalone-shotbrowserpermission; continuous/backgroundtracking/native/live-replanning remainoutofscope. Use existingcatalog andprimarysourcedBangkokreferences ratherthan inventbusinesses/prices/hours/halal. Addressverification doesnotimplycoordinatepin; GPSradius cannotincludeunknownpins. No commercialNearbyAPI connected; deterministicQ&A labelled, fixturefallbackexplicit. Addplacesviaexistingstate/save, keepallpaid/lockeditems andbookingparameters; storeonlydestinationrecord, notGPSorigin.149targetedtests andlocalbrowserfixturespassed; physicalGPS/liveprovider/DBtestsnotclaimed. NoSQL/inference/deploymentorproductionapproval implied.
+
+## 2026-10-28 — Finish locally testable hackathon MVP while live ledger stays blocked
+
+Owner explicitly approved focused video-to-itinerary thenTourGuide and bookingregressions, not anotherrecoveryaudit or paidactivation. Use existing editor/auth/persistence/booking infrastructure; fixture-only loopback5175shell provides coherentownerreview without Supabasewrites/Meta or altering stagingpolicy. All recognition/speechAPIstub/databasefixture results labelled; unknownprices remainunknown. Manualdestination confirmation never confersverifiedcoordinates. TourGuide factcoverage initiallyWatArun/WatPho withlinkedcuratedsources; otherplaces gracefullyunknown. Browser speech only, no paidTTS/GPS/backgroundmonitoring/nativeapp/unrelatedPhase3.152targetedtests and localbrowser/build verified; no deployed/realMeta/E2E readinessclaim. Owner reviews localdemo before any separatelyauthorizedlivegates.
+
+## 2026-10-28 — Approved staging architecture, preparation only
+
+Owner approved implementing preparation for one owner-accessible staging URL using existing QA resources, but explicitly barred deployment, DB changes, credentials/billing/quotas/ledger changes, paid inference and Phase3. Implement a separate shell/router with cryptographic Access plus verified QA owner identity and ordinary entitlement/RLS, not a relaxed localhost/preview bypass. Keep all generation/readiness false until later approval. Lower discovery output to existing2000 guard rather than widening SQL caps. Reuse real read-only supplier logic without production Worker proxy; unknown prices remain unavailable. Dedicated UI slice covers discovery/manual editor/Save/list; video/legacy OpenAI/transaction features remain unavailable on staging while existing Phase2C entry is preserved. QA expiry/test pass remains source-only and owner-controlled. No new partner approval inferred.
+
+
+## 2026-10-28 — AI prompt and public flight discovery are separate paths
+
+Owner requires a nonblank prompt to enter paid Assistant discovery, then destination/budget choices and an existing editable itinerary; blank prompt retains free flight discovery and holiday estimates. Never silently return all countries when AI input cannot be resolved. A link is not proof of read video content. Opening a generated card reuses its draft, without another model request. Hotel planning references count every overnight and explicit room assumptions, with unknown/noncomparable city rates excluded.
+
+Owner subsequently defers subscription/quota setup. Keep product gates; use only an explicit labelled localhost/fixed-project QA preview with the existing Meta dollar guard for diagnostics. Do not silently route product users through it, transfer production subscriptions, create test entitlements, reset allocation or raise limits. New live success remains blocked/unverified; simulation is labelled.
+
+
+## 2026-10-28 — Budget may be unrestricted
+
+Owner chooses an explicit “Berapa pun · bebas” option for discovery, with optional custom ceiling and cheapestavailablefirst. Internalbudget0 represents no maximum, not a literalzero-costtrip. Retainnumericvalidation andpositiveexistingtripbudgets; show no budgetfitfilterwithoutceiling. Plannerprioritizesverifiedeconomicalchoices andkeepsunknowncostsunknown. Ticketpricesortingdoesnotcertifylowestcompleteholidaycost. This supersedes the earlier initialblank-but-required budget field.
+
+## 2026-10-28 — Make QA search usable without production credentials
+
+Owner asks to fix emptyautocomplete and forceddestinationreentry. Reuseexistingpubliccatalogue andread-onlypublicSortTripfares through anexactendpoint allowlist; keepQAauth/databaseisolated andneverforwardsecretsoraccountheaders. Resolve cityfromexplicitusertextwhenunique, askonlywhenambiguous/absent, andneverinferdestinationfromunreadvideoURL. Matchersareconservativehelpers, notsemanticAI orsourceverification. Do notexpandbridge tobooking/payment/generalplanner automatically.
+
+## 2026-10-28 — Link inspiration as primary low-friction path
+
+Owner rejects download-and-reupload as a required workflow. Make URL inspiration a reference-only handoff to ordinary search/planning, with explicit confirmation of destination when missing. Text/frame extraction and consent are optional advanced actions. Preserve requirements and scope; do not claim video analysis, infer locations from arbitrary URL slugs, invent verified candidates, auto-generate, or replace purchased/locked items during handoff. Standard request limits remain enforced without silent truncation. Automatic media reading remains a separate capability.
+
+## 2026-10-28 — Honest link reference and separate media limits
+
+KnownTikTokshortlinks may be accepted as references without claimingcontentaccess. User-suppliedcaption/transcript follows existing authenticated/consentedbudgetedtextpath; noimplicitdownload, redirectfollow, audio/videoanalysis or bypass of reviewedplaceverification. Keep boundedJSONframeenvelope independent of activationstatus and explain disabledmodel separately from oversizefile/payload. Use explicitlowreasoning for boundedplaceextraction while retaining2koutputcap/reservation. CurrentQA remainsnonproduction; furtherURLmedia/multicitywork is a separateimplementation, not certified bycaptionHTTP200.
+
 ## 2026-10-23 — Compact itinerary reading
 
 Owner requested collapsed conversation and per-item detail by default. Use native keyboard-accessible disclosures, independent for each item; keep children mounted so form choices persist during hide/show. Expansion is presentation state, never an itinerary mutation or API trigger. Keep title/time/price/Edit visible and Assistant operation/error/cancel controls outside the hidden conversation. Apply consistently in daily catalogue/world itineraries and map stop lists. No persistence of expansion across trip switches or reload was requested.
@@ -206,3 +242,56 @@ Reject transfers ordered after their destination visit or before their origin vi
 
 ## 2026-10-24 — Viator city-state resolution
 Same-name destination matches are resolved only if a unique candidate is the explicit direct child of every other exact-name candidate, using provider parentDestinationId. This handles Singapore country/city hierarchy without arbitrary first-match fallback or hardcoded guessed IDs. Unrelated ambiguous cities remain rejected.
+
+## 2026-10-27 — Phase 2 bounded transcript-first implementation
+Implement the independent safe Phase2 source/UI now; keep live model calls disabled until a reviewed atomic USD5 test allocation and account/privacy gates are verified. Social links are validated attribution with honest fallback, never downloaded. MP4 container validation does not confer safe codec analysis; native media forwarding remains blocked pending inspector/deletion. No new storage/queue or media persistence. Reuse exact existing place catalog and create a separate initial Trip; no replacement of protected bookings or duplicate save system. New budget SQL is source-only, not a live migrated RLS claim. Phase3/4 and release remain separate approvals. See docs/hackathon-2026/phase-2/.
+
+## 2026-10-27 — One Assistant, selectable input sources
+Owner prefers one compact Assistant instead of separate video feature columns. Embed link/upload/transcript in existing Explore and itinerary Assistant with one localized source selector; show only selected editor, keep privacy details collapsible and required consent visible. Backend extraction authority and live readiness unchanged; no Phase3 implied. Source uncommitted/local; QA qa-reports/assistant-unified/QA_REPORT.md.
+
+## 2026-10-27 — Caption plus optional attachment, not exclusive features
+Owner clarified the previous source selector was too restrictive. Keep travel request and preferences visible while optionally attaching link/video/transcript; combine reviewed media-place context with the same request in normal initial planning. Review remains explicit; extraction failure must not be disguised as success or silently cause billable fallback. Retain only minimal place metadata and allow its removal; preserve existing booking locks/quota. The prior hide-normal-controls decision is superseded. Local only, no Phase3 or deployment.
+
+## 2026-10-27 — Phase2B frame fallback and live gates
+Owner confirmed nonproduction is not ready. Reuse native browser decoder for three bounded local visual frames with optional user-supplied transcript; do not upload raw video/audio or infer social URL access. Explicit analysis follows local preview, caption/preferences preserved. Support Meta input_image behind nonproduction and budget gates, authoritative token count before inference, no paid retry/fallback. Offline existingFFmpeg QA supports local audio extraction only and is not a deployed codec service. Expanded exact public dataset snapshot remains identity-only, not live travel facts. Source SQL cap requires real DB verification before enablement. Native/full audio, Meta live and two-user Save/RLS remain Phase2B work, not Phase3 authorization.
+
+## 2026-10-27 — Meta cumulative testing authorization revised to USD10
+Owner explicitly increased maximum fromUSD5 toUSD10. Implement source cap10 without resetting already consumed allocations or increasingUSD0.05/request or tenallocations/user. No live paid call until model access and real nonproduction ledger are verified. EarlierUSD5 reports are historical. API key installation remains owner-only and does not authorize enabling flags or production deployment.
+
+## 2026-10-27 — Phase2C minimum QA draft bridge
+QA-only reviewedTrip reuses initialVideoTrip and ordinaryTrip/databaseTrips. It performs no second paidplannerrequest, preservesuserconstraints andprotectedexistingitems, anddoesnotclaimresearchedhotel/transportinventory. NoQAbooking/payment/generalplannerrouteadded. Serviceaggregatebudgetread diagnostic islocal/authenticated only; owner-only SELECTgrantpatchpreparedwithoutclientroleaccess. Liveinferenceheldongatefailures; noarchitecturechangeofproductionplanner.
+
+## 2026-10-28 — Original product remains the default experience
+Owner unified-UI brief supersedes standalone MVP as primary review surface. Reuse original components, itinerary state and Save/auth/provider mechanisms; add compact media/manual controls and contextual Guide/Nearby. Isolated offline owner profile permits safe local review without secrets, paid calls or database writes. Fixture recognition and browser Save tests are labeled; do not equate them with live end-to-end readiness. No production entry/configuration or affiliate IDs changed.
+
+## 2026-10-28 — Sprint1 preparation does not activate live services
+Owner authorized local implementation/tests only. Replace old staging shell with original UI entry; preserve5173/5175 configs. No private env fallback or fake pass; owner-only Access must be proven before live. All AI/ledger execution remains unreachable in preparation router; supplierreads false bydefault and booking/payment absent. CloudSave tests use only browser fixtures. Liveconfig, readSQL, login/write, supplierreads, ledgerrecovery, paidMeta and deploy each need separateapproval.
+
+## 2026-10-28 — GateA is preparation, not implicit login authorization
+Ownerrequestedexplicitconfigmechanism whileforbiddingrealAuth. AcceptonlyQAURL/publickeycategory withownerprojectprovenanceattestation, bindreviewtokeydigest, andkeepseparatecompileactivationfalse. Currentfileabsent; noactualowner/Access/redirectproofclaimed. FutureGateBrequiresnewexplicitownerapprovalandruntimewiringreview; do nottreatkeypresence/localhostname/mockJWTasremoteverification.
+
+## 2026-10-29 — Gate C.2 bounded read-only supplier testing
+
+Owner permits newpersistent5Aviasales/5LiteAPIrates/2optionalmetadata budget; retain GateCclaims andstopafterpositiveproviderUIresultorcap. PriceUI mustseparate fullstayroomratefromsourcedpay-at-propertyfees, aggregateonlymatchingIDR, andneverexposeQApriceasbookable. ImplementedQA-onlyreadonlyoption; defaultcheckouttaxguardunchanged. Hotel/flightLIVEPASS achieved; liveclosed/GateBrestored. This decisiondoesnotauthorizeMeta/DBwrites/financialactions/release. Report docs/GATE_C2_SUPPLIER_FIX_2026-10-29.md.
+
+## 2026-10-29 — Gate D global pending guard proposal
+Untuk localpreparation ownerapproved, concurrency harus databaseglobal, bukan mutexisolate/TTL2menit. Adapter mensyaratkan capabilityv2; SQL08proposal menjagaoldcap10USD/0.05/10user dan menahanstale/unknownpending sampai investigasiowner. Settlementtidakterkonfirmasi menahanhasil; finishTripPassunknown tidakdiretry. Ini belumdiaplikasikankeQA; tidakrecoverybaru atauizinSQL. DemoLive terkecil memakai discoveryberentitlementnormal, tidakpreviewbypass; kesiapanmasihNO-GO.
+
+
+## 2026-10-29 — Explicit Gate D demo isolation
+OwnerauthorizedlocalTaskA/Bonly. Activatefrontendcontainmentonlywhenmodeqa-preparation + compileflagtrue + exactQAURL. Skippricingentirely, labelunavailable, allowfetchonlynormaldiscovery/sessionidentity andQAauth/trips; denyredirect. Backendnoinferenceproxy. SQL08mustfailclosedunlessmanualQAattestationandDBbaseline/fingerprint/ownerACLrequirementsverified; noautomaticprojectidentityclaimfromPostgreSQLsetting. Rehearsaldisposableclusteronly, noSQLexecutionauthorizednow.
+
+
+## 2026-10-29 — Minimal QA owner entitlement review
+Foronesuccessfuldiscoverydemo, prepare1successfulresult/1hour existingconfirmedQAowner instead ofold2results/24h. Explicitowner-testmarker preservesnormalTripPassauthorization/RLS anddoesnotclaimpayment. No grant executed; userUUID remainsNULL andexecutiongatefalse. FinalSQL08QAattestationreflectsactualread-onlyverifiedref, executiongatefalse, hash/versionpins17.11. Approvalforrecovery/localrehearsaldoesnotauthorizeQAfunctions/schema/entitlement mutations.
+
+
+
+## 2026-10-30 — Owner-approved Meta paid window
+Owner menerima biaya Meta sebelum 5 November 2026 00.00 WIB, menggantikan syarat lama promo-only sebelum satu inferensi terkontrol. Hardcode ceiling dan konfigurasi wajib META_AI_CUTOFF_AT=2026-11-04T17:00:00Z pada semua Meta egress; tidak ada paid fallback/automatic retry. Ledger USD10 dan entitlement/SQL08 tetap. Tidak ada perubahan billing provider atau izin deploy otomatis. Live QA satu hasil berhasil, scope request telah terpakai.
+
+
+### 2026-10-30 — Existing production untuk demo
+Owner meminta memakai Worker sorttrip dan Supabase production existing, tanpa Access atau login staging. Ledger production harus terpisah dari QA; saldo/entitlement QA tidak diimpor. Aktivasi tertahan sampai migration dan spending guards siap.
+
+Owner approval lanjutan: cap alokasi Meta production USD100, QA tetap USD10, cutoff 5 November 2026 00.00 WIB tetap. Tidak mengubah billing provider.

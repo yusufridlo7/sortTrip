@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" fill="none">
+  <!-- Decorative travel illustration. No external assets or interactive content. -->
+  <g stroke="#FFFFFF" stroke-opacity=".23" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Kuala Lumpur: twin towers and skybridge. -->
+    <path d="M58 270V126h18V100h13V76h12V51h10V25m0 26h10v25h12v24h13v26h18v144M190 270V126h18V100h13V76h12V51h10V25m0 26h10v25h12v24h13v26h18v144M164 160h26v17h-26"/>
+    <path d="M66 145h90m-90 23h90m-90 23h90m-90 23h90m-90 23h90M198 145h90m-90 23h90m-90 23h90m-90 23h90m-90 23h90M101 126v144m20-144v144m112-144v144m20-144v144"/>
+    <!-- A Southeast Asian pagoda, layered roofs. -->
+    <path d="M345 270h180M370 270V157m130 113V157M357 157l78-35 78 35h-156m13-38 65-29 65 29H370m16-35 49-25 49 25h-98m49-25V28M398 270v-68h74v68M387 181h96"/>
+    <!-- Marina Bay skyline. -->
+    <path d="M586 270V157h24v113m36 0V147h24v123m36 0V153h24v117M569 148l11-14 163-7 5 15-179 6M592 179h12m48-7h12m48 6h12M590 207h16m44-7h16m44 9h16M590 235h16m44-7h16m44 9h16"/>
+    <!-- An arch bridge and riverside architecture. -->
+    <path d="M788 270v-18h251v18m-238-18c32-86 185-86 225 0M831 252v-29m39 29v-55m40 55v-66m40 66v-56m39 56v-29"/>
+    <!-- Temple spire and layered pavilion. -->
+    <path d="M1090 270h149m-125 0v-64h99v64M1101 206l63-38 62 38h-125m15-38 48-31 47 31h-95m18-31 30-27 30 27h-60m30-27V88m-12 0 12-48 12 48h-24m-13 182v-38h25v38"/>
+    <!-- Coastal city and a small observation wheel. -->
+    <path d="M1276 270V166h51v104m-42-87h8m14 0h10m-32 23h8m14 0h10m-32 24h8m14 0h10M1345 270V126h47v144m-36-125h8m12 0h8m-28 25h8m12 0h8m-28 25h8m12 0h8M1411 270l32-79 32 79m-32-79v-63"/>
+    <circle cx="1443" cy="144" r="53"/>
+    <path d="M1443 91v106m-53-53h106m-91-38 76 76m-76 0 76-76M1498 270V207h45v63M32 271h1536"/>
+    <!-- Soft travel details: route, aircraft and clouds. -->
+    <path d="M343 46c99-30 175-22 243 13" stroke-dasharray="5 10"/>
+    <path d="m592 62 27-5-12-17 8-2 24 14 17-3 8 5-23 9-12 21-8 2 4-19-24 3-9-8Z"/>
+    <path d="M766 54h54c5-20 31-23 41-4 17-7 32 4 33 17h-128M1269 60h46c4-17 26-18 33-4 14-5 27 3 28 15h-107"/>
+  </g>
+  <g fill="#FFFFFF" fill-opacity=".045">
+    <path d="M58 270V126h18V100h13V76h44v24h13v26h18v144Zm132 0V126h18V100h13V76h44v24h13v26h18v144Z"/>
+    <path d="M370 270V157h130v113Zm216 0V157h24v113Zm60 0V147h24v123Zm60 0V153h24v117Z"/>
+    <path d="M1114 270v-64h99v64Zm162 0V166h51v104Zm69 0V126h47v144Z"/>
+  </g>
+</svg>

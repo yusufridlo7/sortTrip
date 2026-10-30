@@ -1,0 +1,20 @@
+{
+  "keys": 1415,
+  "staticCalls": 1037,
+  "errors": [],
+  "literalTexts": [],
+  "brandLiterals": [
+    {
+      "file": "activity-tickets.tsx",
+      "text": "Viator"
+    },
+    {
+      "file": "activity-tickets.tsx",
+      "text": "Viator"
+    },
+    {
+      "file": "trip-hotel-search.tsx",
+      "text": "SORTTRIP · HOTEL · TRIP.COM"
+    }
+  ]
+}

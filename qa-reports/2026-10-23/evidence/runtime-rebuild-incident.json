@@ -1,0 +1,9 @@
+{
+  "scope": "Local development runtime only; no production release",
+  "observed": "After repeated dist rebuilds while Wrangler dev remained running, root, index.html and hotel-checkout returned the static 404 document.",
+  "diagnosis": "Consistent with stale/incomplete local asset-manifest state during rebuild; no source checkout-routing defect established.",
+  "recovery": "Stopped only the agent-owned Wrangler session and restarted the same config/port without changing credentials or financial flags.",
+  "verifiedAfterRestart": {"homepage":200,"hotelCheckout":200,"unknownPage":404,"robots":200,"sitemap":200},
+  "evidence": "http-probes-final-local.json",
+  "recommendation": "Finish the build before starting the local QA Worker; restart that Worker if asset routing is stale. No extra Google/provider call is needed."
+}

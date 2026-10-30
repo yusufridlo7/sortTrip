@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "targetOrigin": "https://sorttrip-staging.yusufridlo7.workers.dev",
+  "supabaseURL": "https://aytrcvfncsklhqozreyk.supabase.co",
+  "publishableKey": "OWNER_ENTER_QA_PUBLISHABLE_KEY_PRIVATELY",
+  "owner": {"email": "OWNER_VERIFIED_QA_EMAIL", "qaUserId": "OWNER_VERIFIED_QA_UUID"},
+  "review": {
+    "qaProjectVerified": false,
+    "publicKeyProjectVerified": false,
+    "publicKeySHA256": "OWNER_VERIFIED_PUBLIC_KEY_SHA256",
+    "ownerIdentityVerified": false,
+    "redirectsVerified": false,
+    "siteURL": "https://sorttrip-staging.yusufridlo7.workers.dev/",
+    "redirectURLs": ["https://sorttrip-staging.yusufridlo7.workers.dev/"],
+    "noProductionResourcesVerified": false,
+    "accessVerified": false,
+    "accessIssuer": "OWNER_VERIFIED_ACCESS_ISSUER",
+    "accessAudience": "OWNER_VERIFIED_ACCESS_AUD",
+    "accessOwnerEmail": "OWNER_VERIFIED_QA_EMAIL",
+    "accessOwnerQAUserId": "OWNER_VERIFIED_QA_UUID",
+    "nextStepAuthorization": "GATE_B_QA_AUTH"
+  }
+}

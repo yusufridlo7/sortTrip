@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "sorttrip-meta-qa-local",
+  "main": "worker/meta-qa.js",
+  "compatibility_date": "2026-09-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "env": {
+    "meta-qa": {
+      "vars": {
+        "META_AI_CUTOFF_AT": "2026-11-04T17:00:00Z",
+        "SUPABASE_URL": "https://aytrcvfncsklhqozreyk.supabase.co",
+        "META_VIDEO_NONPRODUCTION": "true",
+        "META_VIDEO_TEXT_ENABLED": "true",
+        "META_VIDEO_FRAMES_ENABLED": "true",
+        "META_VIDEO_BUDGET_READY": "true"
+      },
+      "ratelimits": [{"name":"AI_LIMITER","namespace_id":"901027","simple":{"limit":5,"period":60}}]
+    }
+  }
+}

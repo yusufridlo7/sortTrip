@@ -1,5 +1,9 @@
 node_modules/
 dist/
+dist-staging/
+dist-mvp-demo/
+dist-owner-ui/
+artifacts/staging-worker.mjs
 .env
 .env.*
 !.env.example
@@ -10,3 +14,5 @@ dist/
 .wrangler/
 .sorttrip-agent/
 .sorttrip-auth/
+.sorttrip-qa/
+dist-qa-preparation/

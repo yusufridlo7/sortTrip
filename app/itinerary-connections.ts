@@ -7,7 +7,7 @@ export function itineraryConnections(trip:Trip,day:number):ItineraryConnection[]
  const city=(item:Item)=>item.locationCity||cityById(item.cityId||'')?.name||cityAt(trip,day)?.name||trip.destinationMeta?.city||trip.destination;
  // A supplied address/location may already name an excursion city. Do not
  // append the overnight base (e.g. "Genting Highlands, Kuala Lumpur").
- const name=(item:Item)=>{const place=item.place||item.title;return place.includes(',')?place:place+', '+city(item);};
+ const name=(item:Item)=>{const place=item.place||item.title,area=city(item);return place.includes(',')||place.toLowerCase()===area.toLowerCase()?place:place+', '+area;};
  const airportCode=trip.flight?.destinationCode;
  const arrival=trip.flight&&airportCode&&(trip.flight.arrivalDay||0)===day-1;
  const departure=trip.flight&&airportCode&&trip.journey!=='oneway'&&trip.flight.returnAt?.slice(0,10)===date;

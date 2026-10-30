@@ -1,6 +1,7 @@
 import {airportStayPolicy,withinAirportScope} from './hotel-stay-policy.mjs';
 // Supplier facts are deterministic API data, never model-generated prices/IDs.
 import {assertLiteApiFreeEndpoint} from './liteapi-cost-policy.js';
+import {liteRatesEnvelope} from './liteapi-rates-response.js';
 import {hotelPreview} from './hotel-content.js';
 export const LITE_HOTEL_SOURCE='https://docs.liteapi.travel/reference/post_hotels-rates';
 export function liteHotelConfigured(env){return env.LITEAPI_ENABLED==='true'&&typeof env.LITEAPI_API_KEY==='string'&&env.LITEAPI_API_KEY.length>8&&!/^(sand_|sandbox_)/i.test(env.LITEAPI_API_KEY);}
@@ -40,20 +41,27 @@ export function groupHotelAreas(plan,q){
  const grouped=new Map(groups.map(g=>[g.ids[0],g.activity])),removed=new Set([...protectedIds,...groups.flatMap(g=>g.ids.slice(1))]);
  return {...plan,...(airport&&scoped.some(a=>a.airportScope)?{sources:[...(plan.sources||[]).filter(s=>s.url!==airportSource),{url:airportSource,title:'KLIA / Sepang location reference'}]}:{}),activities:scoped.filter(a=>!removed.has(a.id)).map(a=>grouped.get(a.id)||a)};
 }
-// Require public standard rates, full occupancy, IDR and an explicit tax breakdown.
-export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=false}={}){
+// Require public standard rates, full occupancy and IDR. Documented literal null
+// taxesAndFees means all fees included; a missing field remains unverified.
+export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=false,allowPayAtProperty=false}={}){
  const reject=reason=>{if(diagnostics)diagnostics[reason]=(diagnostics[reason]||0)+1;return null;};
  if(offer?.rateType!=='standard')return reject('rate_type');
  if(!safeId(hotel?.id||hotel?.hotelId)||typeof hotel.name!=='string'||!hotel.name.trim()||hotel.name.length>160)return reject('hotel_identity');
  const rates=offer.rates;if(!Array.isArray(rates)||rates.length!==t.rooms)return reject('room_count');
- let total=0,guests=0;const roomNames=[],policies=[];
+ let total=0,guests=0;const roomNames=[],policies=[],excludedTaxes=[];
  for(const r of rates){
   if(!Number.isInteger(r.adultCount)||r.adultCount<1||r.childCount!==0||!Number.isInteger(r.occupancyNumber))return reject('occupancy');
   if(typeof r.name!=='string'||!r.name.trim()||r.name.length>160)return reject('room_name');
   guests+=r.adultCount;
   const retail=r.retailRate?.total,publicPrice=r.retailRate?.suggestedSellingPrice,taxes=r.retailRate?.taxesAndFees;
   if(!Array.isArray(retail)||retail.length!==1||retail[0].currency!=='IDR'||!amount(retail[0].amount))return reject('total');
-  if(!Array.isArray(taxes)||taxes.some(tax=>tax.included!==true))return reject('taxes');
+  if(taxes!==null){
+   if(!Array.isArray(taxes)||taxes.some(tax=>typeof tax?.included!=='boolean'))return reject('taxes');
+   const excluded=taxes.filter(tax=>tax.included===false);
+   if(excluded.length&&!allowPayAtProperty)return reject('taxes');
+   if(excluded.some(tax=>!Number.isFinite(tax.amount)||tax.amount<=0||tax.amount>1e9||!/^[A-Z]{3}$/.test(tax.currency||'')))return reject('excluded_tax_details');
+   excludedTaxes.push(...excluded.map(tax=>({amount:tax.amount,currency:tax.currency})));
+  }
   if(!Array.isArray(publicPrice)||publicPrice.length!==1||publicPrice[0].currency!=='IDR'||!amount(publicPrice[0].amount))return reject('public_price');
   // Public discovery respects SSP. Authenticated member checkout must match the
   // supplier's actual payable total (account margin is already included there).
@@ -63,7 +71,7 @@ export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=fal
  }
  if(guests!==q.people||new Set(rates.map(r=>r.occupancyNumber)).size!==t.rooms||!amount(total))return reject('occupancy_total');
  const geo=hotel.location||hotel;
- return {id:t.id,provider:'LiteAPI',scope:'dated',basis:'stay_total',amountIDR:Math.round(total*100)/100,sourceUrl:LITE_HOTEL_SOURCE,quote:'LiteAPI: '+hotel.name+' · IDR '+(Math.round(total*100)/100)+' · '+t.checkin+' → '+t.checkout+' · '+t.rooms+' room(s), '+q.people+' adults',checkedAt:new Date().toISOString(),checkin:t.checkin,checkout:t.checkout,adults:q.people,rooms:t.rooms,taxesIncluded:true,roomType:[...new Set(roomNames)].join(' / '),policy:policies.every(p=>p==='RFN')?'RFN':'NRFN',hotelId:hotel.id||hotel.hotelId,hotelName:hotel.name,hotelArea:t.area&&clean([hotel.address,hotel.name].join(' ')).includes(clean(t.area))?t.area:'',selection:'lowest_checked_public_total',...(Number.isFinite(geo.latitude)&&Number.isFinite(geo.longitude)&&Math.abs(geo.latitude)<=90&&Math.abs(geo.longitude)<=180?{geo:{lat:geo.latitude,lng:geo.longitude}}:{})};
+ return {id:t.id,provider:'LiteAPI',scope:'dated',basis:'stay_total',amountIDR:Math.round(total*100)/100,sourceUrl:LITE_HOTEL_SOURCE,quote:'LiteAPI: '+hotel.name+' · IDR '+(Math.round(total*100)/100)+' · '+t.checkin+' → '+t.checkout+' · '+t.rooms+' room(s), '+q.people+' adults',checkedAt:new Date().toISOString(),checkin:t.checkin,checkout:t.checkout,adults:q.people,rooms:t.rooms,taxesIncluded:excludedTaxes.length===0,...(excludedTaxes.length?{excludedTaxes,readOnlyQuote:true}:{}),roomType:[...new Set(roomNames)].join(' / '),policy:policies.every(p=>p==='RFN')?'RFN':'NRFN',hotelId:hotel.id||hotel.hotelId,hotelName:hotel.name,hotelArea:t.area&&clean([hotel.address,hotel.name].join(' ')).includes(clean(t.area))?t.area:'',selection:'lowest_checked_public_total',...(Number.isFinite(geo.latitude)&&Number.isFinite(geo.longitude)&&Math.abs(geo.latitude)<=90&&Math.abs(geo.longitude)<=180?{geo:{lat:geo.latitude,lng:geo.longitude}}:{})};
 }
 export function selectHotelPool(hotels){
  const bands=[[],[],[],[]];
@@ -80,7 +88,7 @@ export async function liteHotelPrices(q,targets,env,deadline=Date.now()+45000,di
   assertLiteApiFreeEndpoint(path,body?'POST':'GET');
   const remaining=deadline-Date.now();if(remaining<1000){diagnostics.liteHotelUnavailable=true;return null;}
   try{const response=await fetcher('https://api.liteapi.travel/v3.0/'+path,{method:body?'POST':'GET',redirect:'manual',signal:AbortSignal.timeout(Math.min(18000,remaining)),headers:{'X-API-Key':env.LITEAPI_API_KEY,Accept:'application/json',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
-   if(!response.ok){diagnostics.liteHotelUnavailable=true;return null;}const text=await response.text();if(text.length>6000000){diagnostics.liteHotelUnavailable=true;return null;}const data=JSON.parse(text);if([true,1,'true','1'].includes(data.sandbox)){diagnostics.liteHotelSandbox=true;return null;}if(!Array.isArray(data.data)){diagnostics.liteHotelUnavailable=true;return null;}return data;
+   if(!response.ok){diagnostics.liteHotelUnavailable=true;return null;}const text=await response.text();if(text.length>6000000){diagnostics.liteHotelUnavailable=true;return null;}const parsed=JSON.parse(text);if([true,1,'true','1'].includes(parsed.sandbox)){diagnostics.liteHotelSandbox=true;return null;}const data=body?liteRatesEnvelope(parsed):parsed;if(!Array.isArray(data.data)){diagnostics.liteHotelUnavailable=true;return null;}return data;
   }catch{diagnostics.liteHotelUnavailable=true;return null;}
  }
  for(const t of targets.filter(t=>t.category==='Penginapan').slice(0,6)){

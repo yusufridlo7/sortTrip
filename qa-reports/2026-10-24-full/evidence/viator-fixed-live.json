@@ -1,0 +1,92 @@
+[
+  {
+    "city": "Singapore",
+    "search": "Gardens by the Bay",
+    "http": 200,
+    "environment": "production",
+    "count": 6,
+    "products": [
+      {
+        "title": "Gardens By The Bay E Tickets",
+        "fromPrice": 276856.35,
+        "currency": "IDR",
+        "productCode": "40856P20"
+      },
+      {
+        "title": "Singapore: Gardens by the Bay Admission E-Ticket",
+        "fromPrice": 174856.64,
+        "currency": "IDR",
+        "productCode": "203208P3"
+      },
+      {
+        "title": "Singapore River Cruise, Night Garden Rhapsody & Spectra by CYT",
+        "fromPrice": 582855.48,
+        "currency": "IDR",
+        "productCode": "5577222P5"
+      },
+      {
+        "title": "Singapore Gardens by the Bay Flower Dome Cloud Forest",
+        "fromPrice": 601237.5,
+        "currency": "IDR",
+        "productCode": "5497382P80"
+      },
+      {
+        "title": "Gardens by the Bay Flexible Ticket with Flower Dome in Singapore",
+        "fromPrice": 655712.42,
+        "currency": "IDR",
+        "productCode": "209983P67"
+      },
+      {
+        "title": "Gardens by the Bay Admission Ticket with OCBC Skyway",
+        "fromPrice": 1040397.03,
+        "currency": "IDR",
+        "productCode": "226483P105"
+      }
+    ]
+  },
+  {
+    "city": "Kuala Lumpur",
+    "search": "Awana SkyWay",
+    "http": 200,
+    "environment": "production",
+    "count": 6,
+    "products": [
+      {
+        "title": "Genting Highland & Batu Cave Guided Day Tour (SIC/Shared Tour)",
+        "fromPrice": 648684.11,
+        "currency": "IDR",
+        "productCode": "191310P2"
+      },
+      {
+        "title": "Genting Highlands Escape with Awana Cable Car Experience",
+        "fromPrice": 352142.8,
+        "currency": "IDR",
+        "productCode": "24180P48"
+      },
+      {
+        "title": "Genting Highlands Day Trip from Kuala Lumpur with Cable Car (SIC)",
+        "fromPrice": 565036.91,
+        "currency": "IDR",
+        "productCode": "191310P69"
+      },
+      {
+        "title": "Batu Caves & Genting Highland Day Tour Include 2-Way Cable Car Ride",
+        "fromPrice": 1056428.41,
+        "currency": "IDR",
+        "productCode": "144369P9"
+      },
+      {
+        "title": "Genting Highlands Awana SkyWay Cable Car Ticket",
+        "fromPrice": 72856.94,
+        "currency": "IDR",
+        "productCode": "57373P326"
+      },
+      {
+        "title": "Private Genting Highlands & Batu Caves Trip with Cable Car Ticket",
+        "fromPrice": 1278834.39,
+        "currency": "IDR",
+        "productCode": "235565P23"
+      }
+    ]
+  }
+]

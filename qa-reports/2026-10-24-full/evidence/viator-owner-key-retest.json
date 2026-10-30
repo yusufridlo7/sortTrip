@@ -1,0 +1,39 @@
+[
+  {
+    "query": "/api/activities/health",
+    "http": 200,
+    "environment": "production",
+    "configured": true
+  },
+  {
+    "query": "/api/activities?city=Kuala+Lumpur&search=Genting+Skyway&count=3",
+    "http": 200,
+    "environment": "production",
+    "count": 3,
+    "products": [
+      {
+        "title": "Genting Highland & Batu Cave Guided Day Tour (SIC/Shared Tour)",
+        "fromPrice": 648684.11,
+        "currency": "IDR",
+        "productCode": "191310P2"
+      },
+      {
+        "title": "Petronas Twin Tower E-Ticket Including The Skybridge",
+        "fromPrice": 785834.46,
+        "currency": "IDR",
+        "productCode": "29580P22"
+      },
+      {
+        "title": "Petronas Twin Tower Skybridge View & Dining Experience(Available)",
+        "fromPrice": 1167631.4,
+        "currency": "IDR",
+        "productCode": "5611363P6"
+      }
+    ]
+  },
+  {
+    "query": "/api/activities?city=Singapore&search=Gardens+by+the+Bay&count=3",
+    "http": 400,
+    "code": "VIATOR_DESTINATION_REQUIRED"
+  }
+]

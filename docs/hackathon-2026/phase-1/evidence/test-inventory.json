@@ -1,0 +1,546 @@
+[
+  {
+    "file": "checks\\activity-selection.test.mjs",
+    "titles": [
+      "link preserves existing budget, itinerary identity, route, notes and purchase state by default",
+      "explicit estimate updates only selected ticket per-person cost; original item untouched",
+      "paid, changed, removed, wrong-category and unsafe selections are rejected"
+    ]
+  },
+  {
+    "file": "checks\\ai-itinerary.test.mjs",
+    "titles": [
+      "invalid draft is corrected once in same quota reservation; failure returns safe rule code",
+      "transport preference performs focused route research before final draft with one successful quota use",
+      "structured transport preference requires researched connected alternatives and selects requested mode",
+      "route requests validate day bounds and whitelist planning data only",
+      "Luna default and strict grounded drafting preserve travel constraints without inventing references",
+      "collects only safe HTTPS provider references and deduplicates canonical URLs",
+      "AI health includes quota server configuration without exposing values",
+      "preserves cited activities but never model prices or booking URLs",
+      "rejects ungrounded source and unsafe URL",
+      "rejects activities before arrival and too close to departure",
+      "rejects conflicting locked bookings",
+      "rejects oversized trip and invalid day",
+      "unconfigured server is explicit and old trip is not mutated",
+      "configured server requires auth before upstream spend",
+      "cross-origin calls rejected",
+      "authenticated workflow uses web search, returns draft, sanitizes secrets",
+      "exhausted Basic is rejected before any AI spend",
+      "provider failures expose only safe quota/rate/unavailable classifications",
+      "failed generation releases reservation without counting a successful use",
+      "AI accepts one day and longer journeys without a fourteen-day cap",
+      "validates sourced hotel nights and complete transport endpoints; never returns inventory prices",
+      "exact retained routing targets permit overlapping research without dropping either source set"
+    ]
+  },
+  {
+    "file": "checks\\apply-ai-plan.test.mjs",
+    "titles": [
+      "hotel change replaces obsolete transfer endpoints, clears old fares and preserves protected bookings",
+      "final airport night requires a geographically matching quote before an old full stay can be replaced",
+      "pending supplier hotel booking cannot be replaced by an explicit hotel-change prompt",
+      "first-day museum edit preserves later-day attractions, including unedited AI selections",
+      "explicit museum and nightly budget request releases only unpaid selections and carries budget",
+      "unavailable hotel replacement preserves the existing stay, including a prior AI selection",
+      "excursion intent reaches AI even when overnight city differs; generated visit schedule is replaceable",
+      "regeneration replaces automatic day-plan transport but preserves paid/explicitly locked transport",
+      "AI context includes cross-city transfer endpoints and protects paid segments; multi-leg recommendations stay separate",
+      "applies daily visits/transfers, preserves paid/manual records and never fabricates prices/hotels",
+      "reapply replaces prior unpaid AI draft without duplicating or removing manual records",
+      "rejects stale context, invalid schedule, ungrounded source and paid conflicts",
+      "hotel and transport recommendations are daily items replacing only template coverage",
+      "AI receives per-day cities; manual edits alone are not protected",
+      "rejects a stale multi-city plan and protects selected unpaid hotel stays",
+      "AI-generated hotel survives unrelated regeneration without an explicit replacement",
+      "retained activity ID collision cannot discard a valid replacement hotel or its quote",
+      "missing, partial, out-of-budget or malformed replacement quote preserves the original full stay",
+      "partial overlap cannot delete one stay when its replacement conflicts with a retained later stay",
+      "manual edits can be replaced; explicit locks survive regeneration and unlocking releases them",
+      "legacy manually edited Travelodge routes are reconciled unless explicitly locked or bought",
+      "a current user lock wins over an older plan requesting a priced hotel replacement",
+      "supplier-verified hotel replacement does not require narrow replacement keywords",
+      "AI price refresh cannot mutate paid, pending or user-locked items"
+    ]
+  },
+  {
+    "file": "checks\\bilingual.test.mjs",
+    "titles": [
+      "language detection: explicit preference wins, unsupported browser falls back safely",
+      "catalogue parity, interpolation, plurals, fallback and locale-only formatting",
+      "English AI requests preserve exact schema, categories, source URLs and numeric input",
+      "localized responses retain payment URLs, status, amount, codes and caching headers",
+      "narrative translation rejects changed prices, times, URLs, duplicate entries and excessive input",
+      "translation uses authenticated bounded call, no planning tools or result-quota reservation",
+      "Price Watch email follows stored language while preserving fare values and booking URL"
+    ]
+  },
+  {
+    "file": "checks\\booking-evidence.test.mjs",
+    "titles": [
+      "hotel checkout links retain exact itinerary context without breaking standalone hotel searches",
+      "supplier hotel proof requires live private records and exact trip/item/hotel/dates/occupancy",
+      "flight tracking identifiers bind user, saved trip and selected item; affiliate marker is preserved",
+      "authenticated evidence sync isolates ownership and persists hotel marks with optimistic concurrency",
+      "auth, origin and stale selection checks run before affiliate tracking is issued",
+      "upstream statistics rejection stays unverified and cannot expose provider text or fake a purchase",
+      "linked hotel room search checks saved-trip ownership and exact hotel identity before supplier calls",
+      "client cannot treat cached JSON or another trip as supplier proof; affiliate reports do not mark airline tickets paid",
+      "unsupported booking-discriminator metadata fails closed without issuing an invalid query"
+    ]
+  },
+  {
+    "file": "checks\\booking-status-ui.test.mjs",
+    "titles": [
+      "manual, affiliate-reported and supplier-confirmed statuses remain distinct in ID and EN"
+    ]
+  },
+  {
+    "file": "checks\\branding.test.mjs",
+    "titles": [
+      "approved brand SVGs are local, scalable, self-contained and have no active content",
+      "favicon, app and sharing raster assets have their declared dimensions and valid ICO entries",
+      "every HTML entry and the manifest resolve new versioned local brand assets",
+      "primary brand controls and text retain accessible contrast on light and dark surfaces",
+      "localised titles/taglines are paired and the shared logo replaces the obsolete arrows"
+    ]
+  },
+  {
+    "file": "checks\\comprehensive-itinerary.test.mjs",
+    "titles": [
+      "museum transfer must occur before the destination visit and after origin visit",
+      "official foreign adult price never falls back to cheaper citizen fare or another domain",
+      "official IAMM price includes adults and never substitutes student discount",
+      "admission fetch uses only fixed official URLs, deduplicates and uses dated verified reference on refresh failure",
+      "full itinerary pipeline carries official museum admission through supplier enrichment",
+      "dated admission reference expires without refreshing its timestamp"
+    ]
+  },
+  {
+    "file": "checks\\day-settings.test.mjs",
+    "titles": [
+      "a day with only the same hotel does not invent a zero-distance transport connection",
+      "changing a city recommends lodging near its visits without overwriting other nights",
+      "same-city save is a no-op and preserves manual activities",
+      "paid hotel and return itinerary constraints are preserved",
+      "lodging selection balances last visit and following visit in the same city",
+      "meal records do not affect current totals, paid balance or per-person costs",
+      "world itinerary map has no catalog crash and does not invent coordinates",
+      "map restores exact catalog AI place coordinates without guessing a similar place",
+      "city change replaces AI hotels without coordinates and preserves other nights without duplicates",
+      "verified museum pins use exact source aliases and never an unknown annex"
+    ]
+  },
+  {
+    "file": "checks\\disclosure-ui.test.mjs",
+    "titles": [
+      "item disclosure is initially closed, labelled, and retains controls without nesting them in its summary",
+      "conversation disclosure uses Indonesian copy and independent accessible targets"
+    ]
+  },
+  {
+    "file": "checks\\external-hotel-browser.test.mjs",
+    "titles": [
+      "external service validates actual evidence again and sends only planning fields",
+      "service configuration and browser input cannot accept arbitrary destinations",
+      "local server rejects browser-origin calls and returns bounded validated search results",
+      "server mode authenticates requests before invoking the browser"
+    ]
+  },
+  {
+    "file": "checks\\flight-affiliate.test.mjs",
+    "titles": [
+      "restores primary flight from saved flight metadata when item provider/url absent, preserves tracking",
+      "never assigns outbound link to return flight or accepts unrelated/unsafe links"
+    ]
+  },
+  {
+    "file": "checks\\flight-itinerary.test.mjs",
+    "titles": [
+      "assistant hash navigation keeps itinerary while valid browser back still changes view",
+      "hotel amount duration follows the individual stay, not the whole itinerary",
+      "API itinerary preserves actual returned fare and link, budgets use correct group multiplier",
+      "one-way stays one-way and unknown times not invented",
+      "overnight arrival carries destination day offset and excludes pre-arrival activities",
+      "late arrival hotel time belongs to next day and early return has no conflicting visits",
+      "flight request preserves domestic scope, cancellation and no fake data",
+      "worldwide itinerary is saveable without invented hotel or attraction costs",
+      "save response keeps concurrent edits and identity, without attaching id to a different draft",
+      "reload restores itinerary rather than flight search only for a valid stored draft",
+      "price refresh waits behind older save and opening saved trips reads the latest persisted amount",
+      "a failed save does not discard a queued result; assigning an insert ID is not an unsaved price edit",
+      "bounded fetch preserves cancellation for Request and init signals",
+      "flight replacement retains account identity and preferences but rebuilds dated itinerary and offer",
+      "replacement blocks paid reservations, simulations and mismatched passenger counts without mutation",
+      "replacement arrival and return windows follow new ticket, never old AI routes",
+      "price refresh protects paid and flight fares, handles room nights/group costs, persists sources",
+      "connecting-route quotes price each leg and leave subtotal incomplete when another fare is unknown",
+      "LiteAPI dated totals persist as one shared stay and cannot reprice paid or mismatched hotels"
+    ]
+  },
+  {
+    "file": "checks\\flights-api.test.mjs",
+    "titles": [
+      "valid query and invalid inputs",
+      "normalize real PP price and inclusive duration",
+      "Hanoi five-day return fare remains one combined price and is rejected for an exact four-day search",
+      "reject wrong airport, expired and outside range",
+      "PP cannot be returned as one-way",
+      "reject malicious booking links and missing time zone",
+      "missing token has actionable message",
+      "token is a header only, never sent back",
+      "wrong currency does not become IDR",
+      "empty data stays empty, never simulated",
+      "401 and rate limit errors are sanitized",
+      "anywhere omits destination and preserves destinations outside starter catalog",
+      "country lookup and city/airport query validation",
+      "international discovery excludes domestic flights",
+      "explicit domestic scope keeps valid Indonesian flights",
+      "Bali prioritizes Denpasar and exact airport codes stay first",
+      "return date uses destination zone rather than Singapore for worldwide flights",
+      "city query includes its airports but excludes other cities",
+      "pagination preserves query and advertises a next page for full provider pages",
+      "cache hit skips provider and still applies filters",
+      "health never discloses token; unknown API and static routing",
+      "duration accepts one day and longer fixed trips"
+    ]
+  },
+  {
+    "file": "checks\\google-route-ui.test.mjs",
+    "titles": [
+      "directions link exists before an API request, endpoints are visible, and ID/EN labels render"
+    ]
+  },
+  {
+    "file": "checks\\google-routes.test.mjs",
+    "titles": [
+      "controlled route defaults, strict date/mode boundaries and no uncontrolled fields",
+      "route response contains bounded facts and no raw errors, identifiers, polylines or secret echoes",
+      "unconfigured/unauthenticated/foreign/invalid routes cause no billable upstream request",
+      "budget missing/exhausted blocks Google; reservation precedes one billable call and never touches AI result quota",
+      "database origin normalizes trailing slash and invalid budget responses cannot reach Google",
+      "transit accepts the exact millisecond timestamp emitted by browser Date.toISOString"
+    ]
+  },
+  {
+    "file": "checks\\hotel-checkout.test.mjs",
+    "titles": [
+      "optional supplier terms do not reject valid prices; missing or changed payable totals fail closed",
+      "hotel checkout date cannot be mistaken for payment-return session; links preserve dates and guests",
+      "authenticated checkout uses supplier payable rather than public SSP floor and validates Prebook consistently",
+      "checkout is opt-in, sandbox owner-only, production requires separate approval and correct key mode",
+      "strict guest/date checks and authenticated ciphertext keep provider/payment data out of storage plaintext",
+      "missing storage prevents supplier work; changed final conditions require review before SDK or booking",
+      "SDK checkout persists prebook once, reviews final terms, isolates owners and confirms exactly once",
+      "actual supplier price changes are shown for fresh consent; inconsistent payable still fails closed",
+      "lost Book response stays uncertain and reconciles by server-owned reference without a second booking",
+      "payment redirect or mismatched booking details cannot establish confirmed state",
+      "checkout stages have independent rate keys so room search does not block payment portal",
+      "database trailing slash is normalized without following redirects or disclosing upstream exceptions",
+      "documented Prebook price and empty terms are accepted without invented top-level fields",
+      "failed and expired selections explain recovery without another supplier call",
+      "supplier session errors preserve only HTTP status and a fixed stage, without exposing provider bodies",
+      "empty inventory differs from supplier rates rejected by public tax checks",
+      "SDK returns to frontend origin rather than local API proxy and excludes payment query fields"
+    ]
+  },
+  {
+    "file": "checks\\hotel-content.test.mjs",
+    "titles": [
+      "hotel content returns bounded plain text and public HTTPS photos without raw supplier fields",
+      "details survive unavailable reviews; no AI, payment, redirect-follow or translation requests",
+      "invalid content IDs and exhausted limits block supplier calls; mismatched hotel cannot be returned"
+    ]
+  },
+  {
+    "file": "checks\\hotel-search.test.mjs",
+    "titles": [
+      "hotel search requires production configuration and rejects foreign origin without provider requests",
+      "localized hotel errors preserve their machine key for the search form",
+      "supplier failures are unavailable, while a successful empty catalogue is a real empty result",
+      "a city repeated as the optional area does not discard every hotel",
+      "hotel menu returns vetted public offers without auth, AI, booking or quota RPC calls",
+      "white-label hotel links preserve dates and occupancy; no owner domain means no invented checkout"
+    ]
+  },
+  {
+    "file": "checks\\itinerary-edit-completeness.test.mjs",
+    "titles": [
+      "current-message hotel budget is parsed on the server, never trusted from client budget overrides",
+      "admission and map coordinates require identity, exact research evidence and cited sources",
+      "all consecutive visits and hotel return have map directions even without any coordinates",
+      "hotel targets remain in bounded search even after many transit legs",
+      "draft cannot silently omit the requested final KLIA overnight",
+      "arrival and departure connections use the selected airport, not an unvisited hotel"
+    ]
+  },
+  {
+    "file": "checks\\itinerary-progress.test.mjs",
+    "titles": [
+      "server streams only permitted stages and preserves localized error status without AI calls",
+      "client handles UTF-8 frame boundaries, heartbeats and JSON fallback",
+      "missing terminal result and malformed result cannot be treated as success",
+      "cancelling streamed response aborts provider work and avoids unhandled stream errors"
+    ]
+  },
+  {
+    "file": "checks\\lite-hotel.test.mjs",
+    "titles": [
+      "explicit final KLIA stay splits city nights and rejects cheaper city-centre inventory",
+      "nightly cap filters tax-inclusive public totals per room/night and searches budget city stock",
+      "sandbox cannot activate customer hotel prices; invalid/private rates never become public totals",
+      "area search uses only matching catalogue hotels, public comparable totals and no AI/browser calls",
+      "unavailable or sandbox responses preserve unknown prices and fixed hotel identity on refresh",
+      "consecutive area nights group into one stay; sourced supplier enrichment preserves route research",
+      "AI chooses sourced neighborhoods instead of hotel properties when the API is available",
+      "area grouping never covers an already selected hotel night",
+      "authenticated hotel refresh uses supplier API and one successful quota result; sandbox activation spends none",
+      "AI budget search uses city rate discovery, keeps exact scope, and excludes the nightly ceiling itself"
+    ]
+  },
+  {
+    "file": "checks\\liteapi-cost-policy.test.mjs",
+    "titles": [
+      "allow only reviewed free hotel API endpoint and method/host combinations",
+      "paid, unknown, flight and alternate-host paths are blocked before outbound fetch"
+    ]
+  },
+  {
+    "file": "checks\\local-proxy.test.mjs",
+    "titles": [
+      "both dev and build preview forward API to the local Worker",
+      "proxy translates matching local frontend origins only, preserving foreign origins"
+    ]
+  },
+  {
+    "file": "checks\\localization-qa.test.mjs",
+    "titles": [
+      "English counts distinguish one city, traveller, room, adult, review and stop",
+      "fixed regional and Price Watch diagnostics follow English while preserving machine codes",
+      "transactional email is natural English with unchanged currency, amount and destination"
+    ]
+  },
+  {
+    "file": "checks\\partner-selection.test.mjs",
+    "titles": [
+      "manual transport carries trip day, route and affiliate without inventing price or paid status",
+      "manual hotel preserves immutable generated affiliate URL and correct stay dates",
+      "invalid date, outside trip, negative price, identical transport endpoints or checkout outside trip rejected",
+      "explicit replacement preserves paid records and refuses partial hotel range replacement",
+      "only verified hotel resolves to exact generated affiliate link, others use working hotel landing"
+    ]
+  },
+  {
+    "file": "checks\\payments.test.mjs",
+    "titles": [
+      "payment requires exact order, IDR and amount",
+      "price increase validates against stored order amount: new Rp30000 and old Rp15000",
+      "pending and challenged cards never grant access; refunds revoke",
+      "webhook signature checks exact amount and server key",
+      "trip identity agrees with Basic and Price Watch keys",
+      "production rejects owner test grants even if the test flag remains enabled",
+      "non-owner cannot grant a test pass",
+      "owner test is isolated, fixed duration and idempotent insert",
+      "unsigned webhook rejected without querying payment status or granting access",
+      "valid webhook rechecks Midtrans rather than trusting payload status",
+      "signed production webhook honors old invoices and never fulfills underpaid new invoices",
+      "production checkout creates a Midtrans Snap redirect with exact price; no browser payment occurs",
+      "exhausted pass allows renewal but another available legacy pass prevents payment",
+      "checkout does not duplicate an existing pending Midtrans order",
+      "status exposes active entitlement and explicit purchase gate without returning configuration values",
+      "Midtrans rejection exposes only fixed description and HTTP status, never provider body",
+      "status rate limit defers provider refresh without disabling checkout status or calling Midtrans",
+      "status provider rejection keeps stored state and returns only safe diagnostic fields",
+      "Snap not-started response restores only validated existing checkout, without granting a pass or creating an order",
+      "account entitlement lookup is authenticated, user-scoped and read-only without a trip"
+    ]
+  },
+  {
+    "file": "checks\\price-research.test.mjs",
+    "titles": [
+      "price evidence requires exact IDR amount, property identity, hotel source and room-night basis",
+      "transport quotes require exact route endpoints, source and per-person basis",
+      "price-only research consumes one quota on evidence success, none when unavailable; authentication and origin enforced",
+      "hotel at/@ spelling variants retain location identity and exact supplier quote"
+    ]
+  },
+  {
+    "file": "checks\\price-watch.test.mjs",
+    "titles": [
+      "chooses lowest valid price, rejects unsafe booking URLs and zero",
+      "scheduled check records no_data without fabricating a fare",
+      "provider failure records error, not a price drop",
+      "watch runs from saved route without a selected flight"
+    ]
+  },
+  {
+    "file": "checks\\qa-readiness.test.mjs",
+    "titles": [
+      "domestic Price Watch normalizes legacy international scope before searching",
+      "one failed watch completion does not abandon the remaining claimed watches",
+      "one email network failure is deferred and does not prevent another notification; idempotency retained",
+      "checkout SPA entry remains served after enabling real missing-page responses"
+    ]
+  },
+  {
+    "file": "checks\\recommendation-budgets.test.mjs",
+    "titles": [
+      "collector respects disabled and sandbox hotel gates; no ticket supplier call without production config",
+      "sample deviation and pooled ticket statistics use n-1 and reject invalid values",
+      "hotel uses latest minimum below cap, never historical mean; unrelated tickets stay separate",
+      "missing hotel never publishes a numeric budget; higher minimum is allowed and flagged; one fare has no invented deviation",
+      "Hanoi uses five-day return series and four hotel nights; prior four-day samples do not leak in",
+      "monthly collection runs once, deduplicates history, and caps retry frequency",
+      "public budget read does not collect prices; stale budgets are hidden and writes denied"
+    ]
+  },
+  {
+    "file": "checks\\supplier-browser.test.mjs",
+    "titles": [
+      "current 12Go compact date/per-adult cards accepted; grouped from prices and wrong weekdays rejected",
+      "each supplier operation gets an independent context and cleans up even when context fails",
+      "dated transport accepts only exact visible search context and ticket basis, rejecting taxi or stale dates",
+      "12Go route resolution requires a cited public route URL, not a model-only guess",
+      "backend detects an access challenge before currency controls and returns no ticket",
+      "browser adapters return only validated prices and clean up unavailable searches",
+      "browser mode does not replace unavailable tickets with indexed starting prices"
+    ]
+  },
+  {
+    "file": "checks\\support.test.mjs",
+    "titles": [
+      "FAQ and support catalogues have identical nonempty bilingual keys",
+      "dedicated bridge cannot activate from local-agent credentials and exposes config boolean only",
+      "known credentials, OTPs, card-like values and oversized text are rejected before persistence",
+      "anonymous and cross-origin clients cannot read or send support messages",
+      "read lists and detail enforce verified owner, never expose user or Telegram identifiers",
+      "another user\u2019s missing conversation cannot trigger a message read",
+      "customer send uses authenticated identity and stable request ID, queues server-only delivery",
+      "sensitive customer text cannot reach database or Telegram",
+      "webhook requires separate secret, private allowlisted owner and reply target",
+      "outbox sends plain protected text to dedicated bot and records delivery mapping without customer identity",
+      "provider failure never surfaces private error or marks a message delivered",
+      "Worker localizes support errors while preserving authorization status",
+      "public FAQ renders bilingually and anonymous users get sign-in instead of a message composer"
+    ]
+  },
+  {
+    "file": "checks\\telegram-agent.test.mjs",
+    "titles": [
+      "unauthorized, forwarded and bot updates cannot enqueue or receive replies",
+      "/status and /help do not reflect message content or chat identifiers",
+      "/task read-only health emits received, started and TASK_COMPLETED",
+      "general task waits; /resume requires independent application verification",
+      "queue survives restart, deduplicates updates, recovers interrupted tasks",
+      "cancel is safe at queued/waiting states; running requests are deferred",
+      "credentials rejected before persistence; unsafe summaries never leave notifier",
+      "failed health uses TASK_FAILED; outbox persists until delivery succeeds",
+      "getUpdates uses POST and offset, never exposes raw API errors"
+    ]
+  },
+  {
+    "file": "checks\\telegram-notify.test.mjs",
+    "titles": [
+      "no CLI arguments send the default test message; explicit messages are preserved",
+      "missing configuration does not send a request",
+      "sends a plain text notification using injected configuration",
+      "network exceptions and Telegram errors are sanitized",
+      "only safe Telegram diagnostics are exposed",
+      "invalid or credential-containing messages never send"
+    ]
+  },
+  {
+    "file": "checks\\transport-affiliate.test.mjs",
+    "titles": [
+      "preserves partner id, itinerary date and adult count",
+      "maps saved itinerary ids to partner location names",
+      "unknown, identical or injected locations do not fabricate route links",
+      "invalid dates and passenger counts are rejected",
+      "fallback home also retains the existing public affiliate identifier",
+      "transit terminals link Johor Bahru to Melaka with date and tracking",
+      "grounded provider route resolves unknown stations but rejects unsafe sources"
+    ]
+  },
+  {
+    "file": "checks\\transport-plan.test.mjs",
+    "titles": [
+      "selects requested feasible alternative, preserves connected legs without invented fares",
+      "rejects missing transit connection, mismatched endpoints and unresearched operator source",
+      "keeps dated sourced fare quotes outside budget and rejects undated quotes"
+    ]
+  },
+  {
+    "file": "checks\\travel-discovery.test.mjs",
+    "titles": [
+      "city discovery includes budget pass, brand, ID occupancy and no margin or paid endpoints",
+      "budget-only discovery limits requests and partial failure is explicit; sandbox fails closed",
+      "nightly budget range uses inclusive per-room per-night totals and allows either open end",
+      "invalid budget ranges are rejected before any supplier call",
+      "configuration diagnosis returns fixed categories without exposing a credential",
+      "Vietnam query stays Vietnam; absent identity is not fabricated",
+      "AI pool includes economy hotels after catalogue first forty and is bounded",
+      "ranking retains unknown review/duration truth and does not mutate input",
+      "flight discovery region includes Indonesia and Vietnam and keeps worldwide optional"
+    ]
+  },
+  {
+    "file": "checks\\travelpayouts-bookings.test.mjs",
+    "titles": [
+      "observed live schema produces supported booking subtype, campaign, scoped subID and bounded dates",
+      "unsupported filters and missing discriminator fail before a statistics request can be built",
+      "accepted queries cannot turn paid clicks, missing subtype or another campaign into booking evidence"
+    ]
+  },
+  {
+    "file": "checks\\trip-access.test.mjs",
+    "titles": [
+      "AI and payment share exact trip scope, reject incomplete or delimiter-containing identities",
+      "exhausted newest pass cannot hide another valid pass",
+      "legacy quota stays twenty while new ten-result pass reports its own remaining balance",
+      "unsaved draft can recognize its paid pass without DB mutation or Midtrans request",
+      "pass on another date unlocks a new trip within the same account without resetting usage",
+      "unauthenticated access and invalid identity never query entitlement",
+      "unsaved draft still cannot checkout or grant pass; changed saved identity cannot reconcile payment"
+    ]
+  },
+  {
+    "file": "checks\\trip-hotel-browser.test.mjs",
+    "titles": [
+      "navigation diagnostics expose only fixed categories, never opaque URL parts",
+      "public observed dated hotel total includes taxes, preserves exact evidence and room terms",
+      "multi-night rendered total includes room/night context and capacity may exceed selected guest count",
+      "rejects mismatched hotel, guest, nights, URL dates and missing inclusive total",
+      "property guard rejects arbitrary origins, account pages, credentials and invalid dates or room scope",
+      "disabled or unbound cloud browser cannot invent a quote",
+      "property resolution accepts only returned public source URLs and rejects model-only fabricated URLs",
+      "dated stay total is inserted once, retains metadata in trip JSON, preserves paid or mismatched stay",
+      "multi-night stay total is not multiplied by nights a second time"
+    ]
+  },
+  {
+    "file": "checks\\trip-hotel-indonesia.test.mjs",
+    "titles": [
+      "Indonesian public room total includes taxes and does not use headline or crossed-out price",
+      "Indonesian quote requires exact guest/date context and inclusive public price",
+      "navigation allows only intended public property and landing; account, checkout and spoofed domains blocked"
+    ]
+  },
+  {
+    "file": "checks\\viator-api.test.mjs",
+    "titles": [
+      "missing credential fails closed without a provider request",
+      "Worker routes health without leaking credential or claiming connection tested",
+      "fixed sandbox POST, headers, IDR and tracked click-out; provider-only fields removed",
+      "reject malformed destination, pagination, methods and environment",
+      "production uses its fixed host and exposes only numeric upstream status on rejection",
+      "provider errors, exception text, malformed JSON and redirects do not escape",
+      "wrong currency, unsafe URLs and reflected secrets are discarded; empty stays empty",
+      "connection diagnostics return fixed categories without exception details",
+      "redirects are never followed and sensitive Location is not exposed",
+      "free text search uses fixed product search schema and nested results",
+      "search validation and rate limit prevent supplier calls",
+      "city-scoped search resolves an exact destination then filters products; ambiguous city fails closed",
+      "city-state names select only the explicit child of the same-name country"
+    ]
+  }
+]
