@@ -4,6 +4,7 @@ $ErrorActionPreference='Stop'
 function Fail($m){Write-Output "STOP: $m";exit 1}
 function GetVar($n){$m=Select-String -Path '.dev.vars' -Pattern ("^"+$n+"\s*=\s*[`"']?([^`"'`r`n]+)")|Select-Object -First 1;if(-not $m){return $null};return $m.Matches[0].Groups[1].Value}
 if(-not $Email){Fail('Email kosong.')}
+if($Amount -lt 1 -or $Amount -gt 10){Fail('Amount harus 1-10 (batas DB per pass).')}
 $url=GetVar 'SUPABASE_URL';$key=GetVar 'SUPABASE_SECRET_KEY';if(-not $key){$key=GetVar 'SUPABASE_SERVICE_ROLE_KEY'}
 if(-not $url -or -not $key){Fail('SUPABASE_URL/kunci tidak ada di .dev.vars.')}
 Write-Output ("proyek: "+([uri]$url).Host)
@@ -21,13 +22,13 @@ $valid=@($passes)[0]
 if($WhatIf){if($valid){Write-Output ("pass aktif: limit {0}, terpakai {1}, sisa {2}, kedaluwarsa {3}" -f $valid.request_limit,$valid.requests,([int]$valid.request_limit-[int]$valid.requests),$valid.expires_at)}else{Write-Output 'tidak ada pass aktif'};Write-Output 'CEK SAJA, tidak ada perubahan';exit 0}
 if(-not $Force){if($valid){Write-Output ("AKAN DITAMBAH: limit {0} -> {1} untuk {2}" -f $valid.request_limit,([int]$valid.request_limit+$Amount),$Email)}else{Write-Output ("AKAN DIBUAT: pass baru limit {0} untuk {1}" -f $Amount,$Email)};$jawab=Read-Host 'Ketik YA untuk lanjut (cegah jalan ganda)';if($jawab -ne 'YA'){Write-Output 'DIBATALKAN operator';exit 0}}
 if($valid){
- $newLimit=[int]$valid.request_limit+$Amount
+ $newLimit=[int]$valid.request_limit+$Amount;if($newLimit -gt 10){Fail('Limit hasil melebihi 10 (batas DB).')}
  $upd=(Invoke-WebRequest -Uri ($url+"/rest/v1/trip_passes?id=eq."+$valid.id) -Method PATCH -Headers ($h+@{Prefer='return=representation'}) -ContentType 'application/json' -Body (@{request_limit=$newLimit}|ConvertTo-Json -Compress) -UseBasicParsing -TimeoutSec 30).Content|ConvertFrom-Json
  $row=@($upd)[0]
  Write-Output ("pass existing ditambah: limit {0} -> {1}, terpakai {2}, sisa {3}" -f $valid.request_limit,$row.request_limit,$row.requests,([int]$row.request_limit-[int]$row.requests))
 }else{
  $exp=[datetime]::UtcNow.AddDays(30).ToString('o')
- $body=@{user_id=$uid;expires_at=$exp;request_limit=$Amount;requests=0;payment_reference='owner-test:manual-grant '+$Amount+' quota 2026-10-31'}|ConvertTo-Json -Compress
+ $body=@{user_id=$uid;trip_key='owner-qa|2026-10-31';expires_at=$exp;request_limit=$Amount;requests=0;payment_reference=('owner-test:staging:manual-'+[datetime]::UtcNow.ToString('yyyyMMddHHmm'))}|ConvertTo-Json -Compress
  $ins=(Invoke-WebRequest -Uri ($url+'/rest/v1/trip_passes') -Method POST -Headers ($h+@{Prefer='return=representation'}) -ContentType 'application/json' -Body $body -UseBasicParsing -TimeoutSec 30).Content|ConvertFrom-Json
  $row=@($ins)[0]
  Write-Output ("pass baru dibuat: limit {0}, terpakai {1}, sisa {2}, kedaluwarsa {3}" -f $row.request_limit,$row.requests,([int]$row.request_limit-[int]$row.requests),$row.expires_at)

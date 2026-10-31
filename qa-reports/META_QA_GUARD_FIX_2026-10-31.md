@@ -113,6 +113,25 @@ ON CONFLICT (payment_reference) DO NOTHING;
 Tanpa reset usage, tanpa Trip Pass berbayar, tanpa ubah user lain,
 billing, RLS, atau skema.
 
+## Eksekusi 2026-10-31 (approved owner)
+
+- Kunci secret lokal tetap 401 → eksekusi via SQL dashboard owner.
+- Unlock ledger (data lengkap, langsung jalan):
+  UPDATE meta_video_test_budget SET blocked = false WHERE id = true;
+- Kuota +50 langkah 1: UID 23f695d7-... cocok, TANPA pass aktif.
+- Constraint trip_passes (QA, terbukti): ref wajib
+  'owner-test:staging:%', limit 1..10/pass, ref unik.
+  Maka +50 = LIMA pass × 10 (konsumsi RPC mengalir antar-pass;
+  ringkasan app tampil per-pass 10, total via SQL).
+- Final INSERT 5×10 + verifikasi sum + rollback LIKE ada di chat
+  eksekusi 2026-10-31.
+- TERVERIFIKASI: 5 pass qa50-1..5 × limit 10, pakai 0 (total +50).
+  Anomali sum 6/51/1 sesaat = 1 pass limit-1 kedaluwarsa di antara
+  dua query; sudah expired, tak terbaca semua jalur kuota.
+- Grant-AiQuota.ps1 diperbaiki: trip_key wajib + ref prefix
+  owner-test:staging: + guard Amount 1-10 + guard hasil ≤10.
+  Kunci secret 401 tetap (skrip belum bisa jalan).
+
 ## C. Handoff ke Codex
 
 - Branch: codex/meta-hackathon-phase-2-2026
