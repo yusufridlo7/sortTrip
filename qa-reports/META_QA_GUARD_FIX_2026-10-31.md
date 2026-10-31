@@ -21,8 +21,10 @@
 ### Perbaikan (minimal, fail-closed utuh)
 
 - `worker/video-itinerary.js`: `max_output_tokens` 2000 → 1500
-  (satu angka + komentar). Semua guard tetap: validasi worker
-  20k/2k/0,05, RPC settle, pagu USD10, cutoff.
+  lalu dikalibrasi → **1800** setelah bukti live (respons alami
+  terpotong tepat di 1500, sukses di 1123). Satu angka + komentar.
+  Semua guard tetap: validasi worker 20k/2k/0,05, RPC settle,
+  pagu USD10, cutoff.
 - Efek: total terlapor (±305 overrun) tetap < 2000. Trunkasi langka
   menjadi galat per-panggilan yang retryable (settle bersih, tanpa
   kunci global) — bukan halt global.
