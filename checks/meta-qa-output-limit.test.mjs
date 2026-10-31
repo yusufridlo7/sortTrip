@@ -9,10 +9,10 @@ const reply=(usage)=>({status:'completed',model:'muse-spark-1.3',...(usage?{usag
 function setup({body,inputTokens=1000,code=200,reserve,settleOk=true,fetcher}={}){const calls=[],settlements=[];return {calls,settlements,
  env:{META_AI_CUTOFF_AT:'2026-11-04T17:00:00Z',META_VIDEO_NONPRODUCTION:'true',META_VIDEO_TEXT_ENABLED:'true',META_MODEL_API_KEY:'fixture-only',META_TEST_BUDGET:{reserve:async r=>{calls.push({reserve:r});return reserve||{allowed:true,id:r.id,hardCap:true,totalLimitUSD:10,reservedUSD:.05}},settle:async r=>{settlements.push(r);return {ok:settleOk}}}},
  fetcher:fetcher||(async(u,o)=>{calls.push({url:u,body:JSON.parse(o.body),redirect:o.redirect});if(String(u).endsWith('/input_tokens'))return Response.json({input_tokens:inputTokens});return Response.json(body||reply({input_tokens:400,output_tokens:900}),{status:code})})};}
-test('perbaikan: request memakai max_output_tokens 1800 (cadangan reasoning), sukses settle tercatat',async()=>{
+test('rollback: request kembali 2000 (terbukti live); 1500 memotong respons alami',async()=>{
  const s=setup();const result=await extractMetaText(text,s.env,{fetcher:s.fetcher});
  const call=s.calls.find(c=>c.url==='https://api.meta.ai/v1/responses');
- assert.equal(call.body.max_output_tokens,1800);
+ assert.equal(call.body.max_output_tokens,2000);
  assert.equal(call.body.reasoning.effort,'low');
  assert.equal(result.mock,false);assert.equal(result.destinations.length,2);
  assert.equal(s.settlements.length,1);assert.equal(s.settlements[0].usage.outputTokens,900);
