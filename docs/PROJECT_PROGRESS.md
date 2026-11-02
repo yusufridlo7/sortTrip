@@ -942,3 +942,7 @@ Paket akhir132tesPASS/0FAIL dan tsc/VitePASS19.26s. Kasus akhir dengan pembandin
 
 ## 2026-11-02 — Meta tanpa cutoff kalender (keputusan owner terbaru)
 Owner mencabut penghentian otomatis 5 November dan mengizinkan commit, push, serta deploy existing Worker sorttrip. META_ASSISTANT_EXPIRES_AT kini diabaikan; enable/billing/key, autentikasi, Trip Pass/kuota, timeout, batas token/call/tool dan larangan fallback tetap berlaku. Tidak ada migrasi, reset data, perubahan credential atau inferensi tambahan pada proses rilis ini. Bukti rilis dicatat di qa-reports/RELEASE_2026-11-02.md.
+
+
+## 2026-11-03 — Rilis production berhasil
+Commit aplikasi 9eafea7 dipush ke origin/pra-hackathon dan dideploy ke Worker existing sorttrip, versi 1023ff9c-0a15-409b-afc3-ead2374c497e. Website/aset terbaru, health, Meta/media configured dan OpenAI disabled terverifikasi HTTP200; itinerary tanpa login HTTP401. Seluruh 406 tes unik lulus melalui run+rerun terarah (rincian laporan rilis), build/dry-run lulus. Tidak ada inferensi berbayar, SQL, reset, credential atau pembayaran tambahan. Login/Save production tidak diulang pada smoke test ini. Cutoff kalender sudah dihapus; guard pemakaian existing tetap.
