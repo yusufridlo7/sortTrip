@@ -1,0 +1,13 @@
+export type GuideSnapshot=any;
+export function guideSnapshot(trip:any):GuideSnapshot;
+export function guideRevision(snapshot:any):Promise<string>;
+export function validZone(zone:any):boolean;
+export function defaultGuideZone(trip:any):string;
+export function validGeo(p:any):boolean;
+export function guideCheckpoints(snapshot:any,zone:string):any[];
+export function distanceMeters(a:any,b:any):number|null;
+export function zonedInstant(date:string,time:string,zone:string):number|null;
+export function guideProgress(checkpoints:any[],now:number,reached?:string[],position?:any):any;
+export function autoHelpDecision(progress:any,samples:any[],now:number,history:any):boolean;
+export function validateGuideChanges(snapshot:any,changes:any[]):{itemId:string;day:number;time:string}[];
+export function applyGuideChanges<T>(trip:T,changes:any[]):T;

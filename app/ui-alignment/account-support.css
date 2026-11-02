@@ -1,0 +1,26 @@
+@media(min-width:1000px){
+ .account-dropdown{width:268px;padding:8px;border-radius:14px;box-shadow:0 16px 42px #0b2d3a26}
+ .account-menu-identity{padding:12px;background:#f1f8fb;border-radius:10px}
+ .account-menu-item{min-height:44px;font-size:14px;border-radius:8px}
+ .account-dialog{width:min(480px,calc(100vw - 48px));padding:26px;border-radius:16px}
+ .account-profile{background:white;border-radius:10px}
+ .price-watch-view{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 20px;padding:24px;background:white;box-shadow:var(--ui-card-shadow)}
+ .price-watch-view>*{grid-column:1/-1}
+ .price-watch-view>.watch-email{grid-column:1;align-self:center;background:#f5fafc}
+ .price-watch-view>p:has(>button.primary){grid-column:2;align-self:center;margin:0}
+ .price-watch-view>p:has(>strong){background:linear-gradient(100deg,#eff8fc,white);padding:20px;margin:18px 0}
+ .price-watch-view>p>strong{font-size:19px}
+ .price-watch-view>.notice{box-shadow:none;background:#f8fbfc;border-radius:10px;padding:18px;margin:8px 0}
+ .support-center .support-intro{min-height:220px;padding:26px 28px;margin-bottom:24px;box-shadow:none;background:linear-gradient(95deg,#0b2d3ae6,#0f6e8c85),url('/bangkok.jpg') center 50%/cover}
+ .support-center .support-intro h1{font-size:30px}
+ .support-center .support-search{margin-block:14px;max-width:760px}
+ .support-layout{gap:22px;align-items:start}
+ .support-faq{padding:10px 20px;border:1px solid var(--brand-border);border-radius:14px;background:white;box-shadow:var(--ui-card-shadow)}
+ .support-faq details{border:0;border-bottom:1px solid var(--brand-border);border-radius:0;box-shadow:none;margin:0;padding:16px 0}
+ .support-faq details:last-child{border-bottom:0}
+ .support-faq details[open]{box-shadow:none}
+ .support-faq summary{font-size:14px;line-height:1.6}
+ .support-chat{padding:22px;border-radius:14px;box-shadow:var(--ui-card-shadow)}
+ .support-chat h2{font-size:22px}
+ .support-empty{background:#f3f9fb;border-radius:10px}
+}

@@ -2,10 +2,11 @@ import type {Trip} from './travel-data';
 export function historyTripView(current:string,state:unknown,working=false){
  if(working)return current;
  const next=state&&typeof state==='object'&&'sorttripView' in state?state.sorttripView:null;
- return typeof next==='string'&&['explore','flights','planner','saved','hotels','transport','watch','support'].includes(next)?next:current;
+ return typeof next==='string'&&['explore','flights','planner','guide','saved','hotels','transport','watch','support'].includes(next)?next:current;
 }
 export function restoredTripView(view:string|null,draft:string|null){
  if(view==='support')return 'support';
+ if(view==='guide')return 'guide';
  if(view!=='planner'||!draft)return 'explore';
  try{const trip=JSON.parse(draft);return trip&&Array.isArray(trip.items)&&typeof trip.destination==='string'?'planner':'explore';}catch{return 'explore';}
 }

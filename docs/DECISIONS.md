@@ -206,3 +206,50 @@ Reject transfers ordered after their destination visit or before their origin vi
 
 ## 2026-10-24 — Viator city-state resolution
 Same-name destination matches are resolved only if a unique candidate is the explicit direct child of every other exact-name candidate, using provider parentDestinationId. This handles Singapore country/city hierarchy without arbitrary first-match fallback or hardcoded guessed IDs. Unrelated ambiguous cities remain rejected.
+
+
+## 2026-10-31 — Asisten diganti OpenAI ke Meta
+Atas instruksi owner, mesin SortTrip Asisten (dan terjemahan narasi) diganti dari OpenAI Responses API ke Meta Model API muse-spark-1.3 (allowlist juga muse-spark-1.1 via META_MODEL). Skema itinerary, kuota Trip Pass, dan validasi deterministik dipertahankan; loop agen maksimal 3 putaran (riset web_search -> draft -> satu koreksi). Meta hanya mengorkestrasi: harga/fakta tetap dari Aviasales, LiteAPI, dan sumber pemasok; Meta memilih Area menginap, LiteAPI memilih properti. Input multimodal asisten fase ini: gambar JPEG/PNG/WebP (maks 3). Kunci server: META_MODEL_API_KEY (alias META_API_KEY/MODEL_API_KEY), tidak pernah ke browser. Terimplementasi lokal + tes mock; belum live/deploy/commit. Lihat qa-reports/META_ASSISTANT_ENGINE_2026-10-31.md.
+
+
+## 2026-10-31 — Input link sosial tanpa unduhan
+Atas keputusan owner: asisten menerima link TikTok/Instagram/Threads sebagai inspirasi. Hanya metadata resmi (oEmbed TikTok/Threads) yang dibaca server; Instagram tidak punya jalur metadata resmi sehingga ditandai tidak tersedia. Tidak ada unduhan video, tidak ada penyimpanan media, tidak ada gerbang tinjauan wajib di halaman awal; bukti ditandai belum terverifikasi dari isi video dan kota yang tidak jelas wajib dilabeli 'Lokasi belum dapat dipastikan.' di ringkasan. Panel bukti opsional tertutup; koreksi di halaman itinerary. Lihat qa-reports/SOCIAL_LINK_INPUT_2026-10-31.md.
+
+
+## 2026-10-31 — Guard biaya Meta jalur asisten
+Tindak lanjut temuan QA Codex (jalur asisten memanggil Meta langsung, output s.d. 10000 token): ditambahkan guard murah tanpa migrasi DB dan tanpa mengubah budget/cutoff — outputCap via META_MAX_OUTPUT_TOKENS (hanya menurunkan), penolakan overrun usage (502 AI_PROVIDER_OVERUSE, kuota dilepas gagal), dan batas hitungan panggilan per permintaan (default 8 via META_MAX_PROVIDER_CALLS 4-20). Perilaku default tidak berubah. Lihat qa-reports/META_GUARD_2026-10-31.md.
+
+
+## 2026-10-31 — Caption tempel dan anywhere mengikuti prompt
+Temuan: oEmbed TikTok tidak mengembalikan caption/judul (terbukti panggilan langsung + docs resmi), sehingga bukti link kosong; prompt pencarian awal juga tidak dipakai. Keputusan: (1) kolom tempel caption di asisten sebagai bukti utama (caption saja sah); (2) aturan anywhere: tujuan 'semua' + prompt terisi + login => POST /api/destination me-resolve SATU kota via Meta lalu pencarian tiket ke sana; prompt kosong/gagal => fallback daftar semua termurah. Resolve memakai auth, rate limit, kuota Trip Pass (sukses dihitung bila kota ketemu), cap 800 token, cek overrun; tanpa migrasi DB. Kota trip tetap acuan itinerary demi koherensi penerbangan. Lihat qa-reports/CAPTION_ANYWHERE_PROMPT_2026-10-31.md.
+
+
+## 2026-11-01 — Keputusan konsep: prompt memicu itinerary lengkap
+Perjalanan dari pencarian dengan prompt terisi (user login) otomatis menjalankan satu penyusunan AI saat halaman perencana terbuka; prompt kosong tidak memicu (hemat kuota). Itinerary lengkap (plan, harga, hotel LiteAPI, transfer, peta) berasal dari jalur /api/itinerary yang ada; tanpa pemicu untuk trip non-prompt.
+
+## 2026-11-01 — Konteks AI konsisten lintas provider
+Owner meminta konteks platform konsisten termasuk bila nanti berubah ke Muse. Implementasi lokal: sumber tunggal worker/platform-context.js, versioned instruction envelope at egress, per-stage instructions preserved and translation separately scoped. Feature/context maintenance recorded in AGENTS.md and docs/AI_PLATFORM_CONTEXT.md. This does not authorize provider activation or restore historical hackathon rules; OpenAI remains active source. No UI/schema/quota change.
+
+## 2026-11-01 — Adapter Muse multimodal tanpa mengganti platform
+Owner memilih mempertahankan UI/database/editor/booking existing dan menambahkan Muse adapter, teks/gambar/video serta pencarian terbatas saja. Implemented locally opt-in; default OpenAI dan normal authorization/quota tetap. Media research-only dengan consent, tanpa media storage/social downloader. Dua supplier functions read-only, batas token/call/loop, fail-closed config/billing attestation/expiry; tenggat absolut Meta existing tetap5Nov00WIB. Tidak mengaktifkan/mengubah credential, budget, ledger, schema, staging atau deploy. Hard biaya akun/provider dan live compatibility masih memerlukan verifikasi owner sebelum aktivasi; tidak diklaim dari tes mock. Bukan izin membuat AI Guide atau tool booking/write.
+
+## 2026-11-01 — Mesin AI lokal Muse; OpenAI dinonaktifkan
+Owner meminta peran OpenAI nonaktif dan memperbolehkan kuota sampai uji berhasil. Launch lokal normal/Muse/hotel-browser sekarang memilih Meta dan OPENAI_DISABLED=true, diblokir sebelum egress planning/translation tanpa fallback. Kode kompatibilitas disimpan untuk menjaga perubahan terbatas; tidak dipakai runtime lokal. Website online belum dirilis ulang. Muse teks+foto melalui normal authenticated UI terbukti tersimpan/reload; paid/locked guard dan batas token/call/cutoff tidak dilepas. Riset boleh merekonsiliasi konteks web yang baru ditemukan hingga hard caps; angka unknown tetap unknown. Tidak klaim hardUSD/account billing terverifikasi.
+
+## 2026-11-02 — SortTrip Guide terpisah dan berdasarkan konfirmasi
+Owner meminta Guide hanya aktif setelah itinerary final dan tombol aktivasi. Guide menjadi modul/dialog terpisah, tidak mengganti Assistant/editor/booking. Checkpoint berbasis jadwal tidak menyatakan kedatangan tanpa GPS memadai/konfirmasi manual. GPS foreground opsional; bantuan otomatis opt-in, dua sampel akurat, cooldown30menit, maksimal3/sesi/sekali checkpoint dan kuota existing. Riset/AI tidak berjalan saat membuka panel. Saran bukan perubahan: paid/bookingHold/aiLocked dilindungi, penerapan jadwal memerlukan persetujuan lalu Save existing. Rekomendasi alternatif transportasi/tempat berupa kartu; penerapan otomatis MVP hanya jam/hari kegiatan existing yang tidak terlindungi. Tidak ada booking/cancel/payment tool, schema/credential/production change atau background location. Cutoff existing5Nov00WIB tidak diubah.
+## 2026-11-02 — Guide sebagai halaman jalur + chat
+Owner memilih Guide di menu sendiri: jalur checkpoint bergaris/pin brand, detail wisata+transport berikut, chat kecil untuk pertanyaan dan konfirmasi. Ini menggantikan modal lama. Confirm+Save dari chat menyetujui versi baru sehingga Guide tetap aktif dan checkpoint langsung diperbarui; ini menggantikan pause wajib setelah penerapan yang disetujui pada desain awal. Edit eksternal tetap pause. Tidak ada perpanjangan cutoff atau pelepasan proteksi booking. Implemented/tested local only.
+### 2026-11-02 — Jelajahi bebas durasi/budget dan media handoff
+Owner meminta multimodal di Jelajahi, default Berapa hari pun dan Berapa pun. Budget0 adalah sentinel tanpa ceiling; bukan gratis. Pertahankan supplier duration coverage, numeric budget pilihan user/recommendation, auth/TripPass dan tombol Generate existing. Foto/video hanya state sementara, diteruskan setelah memilih flight, tidak disimpan pada Trip. Tidak auto-inference saat pencarian. Implementasi lokal, belum release.
+
+## 2026-11-02 — Aksen biru desktop mengikuti ilustrasi
+Atas arahan owner, desktop terang memakai aksen biru #0075CF dengan hierarki font dan proporsi panel lebih compact. Logo asli dan identitas toska Guide dipertahankan; mobile/dark tidak ditimpa lapisan baru. Keputusan visual tidak mengubah kapabilitas, konteks AI, default, alur atau otorisasi platform. Implementasi lokal, belum deploy.
+
+
+## 2026-11-02 — Guide mengikuti ilustrasi03
+Owner memilih desain03 khusus Guide: checkpoint mobile-first, detail fokus, chat panel bawah dan aktivasi bertahap. Desktop memakai jalur satu kolom760px; navigasi existing dipertahankan. Aktivasi/jeda tersedia di jalur, tidak diulang dalam detail. Foto tiap checkpoint hanya jika sumber lokasi tepercaya tersedia; sementara ikon kategori tanpa klaim foto. Semua handler/guard AI, GPS, paid items dan Save tetap. Implementasi lokal, belum release.
+
+
+## 2026-11-02 — Meta tanpa cutoff kalender (keputusan owner terbaru)
+Owner mencabut penghentian otomatis 5 November dan mengizinkan commit, push, serta deploy existing Worker sorttrip. META_ASSISTANT_EXPIRES_AT kini diabaikan; enable/billing/key, autentikasi, Trip Pass/kuota, timeout, batas token/call/tool dan larangan fallback tetap berlaku. Tidak ada migrasi, reset data, perubahan credential atau inferensi tambahan pada proses rilis ini. Bukti rilis dicatat di qa-reports/RELEASE_2026-11-02.md.

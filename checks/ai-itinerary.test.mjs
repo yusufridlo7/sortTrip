@@ -12,7 +12,7 @@ test('invalid draft is corrected once in same quota reservation; failure returns
    if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture-user'});
    if(String(url).includes('reserve_ai_request')){reserves++;return Response.json({allowed:true});}
    if(String(url).includes('finish_ai_request')){finishes.push(JSON.parse(opts.body).p_success);return Response.json({ok:true});}
-   const body=JSON.parse(opts.body);
+   const body=JSON.parse(opts.body);assert.match(body.instructions,/\[SORTTRIP_PLATFORM_CONTEXT [^\n]+purpose=planning\]/);
    if(body.tools)return Response.json({status:'completed',output:[{action:{sources}}]});
    drafts++;const input=JSON.parse(body.input);assert.equal(input.scheduleBounds.earliestMinute,960);
    if(drafts===2)assert.equal(input.validationFeedback,'BEFORE_ARRIVAL');
@@ -26,6 +26,28 @@ test('invalid draft is corrected once in same quota reservation; failure returns
 const q=validateInput({city:'Tokyo',start:'2027-01-10',days:3,people:1,budget:5000000,arrival:'14:00',arrivalDay:0,returnAt:'2027-01-12T18:00:00+09:00'});
 const sources=[{url:'https://example.com/place',title:'Place'}];
 const plan={summary:'Rancangan',activities:[{day:2,time:'10:00',category:'Wisata',title:'A',sourceUrl:sources[0].url},{day:2,time:'14:00',category:'Wisata',title:'B',sourceUrl:sources[0].url}]};
+test('missing hotel return connection gets one bounded correction; unresolved gaps release quota without applying a plan',async()=>{
+ const original=globalThis.fetch;
+ try{for(const recover of [true,false]){
+  let drafts=0;const settled=[];
+  const transfer=(fromPlace,toPlace,time)=>({day:2,time,category:'Transfer',title:fromPlace+' to '+toPlace,fromPlace,toPlace,mode:'Walking',sourceUrl:sources[0].url,routeOptions:[{kind:'hemat',summary:'Sourced walk; duration unknown',legs:[{fromPlace,toPlace,mode:'Walking',note:'Verify route',sourceUrl:sources[0].url}]}]});
+  const base={...plan,activities:[...plan.activities,transfer('Hotel','A','09:00'),transfer('A','B','12:00')]};
+  globalThis.fetch=async(url,options)=>{
+   if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture'});
+   if(String(url).includes('reserve_ai_request'))return Response.json({allowed:true});
+   if(String(url).includes('finish_ai_request')){settled.push(JSON.parse(options.body).p_success);return Response.json({ok:true});}
+   const body=JSON.parse(options.body);
+   if(body.tools)return Response.json({status:'completed',output:[{action:{sources}},{content:[{type:'output_text',text:'Fixture research'}]}]});
+   drafts++;if(drafts===2){const feedback=JSON.parse(body.input);assert.equal(feedback.validationFeedback,'ITINERARY_CONNECTION_GAPS');assert.deepEqual(feedback.missingConnections,[{day:2,from:'B',to:'Hotel'}]);}
+   const output=drafts===2&&recover?{...base,activities:[...base.activities,transfer('B','Hotel','16:00')]}:base;
+   return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(output)}]}]});
+  };
+  const request={...q,retained:[{category:'Penginapan',title:'Hotel',day:1,time:'18:00',checkin:q.start,checkout:'2027-01-12'}]};
+  const response=await handleItinerary(new Request('https://sorttrip.test/api/itinerary',{method:'POST',headers:{Authorization:'Bearer fixture'},body:JSON.stringify(request)}),{OPENAI_API_KEY:'fixture',SUPABASE_URL:'https://db.test',SUPABASE_SERVICE_ROLE_KEY:'fixture',SUPABASE_PUBLISHABLE_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}});
+  assert.equal(response.status,recover?200:502);assert.equal(drafts,2);assert.deepEqual(settled,[recover]);
+  const result=await response.json();if(recover)assert.deepEqual(result.plan.connectionWarnings,[]);else{assert.equal(result.validation,'ITINERARY_CONNECTION_GAPS');assert.equal(result.plan,undefined);}
+ }}finally{globalThis.fetch=original;}
+});
 test('transport preference performs focused route research before final draft with one successful quota use',async()=>{
  const old=globalThis.fetch;let researchCalls=0;const finishes=[];
  const transfer={day:2,time:'12:00',category:'Transfer',title:'A → B',fromPlace:'A',toPlace:'B',mode:'Bus',sourceUrl:sources[0].url,routeOptions:[{kind:'hemat',summary:'Public route; verify schedule',legs:[{fromPlace:'A',toPlace:'B',mode:'Bus',note:'Verify operator',sourceUrl:sources[0].url}]}]};

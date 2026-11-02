@@ -1,0 +1,16 @@
+/* Never target payment iframe contents or change consent/SDK visibility. */
+@media(min-width:1000px){
+ .hotel-checkout.checkout-page{max-width:1180px;width:100%;padding:28px 24px}
+ .hotel-checkout.checkout-page .checkout-heading{margin-bottom:20px}
+ .hotel-checkout.checkout-page .checkout-heading h1{font-size:30px}
+ .hotel-checkout.checkout-page .checkout-layout{grid-template-columns:minmax(0,1fr) 350px;gap:22px}
+ .hotel-checkout.checkout-page .checkout-panel{border-radius:14px;box-shadow:var(--ui-card-shadow,0 8px 28px #0b2d3a0b);padding:22px}
+ .hotel-checkout.checkout-page .checkout-summary{background:#fafdff}
+ .hotel-checkout.checkout-page .checkout-summary .checkout-total{padding:16px;background:#edf7fb;border-radius:10px;margin-block:14px}
+ .hotel-checkout.checkout-page .checkout-total strong{font-size:29px}
+ .hotel-checkout.checkout-page .checkout-steps{border-radius:12px;overflow:hidden;margin-bottom:22px}
+ .hotel-checkout.checkout-page .checkout-steps li{padding:12px;font-size:12px}
+ .hotel-checkout.checkout-page .checkout-stay{gap:12px}
+ .hotel-checkout.checkout-page .checkout-consent{padding:14px;border-radius:10px;background:#f5fafc}
+ .hotel-checkout.checkout-page .checkout-guest-form{gap:18px}
+}

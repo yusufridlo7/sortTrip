@@ -7,4 +7,5 @@ import './app/globals.css';
 import './app/travel-refresh.css';
 import './app/i18n';
 import './app/brand-theme.css';
+import './app/ui-alignment/index.js';
 createRoot(document.getElementById('root')).render(<AuthApp/>);

@@ -1,3 +1,4 @@
+import {routeAddress} from './route-location.mjs';
 const reply=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
 const limit=(value,fallback,max)=>{const n=Number(value);return Number.isInteger(n)&&n>=1&&n<=max?n:fallback;};
 // Compute Routes Essentials free cap verified 2026-10-14. Other billing-account
@@ -6,7 +7,7 @@ export function googleRouteLimits(env){return {daily:limit(env.GOOGLE_ROUTES_DAI
 export function validateGoogleRoute(input,now=Date.now()){
  const text=v=>typeof v==='string'&&v.trim().length>=2&&v.length<=180&&!/[\x00-\x1f]/.test(v)&&!/^https?:/i.test(v);
  if(!input||!text(input.from)||!text(input.to)||input.from.trim().toLowerCase()===input.to.trim().toLowerCase()||!['TRANSIT','WALK','DRIVE'].includes(input.mode))throw Error('INVALID');
- const body={origin:{address:input.from.trim()},destination:{address:input.to.trim()},travelMode:input.mode,computeAlternativeRoutes:input.mode!=='WALK',languageCode:input.language==='en'?'en':'id',units:'METRIC'};
+ const body={origin:{address:routeAddress(input.from)},destination:{address:routeAddress(input.to)},travelMode:input.mode,computeAlternativeRoutes:input.mode!=='WALK',languageCode:input.language==='en'?'en':'id',units:'METRIC'};
  if(input.mode==='TRANSIT'){
   const d=Date.parse(input.departureTime);
   if(typeof input.departureTime!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/.test(input.departureTime)||!Number.isFinite(d)||d<now-7*86400000||d>now+100*86400000)throw Error('DATE');

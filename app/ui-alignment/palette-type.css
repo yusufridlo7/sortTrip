@@ -1,0 +1,69 @@
+/* Desktop illustration palette. Fixed SVG logo colors and the Guide palette stay intact.
+   Inherit through portals, without changing public brand assets or dark-mode tokens. */
+@media(min-width:1000px){
+ :root:not(.dark):not([data-theme=dark]) body:has(main):not(:has(.guide-trip-picker)){
+  --brand-text:#102F4A;--brand-muted:#53677D;
+  --brand-primary:#0075CF;--brand-link:#006CBF;--brand-hover:#005DA8;--brand-focus:#0075CF;
+  --brand-subtle:#F0F7FE;--brand-tint:#E8F3FD;
+  --brand-border:#D9E5F0;--brand-border-strong:#9AC8EE;
+  --ui-card-shadow:0 5px 20px #183A6009;
+ }
+ main:not(:has(.guide-trip-picker)){font-size:14px;line-height:1.6}
+ main:not(:has(.guide-trip-picker)) :is(input,select,textarea){font-size:14px;line-height:1.5}
+ :is(.flight-search-view,.saved-main .saved-view,.support-intro,.checkout-heading) h1{font-size:28px;line-height:1.2;font-weight:750;letter-spacing:-.7px}
+ .explore-main .search-intro h1{font-size:33px;line-height:1.15;letter-spacing:-.8px}
+ .explore-main>div:not([hidden]):has(>.search-intro)::before{background-image:linear-gradient(100deg,#082C58DA,#0B5CA455),url('/kuala-lumpur.jpg')}
+ .explore-main .search-intro{padding-block:4px 20px}
+ .explore-main>div:not([hidden]):has(>.search-intro){padding:22px}
+ .explore-main .search-panel>form{padding:18px;gap:14px}
+ .explore-main .search-ai-prompt{background:#F3F8FE!important;border-color:#DCEBFA!important}
+ .explore-main .search-ai-prompt .assistant-prompt-shell textarea{height:90px;min-height:90px}
+ .explore-main .recommended-trips>h2{font-size:23px;line-height:1.3}
+ .explore-main .recommendation-card>img{height:195px}
+ .explore-main .recommendation-card strong{font-size:20px}
+ .flight-search-view .search-intro{padding-block:6px 16px}
+ .flight-search-view .api-flight-toggle{padding:18px;gap:14px}
+ .flight-search-view .api-times p{font-size:12px;line-height:1.55}
+ .flight-search-view .flight-clock{display:block;font-size:24px;line-height:1.15;letter-spacing:-.5px;margin-bottom:5px;color:var(--brand-text);font-variant-numeric:tabular-nums}
+ .flight-search-view .api-flight-toggle>div:last-child strong{font-size:23px}
+ .flight-search-view .api-flight-toggle>div:last-child small{background:#F1F8FF;border-color:#CDE4FA;color:var(--brand-link)}
+ .saved-main .saved-card>img{height:180px}
+ .saved-main .saved-card>div{padding:16px}
+ .saved-main .saved-card h2{font-size:20px;line-height:1.3}
+ .saved-main .saved-card p{margin-block:8px;font-size:13px}
+ .saved-main .saved-card strong{padding:10px;background:#F0F7FE;border-color:#E0EDF9;font-size:16px}
+ .saved-main .saved-card>div>span{background:#F5FAFF;border-color:#CCE2F7}
+ .planner-main #sorttrip-assistant{background:linear-gradient(110deg,#F0F7FF,white);border-color:#D7E8F8;padding:16px;margin-block:12px}
+ .planner-main #sorttrip-assistant h2{font-size:19px;line-height:1.3}
+ .planner-main #sorttrip-assistant p{font-size:12px;line-height:1.55;margin-block:6px}
+ .planner-main .ai-controls{gap:10px;margin-block:10px}
+ .planner-main #sorttrip-assistant .assistant-prompt-shell textarea{height:90px;min-height:90px}
+ .planner-main .planner-title{padding-block:8px 16px;margin-bottom:16px}
+ .planner-main .planner-title h1{font-size:28px}
+ .planner-main .guide-planner-shortcut{padding:10px 14px;margin-block:12px}
+ .planner-main .selected-flight{padding:14px;margin-block:12px}
+ .planner-main .day{padding:16px;margin-block:14px}
+ .planner-main .day-heading h3{font-size:16px}
+ .planner-main .activity.itinerary-row{padding-block:14px;border-left-color:#D7E7FA}
+ .planner-main .activity.itinerary-row::before{top:21px}
+ .planner-main .itinerary-item-title{font-size:15px;font-weight:700}
+ .planner-main .budget-panel{padding:16px}
+ .planner-main .budget-panel h2{font-size:25px;padding:12px}
+ :is(.trip-affiliate-search,.transport-search-view)>.direct-heading{min-height:175px;padding-block:24px 40px}
+ :is(.trip-affiliate-search,.transport-search-view) .direct-heading h1{font-size:30px}
+ .trip-affiliate-search>.direct-heading{background-image:linear-gradient(100deg,#082C58EC,#176CC080),url('/kuala-lumpur.jpg')}
+ .transport-search-view>.direct-heading{background-image:linear-gradient(100deg,#082C58EC,#176CC080),url('/bangkok.jpg')}
+ .support-center .support-intro{min-height:0;padding:22px 26px}
+ .support-center .support-intro{background-image:linear-gradient(95deg,#082C58E6,#176CC085),url('/bangkok.jpg')}
+ .support-center .support-intro h1{font-size:28px}
+ .support-center .support-intro>p{margin-block:8px}
+ .support-center .support-search{margin-block:12px}
+ .support-faq summary{font-size:14px}
+ .support-chat h2{font-size:21px}
+ .price-watch-view>h2{font-size:28px;line-height:1.25}
+ .account-dialog h2{font-size:22px;line-height:1.3}
+ .hotel-checkout.checkout-page .checkout-heading h1{font-size:28px}
+ .hotel-checkout.checkout-page .checkout-panel{padding:20px}
+ .hotel-checkout.checkout-page .checkout-summary h2{font-size:21px}
+ .hotel-checkout.checkout-page .checkout-total strong{font-size:27px}
+}

@@ -265,3 +265,6 @@ Supersedes same-day localupstream401: owner privately replaced key; restarted lo
 
 ### Production verification — 2026-10-24 QA release
 After release5cb25add-5f48-4a05-a012-2d2f626a24ff, actual public production ViatorSingapore/Gardens queryHTTP200/twoproducts. City-state resolver is now deployed; prior local-only qualifier is superseded for this code. No newpartnerapproval/commission/payment claim. Midtranscloudkey/mode updated by owner; no direct providerauthentication/settlement tested by agent.
+
+## 2026-11-01 — Meta Model API: local text/image journey tested
+Status API_CONNECTED_AND_TESTED_LOCALLY for requested muse-spark-1.3 Standard text and image-input itinerary through authenticated SortTrip UI. Two successful generations applied/saved/reloaded, following fixes to search token reconciliation, wire source IDs and compact JSON. Numeric runtime usage responses and UI persistence are evidence; fixtures were not substituted. No supplier price or booking is certified by model output. Live MP4, production deployment, provider invoice/credit usage, commercial partner approval and hard account spend limit remain UNVERIFIED. OpenAI local runtime explicitly disabled per owner, compatibility code retained. Source/time: local runtime/browser1Nov2026; qa-reports/MUSE_FIX_AND_MULTIMODAL_LIVE_QA_2026-11-01.md. No credentials copied/read/changed.

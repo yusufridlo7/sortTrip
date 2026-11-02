@@ -1,4 +1,7 @@
 import {streamItinerary} from './itinerary-stream.js';
+import {assistantCapabilities,providerConfigured} from './ai-provider.js';
+import {handleGuide} from './guide.js';
+import {localAIStats} from './ai-observability.js';
 import {recommendationResponse,monthlyRecommendationRefresh} from './recommendation-budgets.js';
 import {handleBookingEvidence} from './booking-evidence.js';
 import {requestLanguage,localizedResponse} from './localization.js';
@@ -91,6 +94,8 @@ const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.
  if(u.pathname.startsWith('/api/support/'))return handleSupport(request,env,ctx);
  if(u.pathname.startsWith('/api/payments/'))return handlePayments(request,env);
  if(u.pathname==='/api/itinerary/translate')return handleNarrativeTranslation(request,env);
+ if(u.pathname==='/api/guide')return handleGuide(request,env);
+ if(u.pathname==='/api/ai/capabilities')return request.method==='GET'?json({...assistantCapabilities(env),...(localAIStats(request)?{localDiagnostics:localAIStats(request)}:{})}):json({error:'Gunakan GET.'},405);
  if(u.pathname==='/api/itinerary')return request.headers.get('Accept')?.includes('text/event-stream')?streamItinerary(request,env):handleItinerary(request,env);
  if(u.pathname==='/api/hotels/search')return handleHotelSearch(request,env);
  if(u.pathname==='/api/hotels/content')return handleHotelContent(request,env);
@@ -99,7 +104,7 @@ const worker = {async scheduled(event,env,ctx){if(event.cron==='0 2 * * *'){ctx.
  if(u.pathname==='/api/routes/google')return handleGoogleRoutes(request,env);
  if(u.pathname==='/api/activities'||u.pathname.startsWith('/api/activities/'))return handleViator(request,env);
  if(request.method!=='GET')return json({error:'Metode tidak didukung.'},405);
- if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(env.OPENAI_API_KEY&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),supplierBrowserConfigured:externalHotelServiceConfigured(env)||(env.HOTEL_BROWSER_ENABLED==='true'&&Boolean(env.HOTEL_BROWSER)),externalHotelBrowserConfigured:externalHotelServiceConfigured(env),version:'flights-v2-worldwide',itineraryRulesVersion:'2026-10-24-order-admission'});
+ if(u.pathname==='/api/health')return json({ok:true,aiConfigured:Boolean(providerConfigured(env)&&env.SUPABASE_URL&&env.SUPABASE_PUBLISHABLE_KEY&&env.SUPABASE_SERVICE_ROLE_KEY&&env.AI_LIMITER),flightsConfigured:Boolean(env.TRAVELPAYOUTS_API_TOKEN),supplierBrowserConfigured:externalHotelServiceConfigured(env)||(env.HOTEL_BROWSER_ENABLED==='true'&&Boolean(env.HOTEL_BROWSER)),externalHotelBrowserConfigured:externalHotelServiceConfigured(env),version:'flights-v2-worldwide',itineraryRulesVersion:'2026-10-24-order-admission'});
  if(u.pathname==='/api/locations')return json({locations:searchLocations(u.searchParams.get('q')||'')});
  if(u.pathname!=='/api/flights')return json({error:'Endpoint tidak ditemukan.'},404);
  let q;try{q=parseQuery(u);}catch(e){return json({error:e.message},400);}

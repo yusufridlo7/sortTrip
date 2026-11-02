@@ -1,10 +1,16 @@
 import {finalAirportNight} from './hotel-stay-policy.mjs';
+export function preserveHotels(message='',names=[]){
+ if(/\b(?:jangan|tidak perlu|do not|don't)\s+(?:ganti|ubah|change|replace)\s+(?:hotel|penginapan|accommodation)\b|\b(?:pertahankan|tetap gunakan|keep|preserve|retain)\b[^.!?;\n]{0,70}\b(?:hotel|penginapan|accommodation)\b|\b(?:hotel|penginapan|accommodation)\s+(?:tetap|jangan diubah|unchanged)\b/i.test(message))return true;
+ const clauses=String(message).match(/\b(?:pertahankan|tetap gunakan|keep|preserve|retain)\b[^.!?;\n]{0,160}/gi)||[];
+ const normalize=s=>' '+String(s).toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim()+' ';
+ return names.filter(n=>n.length>=6).some(n=>clauses.some(c=>normalize(c).includes(normalize(n))));
+}
 // Deliberately narrow edit intent: the current message, never chat history.
 export function itineraryIntent(message='') {
  const text=String(message).toLowerCase();
  const hotel=/\b(hotel|penginapan|accommodation)\b/.test(text);
  const airportStay=finalAirportNight(message,3)!==null;
- const unchanged=/\b(jangan|tidak perlu|do not|don't)\s+(?:ganti|ubah|change|replace)\s+(?:hotel|penginapan|accommodation)/.test(text);
+ const unchanged=preserveHotels(message);
  const match=text.match(/(?:di\s*bawah|dibawah|kurang dari|maksimal|max(?:imum)?|under|below|less than)\s*(?:rp\.?\s*|idr\s*)?(\d[\d.,]*)(?:\s*(ribu|rb|k|juta|jt))?\s*(?:rupiah\s*)?(?:per\s*(?:malam|night)|\/\s*(?:malam|night)|semalam|a night)/);
  let maxNightIDR;
  if(hotel&&match){const n=Number(match[2]&&!/^\d{1,3}(?:[.,]\d{3})+$/.test(match[1])?match[1].replace(',','.'):match[1].replace(/[.,]/g,'')),scale=/^(ribu|rb|k)$/.test(match[2]||'')?1000:/^(juta|jt)$/.test(match[2]||'')?1000000:1;const amount=n*scale;if(Number.isSafeInteger(amount)&&amount>0&&amount<=1e9)maxNightIDR=amount;}

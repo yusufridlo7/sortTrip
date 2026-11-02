@@ -26,7 +26,7 @@ test('price-only research consumes one quota on evidence success, none when unav
    if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture'});
    if(String(url).includes('reserve_ai_request')){reserves++;return Response.json({allowed:true});}
    if(String(url).includes('finish_ai_request')){finishes.push(JSON.parse(opts.body).p_success);return Response.json({ok:true});}
-   const body=JSON.parse(opts.body);
+   const body=JSON.parse(opts.body);assert.match(body.instructions,/\[SORTTRIP_PLATFORM_CONTEXT [^\n]+purpose=planning\]/);
    return Response.json({status:'completed',output:body.tools?[{action:{sources:[{url:hotelUrl}]},content:[{type:'output_text',text:success?quote:'Unavailable'}]}]:[{content:[{type:'output_text',text:JSON.stringify({quotes:success?[entry]:[]})}]}]});
   };
   const env={OPENAI_API_KEY:'fixture',SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'fixture',SUPABASE_SERVICE_ROLE_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}};

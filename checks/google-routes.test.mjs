@@ -5,6 +5,13 @@ const user='00000000-0000-4000-8000-000000000001';
 const env={GOOGLE_ROUTES_ENABLED:'true',GOOGLE_MAPS_API_KEY:'fixture-secret',SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'fixture',SUPABASE_SERVICE_ROLE_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}};
 const query={from:'KLCC Kuala Lumpur',to:'Pasar Seni Kuala Lumpur',mode:'TRANSIT',departureTime:new Date(Date.now()+86400000).toISOString().replace(/\.\d{3}Z$/,'Z')};
 const request=(q=query)=>new Request('https://sorttrip.test/api/routes/google',{method:'POST',headers:{Origin:'https://sorttrip.test',Authorization:'Bearer fixture'},body:JSON.stringify(q)});
+test('known airport IATA codes use existing catalogue names; terminals are never guessed',()=>{
+ const result=validateGoogleRoute({from:'KUL',to:'Travelodge Kuala Lumpur City Centre',mode:'DRIVE'});
+ assert.equal(result.origin.address,'Kuala Lumpur International Airport, Kuala Lumpur, MY');
+ assert.doesNotMatch(result.origin.address,/Terminal|T1|T2/);
+ assert.equal(validateGoogleRoute({from:'ZZZ',to:'City hotel',mode:'DRIVE'}).origin.address,'ZZZ');
+ assert.equal(validateGoogleRoute({from:'Pasar Seni',to:'City hotel',mode:'WALK'}).origin.address,'Pasar Seni');
+});
 test('controlled route defaults, strict date/mode boundaries and no uncontrolled fields',()=>{
  assert.deepEqual(googleRouteLimits({}),{daily:1000,monthly:9000,userDaily:5});assert.deepEqual(googleRouteLimits({GOOGLE_ROUTES_DAILY_LIMIT:100000,GOOGLE_ROUTES_MONTHLY_LIMIT:-1,GOOGLE_ROUTES_USER_DAILY_LIMIT:'bad'}),{daily:1000,monthly:9000,userDaily:5});
  assert.equal(googleRouteLimits({GOOGLE_ROUTES_MONTHLY_LIMIT:10001}).monthly,9000);

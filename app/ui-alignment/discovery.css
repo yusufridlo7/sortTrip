@@ -1,0 +1,27 @@
+@media(min-width:1000px){
+ .explore-main>div:not([hidden]):has(>.search-intro){position:relative;isolation:isolate;padding:26px;background:none;border-radius:20px}
+ .explore-main>div:not([hidden]):has(>.search-intro)::before{content:'';position:absolute;inset:0 0 auto;height:295px;z-index:-1;border-radius:20px;background:linear-gradient(100deg,#0b2d3ada,#0b2d3a55),url('/kuala-lumpur.jpg') center 40%/cover}
+ .explore-main .search-intro{padding:10px 4px 24px;max-width:850px}
+ .explore-main .search-intro h1{font-size:36px;line-height:1.15;margin:8px 0 10px;letter-spacing:-1px}
+ .explore-main .search-intro p{font-size:14px;max-width:650px}
+ .explore-main .search-panel{border-radius:16px;box-shadow:0 16px 36px #0b2d3a20;overflow:visible}
+ .explore-main .search-panel>form{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:18px;padding:20px}
+ .explore-main .search-panel .search-top{grid-column:1;align-self:end;justify-content:flex-start;padding:0 40px 0 0!important;min-height:44px}
+ .explore-main .search-panel .discovery-controls{grid-column:2;margin:0;display:block}
+ .explore-main .search-panel .rev-search-fields{grid-column:1/-1;margin:0;padding:0;gap:16px}
+ .explore-main .search-panel .search-ai-prompt{grid-column:1/-1;margin:0;padding:12px 14px;background:#f3f9fb;border:1px solid #dcebf0;border-radius:12px}
+ .explore-main .search-ai-prompt .assistant-brand-label{font-size:13px;font-weight:700}
+ .explore-main .search-ai-prompt .assistant-prompt-shell textarea{height:100px;min-height:100px;box-sizing:border-box;resize:vertical;font-size:14px;margin-top:8px}
+ .explore-main .search-panel .rev-search-options{grid-column:1/-1;padding:12px 14px;border:1px solid var(--brand-border);border-radius:12px;gap:12px}
+ .explore-main .search-panel .search-error{grid-column:1/-1;margin:0}
+ .explore-main .recommended-trips{margin-top:28px}
+ .explore-main .recommendation-grid{gap:18px}
+ .explore-main .recommendation-card>img{height:210px}
+ .explore-main .recommendation-card strong{font-size:22px}
+ .explore-main .recommendation-card small{font-size:13px}
+ .explore-main .results{margin-top:24px}
+ .explore-main .date-option-card{border:1px solid var(--brand-border);border-radius:14px;margin-bottom:12px;box-shadow:var(--ui-card-shadow);overflow:hidden}
+ .explore-main .date-option{padding:18px;gap:18px}
+ .explore-main .date-option h3{font-size:18px;line-height:1.4}
+ .explore-main .date-option strong{font-size:20px;font-variant-numeric:tabular-nums}
+}

@@ -14,7 +14,7 @@ test('current-message hotel budget is parsed on the server, never trusted from c
  assert.equal(target.maxNightIDR,500000);assert.equal(target.searchAny,true);assert.equal(target.maxNightExclusive,true);
 });
 test('admission and map coordinates require identity, exact research evidence and cited sources',()=>{
- const sourceUrl='https://museum.example/admission';const sources=[{url:sourceUrl}];
+ const sourceUrl='https://museum.example/admission';const sources=[{url:sourceUrl,title:'Example Museum admission'}];
  const quote='Example Museum foreign adult admission MYR 20; location latitude 3.14 longitude 101.7.';
  const activity={title:'Example Museum',admission:{amount:20,currency:'MYR',audience:'Foreign adult',quote,sourceUrl},coordinates:{lat:3.14,lng:101.7,quote,sourceUrl}};
  const facts=attractionReferences(activity,sources,quote);
@@ -23,6 +23,8 @@ test('admission and map coordinates require identity, exact research evidence an
  assert.deepEqual(attractionReferences({...activity,title:'Another Museum'},sources,quote),{});
  assert.deepEqual(attractionReferences({...activity,admission:{...activity.admission,amount:200},coordinates:{...activity.coordinates,lat:9}},sources,quote),{});
  assert.deepEqual(attractionReferences(activity,[],quote),{});
+ const wrong='https://hotel.example/home';
+ assert.deepEqual(attractionReferences({...activity,admission:{...activity.admission,sourceUrl:wrong},coordinates:{...activity.coordinates,sourceUrl:wrong}},[{url:wrong,title:'City hotel'}],quote),{});
 });
 const code=ts.transpileModule(await readFile(new URL('../app/itinerary-connections.ts',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/gm,'');
 const {itineraryConnections}=await import('data:text/javascript;base64,'+Buffer.from("const addDays=(d,n)=>new Date(Date.parse(d+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);const cityById=()=>undefined,cityAt=()=>undefined;"+code).toString('base64'));

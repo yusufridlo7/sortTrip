@@ -1,0 +1,11 @@
+@media(min-width:1000px){
+ body:has(main){--ui-card-shadow:0 8px 28px #0b2d3a0b;--ui-panel-radius:16px}
+ main:not(:has(.guide-trip-picker)){max-width:1240px;padding-inline:24px}
+ .header{border-bottom:1px solid var(--brand-border);box-shadow:0 2px 12px #0b2d3a06}
+ .page-utilities{margin-block:8px 12px;font-size:12px}
+ main>.demo{font-size:12px;line-height:1.6;margin-block:12px 18px}
+ .site-footer{padding-block:24px;margin-top:32px;border-color:var(--brand-border)}
+ .site-footer-intro p{font-size:12px}
+ .site-footer-links{gap:0 28px}
+ .site-footer-links :is(button,a){font-size:12px}
+}

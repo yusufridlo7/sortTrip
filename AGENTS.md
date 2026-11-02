@@ -18,6 +18,10 @@ Runner bawaan hanya menjalankan smoke test URL lokal tetap. Tidak ada bridge oto
 
 # Persistent project memory
 
+## Pemeliharaan konteks platform AI
+
+Saat mengubah fitur, integrasi, sumber harga, input media, atau kewenangan Assistant, perbarui sumber runtime tunggal `worker/platform-context.js`, naikkan `PLATFORM_CONTEXT_VERSION`, dan sinkronkan `docs/AI_PLATFORM_CONTEXT.md`. Jalur/provider AI baru (termasuk Muse bila nanti diizinkan) wajib memakai konteks bersama sebelum egress; jangan menyalin prompt platform yang berbeda per provider. Pertahankan skema/otorisasi/validasi dan bedakan fitur aplikasi dari tool model yang benar-benar tersedia. Context tidak boleh berisi secret atau klaim akses/live yang belum terbukti. Ini kewajiban pemeliharaan konteks, bukan izin mengganti provider, mengaktifkan API, atau deploy.
+
 Sebelum pekerjaan SortTrip yang berarti, baca seluruh file berikut sebagai persistent context project:
 
 1. `docs/PROJECT_CONTEXT.md`

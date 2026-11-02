@@ -9,9 +9,37 @@ const pricingJs=ts.transpileModule(pricingSource,{compilerOptions:{target:ts.Scr
 const pricingUrl='data:text/javascript;base64,'+Buffer.from(pricingJs).toString('base64');
 const {applyAIPlan,aiTripContext,reconcileHotelTransfers}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('./apply-price-quotes',pricingUrl).replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href).replace('../worker/hotel-stay-policy.mjs',new URL('../worker/hotel-stay-policy.mjs',import.meta.url).href)).toString('base64'));
 const sourceUrl='https://example.com/attraction';
+test('explicit keep-hotel instruction retains the full template stay and midnight check-in even against a supplier replacement',()=>{
+ const ctx={city:'Kuala Lumpur',start:'2026-11-07',days:4,people:1,budget:4500000};
+ const stay={id:'hotel',category:'Penginapan',template:true,day:2,time:'01:55',title:'Travelodge',place:'Travelodge',price:1620000,paid:false,checkin:'2026-11-07',checkout:'2026-11-10',note:'anggaran contoh'};
+ const input={...ctx,destination:'kl',destinationMeta:{city:ctx.city},flight:{arrive:'23:55',arrivalDay:0},items:[stay]};
+ const preserved=aiTripContext(input,ctx.city,'Malaysia','Pertahankan penerbangan, tanggal dan hotel. Hari ketiga museum.');
+ assert.deepEqual(preserved.preserveItemIds,['hotel']);assert.equal(preserved.retained[0].title,'Travelodge');
+ assert.deepEqual(aiTripContext(input,ctx.city,'Malaysia','Pertahankan penerbangan dan Travelodge beserta 3 malamnya.').preserveItemIds,['hotel']);
+ const area={id:'area',day:2,time:'16:00',category:'Area menginap',title:'Pasar Seni',sourceUrl,note:'Area'};
+ const base={context:{...ctx,...preserved},sources:[{url:sourceUrl}],activities:[area]};
+ for(const proposed of [base,{...base,context:{...base.context,replaceItemIds:['hotel']},activities:[{...area,category:'Penginapan',hotelId:'new',provider:'LiteAPI',checkin:'2026-11-07',checkout:'2026-11-10'}]}]){
+  const result=applyAIPlan(input,proposed,[hotelQuote(proposed.activities[0])]);
+  assert.deepEqual(result.items,[stay]);
+ }
+});
+test('splitting an unprotected template stay never moves its midnight arrival check-in to the departure day',()=>{
+ const ctx={city:'Kuala Lumpur',start:'2026-11-07',days:4,people:1,budget:4500000};
+ const stay={id:'hotel',category:'Penginapan',template:true,day:2,time:'01:55',title:'Travelodge',price:1620000,paid:false,checkin:'2026-11-07',checkout:'2026-11-10',note:'anggaran contoh'};
+ const result=applyAIPlan({...ctx,destination:'kl',destinationMeta:{city:ctx.city},items:[stay]}, {context:ctx,sources:[{url:sourceUrl}],activities:[{id:'area',day:2,time:'16:00',category:'Area menginap',title:'Pasar Seni',sourceUrl,note:'Area'}]});
+ const remaining=result.items.find(x=>x.id==='hotel-remaining-1');
+ assert.equal(remaining.day,2);assert.equal(remaining.time,'01:55');assert.equal(remaining.checkin,'2026-11-07');
+});
 const context={city:'Kuala Lumpur',start:'2026-12-10',days:3,people:1,budget:4500000};
 const flight={id:'flight',category:'Pesawat',price:1000000,paid:true,day:1,time:'',title:'Flight'};
 const hotel={id:'hotel',category:'Penginapan',price:500000,paid:true,day:1,time:'',title:'Hotel'};
+test('unverified airport move keeps selected hotel and invalidates speculative airport-hotel connections without touching paid routes',()=>{
+ const stay={...hotel,paid:false,title:'Selected city hotel',checkin:context.start,checkout:'2026-12-12'};
+ const route={id:'r',category:'Transportasi',title:'Hotel KLIA ke terminal',fromPlace:'KLIA',toPlace:'Terminal KLIA',day:3,time:'10:00',price:100000,paid:false,note:'shuttle',routeOptions:[{legs:[{fromPlace:'KLIA',toPlace:'Terminal KLIA'}]}],bookingUrl:'https://example.com/old'};
+ const result=reconcileHotelTransfers({...context,items:[stay]},[stay,route,{...route,id:'paid',paid:true},{...route,id:'arrival',day:2,fromPlace:'Putrajaya',toPlace:'KLIA'}],'id',2);
+ assert.equal(result[1].fromPlace,stay.title);assert.equal(result[1].routeOptions,undefined);assert.equal(result[1].bookingUrl,undefined);assert.equal(result[1].priceUnknown,true);assert.match(result[1].note,/belum terverifikasi/);
+ assert.equal(result[2].fromPlace,'KLIA');assert.equal(result[3].toPlace,stay.title);
+});
 const manual={id:'manual',category:'Wisata',price:123,paid:false,day:1,time:'10:00',title:'Manual'};
 const trip={...context,destination:'kl',destinationMeta:{city:context.city},items:[flight,hotel,manual]};
 
@@ -29,6 +57,12 @@ test('hotel change replaces obsolete transfer endpoints, clears old fares and pr
  assert.equal(reconcileHotelTransfers(input,[first,last,changed]).at(-1),changed);
  const validMorning={...transfer,time:'08:00',title:first.title+' → Museum',fromPlace:first.title,toPlace:'Museum'};
  assert.equal(reconcileHotelTransfers(input,[first,last,validMorning]).at(-1),validMorning);
+});
+test('expanding a short hotel display title preserves researched legs when structured endpoints did not change',()=>{
+ const stay={...hotel,paid:false,title:'Travelodge Kuala Lumpur City Centre',place:'Travelodge Kuala Lumpur City Centre',checkin:context.start,checkout:'2026-12-12'};
+ const route={id:'arrival',category:'Transportasi',day:1,time:'18:00',title:'KUL → Travelodge',fromPlace:'KUL',toPlace:stay.place,price:100,paid:false,note:'Researched route',priceQuote:{amountIDR:100},routeOptions:[{kind:'hemat',legs:[{fromPlace:'KUL',toPlace:stay.place,mode:'Bus'}]}]};
+ const next=reconcileHotelTransfers({...trip,items:[stay]},[stay,route]).at(-1);
+ assert.equal(next.title,'KUL → '+stay.place);assert.equal(next.routeOptions,route.routeOptions);assert.equal(next.priceQuote,route.priceQuote);assert.equal(next.note,route.note);assert.equal(next.price,100);
 });
 
 test('final airport night requires a geographically matching quote before an old full stay can be replaced',()=>{
@@ -80,6 +114,13 @@ test('excursion intent reaches AI even when overnight city differs; generated vi
  const visit={id:'old-visit',category:'Wisata',cityId:'melaka',dayPlan:true,generated:true,day:2,time:'12:23',title:'Dutch Square',price:0,paid:false,note:'Old automatically scheduled visit'};
  const t={...trip,items:[...trip.items,visit]};const ctx=aiTripContext(t,context.city,'Malaysia');assert.equal(ctx.requestedStops.find(x=>x.title==='Dutch Square').city,'Melaka');assert.ok(!ctx.retained.some(x=>x.title==='Dutch Square'));
  const next=applyAIPlan(t,plan);assert.ok(!next.items.some(x=>x.id==='old-visit'));
+});
+test('attraction replacement does not force obsolete unprotected route requests into new research',()=>{
+ const old={id:'old-route',category:'Transportasi',day:2,fromPlace:'Old museum',toPlace:'Old park',paid:false,time:'10:00',title:'Old route',note:'',price:0};
+ const t={...trip,items:[...trip.items,old,{...old,id:'booked',paid:true},{...old,id:'later',day:3}]};
+ const result=aiTripContext(t,context.city,'Malaysia','Hari kedua ganti wisata menjadi museum');
+ assert.equal(result.routeRequests.length,2);assert.ok(result.routeRequests.some(x=>x.protected));assert.ok(result.routeRequests.some(x=>x.day===3));
+ assert.ok(!result.routeRequests.some(x=>x.day===2&&!x.protected));
 });
 test('regeneration replaces automatic day-plan transport but preserves paid/explicitly locked transport',()=>{
  const old={id:'old-bus',dayPlan:true,generated:true,category:'Transportasi',title:'Old expensive transfer',paid:false,day:2,time:'08:00',price:500,note:''};
@@ -215,4 +256,15 @@ test('AI price refresh cannot mutate paid, pending or user-locked items',async()
   assert.equal(applyPriceQuotes(input,[{id:'bus',basis:'person',amountIDR:999,checkedAt:'2026-10-24'}]).items[0],frozen);
  }
  assert.equal(applyPriceQuotes({...trip,items:[item]},[{id:'bus',basis:'person',amountIDR:999,checkedAt:'2026-10-24'}]).items[0].price,999);
+});
+
+test('fallback hotel has no invented check-in time when arrival transfer starts at that time',()=>{
+ const old={...hotel,paid:false,userEdited:true,time:'19:20',note:'Original hotel',checkin:context.start,checkout:'2026-12-12'};
+ const transfer={id:'arrival',day:1,time:'19:20',category:'Transfer',title:'Airport to hotel',fromPlace:'Airport',toPlace:'Hotel',mode:'Bus',sourceUrl,note:'Arrival transfer'};
+ const draft={...plan,context:{...context,replaceItemIds:[old.id]},activities:[transfer]};
+ const result=applyAIPlan({...trip,items:[flight,old]},draft);
+ assert.equal(result.items.find(x=>x.id===old.id).time,'');
+ assert.match(result.items.find(x=>x.id===old.id).note,/Jam check-in/);
+ const locked={...old,aiLocked:true};
+ assert.equal(applyAIPlan({...trip,items:[flight,locked]},draft).items.find(x=>x.id===locked.id).time,'19:20');
 });

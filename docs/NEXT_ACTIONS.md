@@ -1,5 +1,11 @@
 # SortTrip — Next Actions
 
+## Prioritas aktif — 1 November 2026, setelah pemulihan pra-Muse
+
+Uji ulang yang kemudian diizinkan sudah digunakan: regenerasi gagal `BOOKING_CONFLICT` pada itinerary dengan museum terkunci. Prioritas sekarang perbaikan guard konflik/rute penghubung dengan regresi offline; jangan mengulang AI berbayar otomatis atau menghapus kunci. Checkout hotel berhenti di formulir tamu sesuai pilihan owner. Pesawat/12Go/Viator sampai formulir checkout, Google Routes serta 14 pemeriksaan endpoint lulus pada batas laporan `qa-reports/2026-11-01-ai-retest-checkout/REPORT.md`. Midtrans authenticated checkout, hotel Prebook/SDK, dan notifikasi belum diverifikasi.
+
+Owner meminta perbaikan alur OpenAI existing tanpa kewajiban staging/Supabase QA hackathon. Catatan tugas Meta di bawah bersifat historis dan tidak menjadi instruksi mengaktifkannya kembali. Review `qa-reports/POST_QA_FIXES_2026-11-01.md`: perbaikan lokal lulus 331 tes, tes terakhir 36/36 dan build. Satu generasi tambahan untuk membuktikan penggantian hotel serta kuota setelah perbaikan menunggu izin owner; izin satu generasi sebelumnya sudah digunakan. Tidak otomatis deploy/commit/push, mengubah credential, atau membayar booking.
+
 ## 2026-10-23 — After master QA
 
 1. Review completed reports and local fixes. Release only on explicit owner instruction; rerun production404/robots/sitemap and checkout/auth smoke afterward. Three production SEO/404 failures are fixed locally but unreleased.
@@ -430,3 +436,86 @@ Do not repeat key registration/replacement: fresh production KL andSingaporesear
 
 ## 2026-10-24 — QA/branding release complete
 Owner-authorized application commit83b333e pushed origin/codex/approved-brand-identity-2026-10-24 and deployed5cb25add-5f48-4a05-a012-2d2f626a24ff usingkeep-vars.329tests/build/i18n/dryrun/stagedsecretpatternscanpass. Actual production assets match build, new brand/account UI/cards browserverified, health/rulesmarker/recommendations/support and SingaporeViator200; protected hotel/payment endpoints401 and badsignature403. This supersedes local-only/pending-release notes for branding/footer/account/AIlocks/comprehensiveQA/Viator. Do not repeat deployment or credential setup for these changes. No AI generation/trip save/payment/prebook during release; Midtransprovider authentication/settlement still not directlyverified. See qa-reports/RELEASE_QA_BRANDING_2026-10-24.md.
+
+- [ ] Uji live Meta terbatas (1 permintaan): owner menaruh META_MODEL_API_KEY di .dev.vars lokal, jalankan JALANKAN-APP.bat (baris worker polos npm run dev:worker), login production di http://127.0.0.1:5173, lampirkan 1 gambar + prompt di SortTrip Asisten. Bila Trip Pass diminta, kuota production masih 0 (grant +50 hanya di QA) — putuskan grant production terpisah.
+- [ ] Setelah uji live pertama berhasil: putuskan commit/push/deploy perubahan mesin Meta (belum dilakukan).
+
+- [ ] Uji manual link sosial: 1 link TikTok + 1 link Instagram lewat langkah di qa-reports/SOCIAL_LINK_INPUT_2026-10-31.md (butuh kunci Meta lokal + worker jalan; waspadai kuota production 0).
+
+- [ ] Owner: jalankan 3 query baca (uid, pass, constraint trip_passes) di dashboard Supabase PRODUCTION lalu kirim hasilnya; agent susun INSERT grant +50. Setelah grant: ulangi Uji A (resolve SGN) dan Uji B (1 itinerary pendek).
+
+- [x] Grant +50 production terverifikasi (6 baris trip_passes).
+- [ ] Owner: ulangi Uji A (prompt Vietnam => SGN) dan Uji B (1 itinerary pendek link+caption); laporkan status + log worker bila gagal.
+
+- [ ] Owner: restart .bat, jalankan node .sorttrip-qa/probe-meta.mjs dari folder proyek, kirim hasil cetaknya; ulangi Uji A/B dan salin baris meta_provider_failure/destination_resolve dari jendela worker bila masih gagal.
+
+- [ ] Owner: restart .bat, ulangi Uji A (Vietnam=>SGN) dan Uji B (1 itinerary pendek); bila gagal kirim baris meta_provider_failure/destination_resolve dari jendela worker.
+
+- [ ] Owner: restart .bat, ulangi Uji A (cek spanduk SGN + pilih penerbangan + Susun itinerary) dan Uji B (1 itinerary pendek); bila riset masih gagal, salin baris POST/log worker.
+
+- [ ] Owner: uji chip kota + tombol itinerary langsung setelah restart .bat; untuk B yang masih gagal, kirim baris POST/meta_research_* dari jendela worker.
+- [ ] Keputusan owner: go untuk fase UI itinerary (tipografi, kartu transfer, CTA booking/label harga, peta, foto+tautan wisata).
+
+- [ ] Keputusan owner: sumber foto per wisata (Viator/Places) bila ingin foto di kartu wisata.
+- [ ] Owner: nilai keterbacaan itinerary di HP setelah restart; B yang masih gagal tetap butuh baris log worker.
+- [ ] Owner: tutup SEMUA jendela hitam lama (8787 terbukti masih terisi worker lama), restart .bat sampai `Ready on http://127.0.0.1:8787`, Ctrl+Shift+R di 127.0.0.1:5173, ulangi Uji B 1x, lalu salin 5-8 baris terakhir worker. Kode baru menjamin minimal meta_itinerary_request + POST; bila nol baris, permintaan tidak sampai ke worker lokal. Lihat qa-reports/ITINERARY_WORKER_LOG_2026-11-01.md.
+- [ ] Owner: setelah restart .bat + Ctrl+Shift+R, Susun itinerary 1x; laporkan teks status/error persis di panel SortTrip Assistant dan baris meta_itinerary_completed (kini memuat activities). Perbaikan terbaru: hasil diterapkan ke trip terbaru, tidak dibuang karena sinkronisasi booking simpan mengubah identitas trip.
+- [ ] Owner: uji yang sama juga membuktikan audit kuncian: kunci tidak melarang AI menambah item; konflik perlindungan yang muncul di tengah permintaan kini hanya melewati aktivitas yang berbenturan. Bila itinerary masih tidak berubah, teks status/error panel Assistant adalah bukti penentu berikutnya (jangan hanya log worker).
+- [ ] Owner: Ctrl+Shift+R, Susun itinerary 1x, buka Perjalanan saya. Simpan kini terverifikasi baca-balik; bila daftar masih kosong, kirim teks error merah persis di view Perjalanan saya atau pesan toast simpan (kini menyertakan pesan server).
+- [ ] Owner: uji multi-kota — trip Ho Chi Minh, prompt "hari ke-3 ke Hanoi", Susun 1x. Harapan: heading hari 3 Hanoi + Transfer antarkota + log cities:1. Bila ditolak aturan (hari 1/PP/booking), kirim teksnya. Lihat qa-reports/MULTI_CITY_PROMPT_2026-11-01.md.
+
+## Prioritas terbaru — 2026-11-01 adapter Muse opt-in
+
+Entri Muse/hackathon/QA lama di atas adalah riwayat, bukan instruksi mengaktifkan atau mengulang ledger/migrasi.
+
+- [ ] Owner review docs/MUSE_ADAPTER_SETUP.md dan laporan implementasi; periksa billing/hard provider cap/akses Standard serta tenggat5Nov00WIB sebelum konfigurasi privat. Jangan kirim secret ke chat. Agent belum mengaktifkan Muse.
+- [ ] Setelah konfigurasi dan izin uji terpisah: satu generasi nyata kecil dengan gambar/MP4 nonpribadi untuk memverifikasi token-count/Responses/tools/structured output/editor/Save/reload. Jangan menyebut tes offline sebagai bukti live.
+- [ ] Uji MP4 playable di browser dan provider; structural parser bukan codec/malware validator. TikTok link bukan video ingestion otomatis.
+- [ ] Known BOOKING_CONFLICT guard90menit tetap backlog terpisah; jangan menghapus proteksi paid/locked sebagai jalan pintas.
+
+### Update aktivasi lokal
+- [x] Owner mengizinkan aktivasi/biaya; dev:worker:muse dan launcher lokal aktif, capability meta/configured/media=true.
+- [ ] Satu percobaan UI pertama gagal generik, bukan inference sukses. Fixed diagnostic codes sudah ditambahkan dan36testsPASS. Perlu uji diagnostik berikutnya sebelum menyimpulkan sebab/mengubah guard; tidak ada pengiriman ulang di sesi pertama. Jangan mengulang migrasi/reset ledger/mengganti credential tanpa bukti. Report MUSE_ACTIVATION_LIVE_ATTEMPT_2026-11-01.md.
+
+### Latest result: owner-authorized live fixes complete
+- [x] Muse teks berhasil; manual edit/Save/My Trips/reload verified.
+- [x] Empty prompt search→select→draft: actual Meta0/OpenAI0 delta on same runtime.
+- [x] Saved itinerary + public image + major attraction change to Genting/Putrajaya: applied, saved, reloaded.
+- [x] OpenAI disabled server-side and in every normal local launch path; no fallback.
+- [x] Unfulfilled airport-hotel routes reconciled to actual selected hotel, stale fares/options cleared;355tests/buildPASS.
+- [ ] Owner review hotel budget/airport replacement unresolved and actual billing/quota accounting if needed; do not claim supplier inventory or invoice values from model output.
+- [ ] Optional separate MP4 live verification, not done in image-based acceptance. No deployment/commit/push authorized in this task.
+
+### 2026-11-02 — Guide owner review
+- [x] Guide separate module, final itinerary/explicit activation, permission/paid protection, real Muse prep+photo response, approved schedule Save/MyTrips/reload.
+- [x] 369regressionPASS +93finaltargetedPASS; scoped mobile ID/EN and build verified.
+- [ ] Owner review Guide on saved itinerary at127.0.0.1:5173; optional GPS on own device, no automatic payment/booking.
+- [ ] LiveMP4/Guide Routes/field GPS/TTS remain unverified; do not claim background/push/streaming or complete itinerary replacement implemented.
+- [ ] Existing Meta cutoff5Nov00WIB precedes sample trip7Nov; changes require separate owner decision, never autoextend. Production rollout requires separate instruction; no commit/push/deploy performed.
+### Latest Guide UI review
+- [x] Guide menu/page, curved checkpoint trail+logo pin, detail/nexttransport, floatingchat/explicit approval, immediate checkpoint update+Save/reload verified.
+- [x]375full +116finaltargeted +11finalconversation/view checks PASS; buildPASS; mobile390/320 ID/EN.
+- [ ] Owner review localhost5173 → Guide. Existing GPS/video/field/live-route and full replacement limitations remain; no claims of background tracking or full new-itinerary replacement.
+- [ ] No further inference needed to demonstrate tested UI. Cutoff5Nov00WIB unchanged. Release/commit/push only upon owner instruction.
+### 2026-11-02 — Paket visual lokal untuk review
+- [x] Paket seluruh halaman dipisah8CSSkomponen, baseline/sesudah,99checks/build dan QA browser terarah. Lihat qa-reports/UI_FULL_PACKAGE_2026-11-02.md dan galeri COMPARE.html.
+- [ ] Owner review tampilan lokal seluruh halaman. Belum ada izin commit/push/deploy paket ini.
+- [ ] Saat diperlukan, uji terpisah form checkout dengan quote aktif/support live; jangan mengklaim portal/payment/AI/GPS diuji dari screenshot atau fixtures.
+### Prioritas QA pra-deploy — 2026-11-02
+
+- [x] Owner mengonfirmasi Nuitée akhirnya tampil di browser Codex dan Viator tampil di Chrome. Tidak ada pembayaran dilakukan; gejala awal belum membuktikan bug source SortTrip.
+- [x] Kasus preservasi hotel/check-in diperbaiki lokal dan satu Meta nyata + Save/MyTrips/reload lolos; 100 tes terarah/build PASS. Lihat AI_FIX_FOLLOWUP.md. Trip QA lama tidak ditulis ulang; validator koneksi tetap.
+- [ ] Lengkapi batas checkout/Midtrans/mobile yang belum terverifikasi dalam REPORT.md. Tidak perlu ulang seluruh suite; fokus regresi perubahan. Belum ada izin deploy/commit/push.
+
+### Follow-up sumber/rute — 2026-11-02
+
+- [x] Guard relevansi sumber, gap rantai hotel/bandara, transit generik/hotel-as-station, title-only reconciliation dan alias stasiun/POI diperbaiki lokal; 132 tes + build PASS. Lihat SOURCES_TRANSPORT_FIX.md.
+- [x] Hasil QA terbaru 7–10 Nov, 12 item/subtotal Rp3.934.587/hotel3malam berhasil Save/MyTrips/reload; enam transfer tercatat. Rujukan transportasi unknown tetap terlihat, bukan klaim operasi terverifikasi.
+- [ ] Uji ulang alamat bandara lengkap pada Google Routes setelah kuota normal tersedia; jangan reset/naikkan limit. DRIVE dari IATA KUL sebelumnya kosong; canonicalization baru offline-tested.
+- [ ] Jika ingin Assistant menarik bukti Routes otomatis, rancang integrasi terpisah dengan consent/budget/auth existing; pembanding Maps pada QA ini dimasukkan manual ke prompt, bukan tool otomatis baru.
+- [ ] QA checkout/Midtrans yang belum selesai dan mobile panel baru tetap terpisah; jangan menyatakan seluruh platform siap produksi hanya dari tes ini. Tidak perlu inferensi tambahan untuk screenshot/review.
+
+
+
+## 2026-11-02 — Rilis diotorisasi owner
+Lepas cutoff kalender Meta, jalankan tes/build lalu commit/push/deploy Worker existing. Pertahankan label harga/rute belum terverifikasi. Verifikasi publik tanpa inferensi atau pembayaran tambahan; enam referensi transportasi dan QA live airport tetap memiliki batas bukti pada laporan prarilis.

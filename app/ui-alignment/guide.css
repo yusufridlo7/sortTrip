@@ -1,0 +1,139 @@
+/* Guide remains a mobile checkpoint experience; no activation/GPS/AI side effects. */
+@media(max-width:760px){
+ .guide-page .guide-page-heading h1{font-size:28px;line-height:1.2;letter-spacing:-.6px}
+ .guide-page .guide-summary-strip{border-radius:12px;padding:12px;font-size:12px;background:#f0f8fb}
+ .guide-page .guide-activation{border-radius:16px;background:white;border:1px solid #cee3eb;box-shadow:0 6px 20px #0b2d3a08;padding:18px}
+ .guide-page .guide-trail>li{min-height:165px;padding-bottom:18px}
+ .guide-page .guide-trail-card{padding:15px 13px;border-radius:14px;box-shadow:0 3px 12px #0b2d3a06}
+ .guide-page .guide-trail-title{font-size:15px;line-height:1.5}
+ .guide-page .guide-trail-meta{font-size:11px;line-height:1.6}
+ .guide-page .guide-trail-detail{font-size:11px}
+ .guide-page .guide-detail-card{border-radius:16px;box-shadow:0 4px 18px #0b2d3a08}
+ .guide-page .guide-chat-panel{right:0;bottom:0;width:100%;max-width:100%;height:min(680px,calc(100dvh - 76px));border-radius:22px 22px 0 0;border-bottom:0}
+ .guide-page .guide-chat-header{padding:16px}
+ .guide-page .guide-chat-compose{padding-bottom:max(14px,env(safe-area-inset-bottom))}
+ .guide-page .guide-chat-launcher{border-radius:40px;box-shadow:0 8px 24px #0b2d3a26}
+}
+
+/* Illustration 03: a quiet, mobile-first travel trail. Scoped to Guide only. */
+.guide-design-03{--guide-line:#d9e7ed;--guide-accent:#007d9b;max-width:760px;margin-inline:auto;padding:8px 0 100px;color:#102f44}
+body:has(.guide-trip-picker){background:#fff}
+main:has(.guide-trip-picker){background:#fff}
+main:has(.guide-trip-picker)>.page-utilities{margin-block:6px;font-size:11px}
+main:has(.guide-trip-picker)>.demo{font-size:11px;line-height:1.6;margin-block:8px 12px}
+.guide-trip-picker{margin-block:12px}
+.guide-trip-picker label{font-size:11px;gap:5px}
+.guide-trip-picker select{font-size:12px;padding:9px 11px;min-height:38px}
+.guide-design-03 .guide-page-heading{margin:8px 0 16px;gap:12px;align-items:flex-start}
+.guide-design-03 .guide-page-heading h1{font-size:30px;line-height:1.2;letter-spacing:-.8px;margin:9px 0 5px}
+.guide-design-03 .guide-page-heading p{font-size:13px;color:#587083}
+.guide-design-03 .guide-eyebrow{font-size:10px;letter-spacing:1px;color:#087c98}
+.guide-design-03 .guide-live-badge{font-size:11px;padding:7px 10px;border-radius:12px;margin-top:24px;white-space:normal;max-width:120px}
+.guide-design-03 .guide-live-badge.is-active{background:#dcf8e6;color:#236946;border-color:#c5eed7}
+.guide-design-03 .guide-summary-strip{padding:12px 14px;border:1px solid #dcebf2;border-radius:13px;background:#f0f8fd;gap:8px 14px;font-size:12px}
+.guide-design-03 .guide-summary-strip time{font-size:11px;opacity:.85}
+.guide-design-03 .guide-activation{grid-template-columns:1fr;background:#fff;border-radius:20px;padding:22px;gap:18px;box-shadow:0 6px 24px #163f5909}
+.guide-design-03 .guide-activation-intro>svg{color:var(--guide-accent)}
+.guide-design-03 .guide-activation h2{font-size:22px;letter-spacing:-.4px;margin:9px 0}
+.guide-design-03 .guide-activation-intro>p{font-size:13px;margin-bottom:0;line-height:1.65}
+.guide-design-03 .guide-activation-step{position:relative;padding:0 0 18px 37px}
+.guide-design-03 .guide-activation-step:not(:last-child)::before{content:"";position:absolute;left:13px;top:27px;bottom:0;border-left:1px dashed #9fd1df}
+.guide-design-03 .guide-activation-step:last-child{padding-bottom:0}
+.guide-design-03 .guide-activation-step h3{font-size:14px;margin:0 0 9px;line-height:28px}
+.guide-design-03 .guide-activation-step h3>span{position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,#00a6bd,#007696);color:#fff;text-align:center;font-size:15px;box-shadow:0 3px 8px #007d9b18}
+.guide-design-03 .guide-check{font-size:12px;line-height:1.65;margin:8px 0}
+.guide-design-03 .guide-activation-step .guide-check{border:1px solid #dbe7ee;border-radius:13px;padding:12px;background:#fff}
+.guide-design-03 .guide-activation-step .guide-buttons{display:grid;gap:9px}
+.guide-design-03 .guide-buttons :is(button,a),.guide-design-03 .guide-detail-page>.primary{min-height:42px;font-size:12px;border-radius:13px;justify-content:center}
+.guide-design-03 :is(.primary,.guide-chat-launcher){background:linear-gradient(115deg,#008da8,#006f91);color:white;border-color:transparent}
+.guide-design-03 .primary:disabled{background:#86aeb9;color:#fff;opacity:1}
+.guide-design-03 .secondary{background:#fff;color:#006e90;border-color:#afd6e2}
+.guide-design-03 .guide-settings{margin:14px 0;padding-bottom:13px}
+.guide-design-03 .guide-settings summary{font-size:12px;line-height:1.6;color:#466579;min-height:32px}
+.guide-design-03 .guide-now{border-radius:14px;padding:14px;margin:18px 0;background:#edf8fd;box-shadow:none;font-size:13px}
+.guide-design-03 .guide-trail-layout{display:block;margin-top:20px}
+.guide-design-03 .guide-trail-board{padding:18px 0 6px;background:#fff;border:0;border-radius:0;box-shadow:none}
+.guide-design-03 .guide-section-heading{padding:0;gap:12px}
+.guide-design-03 .guide-section-heading h2{font-size:20px;letter-spacing:-.4px;margin:7px 0}
+.guide-design-03 .guide-section-heading>span{font-size:11px;display:block}
+.guide-design-03 .guide-trail{margin:20px 0 0}
+.guide-design-03 .guide-trail>li{padding:0 0 22px 60px;min-height:164px}
+.guide-design-03 .guide-trail-line{left:0;top:30px;width:50px;height:100%}
+.guide-design-03 .guide-trail-line path{stroke:#73b7cb;stroke-width:1.5;stroke-dasharray:4 5}
+.guide-design-03 .guide-trail-node{left:7px;top:36px;width:36px;height:36px;border:1px solid #9ed4e1;font-size:14px;box-shadow:0 3px 8px #0b607d15}
+.guide-design-03 .guide-trail .has-pin .guide-trail-node{left:1px;top:24px;width:48px;height:60px}
+.guide-design-03 .guide-trail .has-pin .sorttrip-brand-icon{width:44px;height:54px}
+.guide-design-03 .guide-trail-card{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;padding:14px 28px 14px 14px;border:1px solid #dce7ee;border-radius:16px;box-shadow:0 3px 12px #17485d06;align-items:start}
+.guide-design-03 .guide-trail .has-pin .guide-trail-card{border:1.5px solid #06b0d0;box-shadow:0 4px 17px #009eb31a}
+.guide-design-03 .guide-checkpoint-art{display:grid;place-items:center;width:72px;height:86px;background:linear-gradient(145deg,#e3f3fa,#f7fbfd);border-radius:11px;color:#2783a0;border:1px solid #d9eaf2}
+.guide-design-03 .guide-checkpoint-copy{display:block;min-width:0}
+.guide-design-03 .guide-trail-time{display:block;font-size:14px;line-height:1.3;font-weight:750;color:#15384c;font-variant-numeric:tabular-nums}
+.guide-design-03 .guide-trail-meta{font-size:10px;line-height:1.5;margin-top:4px}
+.guide-design-03 .guide-trail-title{font-size:15px;line-height:1.4;letter-spacing:-.15px;margin:5px 0}
+.guide-design-03 .guide-trail-title>svg{display:none}
+.guide-design-03 .guide-trail-place{display:flex;align-items:flex-start;gap:4px;font-size:11px;line-height:1.5}
+.guide-design-03 .guide-trail-place>svg{flex-shrink:0;margin-top:2px}
+.guide-design-03 .guide-trail-tags{font-size:10px;margin:8px 0 4px;gap:5px}
+.guide-design-03 .guide-trail-tags>span{padding:3px 5px;background:#eef8fc;border-radius:5px;color:#226b85}
+.guide-design-03 .guide-trail-detail{font-size:10px;line-height:1.6;font-weight:500}
+.guide-design-03 .guide-card-chevron{position:absolute;right:10px;top:50%;color:#086d8d;transform:translateY(-50%)}
+.guide-design-03 .guide-trail-aside{position:static;padding:18px;margin-top:10px;border-radius:16px;background:#f4fafe}
+.guide-design-03 .guide-trail-aside h3{font-size:16px;margin:10px 0}
+.guide-design-03 .guide-trail-aside p{font-size:12px}
+.guide-design-03 .guide-detail-page{margin-top:18px}
+.guide-design-03 .guide-detail-heading{padding:16px 0 8px}
+.guide-design-03 .guide-detail-heading h2{font-size:27px;line-height:1.2;letter-spacing:-.7px}
+.guide-design-03 .guide-detail-heading>p{font-size:12px;line-height:1.6}
+.guide-design-03 .guide-detail-grid{display:block}
+.guide-design-03 .guide-detail-card{padding:20px;border-radius:17px;border-color:#dce7ee;box-shadow:0 4px 18px #123f5906;margin-bottom:16px}
+.guide-design-03 .guide-detail-card h3{font-size:16px;margin-bottom:12px}
+.guide-design-03 .guide-detail-card p{font-size:13px;line-height:1.7}
+.guide-design-03 .guide-detail-card dl{background:#f3f8fc;border-radius:12px;padding:0 12px}
+.guide-design-03 .guide-detail-card dl>div{font-size:12px;grid-template-columns:100px minmax(0,1fr);gap:10px}
+.guide-design-03 .guide-next-transport{background:#f0f8fd}
+.guide-design-03 .guide-warning{background:#fff6e5;border-color:#f0dfbf;font-size:12px}
+.guide-design-03 .guide-chat-launcher{bottom:24px;border-radius:30px;padding:10px 15px;min-height:48px;font-size:13px;box-shadow:0 7px 22px #0b607d28}
+.guide-design-03 .guide-chat-panel{background:#fff;border:1px solid #caddE7;border-radius:23px;box-shadow:0 14px 65px #143e5730;bottom:85px;height:min(680px,calc(100dvh - 120px))}
+.guide-design-03 .guide-chat-handle{height:16px;display:grid;place-items:center;flex-shrink:0}
+.guide-design-03 .guide-chat-handle::after{content:"";width:36px;height:4px;background:#d9e5eb;border-radius:8px}
+.guide-design-03 .guide-chat-header{background:#fff;color:#15374b;border-bottom:1px solid #edf2f5;padding:6px 16px 14px}
+.guide-design-03 .guide-chat-header>button{color:#426277;min-width:36px;min-height:36px}
+.guide-design-03 .guide-chat-header small{color:#647e8c;font-size:11px}
+.guide-design-03 .guide-chat-header strong{font-size:15px}
+.guide-design-03 .guide-chat-scroll{padding:16px}
+.guide-design-03 .guide-message{background:#f1f5f9;border-radius:16px 16px 16px 4px;padding:12px 14px}
+.guide-design-03 .guide-message.user{background:#e0f6ff;border-radius:16px 16px 4px 16px}
+.guide-design-03 .guide-chat-suggestions button{background:#fff;border-color:#d4e5ef;border-radius:18px;min-height:36px;font-size:11px;padding:8px 11px}
+.guide-design-03 .guide-proposal{background:#fff5e3;border:1px solid #f3dfb8;border-radius:16px;padding:15px}
+.guide-design-03 .guide-proposal h3{font-size:16px}
+.guide-design-03 .guide-proposal>small{display:inline-block;background:#ffe3d7;color:#8a392b;padding:4px 7px;border-radius:5px;font-size:10px}
+.guide-design-03 .guide-chat-compose{border-top:1px solid #e5edf2;padding:12px 14px max(14px,env(safe-area-inset-bottom))}
+.guide-design-03 .guide-question textarea{border-radius:16px;min-height:58px;max-height:120px;padding:12px 48px 12px 12px;font-size:13px}
+.guide-design-03 .guide-camera{border:0;bottom:12px;background:transparent;color:#235770}
+.guide-design-03 .guide-compose-footer .primary{border-radius:20px;min-height:38px;padding:8px 14px}
+.guide-design-03 .guide-compose-footer>small{font-size:10px;line-height:1.5}
+.guide-design-03 .guide-settings-grid{grid-template-columns:1fr;gap:14px}
+@media(min-width:761px){main:has(.guide-trip-picker){max-width:860px}.guide-trip-picker{max-width:760px;margin-inline:auto}}
+@media(max-width:760px){
+ .guide-design-03 .guide-page-heading h1{font-size:26px}
+ .guide-design-03 .guide-page-heading p{font-size:12px}
+ .guide-design-03 .guide-activation{padding:18px}
+ .guide-design-03 .guide-activation h2{font-size:21px}
+ .guide-design-03 .guide-summary-strip time{width:100%;margin-left:0}
+ .guide-design-03 .guide-trail>li{padding-left:43px;min-height:160px;padding-bottom:20px}
+ .guide-design-03 .guide-trail-line{left:-9px;width:45px}
+ .guide-design-03 .guide-trail-node{left:0;top:36px;width:30px;height:30px;font-size:12px}
+ .guide-design-03 .guide-trail .has-pin .guide-trail-node{left:-5px;top:24px;width:42px;height:54px}
+ .guide-design-03 .guide-trail .has-pin .sorttrip-brand-icon{width:38px;height:47px}
+ .guide-design-03 .guide-trail-card{grid-template-columns:57px minmax(0,1fr);gap:10px;padding:12px 23px 12px 10px;border-radius:14px}
+ .guide-design-03 .guide-checkpoint-art{width:57px;height:76px;border-radius:9px}
+ .guide-design-03 .guide-trail-title{font-size:14px}
+ .guide-design-03 .guide-trail-meta{font-size:10px}
+ .guide-design-03 .guide-trail-detail{font-size:10px}
+ .guide-design-03 .guide-section-heading>span{max-width:85px;font-size:10px}
+ .guide-design-03 .guide-chat-launcher{right:16px;bottom:20px}
+ .guide-design-03 .guide-chat-panel{right:0;bottom:0;width:100%;max-width:100%;height:min(700px,calc(100dvh - 64px));border-radius:24px 24px 0 0;border-bottom:0}
+ .guide-design-03 .guide-detail-card{padding:17px}
+ .guide-design-03 .guide-detail-heading h2{font-size:25px}
+}
+@media(max-width:350px){.guide-design-03 .guide-trail-card{grid-template-columns:1fr}.guide-design-03 .guide-checkpoint-art{display:none}.guide-design-03 .guide-live-badge{max-width:100px}}

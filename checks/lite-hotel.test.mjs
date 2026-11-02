@@ -102,3 +102,13 @@ test('AI budget search uses city rate discovery, keeps exact scope, and excludes
  const quotes=await liteHotelPrices(q,[{...target,searchAny:true,maxNightIDR:500000,maxNightExclusive:true,checkout:'2027-01-12'}],env,Date.now()+45000,{},fetcher);
  assert.equal(calls.length,2);assert.equal(quotes.length,1);assert.equal(quotes[0].id,target.id);assert.equal(quotes[0].hotelId,hotel.id);assert.ok(quotes[0].amountIDR/2<500000);
 });
+
+test('budget inventory is fetched before model latency; protected/split scopes are not guessed',async()=>{
+ const {prefetchBudgetHotels}=await import('../worker/itinerary.js');let calls=0;
+ const query={...q,hotelBudget:{maxNightIDR:500000,exclusive:true}};
+ const fetcher=async(url,opts)=>{calls++;const b=JSON.parse(opts.body);assert.equal(b.checkin,q.start);assert.equal(b.checkout,'2027-01-13');return Response.json({data:[{hotelId:hotel.id,roomTypes:[rate(300000)]}],hotels:[hotel]});};
+ const prefetched=await prefetchBudgetHotels(query,env,fetcher);
+ assert.equal(calls,2);assert.equal(prefetched.length,1);assert.equal(prefetched[0].amountIDR,300020);assert.equal(prefetched[0].adults,2);
+ assert.deepEqual(await prefetchBudgetHotels({...query,hotelStay:{day:3}},env,()=>assert.fail('airport scope must wait')),[]);
+ assert.deepEqual(await prefetchBudgetHotels({...query,dailyCities:[{day:2,city:'Melaka'}]},env,()=>assert.fail('multi-city scope must wait')),[]);
+});

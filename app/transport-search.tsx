@@ -23,7 +23,7 @@ export default function TransportSearch(props:PartnerSearchProps){
   window.addEventListener('message',receive);
   return ()=>{window.clearTimeout(timer);window.removeEventListener('message',receive)};
  },[attempt]);
- return <section className="direct-search">
+ return <section className="direct-search transport-search-view">
   <div className="direct-heading"><span className="strip-icon"><TrainFront size={26}/></span><div><div className="eyebrow">{tr('ui_0549')}</div><h1>{tr('ui_0550')}</h1><p>{tr('ui_0551')}</p></div></div>
   {props.context&&<p className="partner-context">{props.context.from} → {props.context.to} · {props.context.date}</p>}
   {!ready&&<p role="status">{failed?tr('ui_0552'):tr('ui_0553')}</p>}

@@ -53,7 +53,7 @@ test('narrative translation rejects changed prices, times, URLs, duplicate entri
 });
 test('translation uses authenticated bounded call, no planning tools or result-quota reservation',async()=>{
  const previous=globalThis.fetch;const calls=[];
- try{globalThis.fetch=async(url,options)=>{calls.push(String(url));if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture'});const body=JSON.parse(options.body);assert.equal(body.store,false);assert.equal(body.tools,undefined);assert.match(body.instructions,/English/);return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({entries:[{id:'n0',text:'Walk for 10 minutes.'}]})}]}]});};
+ try{globalThis.fetch=async(url,options)=>{calls.push(String(url));if(String(url).endsWith('/auth/v1/user'))return Response.json({id:'fixture'});const body=JSON.parse(options.body);assert.match(body.instructions,/\[SORTTRIP_PLATFORM_CONTEXT [^\n]+purpose=translation\]/);assert.equal(body.store,false);assert.equal(body.tools,undefined);assert.match(body.instructions,/English/);return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({entries:[{id:'n0',text:'Walk for 10 minutes.'}]})}]}]});};
  const env={SUPABASE_URL:'https://db.example.test',SUPABASE_PUBLISHABLE_KEY:'fixture',OPENAI_API_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}};
  const body=JSON.stringify({language:'en',entries:[{id:'n0',text:'Berjalan 10 menit.'}]});
  const unauthenticated=await handleNarrativeTranslation(new Request('https://sorttrip.test/api/itinerary/translate',{method:'POST',body}),env);assert.equal(unauthenticated.status,401);assert.equal(calls.length,0);

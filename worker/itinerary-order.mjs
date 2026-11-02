@@ -1,5 +1,5 @@
 const normalize=value=>String(value||'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
-const aliases=item=>[item.title,item.location].filter(Boolean).flatMap(value=>[normalize(value),normalize(value.replace(/\([^)]*\)/g,''))]).filter(value=>value.length>=8&&value.split(' ').length>=2);
+const aliases=item=>[item.title,item.location].filter(Boolean).flatMap(value=>[normalize(value),normalize(value.replace(/\([^)]*\)/g,''))]).filter(value=>value.length>=3);
 const matches=(place,item)=>aliases(item).some(alias=>normalize(place)===alias);
 
 // Validate order, not an invented journey duration. Provider-backed duration

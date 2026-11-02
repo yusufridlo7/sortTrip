@@ -61,3 +61,373 @@ footer .brand{margin-right:12px}footer .sorttrip-logo>.brand-artwork{width:155px
 .assistant-working small{display:block;margin-top:5px;color:var(--brand-muted);line-height:1.5}.assistant-working .assistant-elapsed{font-variant-numeric:tabular-nums}
 
 .transport-fallback-link{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--brand-border);border-radius:10px;text-decoration:none}
+
+/* Visual polish, stage 1: desktop Explore only. Keep DOM, control order,
+   responsive/mobile rules, supplier views and Guide unchanged. */
+@media (min-width:1000px) {
+ :root:not(.dark):not([data-theme=dark]) body:has(main.explore-main){background:#fff}
+ .explore-main>div:not([hidden]):has(>.search-intro){
+  padding:24px;
+  border-radius:24px;
+  background-image:linear-gradient(to bottom,transparent 320px,var(--brand-surface) 320px),linear-gradient(100deg,#0B2D3AF2 8%,#0F6E8CB3 60%,#0B2D3A88),url('/kuala-lumpur.jpg');
+  background-size:100% 100%,100% 320px,cover;
+  background-repeat:no-repeat;
+  background-position:center top,center top,center -180px;
+ }
+ .explore-main .search-intro{padding:8px 8px 24px}
+ .explore-main .search-intro .eyebrow{color:#B9EDF6;font-size:11px;letter-spacing:1.2px}
+ .explore-main .search-intro h1{color:#fff;font-size:clamp(28px,2.5vw,36px);font-weight:750;line-height:1.2;letter-spacing:-.8px;margin:10px 0}
+ .explore-main .search-intro h1 span{color:inherit}
+ .explore-main .search-intro p{color:#ECF8FB;font-size:14px;line-height:1.6;max-width:760px}
+ .explore-main .search-panel{
+  background:var(--brand-surface);
+  border:1px solid var(--brand-border);
+  border-radius:18px;
+  box-shadow:0 16px 36px #0B2D3A18,0 3px 8px #0B2D3A0A;
+ }
+ .explore-main .search-top{padding-top:18px;gap:12px}
+ .explore-main .search-panel .discovery-controls{margin:18px 24px 0}
+ .explore-main .search-panel .discovery-controls label{font-size:13px;font-weight:600;color:var(--brand-muted)}
+ .explore-main .discovery-controls select{min-height:44px;padding:10px 12px;border-radius:10px;font-weight:400;color:var(--brand-text)}
+ .explore-main .rev-search-fields{gap:16px;margin-block:18px}
+ .explore-main .rev-search-fields [data-slot=select-trigger],
+ .explore-main .destination-field{min-height:46px;border-radius:10px}
+ .explore-main .search-ai-prompt{margin:18px 24px;padding:16px;background:#F3F9FB;border-color:#DCECF1;border-radius:12px}
+ .explore-main .search-ai-prompt textarea{font-size:14px;line-height:1.6;min-height:76px;border-color:var(--brand-border)}
+ .explore-main .rev-search-options{padding:14px 24px 18px;gap:14px;background:#F3F9FB;border-top:1px solid #DCECF1}
+ .explore-main .rev-search-options>.primary{min-height:44px;box-shadow:0 4px 10px #0F6E8C24}
+ .explore-main .rev-search-options>.primary:hover:not(:disabled){background:var(--brand-hover);box-shadow:0 6px 14px #0F6E8C30}
+ .explore-main .recommended-trips{margin:28px 0 12px}
+ .explore-main .recommended-trips>h2{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-.4px;color:var(--brand-text)}
+ .explore-main .recommended-trips>p{font-size:14px;line-height:1.65;margin-top:8px}
+ .explore-main .recommendation-grid{gap:20px;margin-top:20px}
+ .explore-main .recommendation-card{border-radius:16px;border-color:#D7E5E9;box-shadow:0 6px 18px #0B2D3A0D,0 2px 4px #0B2D3A05;transition:box-shadow .15s,border-color .15s}
+ .explore-main .recommendation-card:hover{border-color:var(--brand-border-strong);box-shadow:0 12px 26px #0B2D3A1A}
+ .explore-main .recommendation-card>span{padding:18px;gap:6px}
+ .explore-main .recommendation-card strong{font-size:21px;line-height:1.3;font-weight:700;letter-spacing:-.25px}
+ .explore-main .recommendation-card small{font-size:14px;line-height:1.5}
+}
+@media (min-width:1000px) and (prefers-reduced-motion:reduce){
+ .explore-main .recommendation-card{transition:none}
+}
+
+/* Stage 2: existing desktop cards, editor and partner wrappers.
+   No grid/order/visibility changes; never style inside a partner iframe. */
+@media (min-width:1000px) {
+ :root:not(.dark):not([data-theme=dark]) body:has(main):not(:has(.guide-trip-picker)){background:#fff}
+ main:not(:has(.guide-trip-picker)) :is(.saved-card,.day,.world-day,.day-card,.budget-panel,.ai-planner,.api-flight-card,.date-option-card,.lite-hotel-card,.selected-flight){
+  border-color:var(--brand-border);
+  box-shadow:0 6px 20px #0B2D3A0C,0 2px 5px #0B2D3A04;
+  border-radius:16px;
+ }
+ .saved-view>h1{font-size:34px;line-height:1.2;letter-spacing:-.7px;font-weight:750}
+ .saved-view>p{font-size:14px;line-height:1.65;margin-top:10px}
+ .saved-card>div{padding:20px}
+ .saved-card h2{font-size:23px;line-height:1.3;letter-spacing:-.3px;font-weight:700}
+ .saved-card p{line-height:1.6}
+ .saved-card:hover{border-color:var(--brand-border-strong);box-shadow:0 12px 28px #0B2D3A16}
+ .planner-title h1{font-size:34px;line-height:1.2;letter-spacing:-.7px}
+ .planner-title p{line-height:1.6}
+ main:not(:has(.guide-trip-picker)) .ai-planner h2{font-size:25px;line-height:1.3;letter-spacing:-.4px}
+ .day-heading h3{font-size:17px;line-height:1.4;font-weight:700}
+ .itinerary-item-title{font-size:15px;line-height:1.5;font-weight:650}
+ .itinerary-price strong{line-height:1.4;font-variant-numeric:tabular-nums}
+ .budget-panel h2{line-height:1.25;letter-spacing:-.5px}
+ .budget-line{line-height:1.5}
+ .direct-search>.direct-heading{padding:24px;border:1px solid var(--brand-border);border-radius:16px;background:linear-gradient(110deg,var(--brand-tint),var(--brand-surface));box-shadow:0 4px 16px #0B2D3A08}
+ .direct-heading h1{font-size:32px;line-height:1.25;font-weight:750;letter-spacing:-.6px}
+ .direct-heading p{font-size:14px;line-height:1.65}
+ .trip-affiliate-widget{box-shadow:0 8px 24px #0B2D3A10}
+ .partner-selection{box-shadow:0 4px 16px #0B2D3A08}
+ main:not(.explore-main) .search-intro h1{font-size:34px;line-height:1.2;letter-spacing:-.7px}
+ main:not(.explore-main) .search-panel{box-shadow:0 8px 24px #0B2D3A10}
+}
+
+/* Stage 3: retain account dropdown, FAQ/chat columns and checkout form.
+   Financial text, consent controls and booking steps are untouched. */
+@media (min-width:1000px) {
+ .support-intro h1{font-size:34px;line-height:1.2;letter-spacing:-.6px}
+ .support-faq details,.support-chat{box-shadow:0 5px 18px #0B2D3A0B;border-color:var(--brand-border)}
+ .support-faq summary{font-size:15px;line-height:1.5}
+ .support-chat h2{font-size:23px;line-height:1.3;letter-spacing:-.3px}
+ .account-dropdown{box-shadow:0 14px 38px #0B2D3A24}
+ .checkout-card{box-shadow:0 8px 24px #0B2D3A0D;border-color:var(--brand-border)}
+ .checkout-card h2,.hotel-checkout h1{line-height:1.3;letter-spacing:-.4px}
+}
+
+/* Stage 4: shared desktop search rhythm. Flight styles attach to the
+   existing hidden wrapper, never change its display or result-step order. */
+@media (min-width:1000px) {
+ .explore-main .search-intro{padding-bottom:20px}
+ .explore-main .search-panel .discovery-controls{margin-top:16px}
+ .explore-main .rev-search-fields{margin-block:16px}
+ .explore-main .search-ai-prompt{margin-block:16px}
+ .explore-main .rev-search-options{padding-block:14px}
+ .flight-search-view .search-intro{padding:18px 0 22px}
+ .flight-search-view .search-intro h1{font-size:34px;line-height:1.2;letter-spacing:-.7px;margin:8px 0;font-weight:750}
+ .flight-search-view .search-intro h1 br{display:none}
+ .flight-search-view .search-intro h1 span{margin-left:.22em;color:var(--brand-link)}
+ .flight-search-view .search-intro p{font-size:14px;line-height:1.6;margin-top:8px}
+ .flight-search-view .search-panel{border:1px solid var(--brand-border);border-radius:18px;background:var(--brand-surface);box-shadow:0 8px 24px #0B2D3A10}
+ .flight-search-view .search-top{padding-top:18px;gap:12px}
+ .flight-search-view .search-panel .discovery-controls{margin:16px 24px 0}
+ .flight-search-view .discovery-controls label{font-size:13px;font-weight:600;color:var(--brand-muted)}
+ .flight-search-view .discovery-controls select{min-height:44px;padding:10px 12px;border-radius:10px;color:var(--brand-text);font-weight:400}
+ .flight-search-view .rev-search-fields{gap:16px;margin-block:16px}
+ .flight-search-view .rev-search-fields :is(.destination-field,.date-range,[data-slot=select-trigger]){min-height:46px;border-radius:10px}
+ .flight-search-view .search-ai-prompt{margin:16px 24px;padding:16px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle)}
+ .flight-search-view .search-ai-prompt textarea{font-size:14px;line-height:1.6;min-height:76px}
+ .flight-search-view .rev-search-options{padding:14px 24px;gap:14px;border-top:1px solid var(--brand-border);background:var(--brand-subtle)}
+ .flight-search-view .rev-search-options>.primary{min-height:44px;box-shadow:0 4px 10px #0F6E8C24}
+ .flight-search-view .primary:hover:not(:disabled){background:var(--brand-hover)}
+ .flight-search-view .results{padding-top:24px}
+ .flight-search-view .flow-steps{padding:12px 16px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle);font-size:13px;line-height:1.5;gap:12px;flex-wrap:wrap}
+ .flight-search-view .section-heading h2,.flight-search-view .results>h2{font-size:26px;line-height:1.3;letter-spacing:-.4px;font-weight:700}
+ .flight-search-view .destination-card{border-color:var(--brand-border);border-radius:16px;box-shadow:0 6px 20px #0B2D3A0C;transition:box-shadow .15s,border-color .15s}
+ .flight-search-view .destination-card:hover{transform:none;border-color:var(--brand-border-strong);box-shadow:0 10px 26px #0B2D3A16}
+ .flight-search-view .world-country-heading{padding:22px;min-height:150px;background:linear-gradient(130deg,var(--brand-tint),var(--brand-subtle))}
+ .flight-search-view .world-country-heading h3{font-size:25px;line-height:1.3;font-weight:700;margin-block:8px}
+ .flight-search-view .card-body{padding:20px}
+ .flight-search-view .ticket-price strong{font-size:28px;line-height:1.2;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+ .flight-search-view .date-option-list{gap:16px}
+ .flight-search-view .date-option{padding:20px;gap:20px}
+ .flight-search-view .date-option h3{font-size:19px;line-height:1.35;font-weight:700}
+ .flight-search-view .date-option strong{font-size:22px;line-height:1.3;font-variant-numeric:tabular-nums}
+ .flight-search-view .date-option>span{font-size:13px;font-weight:600}
+ .flight-search-view .date-option-breakdown{padding:18px 20px 20px}
+ .flight-search-view .date-option-actions :is(.primary,.secondary){min-height:44px}
+ .flight-search-view .flight-filters{margin-block:18px;padding:12px 16px;gap:12px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle)}
+ .flight-search-view .flight-filters [data-slot=select-trigger]{min-height:44px;background:var(--brand-surface);font-size:13px}
+ .flight-search-view .api-flight-toggle{padding:20px;gap:20px}
+ .flight-search-view .api-flight-toggle>div{min-width:0}
+ .flight-search-view .api-flight-toggle>div:first-child strong{font-size:16px;line-height:1.45;font-weight:700;overflow-wrap:anywhere}
+ .flight-search-view .api-flight-toggle>div:last-child{text-align:right}
+ .flight-search-view .api-flight-toggle>div:last-child strong{font-size:23px;line-height:1.3;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+ .flight-search-view .api-times{gap:12px 20px}
+ .flight-search-view .api-times p{font-size:13px;line-height:1.7;color:var(--brand-muted)}
+ .flight-search-view .api-times strong{font-size:13px;color:var(--brand-text)}
+ .flight-search-view .api-flight-actions{padding:18px 20px;border-color:var(--brand-border)}
+ .flight-search-view .api-flight-actions p{font-size:14px;line-height:1.6}
+ .flight-search-view .api-flight-actions :is(.primary,.secondary){display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px}
+ .flight-search-view .empty{border:1px solid var(--brand-border);border-radius:16px;background:var(--brand-surface);margin-top:20px;box-shadow:0 4px 16px #0B2D3A08}
+ .flight-search-view .empty h3{font-size:23px;line-height:1.35}
+ .flight-search-view .empty p{font-size:14px;line-height:1.6;max-width:680px}
+}
+@media (min-width:1000px) and (prefers-reduced-motion:reduce){
+ .flight-search-view .destination-card{transition:none}
+}
+
+/* Stage 5: partner pages, using the existing iframe and manual-selection
+   flow. Do not change iframe sizing, sandbox, URLs, visibility or contents. */
+@media (min-width:1000px) {
+ :is(.trip-affiliate-search,.transport-search-view){padding-block:18px 24px}
+ :is(.trip-affiliate-search,.transport-search-view)>.direct-heading{
+  min-height:174px;
+  padding:28px;
+  margin-bottom:22px;
+  border-radius:18px;
+  border-color:transparent;
+  color:#fff;
+  background-color:var(--brand-navy);
+  background-size:cover;
+  box-shadow:0 8px 24px #0B2D3A12;
+ }
+ .trip-affiliate-search>.direct-heading{background-image:linear-gradient(100deg,#0B2D3AF2,#0F6E8CB8 65%,#0B2D3A88),url('/kuala-lumpur.jpg');background-position:center 44%}
+ .transport-search-view>.direct-heading{background-image:linear-gradient(100deg,#0B2D3AF2,#0F6E8CB8 65%,#0B2D3A88),url('/bangkok.jpg');background-position:center 54%}
+ :is(.trip-affiliate-search,.transport-search-view)>.direct-heading .eyebrow{color:#B9EDF6;font-size:11px;letter-spacing:1.2px;line-height:1.5}
+ :is(.trip-affiliate-search,.transport-search-view)>.direct-heading h1{color:#fff;font-size:32px;line-height:1.2;letter-spacing:-.6px;margin:8px 0;font-weight:750}
+ :is(.trip-affiliate-search,.transport-search-view)>.direct-heading p{color:#ECF8FB;font-size:14px;line-height:1.65;max-width:720px;margin-top:8px}
+ .transport-search-view>.direct-heading>.strip-icon{color:#fff;background:#FFFFFF1F;border:1px solid #FFFFFF38;border-radius:14px;flex-shrink:0}
+ .trip-affiliate-search>.trip-affiliate-widget{margin:22px 0;border-radius:16px;border-color:var(--brand-border);box-shadow:0 10px 28px #0B2D3A12,0 2px 6px #0B2D3A06}
+ .transport-search-view>iframe{border-radius:16px;outline:1px solid var(--brand-border);outline-offset:0;box-shadow:0 10px 28px #0B2D3A12,0 2px 6px #0B2D3A06;background:var(--brand-surface)}
+ .trip-affiliate-search>.partner-actions,
+ .transport-search-view>p:has(>.transport-fallback-link){margin:18px 0 12px;padding:14px 16px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle)}
+ .trip-affiliate-search>.partner-actions>.secondary,
+ .transport-search-view .transport-fallback-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font-size:14px;line-height:1.5;font-weight:650;background:var(--brand-surface);color:var(--brand-link);border-color:var(--brand-border-strong);text-decoration:none}
+ :is(.trip-affiliate-search,.transport-search-view)>.inline-note,
+ .transport-search-view>.discovery-note{font-size:13px;line-height:1.7;color:var(--brand-muted);margin-block:12px}
+ .transport-search-view>p[role=status]{padding:12px 16px;font-size:14px;line-height:1.6;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle)}
+ :is(.trip-affiliate-search,.transport-search-view)>.partner-context{font-size:14px;line-height:1.65;margin-block:16px}
+ :is(.trip-affiliate-search,.transport-search-view)>.partner-selection{margin-block:22px;padding:18px 20px;border:1px solid var(--brand-border);border-radius:16px;background:var(--brand-surface);box-shadow:0 6px 20px #0B2D3A0C}
+ :is(.trip-affiliate-search,.transport-search-view)>.partner-selection>summary{font-size:16px;line-height:1.5;color:var(--brand-text);min-height:26px}
+ :is(.trip-affiliate-search,.transport-search-view)>.partner-selection[open]>summary{padding-bottom:12px;border-bottom:1px solid var(--brand-border)}
+ :is(.trip-affiliate-search,.transport-search-view)>.partner-selection>p{font-size:13px;line-height:1.7;color:var(--brand-muted);margin:14px 0}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection form{gap:16px}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection label{font-size:13px;line-height:1.5;font-weight:600;color:var(--brand-muted);gap:7px}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection :is(input:not([type=checkbox]),select){min-height:46px;font-size:14px;line-height:1.5;font-weight:400;color:var(--brand-text);background:var(--brand-surface);border-radius:10px}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection .primary{min-height:44px;box-shadow:0 4px 10px #0F6E8C24}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection small{font-size:12px;line-height:1.7;color:var(--brand-muted)}
+ :is(.trip-affiliate-search,.transport-search-view) .partner-selection [role=alert]{padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.6;background:#FFF4E5;color:#804913}
+}
+
+/* Stage 6: saved trips and the existing editor. Preserve the day/item order,
+   two-column editor, tabs, disclosures, sticky budget and booking controls. */
+@media (min-width:1000px) {
+ .saved-main .saved-view{padding-block:24px 32px}
+ .saved-main .saved-view>.eyebrow{font-size:11px;letter-spacing:1.2px}
+ .saved-main .saved-view>h1{font-size:32px;line-height:1.2;margin:8px 0;letter-spacing:-.6px}
+ .saved-main .saved-grid{gap:20px;margin-top:24px}
+ .saved-main .saved-card{display:flex;flex-direction:column;border-radius:16px}
+ .saved-main .saved-card>img{height:180px;flex-shrink:0}
+ .saved-main .saved-card>div{display:flex;flex-direction:column;flex:1;padding:18px 20px}
+ .saved-main .saved-card h2{font-size:22px;line-height:1.3;letter-spacing:-.3px;margin:0}
+ .saved-main .saved-card p{font-size:13px;line-height:1.6;margin:10px 0}
+ .saved-main .saved-card strong{display:block;padding:12px;border-radius:10px;background:var(--brand-subtle);font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+ .saved-main .saved-card>div>span{margin-top:auto;min-height:44px;padding:10px 12px;border:1px solid var(--brand-border);border-radius:10px;font-size:13px;font-weight:650;gap:12px;color:var(--brand-link)}
+ .saved-main .saved-card:focus-visible{outline:3px solid var(--brand-focus);outline-offset:4px}
+ .planner-main .ai-planner{padding:20px;margin-block:18px}
+ .planner-main .ai-planner h2{font-size:25px;line-height:1.3;letter-spacing:-.4px;margin-block:8px}
+ .planner-main .ai-planner p{line-height:1.65}
+ .planner-main .ai-controls{gap:16px;margin-block:18px}
+ .planner-main .ai-controls>label{font-size:13px;font-weight:600;gap:7px}
+ .planner-main .ai-controls :is(input,select){min-height:44px;font-size:14px;line-height:1.5}
+ .planner-main .assistant-composer textarea{min-height:104px;font-size:14px;line-height:1.65;padding:14px}
+ .planner-main .ai-planner>.primary,.planner-main .ai-planner>.secondary{min-height:44px;font-size:13px}
+ .planner-main .guide-planner-shortcut{border-radius:12px;border-color:var(--brand-border);background:var(--brand-subtle)}
+ .planner-main .planner-title{padding-block:12px 20px;margin-bottom:20px}
+ .planner-main .planner-title h1{font-size:32px;line-height:1.2;letter-spacing:-.6px}
+ .planner-main .planner-title p{font-size:14px;line-height:1.6;margin-top:8px}
+ .planner-main .planner-title-actions{gap:8px}
+ .planner-main .planner-title-actions>button{min-height:44px}
+ .planner-main .selected-flight{padding:18px;margin-top:18px}
+ .planner-main .selected-flight .api-times{gap:12px 24px}
+ .planner-main .selected-flight .api-times p{font-size:13px;line-height:1.65}
+ .planner-main .trip-controls{gap:14px;margin-block:20px}
+ .planner-main .trip-controls>label{font-size:13px;line-height:1.5;gap:7px}
+ .planner-main .trip-controls :is(input,[data-slot=select-trigger]){min-height:44px;border-radius:10px;font-size:14px}
+ .planner-main .planner-tabs{border:1px solid var(--brand-border);border-radius:12px;min-height:44px}
+ .planner-main .planner-tabs [data-slot=tabs-trigger]{min-height:36px;font-size:13px;font-weight:650}
+ .planner-main .day{padding:20px;margin-block:18px;border-color:var(--brand-border);box-shadow:0 6px 20px #0B2D3A0C}
+ .planner-main .day-heading{gap:12px;margin-bottom:12px}
+ .planner-main .day-number{min-width:42px;line-height:1.4;font-variant-numeric:tabular-nums}
+ .planner-main .day-heading h3{font-size:17px;line-height:1.45;font-weight:700}
+ .planner-main .day-heading h3 span{font-size:13px;line-height:1.5}
+ .planner-main .day-heading p{font-size:12px;line-height:1.6;margin-top:4px}
+ .planner-main .day-settings{margin-block:12px;padding:10px 12px;border-color:var(--brand-border);background:var(--brand-subtle)}
+ .planner-main .day-settings>summary{font-size:13px;line-height:1.5}
+ .planner-main .activity.itinerary-row{gap:12px;padding-top:18px;margin-top:18px;border-color:var(--brand-border)}
+ .planner-main .activity-time{min-width:42px;font-size:13px;line-height:1.5;font-variant-numeric:tabular-nums;flex-shrink:0}
+ .planner-main .itinerary-item-title{font-size:16px;line-height:1.5;font-weight:700;letter-spacing:-.15px}
+ .planner-main .itinerary-price strong{font-size:16px;line-height:1.45;font-weight:700}
+ .planner-main .itinerary-price small{font-size:12px;line-height:1.5}
+ .planner-main .expandable-details>summary{min-height:40px;font-size:13px;line-height:1.5;border-radius:10px}
+ .planner-main .expandable-details-content{font-size:14px;line-height:1.65}
+ .planner-main .itinerary-side .edit-small{min-height:36px;padding:8px 12px;border-color:var(--brand-border);border-radius:8px}
+ .planner-main .world-item{padding-block:18px;gap:16px}
+ .planner-main .world-item input{font-size:14px;line-height:1.5}
+ .planner-main .budget-panel{padding:20px;border-radius:16px;border-color:var(--brand-border);box-shadow:0 8px 24px #0B2D3A10}
+ .planner-main .budget-panel .eyebrow{margin-bottom:18px;font-size:11px;line-height:1.5;letter-spacing:1px}
+ .planner-main .budget-panel h2{font-size:28px;line-height:1.3;letter-spacing:-.5px;margin-block:8px;font-variant-numeric:tabular-nums}
+ .planner-main .budget-line{font-size:13px;line-height:1.6;margin-block:12px}
+ .planner-main .budget-line>strong{font-variant-numeric:tabular-nums}
+ .planner-main .budget-rule{margin-block:18px}
+ .planner-main .budget-panel .city-warning{font-size:13px;line-height:1.65}
+ .planner-main .budget-disclaimer{font-size:12px;line-height:1.7}
+ .planner-main .cost-row{margin-block:12px;padding:16px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-surface);box-shadow:0 4px 14px #0B2D3A08}
+ .planner-main .cost-row>div{min-width:0}
+ .planner-main .cost-row h3{font-size:15px;line-height:1.5;font-weight:700;overflow-wrap:anywhere}
+ .planner-main .cost-row p{font-size:13px;line-height:1.6}
+ .planner-main .cost-row>button{font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums;min-height:40px;flex-shrink:0}
+ .planner-main .map-toolbar{margin-block:16px;gap:12px}
+ .planner-main .map-canvas{border:1px solid var(--brand-border);border-radius:16px;box-shadow:0 6px 20px #0B2D3A0C}
+ .planner-main .map-connections{margin-block:20px}
+ .planner-main .map-connections>h3{font-size:18px;line-height:1.4;font-weight:700;margin-bottom:12px}
+ .planner-main .google-route-check{border-radius:12px;border-color:var(--brand-border);box-shadow:0 3px 12px #0B2D3A08}
+ .planner-main .google-route-check>summary{font-size:14px;line-height:1.5}
+ .planner-main .map-route-list{gap:14px;margin-block:20px}
+ .planner-main .map-route-list>article{padding:16px;border-color:var(--brand-border);box-shadow:0 4px 16px #0B2D3A08}
+ .planner-main .map-route-list>article>strong{font-size:15px;line-height:1.5}
+}
+
+/* Stage 7: existing account, watch and help UI. Styling only; do not create
+   editable profile fields, activate alerts, send chat or invent live states. */
+@media (min-width:1000px) {
+ .account-dropdown{padding:8px;border-radius:16px;border-color:var(--brand-border);box-shadow:0 16px 40px #0B2D3A24}
+ .account-menu-identity{padding:12px;border-radius:10px;background:var(--brand-subtle)}
+ .account-menu-identity strong{font-size:15px;line-height:1.5;font-weight:700}
+ .account-menu-identity span{font-size:12px;line-height:1.6}
+ .account-menu-item{min-height:44px;margin-block:2px;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.5}
+ .account-menu-item svg{color:var(--brand-link)}
+ .account-menu-logout svg{color:inherit}
+ .account-dialog{border-color:var(--brand-border);border-radius:18px;box-shadow:0 20px 56px #0B2D3A24;max-height:85dvh;overflow-y:auto}
+ .account-dialog h2{font-size:23px;line-height:1.3;letter-spacing:-.3px}
+ .account-profile{gap:0;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-surface);padding:4px 16px}
+ .account-profile>div{padding-block:12px;border-bottom:1px solid var(--brand-border);gap:5px}
+ .account-profile>div:last-child{border-bottom:0}
+ .account-profile dt{font-size:12px;line-height:1.5}
+ .account-profile dd{font-size:14px;line-height:1.6}
+ .account-pass-summary{padding:18px;border:1px solid var(--brand-border);line-height:1.65}
+ .price-watch-view{margin-block:24px;padding:24px;border-color:var(--brand-border);border-radius:18px;box-shadow:0 8px 24px #0B2D3A0D}
+ .price-watch-view>h2{font-size:32px;line-height:1.2;letter-spacing:-.6px;font-weight:750;margin:10px 0}
+ .price-watch-view>p{font-size:14px;line-height:1.7}
+ .price-watch-view>p:has(>strong){padding:16px;border:1px solid var(--brand-border);border-radius:12px;background:var(--brand-subtle);margin-block:18px}
+ .price-watch-view .watch-email{padding:12px 14px;border:1px solid var(--brand-border);border-radius:10px;font-size:14px;line-height:1.6}
+ .price-watch-view>.notice{padding:16px;border:1px solid var(--brand-border);border-radius:12px;box-shadow:0 3px 12px #0B2D3A08;margin-block:14px;line-height:1.65}
+ .price-watch-view>.notice strong{font-size:18px;line-height:1.4;font-variant-numeric:tabular-nums}
+ .price-watch-view>.notice p{font-size:13px;line-height:1.6}
+ .price-watch-view>.notice a{display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:var(--brand-link)}
+ .price-watch-view>.notice>button{min-height:44px;padding:8px 12px;border:1px solid var(--brand-border);border-radius:10px;background:var(--brand-surface);font-size:13px}
+ .price-watch-view>h3{font-size:20px;line-height:1.4;font-weight:700;letter-spacing:-.25px;margin:24px 0 12px}
+ .price-watch-view>.inline-note{font-size:13px;line-height:1.7}
+ .support-center{padding-block:24px 36px}
+ .support-intro{max-width:none;margin-bottom:24px;padding:28px;border:1px solid var(--brand-border);border-radius:18px;background:linear-gradient(100deg,#0B2D3AF2,#0F6E8CC9 65%,#0B2D3A88),url('/bangkok.jpg') center 54%/cover;text-align:left;box-shadow:0 8px 24px #0B2D3A10}
+ .support-intro .eyebrow{color:#B9EDF6;font-size:11px;line-height:1.5;letter-spacing:1.2px}
+ .support-intro h1{color:#fff;font-size:32px;line-height:1.2;letter-spacing:-.6px;margin:10px 0}
+ .support-intro>p{color:#ECF8FB;font-size:14px;line-height:1.7;max-width:720px}
+ .support-search{max-width:720px;margin:20px 0 14px;background:var(--brand-surface);color:var(--brand-text);border-radius:12px}
+ .support-search input{min-height:48px;font-size:14px;line-height:1.5;color:var(--brand-text)}
+ .support-intro>.secondary{min-height:44px;background:var(--brand-surface);color:var(--brand-link);border-color:var(--brand-border)}
+ .support-faq details{padding:16px 18px;border-radius:12px;margin-bottom:12px}
+ .support-faq details[open]{border-color:var(--brand-border-strong);box-shadow:0 6px 18px #0B2D3A10}
+ .support-faq summary{font-size:15px;line-height:1.55}
+ .support-faq p{font-size:14px;line-height:1.75}
+ .support-chat{padding:24px;border-color:var(--brand-border);border-radius:16px;box-shadow:0 8px 24px #0B2D3A0D}
+ .support-chat h2{font-size:23px;line-height:1.3;letter-spacing:-.3px}
+ .support-chat>.muted{font-size:14px;line-height:1.7}
+ .support-empty{padding:16px;border:1px solid var(--brand-border);font-size:14px;line-height:1.7}
+ .support-thread-picker :is(select,button){min-height:44px;font-size:13px}
+ .support-bubble{padding:12px 14px;line-height:1.65}
+ .support-chat textarea{min-height:112px;font-size:14px;line-height:1.65}
+ .support-composer-meta button{min-height:44px}
+ .support-privacy{font-size:12px;line-height:1.7}
+}
+
+/* Stage 8: final desktop rhythm against the approved landscape boards.
+   Presentation only: preserve controls, DOM/focus order, hidden views,
+   supplier frames, mobile Guide and all application state. */
+@media (min-width:1000px) {
+ :is(.explore-main,.flight-search-view) .rev-search-fields{padding-block:0;margin-block:18px}
+ :is(.explore-main,.flight-search-view) .rev-search-fields>label{font-size:13px;line-height:1.5;font-weight:600;gap:7px;color:var(--brand-muted)}
+ :is(.explore-main,.flight-search-view) .rev-search-fields :is([data-slot=select-trigger],.destination-field){font-size:14px;font-weight:400}
+ :is(.explore-main,.flight-search-view) .rev-search-options>label{font-size:13px;line-height:1.5;font-weight:600;gap:8px;color:var(--brand-muted)}
+ :is(.explore-main,.flight-search-view) .rev-search-options :is(input,[data-slot=select-trigger]){min-height:44px;font-size:14px;font-weight:400}
+ :is(.explore-main,.flight-search-view) .rev-search-options>.primary{font-size:14px;line-height:1.5}
+ .flight-search-view .search-intro h1{font-size:32px;letter-spacing:-.6px}
+ .explore-main .search-ai-prompt .assistant-prompt-shell textarea{min-height:100px}
+ .explore-main .recommendation-card{display:grid;grid-template-areas:'cover';isolation:isolate;text-align:left}
+ .explore-main .recommendation-card>img{grid-area:cover;width:100%;height:220px;object-fit:cover;border-radius:0}
+ .explore-main .recommendation-card>span{grid-area:cover;align-self:end;min-width:0;padding:48px 18px 18px;background:linear-gradient(transparent,#0B2D3AE6);color:white}
+ .explore-main .recommendation-card :is(strong,small){color:white;overflow-wrap:anywhere;text-shadow:0 1px 3px #0008}
+ .explore-main .recommendation-card:focus-visible{outline:3px solid var(--brand-focus);outline-offset:4px}
+ .explore-main .recommendation-card:hover{transform:none}
+ .saved-main .saved-card h2,.planner-main .day-heading h3{overflow-wrap:anywhere}
+ .site-footer{margin-top:32px;padding-block:24px}
+}
+
+/* Stage 9: flight-only compact search, preserving DOM and tab order. */
+@media (min-width:1000px){
+ .flight-search-view .search-panel>form{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,1fr);gap:20px;padding:20px}
+ .flight-search-view .search-panel .search-top{grid-column:1;padding:0 40px 0 0!important;justify-content:flex-start;align-self:end;min-height:46px;gap:10px}
+ .flight-search-view .search-panel .search-top>[data-slot=select-trigger]{max-width:100%;min-height:44px}
+ .flight-search-view .search-panel .discovery-controls{grid-column:2;display:block;margin:0}
+ .flight-search-view .search-panel .discovery-controls label{gap:6px}
+ .flight-search-view .search-panel .rev-search-fields{grid-column:1/-1;margin:0;padding:0;gap:16px}
+ .flight-search-view .search-panel .rev-search-options{grid-column:1/-1;min-width:0;border:1px solid var(--brand-border);border-radius:12px;padding:12px 14px;background:var(--brand-subtle);gap:12px}
+ .flight-search-view .search-panel .search-error{grid-column:1/-1;margin:0}
+ .flight-search-view .search-panel .date-range{padding:10px 12px}
+ .flight-search-view .search-panel .date-range>span{letter-spacing:0;line-height:1.5}
+}
+@media (min-width:1200px){
+ .flight-search-view .rev-search-fields:has(.date-range){grid-template-columns:repeat(4,minmax(0,1fr))}
+ .flight-search-view .rev-search-fields .date-range>div{flex-wrap:wrap;gap:6px}
+}
