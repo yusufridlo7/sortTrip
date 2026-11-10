@@ -8,6 +8,9 @@ const request=(q=query)=>new Request('https://sorttrip.test/api/routes/google',{
 test('known airport IATA codes use existing catalogue names; terminals are never guessed',()=>{
  const result=validateGoogleRoute({from:'KUL',to:'Travelodge Kuala Lumpur City Centre',mode:'DRIVE'});
  assert.equal(result.origin.address,'Kuala Lumpur International Airport, Kuala Lumpur, MY');
+ for(const name of ['KUL, Kuala Lumpur','KUL · Kuala Lumpur','kul, Kuala Lumpur'])assert.equal(validateGoogleRoute({from:name,to:'Travelodge',mode:'DRIVE'}).origin.address,result.origin.address);
+ assert.match(validateGoogleRoute({from:'KUL, Terminal 2',to:'Travelodge',mode:'DRIVE'}).origin.address,/International Airport, Terminal 2/);
+ assert.equal(validateGoogleRoute({from:'KL Sentral, Kuala Lumpur',to:'Travelodge',mode:'DRIVE'}).origin.address,'KL Sentral, Kuala Lumpur');
  assert.doesNotMatch(result.origin.address,/Terminal|T1|T2/);
  assert.equal(validateGoogleRoute({from:'ZZZ',to:'City hotel',mode:'DRIVE'}).origin.address,'ZZZ');
  assert.equal(validateGoogleRoute({from:'Pasar Seni',to:'City hotel',mode:'WALK'}).origin.address,'Pasar Seni');

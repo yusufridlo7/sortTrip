@@ -1,0 +1,44 @@
+.flight-results-layout,.flight-results-list{min-width:0}
+@media(min-width:1000px){
+ main[data-ui] .flight-search-view .search-intro{padding:0 0 18px}
+ main[data-ui] .flight-search-view .search-intro h1{font-size:28px;line-height:1.25;margin:5px 0 8px;letter-spacing:-.7px}
+ main[data-ui] .flight-search-view .search-intro h1 br{display:none}
+ main[data-ui] .flight-search-view .search-intro h1 span{margin-left:.2em}
+ main[data-ui] .flight-search-view .search-intro p{font-size:13px;margin:0}
+ main[data-ui] .flight-search-view .search-intro .eyebrow{font-size:10px}
+ main[data-ui] .flight-search-view .search-panel{border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] .flight-search-view .search-panel>form{display:grid;grid-template-columns:1fr 1fr;padding:16px;gap:12px}
+ main[data-ui] .flight-search-view .search-panel .search-top{padding:0 32px 0 0!important;min-height:36px;gap:10px}
+ main[data-ui] .flight-search-view .discovery-controls{grid-column:2;display:block;margin:0}
+ main[data-ui] .flight-search-view .discovery-controls label{font-size:12px;gap:4px}
+ main[data-ui] .flight-search-view .discovery-controls select{min-height:36px;padding:7px 10px;font-size:13px}
+ main[data-ui] .flight-search-view .rev-search-fields{grid-column:1/-1;padding:0;margin:0;gap:12px}
+ main[data-ui] .flight-search-view .rev-search-fields:has(.date-range){grid-template-columns:repeat(4,minmax(0,1fr))}
+ main[data-ui] .flight-search-view .rev-search-fields>label{font-size:12px;gap:5px}
+ main[data-ui] .flight-search-view .date-range{padding:7px 10px}
+ main[data-ui] .flight-search-view .date-range>span{font-size:11px;letter-spacing:0}
+ main[data-ui] .flight-search-view .date-range>div{margin-top:3px;gap:5px;flex-wrap:wrap}
+ main[data-ui] .flight-search-view .date-range input{font-size:12px;min-height:28px}
+ main[data-ui] .flight-search-view .rev-search-options{grid-column:1/-1;padding:0;border:0;border-radius:0;background:#fff;gap:16px}
+ main[data-ui] .flight-search-view .rev-search-options>label{font-size:12px}
+ main[data-ui] .flight-search-view .search-error{grid-column:1/-1;padding:0;margin:0}
+ main[data-ui] .flight-search-view .results{padding:20px 0}
+ main[data-ui] .flight-search-view .flow-steps{border:0;border-bottom:1px solid var(--brand-border);background:transparent;border-radius:0;padding:4px 0 14px;margin-bottom:18px;font-size:12px}
+ main[data-ui] .flight-search-view .flight-results-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;align-items:start;margin-top:16px}
+ main[data-ui] .flight-search-view .flight-filters{position:sticky;top:82px;display:flex;flex-direction:column;gap:18px;margin:0;padding:16px;background:white;border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] .flight-search-view .flight-filters [data-slot=select-trigger]{width:100%;height:auto;min-height:38px;white-space:normal;text-align:left;font-size:12px}
+ main[data-ui] .flight-search-view .flight-results-list{display:grid;gap:12px}
+ main[data-ui] .flight-search-view .api-flight-card{margin:0;background:#fff;border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow);overflow:hidden}
+ main[data-ui] .flight-search-view .api-flight-toggle{display:grid;grid-template-columns:minmax(135px,1fr) minmax(240px,1.5fr) minmax(155px,.8fr);align-items:center;gap:16px;padding:18px 22px}
+ main[data-ui] .flight-search-view .api-flight-toggle>div:first-child>strong{font-size:14px;line-height:1.5}
+ main[data-ui] .flight-search-view .api-flight-toggle p{font-size:12px;color:var(--brand-muted)}
+ main[data-ui] .flight-search-view .api-times{display:grid;gap:10px}
+ main[data-ui] .flight-search-view .api-times p{font-size:11px;line-height:1.5;margin:0}
+ main[data-ui] .flight-search-view .api-times strong{font-size:12px}
+ main[data-ui] .flight-search-view .flight-clock{font-size:21px;display:block;color:var(--brand-text);font-variant-numeric:tabular-nums}
+ main[data-ui] .flight-search-view .api-flight-toggle>div:last-child{border:0;padding-left:0;text-align:right}
+ main[data-ui] .flight-search-view .api-flight-toggle>div:last-child>strong{font-size:20px;color:var(--brand-text);font-variant-numeric:tabular-nums}
+ main[data-ui] .flight-search-view .api-flight-toggle>div:last-child small{display:inline-block;padding:7px 13px;margin-top:8px;border:1px solid #b5d7f5;border-radius:6px;color:var(--brand-link);font-size:12px;background:white}
+ main[data-ui] .flight-search-view .api-flight-actions{padding:16px 20px;background:#f5faff;border-top:1px solid var(--brand-border)}
+}
+@media(min-width:1000px) and (max-width:1150px){main[data-ui] .flight-search-view .flight-results-layout{grid-template-columns:180px minmax(0,1fr)}main[data-ui] .flight-search-view .api-flight-toggle{grid-template-columns:1fr 1fr}main[data-ui] .flight-search-view .api-flight-toggle>div:last-child{grid-column:2;grid-row:1/span 2}}

@@ -1,5 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+test('airport transfer articles are not attraction admission references even when the place name matches',()=>{
+ const source={url:'https://travel.test/routes/malaysia/bukit-bintang-to-kuala-lumpur-airport/',title:'Bukit Bintang to Kuala Lumpur Airport'};
+ assert.equal(relevantSource({category:'Wisata',title:'Bukit Bintang',sourceUrl:source.url},[source]),false);
+ assert.equal(relevantSource({category:'Transfer',title:'Bukit Bintang',sourceUrl:source.url},[source]),true);
+});
 import {relevantSource,attractionSource,checkRouteSources,validateTransitAnchors,normalizeStationConnections,usableActivitySource,connectionGaps} from '../worker/itinerary-evidence.mjs';
 const sources=[{url:'https://travelodge.test/hotel/kuala-lumpur',title:'Travelodge City Centre'},{url:'https://tourism.test/pasar-seni',title:'Central Market / Pasar Seni'},{url:'https://museum.test/ticket',title:'National Museum admission'},{url:'https://guide.test/train-stations',title:'Kuala Lumpur train stations'}];
 test('source membership or shared city alone cannot ground an attraction',()=>{

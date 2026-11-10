@@ -38,7 +38,7 @@ test('missing hotel return connection gets one bounded correction; unresolved ga
    if(String(url).includes('finish_ai_request')){settled.push(JSON.parse(options.body).p_success);return Response.json({ok:true});}
    const body=JSON.parse(options.body);
    if(body.tools)return Response.json({status:'completed',output:[{action:{sources}},{content:[{type:'output_text',text:'Fixture research'}]}]});
-   drafts++;if(drafts===2){const feedback=JSON.parse(body.input);assert.equal(feedback.validationFeedback,'ITINERARY_CONNECTION_GAPS');assert.deepEqual(feedback.missingConnections,[{day:2,from:'B',to:'Hotel'}]);}
+   drafts++;if(drafts===2){const feedback=JSON.parse(body.input);assert.equal(feedback.validationFeedback,'ITINERARY_CONNECTION_GAPS');assert.deepEqual(feedback.missingConnections,[{day:2,from:'B',to:'Hotel'}]);assert.deepEqual(feedback.rejectedDraft,base);}
    const output=drafts===2&&recover?{...base,activities:[...base.activities,transfer('B','Hotel','16:00')]}:base;
    return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(output)}]}]});
   };

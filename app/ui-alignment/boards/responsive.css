@@ -1,0 +1,257 @@
+/* Mobile/tablet adaptation of the desktop boards. Guide keeps its own UI.
+   No overflow masking, fixed heights for text, or hidden functional controls. */
+@media(max-width:999px){
+ :root:not(.dark):not([data-theme=dark]) body:has(main[data-ui="landscape"]){--brand-text:#123452;--brand-muted:#61758d;--brand-primary:#0078d4;--brand-link:#0071c9;--brand-hover:#0063b3;--brand-focus:#0078d4;--brand-background:#fff;--brand-surface:#fff;--brand-subtle:#f3f8fd;--brand-tint:#eaf4ff;--brand-border:#dfe8f1;--brand-border-strong:#b6d5ee;--brand-radius:8px;--brand-radius-card:10px;--ui-card-shadow:0 3px 14px #17395b09;--brand-shadow:var(--ui-card-shadow)}
+ body:has(main[data-ui="landscape"]){background:#fff}
+ body:has(main[data-ui="landscape"]) .header{height:auto;min-height:64px;flex-wrap:wrap;padding:10px 12px 0;gap:8px 12px;background:#fff;border-bottom:1px solid #dfe8f1;box-shadow:0 2px 8px #153d5805}
+ body:has(main[data-ui="landscape"]) .header .sorttrip-logo>.brand-artwork{width:112px;height:38px}
+ body:has(main[data-ui="landscape"]) .header .language-switcher{margin-left:auto}
+ body:has(main[data-ui="landscape"]) .header :is(.account,.language-switcher select){min-height:38px;font-size:12px;border:1px solid var(--brand-border);border-radius:7px;padding:5px 8px;background:white}
+ body:has(main[data-ui="landscape"]) .header .avatar{width:28px;height:28px;background:#e7f2fd;color:#1476b9}
+ body:has(main[data-ui="landscape"]) .header nav{order:3;display:flex;justify-content:space-between;align-items:stretch;width:100%;gap:6px;margin:0;min-width:0}
+ body:has(main[data-ui="landscape"]) .header nav>button{font-size:12px;min-height:44px;padding:8px 1px;line-height:1.3;white-space:normal;max-width:none}
+ body:has(main[data-ui="landscape"]) .header .mobile-booking [data-slot=select-trigger]{max-width:126px;min-height:44px;padding:7px;font-size:12px;border-radius:7px}
+ body:has(main[data-ui="landscape"]) .header nav .nav-active{color:var(--brand-link);border-bottom:2px solid var(--brand-link)}
+ main[data-ui="landscape"]{width:calc(100% - 24px);max-width:900px;margin-inline:auto;padding:12px 0 0;font-size:14px;line-height:1.55}
+ main[data-ui="landscape"] :is(h1,h2,h3,h4){color:var(--brand-text);font-weight:700;letter-spacing:-.025em;overflow-wrap:anywhere}
+ main[data-ui="landscape"] :is(input,select,textarea,[data-slot=select-trigger]){font-family:inherit;min-width:0;max-width:100%;border-radius:7px;box-shadow:none}
+ main[data-ui="landscape"] :is(input:not([type=checkbox]):not([type=radio]),select,textarea){font-size:16px;line-height:1.45}
+ main[data-ui="landscape"] :is(input:not([type=checkbox]):not([type=radio]),select,[data-slot=select-trigger]){min-height:44px}
+ main[data-ui="landscape"] :is(.primary,.secondary,.card-cta){min-height:44px;padding:10px 12px;border-radius:7px;font-size:14px;line-height:1.4;white-space:normal}
+ main[data-ui="landscape"] :is(input,select,textarea,[data-slot=select-trigger]):focus-visible{outline:2px solid var(--brand-focus);outline-offset:2px}
+ main[data-ui="landscape"]>.page-utilities{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;margin:0 0 6px;font-size:11px}
+ main[data-ui="landscape"]>.page-utilities button{min-height:36px;padding:4px 0;font-size:11px}
+ main[data-ui="landscape"]>.demo{font-size:11px;line-height:1.5;gap:6px;margin:0 0 12px;padding:0;align-items:flex-start}
+ main[data-ui="landscape"]>.demo button{font-size:11px;min-height:32px;flex:none}
+ main[data-ui="landscape"] .site-footer{margin-top:24px;padding:22px 0;gap:18px;border-color:var(--brand-border)}
+ main[data-ui="landscape"] .site-footer-intro{gap:14px;flex-wrap:wrap}
+ main[data-ui="landscape"] .site-footer-intro p{font-size:12px;line-height:1.6}
+ main[data-ui="landscape"] .site-footer-links{gap:6px 18px;flex-wrap:wrap}
+ main[data-ui="landscape"] .site-footer-links :is(a,button){font-size:12px;min-height:36px}
+
+ /* Shared search form and hero. */
+ .explore-main[data-ui]>div:not([hidden]):has(>.search-intro){position:relative;isolation:isolate;padding:22px 10px 0;background:none;border-radius:10px}
+ .explore-main[data-ui]>div:not([hidden]):has(>.search-intro)::before{content:'';position:absolute;z-index:-1;inset:0 0 auto;height:320px;border-radius:10px;background:linear-gradient(90deg,#092e55d9,#092e5560),url('/kuala-lumpur-skyline.jpg') center/cover}
+ .explore-main[data-ui] .search-intro{padding:0 6px 20px;margin:0;max-width:none}
+ .explore-main[data-ui] .search-intro h1{font-size:28px;line-height:1.15;letter-spacing:-.7px;color:#fff;margin:8px 0 10px}
+ .explore-main[data-ui] .search-intro :is(p,.eyebrow){color:#f1f8ff}
+ .explore-main[data-ui] .search-intro p{font-size:13px;line-height:1.55;margin:0}
+ .explore-main[data-ui] .search-intro .eyebrow{font-size:9px;letter-spacing:.06em}
+ main[data-ui] :is(.search-panel,.date-option-card){border:1px solid var(--brand-border);border-radius:10px;background:#fff;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] .search-panel{overflow:visible}
+ main[data-ui] .search-panel>form{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding:14px}
+ main[data-ui] .search-panel .search-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:0 20px 0 0!important;grid-column:1/-1}
+ main[data-ui] .search-panel .search-top [data-slot=select-trigger]{font-size:12px;width:auto;max-width:100%;min-height:40px;padding:8px}
+ main[data-ui] .search-panel .discovery-controls{grid-column:1/-1;display:block;margin:0}
+ main[data-ui] .search-panel .discovery-controls label{font-size:12px;gap:6px}
+ main[data-ui] .search-panel .discovery-controls select{padding:10px;font-size:14px}
+ main[data-ui] .search-panel .rev-search-fields{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:0;margin:0}
+ main[data-ui] .rev-search-fields>label{font-size:12px;gap:6px;min-width:0}
+ main[data-ui] .rev-search-fields [data-slot=select-trigger]{font-size:14px;height:auto;min-height:44px}
+ main[data-ui] .destination-field{min-height:44px;border-radius:7px}
+ main[data-ui] .search-panel .search-ai-prompt{grid-column:1/-1;margin:0;padding:12px;background:#f5f9fe;border:1px solid #e1edf7;border-radius:8px;min-width:0}
+ main[data-ui] .assistant-brand-label{font-size:13px;line-height:1.4;gap:7px;margin:0}
+ main[data-ui] .assistant-brand-label .sorttrip-brand-icon{width:20px;height:24px}
+ main[data-ui] .search-ai-prompt>.info-heading{margin:0;align-items:center}
+ main[data-ui] .assistant-prompt-shell textarea{height:82px;min-height:82px;padding:10px 54px 10px 10px!important;margin-top:8px;font-size:16px;border-radius:7px;resize:vertical}
+ main[data-ui] .assistant-camera{width:44px;height:44px;min-height:44px;right:5px;bottom:6px;padding:8px;border-radius:7px;background:#f3f9ff;box-shadow:none}
+ main[data-ui] .assistant-media-previews:empty{display:none}
+ main[data-ui] .assistant-media-previews{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ main[data-ui] .assistant-media-info{font-size:12px;margin-top:8px}
+ main[data-ui] .assistant-media-consent{font-size:13px;line-height:1.6}
+ main[data-ui] .search-panel .rev-search-options{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;border:0;background:white;border-radius:0}
+ main[data-ui] .rev-search-options>label{display:flex;flex-direction:column;align-items:stretch;font-size:12px;gap:6px;min-width:0}
+ main[data-ui] .rev-search-options [data-slot=select-trigger]{width:100%;min-width:0;min-height:44px;font-size:13px}
+ main[data-ui] .rev-search-options>.primary{grid-column:1/-1;width:100%;margin:0}
+ main[data-ui] .search-panel .search-error{grid-column:1/-1;margin:0;padding:0;overflow-wrap:anywhere}
+ .explore-main[data-ui] .recommended-trips{margin:24px 0;padding:0}
+ .explore-main[data-ui] .recommended-trips>h2{font-size:20px;margin:0 0 6px}
+ .explore-main[data-ui] .recommended-trips>p{font-size:12px;line-height:1.6;margin:0 0 14px}
+ .explore-main[data-ui] .recommendation-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:0}
+ .explore-main[data-ui] .recommendation-card{position:relative;display:grid;grid-template-areas:'cover';padding:0;border:1px solid var(--brand-border);border-radius:9px;overflow:hidden;box-shadow:var(--ui-card-shadow)}
+ .explore-main[data-ui] .recommendation-card>img{grid-area:cover;width:100%;height:auto;aspect-ratio:1.9;object-fit:cover}
+ .explore-main[data-ui] .recommendation-card>span{grid-area:cover;align-self:end;padding:42px 16px 14px;background:linear-gradient(transparent,#092d4be8);color:#fff}
+ .explore-main[data-ui] .recommendation-card strong{font-size:21px;color:#fff}
+ .explore-main[data-ui] .recommendation-card small{font-size:13px;color:#fff;display:block;margin-top:3px}
+
+ /* Flight search retains existing discovery steps and filters. */
+ main[data-ui] .flight-search-view .search-intro{padding:0 0 16px}
+ main[data-ui] .flight-search-view .search-intro h1{font-size:27px;line-height:1.2;margin:6px 0 10px}
+ main[data-ui] .flight-search-view .search-intro :is(p,.eyebrow){font-size:12px;line-height:1.6}
+ main[data-ui] .flight-search-view .date-range{padding:10px;border-radius:7px;min-width:0}
+ main[data-ui] .flight-search-view .date-range input{width:100%;min-width:0;min-height:40px;font-size:16px}
+ main[data-ui] .flight-search-view .flight-results-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:16px}
+ main[data-ui] .flight-search-view .flight-filters{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;margin:0;background:#fff;border:1px solid var(--brand-border);border-radius:9px}
+ main[data-ui] .flight-search-view .flight-filters [data-slot=select-trigger]{width:100%;font-size:12px;min-height:44px;height:auto;white-space:normal;text-align:left}
+ main[data-ui] .flight-results-list{display:grid;gap:12px}
+ main[data-ui] .api-flight-card{border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow);background:white;margin:0;overflow:hidden}
+ main[data-ui] .api-flight-toggle{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:16px;min-width:0}
+ main[data-ui] .api-flight-toggle>div:first-child>strong{font-size:16px}
+ main[data-ui] .api-flight-toggle p{font-size:12px;line-height:1.55}
+ main[data-ui] .api-times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+ main[data-ui] .api-times p{font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+ main[data-ui] .flight-clock{font-size:22px;color:var(--brand-text)}
+ main[data-ui] .api-flight-toggle>div:last-child{border:0;padding:0;text-align:left}
+ main[data-ui] .api-flight-toggle>div:last-child>strong{font-size:22px}
+ main[data-ui] .api-flight-toggle>div:last-child small{display:inline-block;border:1px solid #b5d7f5;border-radius:6px;color:var(--brand-link);padding:8px 10px;margin-top:8px;font-size:12px}
+ main[data-ui] .api-flight-actions{padding:14px;background:#f5faff;border-top:1px solid var(--brand-border)}
+
+ /* Supplier widgets remain genuine, responsive and unmodified inside frames. */
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view){padding:0;margin:0;border:0;background:white;box-shadow:none}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.direct-heading{min-height:210px;padding:24px 18px 70px;margin:0;border-radius:10px;background-size:cover;background-position:center}
+ main[data-ui] .trip-affiliate-search>.direct-heading{background-image:linear-gradient(90deg,#0b294bd9,#0b294b40),url('/images/hotels/twin-room.jpg')}
+ main[data-ui] .transport-search-view>.direct-heading{background-image:linear-gradient(90deg,#0b294bdf,#0b294b35),url('/bangkok.jpg')}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view) .direct-heading h1{font-size:28px;line-height:1.2;color:#fff;margin:6px 0 10px}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view) .direct-heading :is(p,.eyebrow){color:#f1f8ff;font-size:12px;line-height:1.6}
+ main[data-ui] .trip-affiliate-search>.trip-affiliate-widget{position:relative;width:auto;max-width:none;margin:-44px 10px 16px;padding:10px;background:#fff;border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow);box-sizing:border-box}
+ main[data-ui] .transport-search-view>iframe{position:relative;display:block;max-width:calc(100% - 20px)!important;width:calc(100% - 20px)!important;box-sizing:border-box;margin:-44px auto 16px!important;background:#fff;border:1px solid var(--brand-border)!important;border-radius:9px;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] .trip-affiliate-search>.partner-actions,main[data-ui] .transport-search-view>p:has(>.transport-fallback-link){display:flex;flex-direction:column;align-items:stretch;gap:12px;margin:14px 0;padding:14px;background:#eef6ff;border:1px solid #d4e5ff;border-radius:8px}
+ main[data-ui] .trip-affiliate-search>.partner-actions::before{content:'Trip.com';font-size:23px;font-weight:750;color:#0065de}
+ main[data-ui] .transport-search-view>p:has(>.transport-fallback-link)::before{content:'12Go';font-size:23px;font-weight:750;color:#55a928}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.partner-selection{margin:16px 0;padding:14px;border:1px solid var(--brand-border);border-radius:9px}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view) :is(.inline-note,.discovery-note){font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+
+ /* Saved trips and itinerary editor use the same cards and timeline language. */
+ .saved-main[data-ui] .saved-view{padding:0 0 20px}
+ .saved-main[data-ui] .saved-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+ .saved-main[data-ui] .saved-heading h1{font-size:27px;line-height:1.2;margin:0}
+ .saved-main[data-ui] .saved-view>p{font-size:13px;line-height:1.6;margin:8px 0}
+ .saved-main[data-ui] .saved-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:18px}
+ .saved-main[data-ui] .saved-card{border:1px solid var(--brand-border);border-radius:9px;background:white;box-shadow:var(--ui-card-shadow);overflow:hidden;text-align:left}
+ .saved-main[data-ui] .saved-card>img{width:100%;height:auto;aspect-ratio:1.9;object-fit:cover}
+ .saved-main[data-ui] .saved-card>div{padding:16px}
+ .saved-main[data-ui] .saved-card h2{font-size:21px;line-height:1.25;margin:0 0 10px}
+ .saved-main[data-ui] .saved-card p{font-size:12px;line-height:1.6;margin:10px 0}
+ .saved-main[data-ui] .saved-card strong{display:block;padding:12px;background:#f0f7ff;border:1px solid #e4eff9;border-radius:7px;font-size:17px;line-height:1.45}
+ .saved-main[data-ui] .saved-subtotal-label{display:block;font-size:12px;font-weight:400;color:var(--brand-muted);margin-bottom:4px}
+ .saved-main[data-ui] .saved-subtotal-value{display:block}
+ .saved-main[data-ui] .saved-card>div>span{display:flex;justify-content:center;align-items:center;min-height:44px;margin-top:12px;padding:9px;border:1px solid #bfdcf6;border-radius:7px;background:#f7fbff;color:var(--brand-link);font-size:14px}
+ .planner-main[data-ui] .planner-title{display:flex;flex-direction:column;align-items:stretch;gap:12px;margin:0 0 16px;padding:0;border:0}
+ .planner-main[data-ui] .planner-title h1{font-size:28px;line-height:1.2;margin:6px 0 8px}
+ .planner-main[data-ui] .planner-title p{font-size:12px;line-height:1.6}
+ .planner-main[data-ui] .planner-title-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+ .planner-main[data-ui] .planner-title-actions>button{flex:1 1 135px;justify-content:center;font-size:12px}
+ .planner-main[data-ui] #sorttrip-assistant{position:static;display:block;padding:14px;margin:14px 0 18px;border:1px solid #dbe9f7;border-radius:9px;background:linear-gradient(110deg,#f3f8ff,#fff);box-shadow:none}
+ .planner-main[data-ui] #sorttrip-assistant h2{font-size:18px;line-height:1.35;margin:6px 0}
+ .planner-main[data-ui] #sorttrip-assistant :is(p,.inline-note){font-size:12px;line-height:1.6;margin:8px 0}
+ .planner-main[data-ui] #sorttrip-assistant .eyebrow{font-size:10px}
+ .planner-main[data-ui] #sorttrip-assistant>.expandable-conversation{position:static;margin:10px 0}
+ .planner-main[data-ui] #sorttrip-assistant .ai-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:12px 0}
+ .planner-main[data-ui] #sorttrip-assistant .ai-controls>label{font-size:12px;gap:6px}
+ .planner-main[data-ui] #sorttrip-assistant .ai-controls>.assistant-media{grid-column:1/-1;min-width:0}
+ .planner-main[data-ui] .assistant-actions{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+ .planner-main[data-ui] .assistant-actions>button{width:100%;margin:0}
+ .planner-main[data-ui] .booking-sync-panel{padding:12px;margin:12px 0;border-radius:8px;font-size:12px;gap:8px}
+ .planner-main[data-ui] .booking-sync-panel p{flex-basis:100%}
+ .planner-main[data-ui] .planner-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+ .planner-main[data-ui] .planner-layout>*{min-width:0}
+ .planner-main[data-ui] .planner-banner{height:auto;min-height:0;background:none!important;box-shadow:none;border:0;margin:0 0 12px}
+ .planner-main[data-ui] .planner-banner>img{display:none}
+ .planner-main[data-ui] .planner-banner>div{position:static;background:none;padding:0;max-width:none;color:var(--brand-muted)}
+ .planner-main[data-ui] .planner-banner h2{font-size:13px;font-weight:400;color:var(--brand-muted);margin:4px 0}
+ .planner-main[data-ui] .planner-banner>div>span{font-size:10px}
+ .planner-main[data-ui] .selected-flight{padding:12px;border:1px solid var(--brand-border);border-radius:9px;margin:10px 0;font-size:12px}
+ .planner-main[data-ui] .selected-flight>div:first-child{font-size:12px;gap:6px;flex-wrap:wrap}
+ .planner-main[data-ui] .trip-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:14px 0}
+ .planner-main[data-ui] .trip-controls label{font-size:12px;min-width:0}
+ .planner-main[data-ui] .planner-tabs{display:flex;width:100%;height:auto;justify-content:space-between;gap:4px;border:0;border-bottom:1px solid var(--brand-border);background:none;border-radius:0;padding:0}
+ .planner-main[data-ui] .planner-tabs [data-slot=tabs-trigger]{flex:1;min-width:0;min-height:44px;padding:8px 4px;font-size:12px;white-space:normal;line-height:1.35;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;box-shadow:none}
+ .planner-main[data-ui] .planner-tabs [data-state=active]{color:var(--brand-link);border-bottom-color:var(--brand-link)}
+ .planner-main[data-ui] .day{padding:14px;margin:14px 0;border:1px solid var(--brand-border);border-radius:9px;background:white;box-shadow:var(--ui-card-shadow)}
+ .planner-main[data-ui] .day-heading{gap:10px;padding-bottom:12px;margin:0 0 12px;border-bottom:1px solid var(--brand-border)}
+ .planner-main[data-ui] .day-heading h3{font-size:16px;line-height:1.4}
+ .planner-main[data-ui] .day-heading h3 span{font-size:12px;font-weight:400}
+ .planner-main[data-ui] .day-heading p{font-size:12px;line-height:1.5}
+ .planner-main[data-ui] .day-number{width:32px;height:32px;min-width:32px;display:grid;place-items:center;padding:0;border-radius:7px;background:#edf6ff;color:var(--brand-link);font-size:14px}
+ .planner-main[data-ui] .day-settings{padding:10px;margin:10px 0;border:1px solid #e2edf6;border-radius:7px;background:#f7fbff}
+ .planner-main[data-ui] .day-settings summary{font-size:12px;min-height:24px}
+ .planner-main[data-ui] .activity.itinerary-row{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px 10px;border:0;border-left:1px solid #cde3f6;padding:14px 0 14px 12px;margin:0 0 0 3px;align-items:start}
+ .planner-main[data-ui] .activity.itinerary-row::before{content:'';position:absolute;left:-4px;top:19px;width:7px;height:7px;border:2px solid white;border-radius:50%;background:#0080d8;box-sizing:content-box}
+ .planner-main[data-ui] .activity-time{grid-column:1;grid-row:1;font-size:10px;color:var(--brand-muted);padding-top:2px;min-width:0}
+ .planner-main[data-ui] .activity.itinerary-row>svg{position:absolute;left:11px;top:36px;width:14px;height:14px;color:#5c8cae}
+ .planner-main[data-ui] .itinerary-content{grid-column:2;grid-row:1;min-width:0}
+ .planner-main[data-ui] .itinerary-item-title{font-size:15px;line-height:1.45;margin:0 0 8px;overflow-wrap:anywhere}
+ .planner-main[data-ui] .activity.itinerary-row>.itinerary-side{grid-column:2;grid-row:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;text-align:left;width:auto;min-width:0}
+ .planner-main[data-ui] .itinerary-price{flex:1 1 100%;min-width:0}
+ .planner-main[data-ui] .itinerary-price strong{font-size:16px}
+ .planner-main[data-ui] .itinerary-price small{font-size:11px;line-height:1.5}
+ .planner-main[data-ui] .expandable-details>summary{min-height:40px;padding:8px 10px;border:1px solid #d4e6f5;border-radius:6px;background:#f7fbff;font-size:12px}
+ .planner-main[data-ui] .budget-panel{position:static;padding:16px;border:1px solid var(--brand-border);border-radius:9px;background:white;box-shadow:var(--ui-card-shadow)}
+ .planner-main[data-ui] .budget-panel h2{font-size:27px;line-height:1.3;padding:12px;background:#eff7ff;border-radius:7px;font-variant-numeric:tabular-nums}
+ .planner-main[data-ui] .budget-panel :is(p,.budget-label){font-size:12px;line-height:1.6}
+ .planner-main[data-ui] .budget-line{font-size:13px;padding-block:10px;gap:12px}
+ .planner-main[data-ui] .budget-line strong{font-size:14px;overflow-wrap:anywhere}
+ .planner-main[data-ui] .route-section{display:block}
+ .planner-main[data-ui] .map-canvas{height:320px;border-radius:9px}
+ .planner-main[data-ui] .map-connections{padding:14px;margin:14px 0;border:1px solid var(--brand-border);border-radius:9px;background:white}
+ .planner-main[data-ui] .map-connections h3{font-size:16px}
+ .planner-main[data-ui] .route-leg h4{font-size:14px}
+ .planner-main[data-ui] .cost-row{display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:14px 0;border:0;border-bottom:1px solid var(--brand-border);border-radius:0;background:white;min-width:0}
+ .planner-main[data-ui] .cost-row>div{min-width:0;flex:1 1 220px}
+ .planner-main[data-ui] .cost-row h3{font-size:15px;line-height:1.5}
+ .planner-main[data-ui] .cost-row>button{margin-left:auto;min-height:44px;font-size:14px}
+
+ /* Account, support and checkout surfaces share desktop tokens. */
+ body:has(main[data-ui]) .account-dropdown{width:min(280px,calc(100vw - 24px));padding:7px;border:1px solid var(--brand-border);border-radius:9px;background:#fff;box-shadow:0 12px 32px #183a6026}
+ body:has(main[data-ui]) .account-menu-item{min-height:44px;font-size:14px;padding:10px;border-radius:6px}
+ body:has(main[data-ui]) .account-dialog{width:calc(100vw - 24px);max-width:440px;max-height:90dvh;overflow:auto;padding:20px;border-radius:10px;border-color:var(--brand-border)}
+ body:has(main[data-ui]) .account-dialog h2{font-size:22px}
+ main[data-ui] .price-watch-view{padding:16px;margin:0 0 20px;border:1px solid var(--brand-border);border-radius:9px;background:#fff;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] .price-watch-view h2{font-size:27px;line-height:1.2}
+ main[data-ui] .price-watch-view p{font-size:13px;line-height:1.6}
+ main[data-ui] .price-watch-view .notice{padding:14px;border:1px solid var(--brand-border);border-radius:8px;background:white}
+ main[data-ui] .support-center{padding:0 0 20px}
+ main[data-ui] .support-intro{max-width:none;text-align:left;min-height:250px;padding:24px 18px 58px;margin:0;border-radius:10px;background:linear-gradient(90deg,#0a3150d9,#0a315039),url('/bangkok.jpg') center/cover}
+ main[data-ui] .support-intro :is(h1,p,.eyebrow){color:#fff}
+ main[data-ui] .support-intro h1{font-size:28px;line-height:1.2;margin:10px 0}
+ main[data-ui] .support-intro p{font-size:13px;line-height:1.6}
+ main[data-ui] .support-search{margin:16px 0 0;padding:0 10px;border:1px solid #d8e7f1;border-radius:7px;background:white;max-width:100%}
+ main[data-ui] .support-search input{min-height:44px;padding:8px 0;font-size:16px}
+ main[data-ui] .support-layout{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin:-28px 10px 0}
+ main[data-ui] :is(.support-faq,.support-chat){padding:16px;background:white;border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow);min-width:0}
+ main[data-ui] .support-faq details{padding:12px 0;margin:0;border:0;border-bottom:1px solid var(--brand-border);border-radius:0}
+ main[data-ui] .support-faq summary{font-size:13px;line-height:1.5;min-height:24px}
+ main[data-ui] .support-faq p{font-size:13px;line-height:1.7}
+ main[data-ui] .support-chat h2{font-size:21px;line-height:1.3}
+ main[data-ui] .support-chat :is(.muted,.support-empty){font-size:13px;line-height:1.6}
+ main[data-ui] .support-empty{padding:14px;border-radius:7px;background:#f3f8fe}
+ main[data-ui] .support-chat textarea{font-size:16px;min-height:82px;border-radius:7px}
+ .hotel-checkout.checkout-page{width:calc(100% - 24px);max-width:900px;padding:18px 0;margin:auto;--brand-text:#123452;--brand-muted:#61758d;--brand-primary:#0078d4;--brand-link:#0071c9;--brand-border:#dfe8f1;--brand-subtle:#f3f8fd}
+ .hotel-checkout.checkout-page .checkout-heading h1{font-size:27px;line-height:1.2;margin:8px 0}
+ .hotel-checkout.checkout-page .checkout-heading p{font-size:13px;line-height:1.6}
+ .hotel-checkout.checkout-page .checkout-layout{grid-template-columns:minmax(0,1fr);gap:16px}
+ .hotel-checkout.checkout-page .checkout-panel{padding:16px;border:1px solid var(--brand-border);border-radius:9px;background:#fff;box-shadow:0 3px 14px #17395b09;min-width:0}
+ .hotel-checkout.checkout-page .checkout-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-radius:8px;margin-bottom:18px}
+ .hotel-checkout.checkout-page .checkout-steps li{font-size:12px;line-height:1.5;padding:9px}
+ .hotel-checkout.checkout-page .checkout-guest-form{grid-template-columns:minmax(0,1fr);gap:12px}
+ .hotel-checkout.checkout-page .checkout-guest-form label{font-size:13px;min-width:0}
+ .hotel-checkout.checkout-page .checkout-guest-form :is(input:not([type=checkbox]),select){font-size:16px;min-height:44px;padding:10px;border-radius:7px;max-width:100%;min-width:0}
+ .hotel-checkout.checkout-page .checkout-consent{font-size:13px;line-height:1.65;padding:12px;border-radius:7px;background:#f7fbff}
+ .hotel-checkout.checkout-page .checkout-consent input{width:18px;height:18px;min-height:0;padding:0;flex:0 0 18px}
+ .hotel-checkout.checkout-page button{min-height:44px;padding:10px 12px;font-size:14px;border-radius:7px;white-space:normal}
+ .hotel-checkout.checkout-page .checkout-total strong{font-size:26px}
+}
+
+@media(min-width:640px) and (max-width:999px){
+ main[data-ui="landscape"]{width:calc(100% - 40px)}
+ .explore-main[data-ui]>div:not([hidden]):has(>.search-intro){padding:28px 24px 0}
+ .explore-main[data-ui] .search-intro h1{font-size:34px}
+ main[data-ui] .search-panel .rev-search-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ main[data-ui] .search-panel .rev-search-options{display:flex;flex-wrap:wrap;align-items:end;gap:12px}
+ main[data-ui] .rev-search-options>label{flex:1 1 130px}
+ main[data-ui] .rev-search-options>.primary{flex:1 1 180px;width:auto}
+ .explore-main[data-ui] .recommendation-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+ .explore-main[data-ui] .recommendation-card>img{aspect-ratio:1.25}
+ .explore-main[data-ui] .recommendation-card strong{font-size:17px}
+ .explore-main[data-ui] .recommendation-card>span{padding:35px 10px 12px}
+ .saved-main[data-ui] .saved-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .planner-main[data-ui] .planner-title{flex-direction:row;align-items:center}
+ .planner-main[data-ui] .planner-title-actions{max-width:380px;justify-content:flex-end}
+ .planner-main[data-ui] #sorttrip-assistant .ai-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .planner-main[data-ui] .assistant-actions{flex-direction:row}
+ .planner-main[data-ui] .trip-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+ main[data-ui] .support-layout{grid-template-columns:repeat(2,minmax(0,1fr));margin:-28px 18px 0}
+ main[data-ui] .flight-search-view .api-flight-toggle{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+ main[data-ui] .api-flight-toggle>div:last-child{grid-column:1/-1}
+ .hotel-checkout.checkout-page .checkout-guest-form{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

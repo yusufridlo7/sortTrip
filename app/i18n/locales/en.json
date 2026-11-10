@@ -1,4 +1,7 @@
 {
+  "saved_new_trip": "Create a new trip",
+  "hotel_partner_heading": "Hotels · Trip.com",
+  "transport_partner_heading": "Transport · 12Go",
   "ui_0001": "Budget option",
   "ui_0002": "Fast option",
   "ui_0003": "Balanced option",
@@ -22,7 +25,7 @@
   "ui_0022": "AI results remaining",
   "ui_0023": "Trip Pass quota information",
   "ui_0024": "Quota is shared across all trips in this account, including new trips. Valid until",
-  "ui_0025": ". Failed requests do not count.",
+  "ui_0025": ". Failed requests do not count. This balance belongs to the current pass; after it is exhausted, another valid pass may be displayed. No quota is added by switching passes.",
   "ui_0026": "AI access status",
   "ui_0027": "Trip Pass found for this account.",
   "ui_0028": "AI access for this account needs to be checked.",
@@ -1013,7 +1016,7 @@
   "transport_gate": "12Go requires an access check for this search. Prices cannot be updated; old prices and AI quota are unchanged.",
   "quota_updated": "Prices updated for {{count}} selections. One AI result used. {{saved}}",
   "ai_default_prompt": "Plan a trip to {{city}} with {{preference}} transport",
-  "day_option": "Day {{{day}}}",
+  "day_option": "Day {{day}}",
   "information_item": "Information about {{name}}",
   "price_item": "Price for {{name}}",
   "name_item": "Name {{name}}",
@@ -1267,7 +1270,7 @@
   "rec_check": "Check trip budget",
   "rec_assumptions": "Sample trip: {{days}} days, {{nights}} nights · 1 adult · return flights from Jakarta (CGK).",
   "rec_scope": "An independent travel plan, rather than a bookable package. Final prices depend on your dates, availability and choices.",
-  "rec_day": "Day {{{day}}}",
+  "rec_day": "Day {{day}}",
   "rec_kl_1": "Arrive in Kuala Lumpur, check in, then explore Pasar Seni and Chinatown on foot.",
   "rec_kl_2": "Explore KLCC Park and the Bukit Bintang area.",
   "rec_kl_3": "Explore the historic Merdeka Square area and the riverside.",
@@ -1329,7 +1332,7 @@
   "account_pass_remaining_other": "{{count}} AI results remaining",
   "account_pass_expiry": "Valid until {{date}}",
   "account_pass_test": "Test access",
-  "account_pass_manage": "To buy or manage a Trip Pass, open an itinerary from My trips.",
+  "account_pass_manage": "To buy or manage a Trip Pass, open an itinerary from My trips. The balance shown is for the current pass; another valid pass may appear when it is exhausted.",
   "ai_elapsed": "{{seconds}} seconds elapsed",
   "ai_long_running": "This search is taking longer. You can cancel it using the button below.",
   "google_route_walking_only": "Google Maps returned a walking route only for this search.",
@@ -1345,5 +1348,7 @@
   "ai_evidence_review": "Review needed: {{routes}} connections, {{sources}} attraction sources, {{legs}} transport sources",
   "ai_connection_gap": "Day {{day}}: the connection from {{from}} to {{to}} is not fully recorded. Schedule and fare are unverified.",
   "admission_info_source": "Attraction information; check admission fees separately",
-  "route_source_unverified": "The source for this leg is unverified; check the operator and route."
+  "route_source_unverified": "The source for this leg is unverified; check the operator and route.",
+  "google_route_choose_time": "Choose the departure date and time after checking your flight or activity schedule.",
+  "activity_genting_scope": "Genting tours are searched from Kuala Lumpur. Check whether the product is a gondola ticket or a tour with transfers; the prices and inclusions differ."
 }

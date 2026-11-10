@@ -15,6 +15,12 @@ test('exhausted newest pass cannot hide another valid pass',()=>{
  assert.equal(passSummary([{...row,requests:20},{...row,requests:7}]).remaining,13);
  assert.equal(passSummary([{...row,requests:20}]).remaining,0);assert.equal(passSummary([]),null);
 });
+test('display can switch from one remaining result to an existing next pass without adding quota',()=>{
+ const first={...row,request_limit:10,requests:9},next={...row,request_limit:10,requests:6};
+ assert.equal(passSummary([first,next]).remaining,1);
+ assert.equal(passSummary([{...first,requests:10},next]).remaining,4);
+ assert.equal(first.requests,9);assert.equal(next.requests,6);
+});
 test('legacy quota stays twenty while new ten-result pass reports its own remaining balance',()=>{
  const legacy=passSummary([row]);assert.equal(legacy.requestLimit,20);assert.equal(legacy.remaining,17);
  const fresh=passSummary([{...row,request_limit:10,requests:3}]);assert.equal(fresh.requestLimit,10);assert.equal(fresh.remaining,7);

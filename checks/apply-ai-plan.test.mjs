@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
+import {groupHotelAreas,applyLiteHotels} from '../worker/lite-hotel.js';
 import {readFile} from 'node:fs/promises';
 const source=await readFile(new URL('../app/apply-ai-plan.ts',import.meta.url),'utf8');
 const js=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText.replace(/^import[^\n]+;\n/,"const destinations=[];const geoData={};const addDays=(s,n)=>new Date(Date.parse(s+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);\n");
@@ -9,6 +10,33 @@ const pricingJs=ts.transpileModule(pricingSource,{compilerOptions:{target:ts.Scr
 const pricingUrl='data:text/javascript;base64,'+Buffer.from(pricingJs).toString('base64');
 const {applyAIPlan,aiTripContext,reconcileHotelTransfers}=await import('data:text/javascript;base64,'+Buffer.from(js.replace('./apply-price-quotes',pricingUrl).replace('../worker/itinerary-intent.mjs',new URL('../worker/itinerary-intent.mjs',import.meta.url).href).replace('../worker/hotel-stay-policy.mjs',new URL('../worker/hotel-stay-policy.mjs',import.meta.url).href)).toString('base64'));
 const sourceUrl='https://example.com/attraction';
+
+test('overnight arrival area research becomes one full supplier stay and matching airport/museum connectors',()=>{
+ const ctx={city:'Kuala Lumpur',start:'2026-11-07',days:4,people:1,budget:4500000,arrival:'22:25',arrivalDay:0};
+ const area={id:'area',category:'Area menginap',day:2,time:'01:00',title:'Bukit Bintang',location:'Bukit Bintang',city:ctx.city,sourceUrl,note:'Stay area'};
+ const transfer=(id,fromPlace,toPlace,time)=>({id,category:'Transfer',day:2,time,title:'Transfer '+fromPlace+' to '+toPlace,fromPlace,toPlace,mode:'Taxi',sourceUrl,note:'Verify route',routeOptions:[{kind:'hemat',legs:[{fromPlace,toPlace,mode:'Taxi',sourceUrl,fare:'old area fare',duration:'old area duration'}]}]});
+ const grouped=groupHotelAreas({context:ctx,sources:[{url:sourceUrl}],activities:[transfer('arrival','KUL','city stay','00:30'),area,transfer('museum','city stay','Museum','09:00'),{...area,id:'next-area',day:3,time:'19:00',title:'KL Sentral',location:'KL Sentral'}]},ctx);
+ const stay=grouped.activities.find(a=>a.category==='Area menginap');
+ const quote=hotelQuote({...stay,title:'Supplier Hotel',hotelId:'real'},900000);
+ const enriched=applyLiteHotels(grouped,[quote]);
+ const original={id:'hotel',category:'Penginapan',template:true,day:2,time:'00:25',title:'Old template hotel',price:1620000,paid:false,checkin:'2026-11-07',checkout:'2026-11-10',note:'anggaran contoh'};
+ const result=applyAIPlan({...ctx,destination:'kl',destinationMeta:{city:ctx.city},flight:{arrive:'22:25',arrivalDay:0},items:[original]},enriched,[quote]);
+ const hotels=result.items.filter(x=>x.category==='Penginapan');assert.equal(hotels.length,1);assert.equal(hotels[0].title,'Supplier Hotel');assert.equal(hotels[0].checkin,ctx.start);assert.equal(hotels[0].checkout,'2026-11-10');assert.equal(hotels[0].price,900000);
+ assert.equal(result.items.find(x=>x.id==='ai-plan-arrival').toPlace,'Supplier Hotel');assert.equal(result.items.find(x=>x.id==='ai-plan-museum').fromPlace,'Supplier Hotel');
+ assert.equal(result.items.find(x=>x.id==='ai-plan-arrival').routeOptions[0].legs[0].fare,undefined);
+ assert.ok(!result.items.some(x=>x.title==='Old template hotel'));assert.equal(original.price,1620000);
+});
+
+test('an unconfirmed early check-in never precedes a later inbound transfer; booked stays remain unchanged',()=>{
+ const ctx={city:'Kuala Lumpur',start:'2026-11-07',days:4,people:1,budget:4500000};
+ const stay={id:'old',category:'Penginapan',day:2,time:'00:25',title:'Selected Hotel',place:'Selected Hotel',price:400000,paid:false,hotelId:'old',checkin:'2026-11-07',checkout:'2026-11-10',note:'selected'};
+ const incoming={id:'arrival',day:2,time:'00:30',category:'Transfer',title:'Airport to hotel',fromPlace:'KUL',toPlace:stay.title,mode:'Taxi',sourceUrl,note:'Route duration unknown'};
+ const p={context:ctx,sources:[{url:sourceUrl}],activities:[incoming]};
+ const input={...ctx,destination:'kl',destinationMeta:{city:ctx.city},items:[stay]};
+ const result=applyAIPlan(input,p);
+ assert.equal(result.items.find(x=>x.id==='old').time,'');assert.match(result.items.find(x=>x.id==='old').note,/belum ditentukan/);
+ const booked={...stay,paid:true};assert.equal(applyAIPlan({...input,items:[booked]},p).items.find(x=>x.id==='old'),booked);
+});
 test('explicit keep-hotel instruction retains the full template stay and midnight check-in even against a supplier replacement',()=>{
  const ctx={city:'Kuala Lumpur',start:'2026-11-07',days:4,people:1,budget:4500000};
  const stay={id:'hotel',category:'Penginapan',template:true,day:2,time:'01:55',title:'Travelodge',place:'Travelodge',price:1620000,paid:false,checkin:'2026-11-07',checkout:'2026-11-10',note:'anggaran contoh'};

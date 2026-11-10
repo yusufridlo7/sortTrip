@@ -1,6 +1,6 @@
 # Konteks platform untuk model AI
 
-Sumber runtime tunggal: `worker/platform-context.js`. Versi saat ini `2026-11-02.4` (Muse lokal dan Guide terpisah).
+Sumber runtime tunggal: `worker/platform-context.js`. Versi saat ini `2026-11-03.2` (Muse lokal dan Guide terpisah).
 
 Tujuan: setiap putaran model mendapat definisi SortTrip dan batas kewenangan yang konsisten. File konteks bukan izin menyalakan API, credential, atau tool dengan sendirinya. Implementasi provider berada di `worker/ai-provider.js`; launcher lokal memilih Meta dan menonaktifkan OpenAI tanpa fallback. Default kompatibilitas adapter tidak membuktikan provider deployment online.
 
@@ -50,3 +50,20 @@ Tambahan guard pada paket yang sama: hotel bukan peron rel, mode LRT/MRT bukan p
 
 ## 2026-11-02 — Meta tanpa cutoff kalender (keputusan owner terbaru)
 Owner mencabut penghentian otomatis 5 November dan mengizinkan commit, push, serta deploy existing Worker sorttrip. META_ASSISTANT_EXPIRES_AT kini diabaikan; enable/billing/key, autentikasi, Trip Pass/kuota, timeout, batas token/call/tool dan larangan fallback tetap berlaku. Tidak ada migrasi, reset data, perubahan credential atau inferensi tambahan pada proses rilis ini. Bukti rilis dicatat di qa-reports/RELEASE_2026-11-02.md.
+
+
+## 2026-11-03 — Pemisahan bukti visual dan pengaman biaya
+Planning menganalisis foto/MP4 sekali dalam tahap visual tanpa tool (maksimal 1200 output token), kemudian hanya ringkasan visual belum terverifikasi ke riset web. Media tidak direplay pada riset/draft/koreksi. Guide mempertahankan alur existing. Meta wire memakai auto karena required ditolak token-count400; kewajiban bukti ditegakkan di instruksi serta pemeriksaan sources sebelum menerima hasil. Tool read-only tetap dibatasi. Koreksi tunggal menerima rejectedDraft request-local dan missingConnections; batas schema 70 dipertahankan agar transfer wajib tidak terpotong oleh cap 16 item. Tidak menambah batas token atau panggilan, tidak mengubah auth/Trip Pass/paid locks/Save.
+Adapter mempertahankan penyebab penghentian pertama dengan kode numerik-kategori input per panggilan/kumulatif/output/jumlah panggilan. Search mereservasi ruang input per panggilan existing sebelum egress; penggunaan aktual tetap diperiksa. Token envelope Standard USD0.202 per instance provider tidak termasuk query web, supplier, request lain atau usage tak diketahui. Ini BUKAN ledger USD100 maupun hard cap akun. Tidak ada kenaikan budget, migrasi atau fallback OpenAI.
+
+
+## 2026-11-03 — Guard biaya bersama (lokal, belum aktivasi database)
+Versi2026-11-03.2. Adapter pusat memakai meta-spend.js untuk seluruh inference planning/Guide/translation: production tidak dapat opt-out dengan flagfalse/hilang, actor berasal dari auth existing. ReadinessRPCv3 diperiksa sebelum token-count, reservasiUSD0,10sebelum inference; settlement independen dari abortuser. Unknownfees/missingusage/failedsettlement menghentikan antrean; tidak menganggap satu web_search_call satuquery. Ledgerallocation100dibedakan dariinvoiceprovider; action.queries/query didokumentasikan oleh API schema, metadata respons project masih perlu uji. SQLproposal mempertahankanbudget0/100dan0historysnapshotowner, tidakcopyQA ataugrantsbaru. Belumditerapkan, sehinggalokalproductionbindingmenolakAPIv2failclosed; onlinebelumdiubah.
+RisettransportmemakaichecklistendpointdancandidateofficialURLs untukKL bila relevan; hanyahints,narasiwajibdisearch/verifysebelumcitation. Station/stasiunrolelabeltidakmenghalangireferensistasiunpersis; inibukan verifikasifare/jadwal. Tidakmenambahtoolbooking/Places/GPS ataukewenanganmodel.
+
+## 2026-11-03 — Konteks paket submission terisolasi
+
+Paket artifacts/submission/sorttrip-meta-hackathon-2026/event-src/worker/platform-context.js memakai versi2026-11-03.3-submission, dijelaskan dalam PLATFORM_CONTEXT.md milik paket. Perbedaan adalah konfigurasioriginledgerfresh eksplisit pada adapter guard package; tidak menambah tools/kewenanganmodel. Source worker/platform-context.js aplikasi existing tidak diubah oleh task pengemasan ini, dan tidak ada deployment. Normal auth/quota/RLS dan globalledger v3 tetap diperlukan; proposalSQLfresh belum dieksekusi/rehearsalDDL. Jangan menafsirkan paket reviewer atau tesoffline sebagai aktivasi resourceproduction/QA.
+
+## 2026-11-05 � Context v2026-11-05.1
+Perbaikan QA: nama bandara kanonis termasuk label IATA+kota; jam transit dipilih pengguna, bukan default09:00. Area malam berturut di kota sama dikelompokkan kecuali perpindahan eksplisit/kota/airport; kedatangan lewat tengah malam memerlukan malam sebelumnya bila tidak tumpang tindih pilihan retained. Akses early-check-in tetap belum terverifikasi. Endpoint area dipetakan ke hotel supplier, tarif/durasi lama dibatalkan. Genting memakai scope kota keberangkatan Viator Kuala Lumpur yang tetap dapat diedit; tur bukan admission-only. Kuota/otorisasi/ledger/tools tidak diperluas. Privacy ID/EN diselaraskan Meta/media dan izin GPS foreground. Ini bukti implementasi lokal/offline, belum live QA atau deployment.

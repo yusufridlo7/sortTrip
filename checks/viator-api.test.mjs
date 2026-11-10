@@ -1,5 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {activitySearchCity} from '../worker/activity-search-location.mjs';
+test('Genting search uses editable Kuala Lumpur departure scope without changing other destinations',()=>{
+ assert.equal(activitySearchCity('Genting Highlands'),'Kuala Lumpur');assert.equal(activitySearchCity('Genting'),'Kuala Lumpur');
+ assert.equal(activitySearchCity('Singapore'),'Singapore');assert.equal(activitySearchCity('Paris'),'Paris');
+});
 import {handleViator} from '../worker/viator.js';
 import worker from '../worker/index.js';
 const env = {VIATOR_API_KEY: 'synthetic-test-value'};

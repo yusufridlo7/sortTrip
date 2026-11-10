@@ -1,0 +1,17 @@
+@media(min-width:1000px){
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view){padding:0;margin:4px 0 0;border:0;background:white;box-shadow:none}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.direct-heading{min-height:280px;padding:40px 46px 100px;margin:0 0 0;border-radius:10px;align-items:center;box-shadow:none;background-position:center;background-size:cover}
+ main[data-ui] .trip-affiliate-search>.direct-heading{background-image:linear-gradient(90deg,#0b294bd9,#0b294b40),url('/images/hotels/twin-room.jpg')}
+ main[data-ui] .transport-search-view>.direct-heading{background-image:linear-gradient(90deg,#0b294bdf,#0b294b35),url('/bangkok.jpg')}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view) .direct-heading h1{font-size:36px;color:white;line-height:1.2;margin:6px 0 10px}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view) .direct-heading :is(p,.eyebrow){color:#f1f8ff;font-size:13px;line-height:1.6;max-width:730px}
+ main[data-ui] .trip-affiliate-search>.trip-affiliate-widget{position:relative;width:auto;max-width:none;box-sizing:border-box;margin:-110px 42px 18px;padding:22px;border:1px solid var(--brand-border);border-radius:9px;background:white;box-shadow:0 8px 24px #183e5e12;overflow:hidden}
+ main[data-ui] .transport-search-view>iframe{position:relative;display:block;max-width:calc(100% - 120px)!important;margin:-110px auto 18px!important;padding:16px;background:white;border:1px solid var(--brand-border)!important;border-radius:9px;box-shadow:0 8px 24px #183e5e12;box-sizing:content-box}
+ main[data-ui] .trip-affiliate-search>.partner-actions,main[data-ui] .transport-search-view>p:has(>.transport-fallback-link){display:flex;justify-content:space-between;align-items:center;gap:20px;margin:18px 42px;padding:18px 24px;background:#eef6ff;border:1px solid #d4e5ff;border-radius:8px}
+ main[data-ui] .trip-affiliate-search>.partner-actions::before{content:'Trip.com';font-size:25px;line-height:1.2;font-weight:750;color:#0065de}
+ main[data-ui] .transport-search-view>p:has(>.transport-fallback-link)::before{content:'12Go';font-size:25px;line-height:1.2;font-weight:750;color:#55a928}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.inline-note,main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.discovery-note{margin:12px 42px;font-size:12px;line-height:1.65}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.partner-selection{margin:18px 42px;padding:14px 18px;background:#fff;border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow)}
+ main[data-ui] :is(.trip-affiliate-search,.transport-search-view)>.partner-selection>summary{font-size:15px;font-weight:650;color:var(--brand-text)}
+ main[data-ui] .lite-hotel-card{border:1px solid var(--brand-border);border-radius:9px;background:#fff;box-shadow:var(--ui-card-shadow)}
+}

@@ -7,6 +7,7 @@ import ts from 'typescript';
 import {resolveI18n,actualI18n} from './i18n-loader.mjs';
 let code=resolveI18n(ts.transpileModule(await readFile(new URL('../app/google-route-check.tsx',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText);
 for(const pkg of ['react','react/jsx-runtime'])code=code.replaceAll(JSON.stringify(pkg),JSON.stringify(import.meta.resolve(pkg))).replaceAll("'"+pkg+"'",JSON.stringify(import.meta.resolve(pkg)));
+code=code.replaceAll("'../worker/route-location.mjs'",JSON.stringify(new URL('../worker/route-location.mjs',import.meta.url).href));
 code=code.replace(/(['"])\.\/supabase\1/g,JSON.stringify('data:text/javascript,export const supabase=null;'));
 const {default:GoogleRouteCheck}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
 test('directions link exists before an API request, endpoints are visible, and ID/EN labels render',async()=>{
@@ -19,4 +20,12 @@ test('directions link exists before an API request, endpoints are visible, and I
   assert.ok(!html.includes('open=""'));assert.match(html,lang==='id'?/Cek rute Google Maps/:/Check Google Maps route/);
  }
  await actualI18n.default.changeLanguage('id');
+});
+
+test('airport map labels expand in external directions and transit never invents a 09:00 departure',()=>{
+ const html=renderToStaticMarkup(React.createElement(GoogleRouteCheck,{from:'KUL, Kuala Lumpur',to:'Travelodge',date:'2026-11-07'}));
+ assert.match(html,/origin=Kuala\+Lumpur\+International\+Airport/);
+ assert.match(html,/Kuala Lumpur International Airport/);
+ assert.doesNotMatch(html,/T09:00/);
+ assert.match(html,/<button[^>]*disabled/);
 });

@@ -131,9 +131,13 @@ export function applyAIPlan(trip:Trip,plan:AIPlan,quotes:PriceQuote[]=[]):Trip{
  const merged=reconcileHotelTransfers(trip,[...existing,...additions],plan.context.language,plan.context.hotelStay?.day).map(item=>{
   // A retained hotel time is not evidence that its arrival transfer has finished.
   // Leave check-in unscheduled instead of inventing a journey duration.
-  if(item.category!=='Penginapan'||aiProtected(item)||!existing.includes(item)||!item.time)return item;
-  const collision=additions.some(a=>a.category==='Transportasi'&&a.day===item.day&&a.time===item.time);
-  return collision?{...item,time:'',note:item.note+(plan.context.language==='en'?' Check-in time is unconfirmed; check in after the arrival transfer.':' Jam check-in belum ditentukan; check-in setelah transfer tiba.')}:item;
+  if(item.category!=='Penginapan'||aiProtected(item)||!item.time)return item;
+  const earlyNew=!existing.includes(item)&&item.checkin===addDays(trip.start,item.day-1)&&item.time<'12:00';
+  const inbound=additions.some(a=>a.category==='Transportasi'&&a.day===item.day&&isTime(a.time)&&a.time>=item.time&&normalPlace(a.toPlace||'')===normalPlace(item.place||item.title));
+  // Legacy retained check-ins can also coincide with an arrival transfer
+  // whose title does not yet carry an exact hotel endpoint.
+  const collision=existing.includes(item)&&additions.some(a=>a.category==='Transportasi'&&a.day===item.day&&a.time===item.time);
+  return earlyNew||inbound||collision?{...item,time:'',note:item.note+(plan.context.language==='en'?' Check-in time is unconfirmed; verify hotel access after the arrival transfer.':' Jam check-in belum ditentukan; periksa akses hotel setelah transfer tiba.')}:item;
  });
  if(merged.length>300)throw Error('Itinerary melebihi kapasitas penyimpanan. Kurangi aktivitas terlebih dahulu.');
  return {...trip,...(additions.some(x=>x.priceQuote||x.routePriceQuotes?.length)?{priceCheckedAt:priced.priceCheckedAt}:{}),aiPlan:plan,items:merged.sort((a,b)=>a.day-b.day||a.time.localeCompare(b.time))};

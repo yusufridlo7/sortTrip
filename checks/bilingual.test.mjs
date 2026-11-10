@@ -19,6 +19,7 @@ test('catalogue parity, interpolation, plurals, fallback and locale-only formatt
  assert.deepEqual(Object.keys(id).sort(),Object.keys(en).sort());
  for(const [key,text] of Object.entries(id)){assert.equal(typeof en[key],'string');assert.ok(en[key].trim());const slots=s=>[...s.matchAll(/\{\{([^}]+)\}\}/g)].map(m=>m[1]).sort();assert.deepEqual(slots(text),slots(en[key]),key);}
  await ui.default.changeLanguage('en');assert.equal(ui.tr('days',{count:1}),'1 day');assert.equal(ui.tr('days',{count:3}),'3 days');
+ assert.equal(ui.tr('rec_day',{day:2}),'Day 2');assert.equal(ui.tr('day_option',{day:3}),'Day 3');
  assert.equal(ui.label('Pesawat'),'Flights');assert.equal(ui.label('CUBE Boutique Capsule Hotel'),'CUBE Boutique Capsule Hotel');
  assert.equal(ui.countryLabel('MY','Malaysia'),'Malaysia');assert.match(ui.formatDate('2027-01-30T12:00:00Z',{month:'long',timeZone:'UTC'}),/January/);
  assert.equal(ui.formatMoney(1234,'USD'),new Intl.NumberFormat('en-GB',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(1234));

@@ -1,0 +1,49 @@
+@media(min-width:1000px){
+ .explore-main[data-ui]>div:not([hidden]):has(>.search-intro){position:relative;isolation:isolate;padding:32px 36px 0;background:none;border-radius:10px}
+ .explore-main[data-ui]>div:not([hidden]):has(>.search-intro)::before{content:'';position:absolute;z-index:-1;inset:0 0 auto;height:475px;border-radius:10px;background:linear-gradient(90deg,#092e55bb,#092e5530),url('/kuala-lumpur-skyline.jpg') center 48%/cover}
+ .explore-main[data-ui] .search-intro{padding:8px 0 24px;max-width:1040px;width:82%;margin-inline:auto}
+ .explore-main[data-ui] .search-intro h1{font-size:40px;line-height:1.16;letter-spacing:-1px;margin:6px 0 10px;color:#fff}
+ .explore-main[data-ui] .search-intro h1 span{color:inherit}
+ .explore-main[data-ui] .search-intro :is(p,.eyebrow){color:#edf7ff}
+ .explore-main[data-ui] .search-intro p{font-size:15px;line-height:1.45;max-width:700px;margin:0}
+ .explore-main[data-ui] .search-intro .eyebrow{font-size:10px;margin-bottom:6px}
+ .explore-main[data-ui] .search-panel{width:82%;max-width:1040px;margin-inline:auto;border:1px solid #e3ebf2;border-radius:10px;background:#fff;box-shadow:0 8px 24px #0b345915;overflow:visible}
+ .explore-main[data-ui] .search-panel>form{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:20px 24px}
+ .explore-main[data-ui] .search-panel .search-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;min-height:36px;padding:0 28px 0 0!important;gap:12px}
+ .explore-main[data-ui] .search-panel .search-top [data-slot=select-trigger]{font-size:12px;min-height:34px;height:34px}
+ .explore-main[data-ui] .search-panel .discovery-controls{grid-column:1/-1;display:block;margin:0}
+ .explore-main[data-ui] .search-panel .discovery-controls label{gap:6px;font-size:13px;color:var(--brand-text)}
+ .explore-main[data-ui] .search-panel .discovery-controls select{padding:8px 12px;font-size:13px;min-height:36px}
+ .explore-main[data-ui] .search-panel .rev-search-fields{grid-column:1/-1;padding:0;margin:0;gap:16px}
+ .explore-main[data-ui] .rev-search-fields>label{gap:6px;font-size:13px;color:var(--brand-text)}
+ .explore-main[data-ui] .rev-search-fields :is([data-slot=select-trigger],.destination-field){min-height:38px;height:38px;font-size:13px}
+ .explore-main[data-ui] .search-panel .search-ai-prompt{grid-column:1/-1;margin:0;padding:12px;background:#f5f9fe;border:1px solid #e1edf7;border-radius:8px}
+ .explore-main[data-ui] .assistant-brand-label{font-size:12px;font-weight:650;margin:0}
+ .explore-main[data-ui] .search-ai-prompt .assistant-brand-label{display:flex;align-items:center;gap:8px;line-height:20px;margin:0}
+ .explore-main[data-ui] .assistant-brand-label .sorttrip-brand-icon{width:20px;height:24px}
+ .explore-main[data-ui] .search-ai-prompt>.info-heading{align-items:center;margin-bottom:0}
+ .explore-main[data-ui] .assistant-media-previews:empty{display:none}
+ .explore-main[data-ui] .search-panel .search-ai-prompt .assistant-prompt-shell textarea{height:44px;min-height:44px;margin-top:8px;padding:12px 58px 12px 12px!important;border-radius:7px;font-size:13px;resize:vertical}
+ .explore-main[data-ui] .search-ai-prompt .assistant-camera{width:32px;height:32px;min-height:32px;right:10px;bottom:10px;border-radius:6px;box-shadow:none;background:#f3f9ff}
+ .explore-main[data-ui] .assistant-media-info{margin-top:6px;font-size:11px}
+ .explore-main[data-ui] .search-panel .rev-search-options{grid-column:1/-1;margin:0;padding:4px 0 0;border:0;border-radius:0;background:white;gap:16px;align-items:center}
+ .explore-main[data-ui] .rev-search-options>label{font-size:12px;gap:8px}
+ .explore-main[data-ui] .rev-search-options [data-slot=select-trigger]{min-height:34px;font-size:12px}
+ .explore-main[data-ui] .rev-search-options>.primary{margin-left:auto;min-height:38px;font-size:13px}
+ .explore-main[data-ui] .search-error{grid-column:1/-1;margin:0;padding:4px 0}
+ .explore-main[data-ui] .recommended-trips{margin:24px 0 0;padding:0}
+ .explore-main[data-ui] .recommended-trips>h2{font-size:18px;margin:0 0 6px}
+ .explore-main[data-ui] .recommended-trips>p{font-size:12px;line-height:1.5;margin:0 0 14px}
+ .explore-main[data-ui] .recommendation-grid{gap:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+ .explore-main[data-ui] .recommendation-card{position:relative;display:grid;grid-template-areas:'cover';border:1px solid #e3ebf3;border-radius:8px;overflow:hidden;box-shadow:var(--ui-card-shadow)}
+ .explore-main[data-ui] .recommendation-card>img{grid-area:cover;width:100%;height:auto;aspect-ratio:2.04;object-fit:cover}
+ .explore-main[data-ui] .recommendation-card>span{grid-area:cover;align-self:end;padding:45px 16px 14px;background:linear-gradient(transparent,#092d4be8);color:#fff}
+ .explore-main[data-ui] .recommendation-card strong{font-size:20px;color:#fff}
+ .explore-main[data-ui] .recommendation-card small{font-size:12px;color:#fff;display:block;margin-top:4px}
+ .explore-main[data-ui] .results{margin-top:24px}
+ .explore-main[data-ui] .date-option-card{border:1px solid var(--brand-border);border-radius:9px;box-shadow:var(--ui-card-shadow);margin-block:12px}
+}
+@media(min-width:1000px) and (max-width:1199px){
+ .explore-main[data-ui] .search-panel,.explore-main[data-ui] .search-intro{width:100%}
+ .explore-main[data-ui] .search-panel .rev-search-options{gap:10px;flex-wrap:wrap}
+}

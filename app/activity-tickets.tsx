@@ -6,9 +6,11 @@ import {cityAt,cityById} from './cities';
 import {activityContextKey,safeActivityOffer,type ActivityOffer} from './activity-selection';
 import {boundedFetch} from './bounded-fetch';
 import './activity-tickets.css';
+import {activitySearchCity} from '../worker/activity-search-location.mjs';
 export default function ActivityTickets({item,trip,onLink}:{item:Item;trip:Trip;onLink?:(offer:ActivityOffer,context:string,usePrice:boolean)=>void}){
  const context=activityContextKey(trip,item);
- const city=item.locationCity||cityById(item.cityId||'')?.name||cityAt(trip,item.day)?.name||trip.destinationMeta?.city||trip.destination;
+ const locationCity=item.locationCity||cityById(item.cityId||'')?.name||cityAt(trip,item.day)?.name||trip.destinationMeta?.city||trip.destination;
+ const city=activitySearchCity(locationCity);
  const initial=(item.place||item.title).slice(0,200);
  const [searchCity,setSearchCity]=useState(city);
  const [open,setOpen]=useState(false),[query,setQuery]=useState(initial),[results,setResults]=useState<ActivityOffer[]|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[usePrice,setUsePrice]=useState(false);
@@ -29,7 +31,7 @@ export default function ActivityTickets({item,trip,onLink}:{item:Item;trip:Trip;
   {!item.paid&&onLink&&<button type="button" className="secondary" onClick={()=>{setQuery(initial);setOpen(true)}}>{tr(selected?'activity_change':'activity_find')}</button>}
   <Dialog open={open} onOpenChange={close}><DialogContent className="activity-ticket-dialog"><DialogTitle>{tr('activity_title')}</DialogTitle><DialogDescription>{tr('activity_description',{name:item.title,date:addDays(trip.start,item.day-1)})}</DialogDescription>
    <form className="activity-ticket-search" onSubmit={e=>{e.preventDefault();void search();}}><label>{tr('activity_query')}<input required minLength={2} maxLength={200} value={query} onChange={e=>setQuery(e.target.value)}/></label><label>{tr('activity_city')}<input required minLength={2} maxLength={100} value={searchCity} onChange={e=>setSearchCity(e.target.value)}/></label><button type="submit" className="primary" disabled={busy||query.trim().length<2}>{tr(busy?'activity_loading':'activity_search')}</button></form>
-   <p className="inline-note">{tr('activity_price_note')}</p>
+   <p className="inline-note">{tr('activity_price_note')}</p>{city!==locationCity&&<p className="inline-note">{tr('activity_genting_scope')}</p>}
    <label className="activity-ticket-estimate"><input type="checkbox" checked={usePrice} onChange={e=>setUsePrice(e.target.checked)}/><span>{tr('activity_use_estimate')}</span></label>
    {busy&&<p role="status">{tr('activity_loading')}</p>}{error&&<p role="alert">{tr(error)}</p>}
    {results?.length===0&&<p role="status">{tr('activity_empty')}</p>}

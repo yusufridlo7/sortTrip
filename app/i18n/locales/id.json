@@ -1,4 +1,7 @@
 {
+  "saved_new_trip": "Buat rencana baru",
+  "hotel_partner_heading": "Hotel · Trip.com",
+  "transport_partner_heading": "Transportasi · 12Go",
   "ui_0001": "Pilihan hemat",
   "ui_0002": "Pilihan cepat",
   "ui_0003": "Pilihan seimbang",
@@ -22,7 +25,7 @@
   "ui_0022": "hasil AI tersisa",
   "ui_0023": "Informasi kuota Trip Pass",
   "ui_0024": "Kuota dibagi untuk seluruh perjalanan dalam akun ini, termasuk perjalanan baru. Aktif sampai",
-  "ui_0025": ". Permintaan gagal tidak dihitung.",
+  "ui_0025": ". Permintaan gagal tidak dihitung. Saldo ini milik pass yang sedang digunakan; setelah habis, pass lain yang masih berlaku dapat ditampilkan. Pergantian pass tidak menambah kuota.",
   "ui_0026": "Status akses AI",
   "ui_0027": "Trip Pass ditemukan untuk akun ini.",
   "ui_0028": "Akses AI untuk akun ini perlu diperiksa.",
@@ -1013,7 +1016,7 @@
   "transport_gate": "12Go meminta pemeriksaan akses untuk pencarian ini. Harga belum dapat diperbarui; harga lama dan kuota AI tetap.",
   "quota_updated": "Harga diperbarui untuk {{count}} pilihan. Satu kuota AI digunakan. {{saved}}",
   "ai_default_prompt": "Susun perjalanan {{city}} dengan transportasi {{preference}}",
-  "day_option": "Hari {{{day}}}",
+  "day_option": "Hari {{day}}",
   "information_item": "Informasi {{name}}",
   "price_item": "Harga {{name}}",
   "name_item": "Nama {{name}}",
@@ -1267,7 +1270,7 @@
   "rec_check": "Cek budget perjalanan",
   "rec_assumptions": "Contoh {{days}} hari, {{nights}} malam · 1 dewasa · berangkat Jakarta (CGK), pulang-pergi.",
   "rec_scope": "Contoh rencana mandiri, bukan paket yang dapat langsung dipesan. Harga akhir mengikuti tanggal, ketersediaan, dan pilihanmu.",
-  "rec_day": "Hari {{{day}}}",
+  "rec_day": "Hari {{day}}",
   "rec_kl_1": "Tiba di Kuala Lumpur, check-in, lalu berjalan di Pasar Seni dan Chinatown.",
   "rec_kl_2": "Jelajahi KLCC Park dan kawasan Bukit Bintang.",
   "rec_kl_3": "Jelajahi kawasan bersejarah Merdeka Square dan tepian sungai.",
@@ -1329,7 +1332,7 @@
   "account_pass_remaining_other": "{{count}} hasil AI tersisa",
   "account_pass_expiry": "Berlaku hingga {{date}}",
   "account_pass_test": "Akses pengujian",
-  "account_pass_manage": "Untuk membeli atau mengelola Trip Pass, buka itinerary melalui Perjalanan saya.",
+  "account_pass_manage": "Untuk membeli atau mengelola Trip Pass, buka itinerary dari Perjalanan saya. Saldo yang ditampilkan milik pass saat ini; pass lain yang masih berlaku dapat muncul setelah habis.",
   "ai_elapsed": "{{seconds}} detik berjalan",
   "ai_long_running": "Pencarian ini memerlukan waktu lebih lama. Anda dapat membatalkannya dengan tombol di bawah.",
   "google_route_walking_only": "Google Maps hanya mengembalikan rute jalan kaki untuk pencarian ini.",
@@ -1345,5 +1348,7 @@
   "ai_evidence_review": "Perlu diperiksa: {{routes}} sambungan, {{sources}} sumber wisata, {{legs}} sumber transportasi",
   "ai_connection_gap": "Hari {{day}}: sambungan {{from}} → {{to}} belum tercatat lengkap. Jadwal dan tarif belum terverifikasi.",
   "admission_info_source": "Informasi wisata; tarif masih perlu diperiksa",
-  "route_source_unverified": "Sumber untuk kaki perjalanan ini belum terverifikasi; periksa operator dan rute."
+  "route_source_unverified": "Sumber untuk kaki perjalanan ini belum terverifikasi; periksa operator dan rute.",
+  "google_route_choose_time": "Pilih tanggal dan jam keberangkatan sesuai jadwal penerbangan atau kegiatan.",
+  "activity_genting_scope": "Tur Genting dicari dari Kuala Lumpur. Periksa apakah produk berupa tiket gondola atau paket tur dengan transfer; harga dan cakupannya berbeda."
 }

@@ -11,7 +11,9 @@ export function metaDraftWire(body){
  if(Number.isFinite(earliest)&&earliest>=0)schema.properties.activities.items.properties.day.minimum=Math.floor(earliest/1440)+1;
  schema.properties.summary.maxLength=700;
  schema.properties.activities.items.properties.note.maxLength=180;
- if(original.trip?.days<=4)schema.properties.activities.maxItems=Math.max(2,Math.min(16,schema.properties.activities.maxItems||70));
+ // A four-day trip can need more than sixteen records once every airport/stay/
+ // visit/return connector is explicit. Keep the existing schema bound of 70;
+ // output tokens, rather than a conflicting short-trip cap, bound generation.
  const wire={...body,reasoning:{effort:'minimal'},text:{...body.text,format:{...body.text.format,schema}},instructions:body.instructions+'\nWIRE FORMAT: use short source IDs (S1, S2, etc.) in every sourceUrl field according to the supplied sourceRegistry; the server restores original URLs before validation/storage. This applies ONLY to sourceUrl fields, not quote text. Keep notes compact. Do not add day-1 activities if earliestMinute starts on day 2.',input:JSON.stringify({...original,sourceRegistry:registry})};
  function restore(result){
   if(result.status!=='completed')return result;

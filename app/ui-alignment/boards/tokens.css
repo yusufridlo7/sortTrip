@@ -1,0 +1,11 @@
+/* Desktop reference boards 01–03; Guide retains its own palette. */
+@media(min-width:1000px){
+ :root:not(.dark):not([data-theme=dark]) body:has(main[data-ui="landscape"]){--brand-text:#123452;--brand-muted:#61758d;--brand-primary:#0078d4;--brand-link:#0071c9;--brand-hover:#0063b3;--brand-focus:#0078d4;--brand-background:#fff;--brand-surface:#fff;--brand-subtle:#f3f8fd;--brand-tint:#eaf4ff;--brand-border:#dfe8f1;--brand-border-strong:#b6d5ee;--brand-radius:8px;--brand-radius-card:10px;--ui-card-shadow:0 3px 14px #17395b09;--brand-shadow:var(--ui-card-shadow)}
+ main[data-ui="landscape"]{font-size:14px;line-height:1.55}
+ main[data-ui="landscape"] :is(h1,h2,h3,h4){color:var(--brand-text);font-weight:700;letter-spacing:-.025em}
+ main[data-ui="landscape"] :is(input,select,textarea){font-family:inherit;font-size:14px;line-height:1.45}
+ main[data-ui="landscape"] :is(.primary,.secondary,.card-cta){min-height:38px;padding:9px 15px;border-radius:7px;font-size:13px;line-height:1.4;box-shadow:none}
+ main[data-ui="landscape"] :is(input:not([type=checkbox]):not([type=radio]),select,[data-slot=select-trigger]){min-height:38px;border-radius:7px;box-shadow:none}
+ main[data-ui="landscape"] :is(input,select,textarea,[data-slot=select-trigger]):focus-visible{outline:2px solid var(--brand-focus);outline-offset:2px}
+ main[data-ui="landscape"] :is(.eyebrow,.inline-note,.muted){letter-spacing:normal}
+}

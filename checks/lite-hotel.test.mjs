@@ -1,6 +1,26 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {liteHotelConfigured,checkedLiteOffer,liteHotelPrices,groupHotelAreas,applyLiteHotels,LITE_HOTEL_SOURCE} from '../worker/lite-hotel.js';
+test('different neighbourhood labels in one city do not force hotel moves; overnight arrival covers the preceding night',()=>{
+ const area={category:'Area menginap',city:'Kuala Lumpur',sourceUrl:'https://tourism.test',time:'01:00'};
+ const query={...q,start:'2026-11-07',days:4,arrival:'22:25',arrivalDay:0};
+ const grouped=groupHotelAreas({activities:[{...area,id:'a',day:2,title:'Bukit Bintang',location:'Bukit Bintang'},{...area,id:'b',day:3,time:'19:00',title:'KL Sentral',location:'KL Sentral'}]},query);
+ assert.equal(grouped.activities.length,1);assert.equal(grouped.activities[0].checkin,'2026-11-07');assert.equal(grouped.activities[0].checkout,'2026-11-10');
+ assert.equal(groupHotelAreas({activities:[{...area,id:'a',day:1,title:'A'},{...area,id:'b',day:2,title:'B'}]},{...query,interests:'pindah hotel'}).activities.length,2);
+ const selected=groupHotelAreas({activities:[{...area,id:'a',day:2,title:'A'}]},{...query,retained:[{category:'Penginapan',day:2,checkin:'2026-11-07',checkout:'2026-11-08'}]});
+ assert.equal(selected.activities[0].checkin,'2026-11-08');
+});
+
+test('supplier hotel rebinding updates explicit stay transfers without inventing fares or replacing neighbourhood visits',()=>{
+ const area={id:'a',category:'Area menginap',city:'Kuala Lumpur',day:1,time:'16:00',title:'Bukit Bintang',location:'Bukit Bintang',checkin:'2026-11-07',checkout:'2026-11-10'};
+ const leg={fromPlace:'city stay',toPlace:'Museum',mode:'Walking',sourceUrl:'https://tourism.test',fare:'MYR 5',duration:'5 minutes',checkedAt:'2026-11-01'};
+ const route={id:'r',category:'Transfer',day:2,title:'Transfer stay to Museum',fromPlace:'city stay',toPlace:'Museum',routeOptions:[{legs:[leg]}]};
+ const visit={id:'v',category:'Wisata',day:2,title:'Bukit Bintang',location:'Bukit Bintang'};
+ const visitRoute={...route,id:'v-route',title:'Bukit Bintang to Museum',fromPlace:'Bukit Bintang'};
+ const next=applyLiteHotels({activities:[area,route,visit,visitRoute],sources:[]},[{id:'ai-plan-a',provider:'LiteAPI',hotelName:'Real supplier hotel',checkin:area.checkin,checkout:area.checkout}]);
+ assert.equal(next.activities[1].fromPlace,'Real supplier hotel');assert.equal(next.activities[1].routeOptions[0].legs[0].fare,undefined);assert.equal(next.activities[1].routeOptions[0].legs[0].duration,undefined);
+ assert.equal(next.activities[3],visitRoute);assert.equal(route.fromPlace,'city stay');
+});
 import {researchPrices} from '../worker/price-research.js';
 import {researchRequest,draftRequest} from '../worker/ai-draft.js';
 import {handleItinerary} from '../worker/itinerary.js';
@@ -62,7 +82,7 @@ test('consecutive area nights group into one stay; sourced supplier enrichment p
  const route={id:'route',day:1,category:'Transfer',fromPlace:'Bukit Bintang',toPlace:'Park',routeOptions:[]};
  const plan={activities:[a,route,{...a,id:'b',day:2},{...a,id:'c',day:3,city:'Melaka'}],sources:[{url:source,title:'Area'}]};
  const grouped=groupHotelAreas(plan,q);assert.equal(grouped.activities.length,3);assert.equal(grouped.activities[0].checkout,'2027-01-12');
- const quote=checkedLiteOffer(hotel,rate(),q,{...target,checkout:'2027-01-12'});const enriched=applyLiteHotels(grouped,[quote]);assert.equal(enriched.activities[0].title,'Hotel B');assert.equal(enriched.activities[0].provider,'LiteAPI');assert.equal(enriched.activities[1],route);assert.ok(enriched.sources.some(s=>s.url===LITE_HOTEL_SOURCE));
+ const quote=checkedLiteOffer(hotel,rate(),q,{...target,checkout:'2027-01-12'});const enriched=applyLiteHotels(grouped,[quote]);assert.equal(enriched.activities[0].title,'Hotel B');assert.equal(enriched.activities[0].provider,'LiteAPI');assert.equal(enriched.activities[1].fromPlace,'Hotel B');assert.equal(enriched.activities[1].toPlace,'Park');assert.equal(enriched.activities[1].sourceRelevant,false);assert.equal(route.fromPlace,'Bukit Bintang');assert.ok(enriched.sources.some(s=>s.url===LITE_HOTEL_SOURCE));
 });
 test('AI chooses sourced neighborhoods instead of hotel properties when the API is available',()=>{
  const research=researchRequest(q,env),draft=draftRequest(q,env,'Sourced area',[{url:'https://tourism.test',title:'Area'}]);

@@ -10,6 +10,34 @@ const cityAliases={singapura:'Singapore',melaka:'Melaka','george town penang':'G
 const safeId=v=>typeof v==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(v);
 const date=v=>/^\d{4}-\d{2}-\d{2}$/.test(v||'')&&Number.isFinite(Date.parse(v+'T12:00:00Z'))&&new Date(v+'T12:00:00Z').toISOString().slice(0,10)===v;
 const amount=v=>Number.isFinite(Number(v))&&Number(v)>0&&Number(v)<=1e9;
+// A supplier hotel replaces a researched area, not the evidence for its route.
+// Rebind exact area endpoints only and invalidate old fare/duration claims.
+function rebindStayTransfers(activities,aliases){
+ const replace=(value,item)=>{
+  const explicit=/\b(?:stay|hotel|accommodation|penginapan)\b/i.test(item.title||'');
+  // A neighbourhood may also be a sightseeing stop. Do not turn that visit
+  // into a hotel merely because the lodging research used the same name.
+  if(!explicit&&activities.some(v=>v.day===item.day&&v.category==='Wisata'&&[v.title,v.location].some(n=>clean(n)===clean(value))))return value;
+  const exact=aliases.find(a=>a.days.includes(item.day)&&clean(value)===clean(a.from));
+  if(exact)return exact.to;
+  if(explicit&&/^(?:stay|city stay|hotel|accommodation|penginapan)$/i.test(value||'')){
+   const choices=[...new Set(aliases.filter(a=>a.days.includes(item.day)).map(a=>a.to))];
+   if(choices.length===1)return choices[0];
+  }
+  return value;
+ };
+ return activities.map(a=>{
+  if(a.category!=='Transfer')return a;
+  const fromPlace=replace(a.fromPlace,a),toPlace=replace(a.toPlace,a);
+  if(fromPlace===a.fromPlace&&toPlace===a.toPlace)return a;
+  return {...a,fromPlace,toPlace,title:fromPlace+' → '+toPlace,sourceRelevant:false,routeOptions:a.routeOptions?.map(o=>({...o,legs:o.legs.map(l=>{
+   const from=replace(l.fromPlace,a),to=replace(l.toPlace,a);
+   if(from===l.fromPlace&&to===l.toPlace)return l;
+   const {fare,duration,checkedAt,...rest}=l;
+   return {...rest,fromPlace:from,toPlace:to,sourceRelevant:false};
+  })})),note:(a.note||'')+' · Hotel/area endpoint updated; verify route and travel time. Fare unavailable.'};
+ });
+}
 function scope(q,t){
  const dayCity=q.dailyCities?.find(x=>x.day===t.day);
  const city=t.airportScope===true?'Sepang':cityAliases[clean(t.city||dayCity?.city||q.city)]||t.city||dayCity?.city||q.city;
@@ -32,13 +60,23 @@ export function groupHotelAreas(plan,q){
  const scoped=plan.activities.map(a=>a.category==='Area menginap'&&a.day===airport?.day?{...a,city:airport.city,title:airport.area,location:airport.area,airportScope:true,sourceUrl:airportSource,note:q.language==='en'?'Requested final night near KLIA. Check terminal access and onward transport.':'Permintaan malam terakhir dekat KLIA. Periksa akses terminal dan transportasi selanjutnya.'}:a);
  const lodging=scoped.filter(a=>a.category==='Area menginap'&&!protectedIds.has(a.id)).sort((a,b)=>a.day-b.day);
  const groups=[];
+ // Avoid a new hotel every night merely because research used different
+ // neighbourhood names. Explicit hotel moves, different cities and KLIA
+ // requests remain separate; paid/retained nights are never covered.
+ const separate=/\b(?:pindah\s+(?:hotel|penginapan)|hotel\s+berbeda|ganti\s+hotel\s+(?:tiap|setiap)|different\s+hotels|change\s+hotels|switch\s+hotels)\b/i.test(q.interests||'');
  for(const a of lodging){
-  const previous=groups.at(-1),key=clean(a.city||q.city)+'|'+clean(a.location||a.title);
-  if(previous&&previous.key===key&&previous.lastDay+1===a.day){previous.lastDay=a.day;previous.ids.push(a.id);previous.activity.checkout=at(a.day+1);}
-  else groups.push({key,lastDay:a.day,ids:[a.id],activity:{...a,checkin:at(a.day),checkout:at(a.day+1)}});
+  const previous=groups.at(-1),key=clean(a.city||q.city)+'|'+(separate||a.airportScope?clean(a.location||a.title):'city-stay');
+  if(previous&&previous.key===key&&previous.lastDay+1===a.day){previous.lastDay=a.day;previous.ids.push(a.id);previous.areas.push(a.location||a.title);previous.activity.checkout=at(a.day+1);}
+  else {
+   // A post-midnight arrival check-in needs the preceding hotel night. Do not
+   // reinterpret arbitrary early check-ins or overlap a selected retained stay.
+   const overnight=a.day===(q.arrivalDay||0)+2&&/^\d{2}:\d{2}$/.test(q.arrival||'')&&q.arrival>='18:00'&&a.time<'06:00'&&!retainedNight({day:a.day-1});
+   groups.push({key,lastDay:a.day,ids:[a.id],areas:[a.location||a.title],activity:{...a,checkin:at(overnight?a.day-1:a.day),checkout:at(a.day+1)}});
+  }
  }
  const grouped=new Map(groups.map(g=>[g.ids[0],g.activity])),removed=new Set([...protectedIds,...groups.flatMap(g=>g.ids.slice(1))]);
- return {...plan,...(airport&&scoped.some(a=>a.airportScope)?{sources:[...(plan.sources||[]).filter(s=>s.url!==airportSource),{url:airportSource,title:'KLIA / Sepang location reference'}]}:{}),activities:scoped.filter(a=>!removed.has(a.id)).map(a=>grouped.get(a.id)||a)};
+ const aliases=groups.flatMap(g=>g.areas.map(from=>({from,to:g.activity.location||g.activity.title,days:Array.from({length:g.lastDay-g.activity.day+1},(_,i)=>g.activity.day+i)})));
+ return {...plan,...(airport&&scoped.some(a=>a.airportScope)?{sources:[...(plan.sources||[]).filter(s=>s.url!==airportSource),{url:airportSource,title:'KLIA / Sepang location reference'}]}:{}),activities:rebindStayTransfers(scoped.filter(a=>!removed.has(a.id)).map(a=>grouped.get(a.id)||a),aliases)};
 }
 // Require public standard rates, full occupancy, IDR and an explicit tax breakdown.
 export function checkedLiteOffer(hotel,offer,q,t,diagnostics,{memberCheckout=false}={}){
@@ -130,5 +168,12 @@ export function applyLiteHotels(plan,prices){
   const price=quotes.get('ai-plan-'+a.id);if(!price||a.category!=='Area menginap')return a;
   return {...a,category:'Penginapan',title:price.hotelName,location:price.hotelName,sourceUrl:LITE_HOTEL_SOURCE,hotelId:price.hotelId,provider:'LiteAPI',hotelArea:price.hotelArea,geo:price.geo};
  });
- return {...plan,activities,sources:prices.some(p=>p.provider==='LiteAPI')?[...plan.sources.filter(s=>s.url!==LITE_HOTEL_SOURCE),{url:LITE_HOTEL_SOURCE,title:'LiteAPI hotel rate data'}]:plan.sources};
+ const aliases=plan.activities.flatMap(a=>{
+  const quote=quotes.get('ai-plan-'+a.id);if(!quote||a.category!=='Area menginap')return [];
+  const nights=Math.round((Date.parse(quote.checkout)-Date.parse(quote.checkin))/86400000);
+  const first=a.day-Math.max(0,Math.round((Date.parse(quote.checkin)-Date.parse(a.checkin||quote.checkin))/86400000));
+  const days=Array.from({length:nights+1},(_,i)=>first+i);
+  return [a.location,a.title].filter(Boolean).map(from=>({from,to:quote.hotelName,days}));
+ });
+ return {...plan,activities:rebindStayTransfers(activities,aliases),sources:prices.some(p=>p.provider==='LiteAPI')?[...plan.sources.filter(s=>s.url!==LITE_HOTEL_SOURCE),{url:LITE_HOTEL_SOURCE,title:'LiteAPI hotel rate data'}]:plan.sources};
 }

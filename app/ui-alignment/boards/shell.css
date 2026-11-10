@@ -1,0 +1,25 @@
+@media(min-width:1000px){
+ body:has(main[data-ui="landscape"]) .header{height:64px;min-height:64px;padding-inline:max(28px,calc((100vw - 1360px)/2));gap:28px;background:white;border-bottom:1px solid #e3eaf2;box-shadow:0 2px 8px #153d5805}
+ body:has(main[data-ui="landscape"]) .header .sorttrip-logo>.brand-artwork{width:142px;height:46px}
+ body:has(main[data-ui="landscape"]) .header nav{gap:24px;align-self:stretch;align-items:stretch;margin-left:12px}
+ body:has(main[data-ui="landscape"]) .header nav button{position:relative;font-size:13px;font-weight:500;gap:5px;color:var(--brand-text);padding-block:0}
+ body:has(main[data-ui="landscape"]) .header nav .nav-active{color:var(--brand-link);border-bottom:2px solid var(--brand-link)}
+ body:has(main[data-ui="landscape"]) .header :is(.language-switcher select,.account){min-height:34px;font-size:12px;border:1px solid var(--brand-border);border-radius:7px;padding:6px 10px}
+ body:has(main[data-ui="landscape"]) .header .account{color:var(--brand-link);background:#fff;gap:8px;white-space:nowrap}
+ body:has(main[data-ui="landscape"]) .header .avatar{width:28px;height:28px;background:#e7f2fd;color:#1476b9}
+ main[data-ui="landscape"]{position:relative;width:calc(100% - 64px);max-width:1360px;padding:12px 0 0;margin-inline:auto}
+ main[data-ui="landscape"]>.page-utilities{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 4px;font-size:11px}
+ main[data-ui="landscape"]>.demo{margin:0 0 10px;padding:0;min-height:18px;font-size:11px;line-height:1.5;gap:8px}
+ main[data-ui="landscape"]>.demo button{font-size:11px;min-height:24px}
+ main[data-ui="landscape"] .site-footer{margin-top:32px;padding:24px 0;gap:24px;border-color:var(--brand-border)}
+ main[data-ui="landscape"] .site-footer-intro{gap:24px}
+ main[data-ui="landscape"] .site-footer-intro p{font-size:12px;max-width:340px}
+ main[data-ui="landscape"] .site-footer-links{gap:2px 24px}
+ main[data-ui="landscape"] .site-footer-links :is(a,button){font-size:12px;min-height:30px}
+}
+@media(min-width:1151px){
+ main[data-ui="landscape"]>.page-utilities{position:absolute;top:10px;right:0;width:380px;min-height:24px;margin:0;z-index:2}
+ main[data-ui="landscape"]>.page-utilities button{min-height:24px;padding:2px 0;font-size:11px}
+ main[data-ui="landscape"]>.demo{min-height:26px;padding-right:400px;margin-bottom:12px}
+}
+@media(min-width:1000px) and (max-width:1150px){body:has(main[data-ui="landscape"]) .header{gap:14px}body:has(main[data-ui="landscape"]) .header nav{gap:12px;margin-left:0}body:has(main[data-ui="landscape"]) .header .sorttrip-logo>.brand-artwork{width:120px}}

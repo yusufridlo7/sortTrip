@@ -33,7 +33,7 @@ test('missing time remains unknown, without an invented clock',()=>{
  assert.ok(html.includes('--:--'));assert.ok(!html.includes('07:25'));
 });
 test('desktop primary buttons and links retain WCAG AA text contrast',async()=>{
- const css=await readFile(new URL('../app/ui-alignment/palette-type.css',import.meta.url),'utf8');
+ const css=await readFile(new URL('../app/ui-alignment/boards/tokens.css',import.meta.url),'utf8');
  const luminance=hex=>{const rgb=hex.match(/[0-9a-f]{2}/gi).map(n=>parseInt(n,16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;};
  for(const token of ['primary','link']){const color=css.match(new RegExp('--brand-'+token+':(#[0-9a-f]{6})','i'))?.[1];assert.ok(color);assert.ok(1.05/(luminance(color)+.05)>=4.5,token+' contrast');}
 });

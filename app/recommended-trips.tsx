@@ -8,7 +8,7 @@ type Stats={n:number;mean:number;sd:number|null;min:number};
 
 type Recommendation={id:string;city:string;airport:string;image:string;budget:number|null;days:number;nights:number;hotelTotal:number|null;foodTotal:number;flightEstimate:number|null;hotelMinimum:number|null;foodPerDay:number;flight:Stats|null;months:number;updatedAt:string|null;tickets?:{series:string;title:string;basis:string;stats:Stats|null}[]};
 
-const defaults:Recommendation[]=[['kl','Kuala Lumpur','KUL','kuala-lumpur'],['hanoi','Hanoi','HAN','hanoi'],['singapore','Singapore','SIN','singapore']].map(([id,city,airport,image])=>({id,city,airport,image:'/'+image+'.jpg'+(id==='hanoi'?'?v=2':''),budget:null,days:id==='hanoi'?5:4,nights:id==='hanoi'?4:3,hotelTotal:null,foodTotal:0,flightEstimate:null,hotelMinimum:null,foodPerDay:0,flight:null,months:0,updatedAt:null}));
+const defaults:Recommendation[]=[['kl','Kuala Lumpur','KUL','kuala-lumpur'],['hanoi','Hanoi','HAN','hanoi'],['singapore','Singapore','SIN','singapore']].map(([id,city,airport,image])=>({id,city,airport,image:id==='kl'?'/kuala-lumpur-skyline.jpg':'/'+image+'.jpg'+(id==='hanoi'?'?v=2':''),budget:null,days:id==='hanoi'?5:4,nights:id==='hanoi'?4:3,hotelTotal:null,foodTotal:0,flightEstimate:null,hotelMinimum:null,foodPerDay:0,flight:null,months:0,updatedAt:null}));
 
 export default function RecommendedTrips({onSelect}:{onSelect:(r:Recommendation)=>void}){
 

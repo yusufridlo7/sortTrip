@@ -1,6 +1,6 @@
 import {test,before,after} from 'node:test';
 import assert from 'node:assert/strict';
-import {createAIProvider,providerConfigured,assistantCapabilities,META_LIMITS} from '../worker/ai-provider.js';
+import {createAIProvider,providerConfigured,assistantCapabilities,META_LIMITS,META_TOKEN_ENVELOPE_USD,estimatedMetaTokenUSD} from '../worker/ai-provider.js';
 import {validateAssistantMedia,readAssistantBody,MEDIA_LIMITS} from '../worker/assistant-media.mjs';
 import {assistantSearchTools} from '../worker/assistant-search-tools.js';
 import {handleItinerary} from '../worker/itinerary.js';
@@ -15,6 +15,59 @@ const text={type:'message',role:'assistant',content:[{type:'output_text',text:'V
 const response=(output=[text],usage={input_tokens:100,output_tokens:10})=>Response.json({status:'completed',output,usage});
 const tool=(name='search_hotels',args={city:trip.city},id='call-1')=>({type:'function_call',name,arguments:JSON.stringify(args),call_id:id,status:'completed'});
 const research={...request,tools:[{type:'web_search'}]};
+
+test('current Standard token envelope is not represented as a global USD100 ledger or invoice',()=>{
+ assert.equal(META_TOKEN_ENVELOPE_USD,0.202);
+ assert.equal(estimatedMetaTokenUSD(80000,24000),0.202);
+ const limits=assistantCapabilities(config()).costControls;
+ assert.equal(limits.accountSpendVerified,false);assert.equal(limits.accountUSDHardCapEnforced,false);
+ assert.equal(limits.tokenLimits.inputPerCall,24000);assert.equal(limits.tokenLimits.inputTotal,80000);
+ assert.equal(limits.tokenLimits.outputTotal,24000);assert.match(limits.excludes,/search-query/);
+});
+
+test('queued work preserves first input limit cause and never starts a second paid request',async()=>{
+ let counts=0,inferences=0;
+ const fetcher=async url=>{if(url.endsWith('/input_tokens')){counts++;return Response.json({input_tokens:24001});}inferences++;assert.fail('over-limit inference');};
+ const provider=createAIProvider(config(),{trip,fetcher});
+ const results=await Promise.all([provider(request),provider(request)]);
+ for(const r of results)assert.equal((await r.json()).error.code,'AI_INPUT_LIMIT');
+ assert.equal(counts,1);assert.equal(inferences,0);
+});
+
+test('required source grounding cannot be silently skipped or execute an unadvertised function',async()=>{
+ let supplierCalls=0;
+ const registry={definitions:[{type:'function',name:'search_hotels'}],run:async()=>{supplierCalls++;assert.fail('not exposed in this round');}};
+ const mock=mockModel(()=>response([tool('not_exposed')]));
+ const result=await createAIProvider(config(),{trip,fetcher:mock.fetcher,toolRegistry:registry})({...research,tool_choice:'required'});
+ assert.equal((await result.json()).error.code,'AI_TOOL_REJECTED');assert.equal(supplierCalls,0);
+ assert.deepEqual(mock.calls[1].body.tools,[{type:'web_search',search_context_size:'low'},...registry.definitions]);
+ assert.equal(mock.calls[1].body.tool_choice,'auto');assert.match(mock.calls[1].body.instructions,/MANDATORY GROUNDING/);
+});
+
+test('Meta required grounding fails closed without sources despite auto-only wire compatibility',async()=>{
+ const mock=mockModel(()=>response([text]));const provider=createAIProvider(config(),{trip,fetcher:mock.fetcher});
+ const result=await provider({...research,tool_choice:'required'});
+ assert.equal((await result.json()).error.code,'AI_SOURCES_UNAVAILABLE');assert.equal(mock.calls.length,2);
+ assert.equal((await (await provider(request)).json()).error.code,'AI_SOURCES_UNAVAILABLE');assert.equal(mock.calls.length,2);
+});
+
+test('search reserves full bounded context before inference and reports the cumulative guard',async()=>{
+ const mock=mockModel(()=>response([text],{input_tokens:20000,output_tokens:10}));
+ const provider=createAIProvider(config(),{trip,fetcher:mock.fetcher});
+ for(let i=0;i<3;i++)assert.equal((await provider(research)).status,200);
+ const blocked=await provider(research);assert.equal((await blocked.json()).error.code,'AI_INPUT_TOTAL_LIMIT');
+ assert.equal(mock.calls.filter(c=>!c.url.endsWith('/input_tokens')).length,3);
+});
+
+test('media preprocessing token expansion is reconciled only within reserved unchanged hard caps',async()=>{
+ const model=mockModel(()=>response([text],{input_tokens:3224,output_tokens:388}));
+ const p=createAIProvider(config(),{trip,fetcher:model.fetcher});
+ assert.equal((await p({...request,max_output_tokens:1200},{media:[mp4(8)]})).status,200);
+ const over=mockModel(()=>response([text],{input_tokens:24001,output_tokens:388}));
+ const blocked=createAIProvider(config(),{trip,fetcher:over.fetcher});
+ assert.equal((await (await blocked({...request,max_output_tokens:1200},{media:[mp4(8)]})).json()).error.code,'AI_INPUT_LIMIT');
+ assert.equal((await (await blocked(request)).json()).error.code,'AI_INPUT_LIMIT');assert.equal(over.calls.length,2);
+});
 function mockModel(fn=()=>response()){
  const calls=[];const fetcher=async(url,options)=>{assert.ok(url.startsWith('https://api.meta.ai/v1/responses'));const b=JSON.parse(options.body);calls.push({url,body:b});return url.endsWith('/input_tokens')?Response.json({input_tokens:100}):fn(b,calls.filter(c=>!c.url.endsWith('/input_tokens')).length);};
  return {calls,fetcher};
@@ -81,7 +134,7 @@ test('search-added input context is reconciled against unchanged hard limits; Me
 });
 test('actual search input cannot exceed cumulative budget; route research cannot call supplier functions',async()=>{
  const heavy=mockModel(()=>response([text],{input_tokens:META_LIMITS.inputPerCall,output_tokens:10}));const p=createAIProvider(config(),{trip,fetcher:heavy.fetcher});
- for(let n=0;n<3;n++)assert.equal((await p(research)).status,200);assert.equal((await p(research)).status,503);assert.equal(heavy.calls.length,8);
+ for(let n=0;n<3;n++)assert.equal((await p(research)).status,200);assert.equal((await p(research)).status,503);assert.equal(heavy.calls.length,7); // fourth count allowed, fourth paid inference blocked before search can add context
  const route=mockModel();assert.equal((await createAIProvider(config(),{trip,fetcher:route.fetcher})({...research,input:JSON.stringify({trip,preliminaryResearch:'fixture'})})).status,200);
  assert.deepEqual(route.calls[1].body.tools.map(t=>t.name||t.type),['web_search']);
 });
@@ -142,7 +195,8 @@ test('authenticated multimodal itinerary uses normal quota and never returns med
   if(url.includes('/finish_ai_request')){finishes.push(JSON.parse(options.body).p_success);return Response.json({ok:true});}
   const body=JSON.parse(options.body);if(url.endsWith('/input_tokens'))return Response.json({input_tokens:100});
   assert.equal(url,'https://api.meta.ai/v1/responses');
-  if(body.tools){researchMedia++;assert.equal(body.input[0].content[1].type,'input_image');return response([{type:'web_search_call',action:{sources:[{url:source}]}},text]);}
+  if(Array.isArray(body.input)){researchMedia++;assert.equal(body.input[0].content[1].type,'input_image');assert.equal(body.tools,undefined);return response([text]);}
+  if(body.tools){assert.equal(typeof body.input,'string');assert.equal(JSON.parse(body.input).unverifiedMediaEvidence,'Verified fixture result');return response([{type:'web_search_call',action:{sources:[{url:source}]}},text]);}
   assert.equal(JSON.parse(body.input).trip.media,undefined);return response([{...text,content:[{type:'output_text',text:JSON.stringify(plan)}]}]);
  };
  const env={...config(),SUPABASE_URL:'https://db.test',SUPABASE_PUBLISHABLE_KEY:'fixture',SUPABASE_SERVICE_ROLE_KEY:'fixture',AI_LIMITER:{limit:async()=>({success:true})}};

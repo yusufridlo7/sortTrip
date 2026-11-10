@@ -8,6 +8,7 @@ test('Meta-only source compaction is lossless and schema keeps arrival bounds wi
  const original=draftRequest(q,{},'Evidence',[{url:source,title:'Source'}]),before=structuredClone(original),wire=metaDraftWire(original);
  assert.deepEqual(original,before);assert.deepEqual(wire.body.text.format.schema.properties.activities.items.properties.sourceUrl.enum,['S1']);
  assert.equal(wire.body.text.format.schema.properties.activities.items.properties.day.minimum,2);
+ assert.equal(wire.body.text.format.schema.properties.activities.maxItems,70); // do not drop required connectors to fit sixteen records
  assert.equal(JSON.parse(wire.body.input).sourceRegistry.S1,source);
  const restored=wire.restore({status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({activities:[{sourceUrl:'S1',note:'S1 stays literal',routeOptions:[{legs:[{sourceUrl:'S1'}]}],admission:{sourceUrl:'S1',quote:'S1 untouched'}}]})}]}]});
  const result=JSON.parse(restored.output[0].content[0].text);assert.equal(result.activities[0].sourceUrl,source);assert.equal(result.activities[0].routeOptions[0].legs[0].sourceUrl,source);assert.equal(result.activities[0].note,'S1 stays literal');assert.equal(result.activities[0].admission.quote,'S1 untouched');

@@ -1,10 +1,11 @@
 // Presentation-only imports. Keep each component independently reviewable.
-import './shell.css';
-import './discovery.css';
-import './flights.css';
-import './partners.css';
-import './planner.css';
-import './account-support.css';
-import './checkout.css';
+import './boards/shell.css';
+import './boards/discovery.css';
+import './boards/flights.css';
+import './boards/partners.css';
+import './boards/planner.css';
+import './boards/account-support.css';
+import './boards/checkout.css';
 import './guide.css';
-import './palette-type.css';
+import './boards/tokens.css';
+import './boards/responsive.css';
