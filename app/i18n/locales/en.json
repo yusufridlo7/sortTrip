@@ -1021,7 +1021,7 @@
   "price_item": "Price for {{name}}",
   "name_item": "Name {{name}}",
   "time_item": "Time {{name}}",
-  "cost_item": "Cost {{name}}",
+  "cost_item": "Item & status",
   "delete_item": "Delete {{name}}",
   "checked_date": " · checked {{date}}",
   "category_meal": "Food",
@@ -1350,5 +1350,12 @@
   "admission_info_source": "Attraction information; check admission fees separately",
   "route_source_unverified": "The source for this leg is unverified; check the operator and route.",
   "google_route_choose_time": "Choose the departure date and time after checking your flight or activity schedule.",
-  "activity_genting_scope": "Genting tours are searched from Kuala Lumpur. Check whether the product is a gondola ticket or a tour with transfers; the prices and inclusions differ."
+  "activity_genting_scope": "Genting tours are searched from Kuala Lumpur. Check whether the product is a gondola ticket or a tour with transfers; the prices and inclusions differ.",
+  "trip_details_settings": "Trip details & settings",
+  "cost_table_label": "Trip cost breakdown",
+  "cost_category": "Category",
+  "cost_source": "Price source",
+  "cost_actions": "Details & booking",
+  "cost_amount": "Amount",
+  "cost_source_unavailable": "Unverified"
 }

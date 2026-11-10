@@ -9,3 +9,4 @@ import './boards/checkout.css';
 import './guide.css';
 import './boards/tokens.css';
 import './boards/responsive.css';
+import './boards/refinements.css';

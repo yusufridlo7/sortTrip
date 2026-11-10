@@ -1,0 +1,83 @@
+/* Targeted fixes from the online page review; never applies to Guide. */
+main[data-ui="landscape"] .budget-line strong small{display:block;margin-top:4px;font-size:11px;line-height:1.45;font-weight:400;color:var(--brand-muted)}
+.support-main[data-ui="landscape"]>.page-utilities{position:static;width:auto;margin:0 0 12px;min-height:28px;justify-content:flex-end}
+.support-main[data-ui="landscape"]>.page-utilities button{background:#fff;color:var(--brand-link);border:1px solid var(--brand-border);border-radius:7px;padding:6px 10px;min-height:36px}
+.planner-main[data-ui] .trip-settings{border:1px solid var(--brand-border);background:#fff;border-radius:8px;margin:0 0 12px;min-width:0}
+.planner-main[data-ui] .trip-settings>summary{cursor:pointer;font-size:13px;font-weight:600;padding:11px 14px;min-height:44px;color:var(--brand-link)}
+.planner-main[data-ui] .trip-settings>summary:focus-visible,.planner-main[data-ui] .cost-actions summary:focus-visible{outline:2px solid var(--brand-focus);outline-offset:2px}
+.planner-main[data-ui] .trip-settings-content{padding:0 14px 14px;min-width:0}
+.planner-main[data-ui] .trip-settings-content .selected-flight{margin-top:4px}
+.planner-main[data-ui] .cost-table{border:1px solid var(--brand-border);border-radius:9px;background:#fff;margin:14px 0;min-width:0}
+.planner-main[data-ui] :is(.cost-table-heading,.cost-table .cost-row){display:grid;grid-template-columns:120px minmax(150px,1fr) 100px 150px 125px;gap:12px;align-items:start;padding:14px;margin:0;min-width:0}
+.planner-main[data-ui] .cost-table-heading{background:#f3f8fd;border-bottom:1px solid var(--brand-border);border-radius:9px 9px 0 0;font-size:12px;font-weight:650}
+.planner-main[data-ui] .cost-table .cost-row{border:0;border-bottom:1px solid var(--brand-border);border-radius:0;box-shadow:none;font-size:12px;line-height:1.55}
+.planner-main[data-ui] .cost-table .cost-row:last-child{border-bottom:0}
+.planner-main[data-ui] .cost-row>*{min-width:0;overflow-wrap:anywhere}
+.planner-main[data-ui] .cost-category{display:flex;gap:6px;align-items:flex-start;font-size:12px}
+.planner-main[data-ui] .cost-category svg{flex:none;margin-top:2px;color:#5c8cae}
+.planner-main[data-ui] .cost-table .cost-item{min-width:0}
+.planner-main[data-ui] .cost-table .cost-item h3{font-size:13px;line-height:1.5;margin:0 0 6px}
+.planner-main[data-ui] .cost-table .cost-item p{font-size:11px;line-height:1.5;margin:0;color:var(--brand-muted)}
+.planner-main[data-ui] .cost-source{font-size:12px;color:var(--brand-muted)}
+.planner-main[data-ui] .cost-actions summary{cursor:pointer;min-height:36px;padding:7px 8px;border:1px solid #d4e6f5;border-radius:6px;background:#f7fbff;color:var(--brand-link);font-size:12px}
+.planner-main[data-ui] .cost-actions details[open]{grid-column:1/-1}
+.planner-main[data-ui] .cost-row .cost-category{grid-column:1;grid-row:1}
+.planner-main[data-ui] .cost-row .cost-item{grid-column:2;grid-row:1}
+.planner-main[data-ui] .cost-row .cost-source{grid-column:3;grid-row:1}
+.planner-main[data-ui] .cost-row .cost-actions{grid-column:4;grid-row:1}
+.planner-main[data-ui] .cost-row .cost-amount{grid-column:5;grid-row:1}
+.planner-main[data-ui] .cost-row .cost-actions:has(details[open]){grid-column:2/-1;grid-row:2}
+.planner-main[data-ui] .cost-actions .item-booking-group{padding:10px 0;min-width:0}
+.planner-main[data-ui] .cost-amount{text-align:right}
+.planner-main[data-ui] .cost-amount>button{display:block;margin:0 0 0 auto;min-height:40px;font-size:13px;text-align:right;max-width:100%;color:var(--brand-text)}
+.planner-main[data-ui] .cost-amount>button span{display:block;color:var(--brand-link);font-size:12px;margin-top:4px}
+main[data-ui] .lite-hotel-search{padding:0;border:0;background:#fff;box-shadow:none}
+main[data-ui] .lite-hotel-search .direct-heading h1{font-size:28px;line-height:1.25}
+main[data-ui] .lite-hotel-form{gap:14px;padding:18px;margin:18px 0;border:1px solid var(--brand-border);border-radius:9px;background:#fff;box-shadow:var(--ui-card-shadow)}
+main[data-ui] .lite-hotel-form label{font-size:12px;gap:6px}
+main[data-ui] .lite-hotel-form :is(input,select){min-height:42px;padding:9px 11px;border-radius:7px}
+main[data-ui] .lite-hotel-results{gap:16px}
+main[data-ui] .lite-hotel-card{padding:18px;gap:22px;border-radius:9px;border:1px solid var(--brand-border);background:#fff;box-shadow:var(--ui-card-shadow)}
+main[data-ui] .lite-hotel-card h2{font-size:20px;line-height:1.35;margin:4px 0}
+main[data-ui] .lite-hotel-card p{font-size:13px;line-height:1.55;margin:6px 0}
+main[data-ui] .lite-hotel-card small{font-size:12px;line-height:1.6}
+main[data-ui] .lite-hotel-card-actions{gap:10px;min-width:210px;max-width:280px}
+main[data-ui] .lite-hotel-card-actions strong{font-size:24px}
+@media(min-width:1000px){
+ main[data-ui] .lite-hotel-card>div:first-child{display:grid;grid-template-columns:180px minmax(0,1fr);gap:4px 16px;align-content:start;min-width:0;flex:1}
+ main[data-ui] .lite-hotel-card>div:first-child>*{grid-column:2}
+ main[data-ui] .lite-hotel-card .hotel-result-photo{grid-column:1!important;grid-row:1/span 8;width:180px;height:140px;border-radius:7px;margin:0}
+ main[data-ui] .lite-hotel-card>div:first-child:not(:has(img)){grid-template-columns:minmax(0,1fr)}
+ main[data-ui] .lite-hotel-card>div:first-child:not(:has(img))>*{grid-column:1}
+}
+@media(min-width:1000px){
+ .planner-main[data-ui] #sorttrip-assistant .info-heading{min-height:20px}
+ .planner-main[data-ui] #sorttrip-assistant .ai-controls>label{font-size:11px;gap:3px}
+ .planner-main[data-ui] #sorttrip-assistant :is(input,select){min-height:36px;padding:7px 10px;font-size:13px}
+ .planner-main[data-ui] #sorttrip-assistant>.inline-note{font-size:11px;line-height:1.5}
+ .planner-main[data-ui] #sorttrip-assistant .itinerary-evidence-status{font-size:11px;line-height:1.45}
+}
+@media(max-width:1199px){
+ .planner-main[data-ui] :is(.cost-table-heading,.cost-table .cost-row){grid-template-columns:85px minmax(130px,1fr) 95px 120px 110px;gap:10px;padding:12px}
+}
+@media(max-width:999px){
+ main[data-ui] .lite-hotel-form{grid-template-columns:minmax(0,1fr);padding:14px}
+ main[data-ui] .lite-hotel-card{flex-direction:column;padding:14px;gap:14px}
+ main[data-ui] .lite-hotel-card-actions{max-width:none;min-width:0;width:100%;align-items:stretch}
+ main[data-ui] .lite-hotel-card .hotel-result-photo{width:100%;height:180px;border-radius:7px}
+ main[data-ui] .lite-hotel-card-actions :is(a,button){justify-content:center;text-align:center}
+}
+@media(max-width:1199px){
+ .planner-main[data-ui] .cost-table-heading{position:absolute;width:1px;height:1px;padding:0;border:0;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+ .planner-main[data-ui] .cost-table .cost-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:14px}
+ .planner-main[data-ui] .cost-row .cost-category{grid-column:1;grid-row:1;font-size:12px}
+ .planner-main[data-ui] .cost-row .cost-item{grid-column:1/-1;grid-row:2;min-width:0;flex:none}
+ .planner-main[data-ui] .cost-table .cost-item h3{font-size:15px}
+ .planner-main[data-ui] .cost-table .cost-item p{font-size:12px}
+ .planner-main[data-ui] .cost-row .cost-source{grid-column:1;grid-row:3;font-size:12px}
+ .planner-main[data-ui] .cost-row .cost-actions,.planner-main[data-ui] .cost-row .cost-actions:has(details[open]){grid-column:1/-1;grid-row:4}
+ .planner-main[data-ui] .cost-actions summary{min-height:44px;padding:10px;font-size:13px}
+ .planner-main[data-ui] .cost-row .cost-amount{grid-column:2;grid-row:1}
+ .planner-main[data-ui] .cost-amount>button{min-height:44px;font-size:14px;max-width:150px}
+ .planner-main[data-ui] .trip-settings>summary{font-size:14px;min-height:44px}
+}

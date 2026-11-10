@@ -1021,7 +1021,7 @@
   "price_item": "Harga {{name}}",
   "name_item": "Nama {{name}}",
   "time_item": "Jam {{name}}",
-  "cost_item": "Biaya {{name}}",
+  "cost_item": "Item & status",
   "delete_item": "Hapus {{name}}",
   "checked_date": " · diperiksa {{date}}",
   "category_meal": "Makan",
@@ -1350,5 +1350,12 @@
   "admission_info_source": "Informasi wisata; tarif masih perlu diperiksa",
   "route_source_unverified": "Sumber untuk kaki perjalanan ini belum terverifikasi; periksa operator dan rute.",
   "google_route_choose_time": "Pilih tanggal dan jam keberangkatan sesuai jadwal penerbangan atau kegiatan.",
-  "activity_genting_scope": "Tur Genting dicari dari Kuala Lumpur. Periksa apakah produk berupa tiket gondola atau paket tur dengan transfer; harga dan cakupannya berbeda."
+  "activity_genting_scope": "Tur Genting dicari dari Kuala Lumpur. Periksa apakah produk berupa tiket gondola atau paket tur dengan transfer; harga dan cakupannya berbeda.",
+  "trip_details_settings": "Detail perjalanan & pengaturan",
+  "cost_table_label": "Daftar biaya perjalanan",
+  "cost_category": "Kategori",
+  "cost_source": "Sumber harga",
+  "cost_actions": "Detail & booking",
+  "cost_amount": "Jumlah",
+  "cost_source_unavailable": "Belum terverifikasi"
 }
